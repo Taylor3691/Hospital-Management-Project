@@ -127,10 +127,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="hospital_management_system.cpp" />
+    <None Include=".gitignore" />
   </ItemGroup>
   <ItemGroup>
-    <None Include=".gitignore" />
+    <ClCompile Include="src\hospital_management_system.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\model\Medicine.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

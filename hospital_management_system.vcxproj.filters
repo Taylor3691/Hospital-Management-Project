@@ -15,11 +15,16 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="hospital_management_system.cpp">
+    <None Include=".gitignore" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\hospital_management_system.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include=".gitignore" />
+    <ClInclude Include="src\model\Medicine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
