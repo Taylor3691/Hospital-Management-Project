@@ -1,6 +1,20 @@
 #include "Date.h"
 
 
+Date::Date(const Date& date): Date(date._day, date._month, date._year) {
+
+
+}
+
+Date& Date::operator=(const Date& date) {
+	if (this != &date) {
+		_day = date._day;
+		_month = date._month;
+		_year = date._year;
+	}
+	return *this;
+}
+
 Date::Date() {
 	_day = _month = _year = 1;
 }
@@ -85,7 +99,7 @@ int Date::getYear() {
 
 Date Date::getDate() {
 	time_t info = time(0);
-	tm now;
+	tm now;	
 	localtime_s(&now, &info);
 	return Date(now.tm_mday, now.tm_mon + 1, now.tm_year + 1900);
 }

@@ -22,13 +22,14 @@ public:
 	Date(int,int,int);
 	Date(int);
     Date(const string&);
-
+    Date(const Date&);
     int day();
     int month();
     int year();
 	
     static string toString(const Date& date);
     friend ostream& operator<<(ostream& os, const Date& date);
+    Date& operator=(const Date& date);
     static int getDay();
     static int getMonth();
     static int getYear();

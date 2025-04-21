@@ -133,10 +133,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <None Include=".gitignore" />
+    <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\controllers\keep.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\models\Medicine.cpp" />
     <ClCompile Include="src\utils\Date.cpp" />
     <ClCompile Include="src\utils\Time.cpp" />
     <ClCompile Include="src\views\keep.cpp" />
