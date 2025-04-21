@@ -3,7 +3,7 @@
 
 #include <string>
 #include <vector>
-#include "Room.h"  // Nếu Room cần dùng trong Department
+#include "Room.h"  
 
 class Department {
 private:
