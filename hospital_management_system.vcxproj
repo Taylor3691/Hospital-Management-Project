@@ -138,6 +138,7 @@
     <ClCompile Include="src\controllers\keep.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\utils\Date.cpp" />
+    <ClCompile Include="src\utils\Time.cpp" />
     <ClCompile Include="src\views\keep.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -154,6 +155,7 @@
     <ClInclude Include="src\models\Service.h" />
     <ClInclude Include="src\models\Shift.h" />
     <ClInclude Include="src\utils\Date.h" />
+    <ClInclude Include="src\utils\Time.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
