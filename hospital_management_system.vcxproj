@@ -136,12 +136,23 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\controllers\keep.cpp" />
-    <ClCompile Include="src\hospital_management_system.cpp" />
+    <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\utils\Date.cpp" />
     <ClCompile Include="src\views\keep.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\models\Appointment.h" />
+    <ClInclude Include="src\models\Assignment.h" />
+    <ClInclude Include="src\models\Department.h" />
+    <ClInclude Include="src\models\Doctor.h" />
+    <ClInclude Include="src\models\Employee.h" />
+    <ClInclude Include="src\models\MedicalRecord.h" />
     <ClInclude Include="src\models\Medicine.h" />
+    <ClInclude Include="src\models\Nurse.h" />
+    <ClInclude Include="src\models\Patient.h" />
+    <ClInclude Include="src\models\Room.h" />
+    <ClInclude Include="src\models\Service.h" />
+    <ClInclude Include="src\models\Shift.h" />
     <ClInclude Include="src\utils\Date.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

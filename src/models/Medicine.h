@@ -1,16 +1,8 @@
-#ifndef MEDICINE_H_
-#define MEDICINE_H_
+#ifndef MEDICINE_H
+#define MEDICINE_H
 
-#include <string>
-#include <iostream>
-#include <vector>
-using std::string;
 class Medicine {
-private:
-	string medicineId;
-	string name;
-	string type;
-	string quantity;
-	double price;
+
 };
-#endif // !MEDICINE_H_
+
+#endif
