@@ -1,24 +1,23 @@
-#ifndef ROOM_H
-#define ROOM_H
+#ifndef DEPARTMENT_H
+#define DEPARTMENT_H
 
 #include <string>
-#include<iostream>
-#include "Department.h"  // Nếu Room liên kết với Department
+#include <vector>
+#include "Room.h"  // Nếu Room cần dùng trong Department
 
-class Room {
+class Department {
 private:
-    std::string roomId;
-    Department* department;  // Liên kết với Department
-    int floor;
-    double rent;
+    std::string departmentId;
+    std::string name;
+    std::string location;
 public:
-    Room(std::string id, Department* dept, int fl, double r)
-        : roomId(id), department(dept), floor(fl), rent(r) {}
+    Department(std::string id, std::string n, std::string loc)
+        : departmentId(id), name(n), location(loc) {}
 
     void displayInfo() {
-        std::cout << "Room ID: " << roomId << std::endl;
-        std::cout << "Floor: " << floor << std::endl;
-        std::cout << "Rent: " << rent << std::endl;
+        std::cout << "Department ID: " << departmentId << std::endl;
+        std::cout << "Name: " << name << std::endl;
+        std::cout << "Location: " << location << std::endl;
     }
 };
 
