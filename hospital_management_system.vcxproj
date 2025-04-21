@@ -141,6 +141,7 @@
     <ClCompile Include="src\views\keep.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\models\Department.h" />
     <ClInclude Include="src\models\Medicine.h" />
     <ClInclude Include="src\utils\Date.h" />
     <ClInclude Include="src\utils\Time.h" />
