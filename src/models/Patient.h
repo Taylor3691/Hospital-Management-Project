@@ -1,8 +1,10 @@
 #ifndef PATIENT_H
 #define PATIENT_H
 
+#include <tuple>
 #include <string>
 #include <vector>
+#include <iostream>
 #include "../utils/Date.h"
 #include "MedicalRecord.h"
 #include "Appointment.h"
@@ -22,11 +24,11 @@ private:
     std::vector<Service*> _usedServices;
 
 public:
-    Patient(const std::string& id, const std::string& name, int age, const std::string& gender,
+    Patient(const std::string& id, const std::string& name, const std::string& gender,
         const std::string& phone, const std::string& dob, const std::string& address);
-    void updatePersonalInfo(const std::string& id, const std::string& name, int age, const std::string& gender);
+    void updatePersonalInfo(const std::string& id, const std::string& name, const std::string& dob, const std::string& gender);
     void updateConnectInfo(const std::string& phone, const std::string& address);
-    void getPatientInfo();
+    const std::tuple<std::string, std::string, Date, std::string, std::string>& getPatientInfo();
     void viewMedicalRecords();
     void viewAppointments();
 };

@@ -1,8 +1,11 @@
 #ifndef MEDICALRECORD_H
 #define MEDICALRECORD_H
 
-class MedicalRecord{
+#include <iostream>
 
+class MedicalRecord{
+public:
+    friend std::ostream& operator<<(std::ostream& os, const MedicalRecord& record);
 };
 
 #endif
