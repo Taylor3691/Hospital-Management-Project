@@ -1,16 +1,28 @@
-#ifndef DATE_H_
-#define DATE_H_
+#ifndef DATE_H
+#define DATE_H
+
+#include <string>
 
 class Date {
 private:
-		int _day;
-		int _month;
-		int _year;
+	int _day;
+	int _month;
+	int _year;
+
 public:
 	Date();
-	Date(const int&,const int&,const int&);
-	Date(const int&);
+	Date(int day, int month, int year);
+	Date(int day);
+    Date(const std::string& str);
+
+    int day();
+    int month();
+    int year();
+
+    static int getDay();
+    static int getMonth();
+    static int getYear();
+    static Date getDate();
 };
 
-
-#endif // !DATE_H_
+#endif
