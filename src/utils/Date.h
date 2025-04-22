@@ -28,6 +28,7 @@ public:
     Date(int day, int month, int year);
     Date(int days);
     Date(const std::string& str);
+    Date(const Date& date);
 
     static int getDay();
     static int getMonth();
@@ -36,22 +37,10 @@ public:
     static std::string toString(const Date& date);
 
 public:
-	Date();
-	Date(int day,int month,int year);
-	Date(int days);
-    Date(const std::string& date);
-    Date(const Date& date);
     int day();
     int month();
     int year();
 
-    static std::string toString(const Date& date);
-    friend std::ostream& operator<<(std::ostream& os, const Date& date);
-    static int getDay();
-    static int getMonth();
-    static int getYear();
-    static Date getDate();
-	
     friend std::ostream& operator<<(std::ostream& os, const Date& date);
     Date& operator=(const Date& date);
 };
