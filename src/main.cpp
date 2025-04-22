@@ -3,6 +3,7 @@
 #include "utils/Date.h"
 #include "models/Medicine.h"
 using std::endl;
+using std::cout;
 int main() {
     Medicine md1 = Medicine("M001", "Paracetamol", "Tablet", 100, 50.0, 30, 12, 2025);
     Medicine md2 = Medicine("M002", "Ibuprofen", "Tablet", 200, 75.0);

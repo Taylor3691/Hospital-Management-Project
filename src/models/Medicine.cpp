@@ -66,3 +66,42 @@ bool Medicine::checkAvailability() {
 	return (_quantity > 0);
 }
 
+void Medicine::setMedicineId(const std::string& id) {
+	_medicineId = id;
+}
+
+void Medicine::setName(const std::string& name) {
+	_name = name;
+}
+
+void Medicine::setType(const std::string& type) {
+	_type = type;
+}
+
+void Medicine::setQuantity(int quantity) {
+	_quantity = quantity;
+}
+
+std::string Medicine::id() {
+	return _medicineId;
+}
+
+std::string Medicine::name() {
+	return _name;
+}
+
+std::string Medicine::type() {
+	return _type;
+}
+
+int Medicine::quantity() {
+	return _quantity;
+}
+
+double Medicine::price() {
+	return _price;
+}
+
+Date Medicine::expiryDate() {
+	return _expiryDate;
+}
