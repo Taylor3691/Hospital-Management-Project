@@ -6,6 +6,9 @@
 #include <string>
 #include <iostream>
 
+#include <sstream>
+#include <cstring>
+#include <cstdio>
 class Date {
 private:
     inline static int _daysInMonth[][13] = {
@@ -26,6 +29,18 @@ public:
     Date(int days);
     Date(const std::string& str);
 
+    static int getDay();
+    static int getMonth();
+    static int getYear();
+    static Date getDate();
+    static std::string toString(const Date& date);
+
+public:
+	Date();
+	Date(int day,int month,int year);
+	Date(int days);
+    Date(const std::string& date);
+    Date(const Date& date);
     int day();
     int month();
     int year();
@@ -36,6 +51,9 @@ public:
     static int getMonth();
     static int getYear();
     static Date getDate();
+	
+    friend std::ostream& operator<<(std::ostream& os, const Date& date);
+    Date& operator=(const Date& date);
 };
 
 #endif

@@ -83,7 +83,7 @@ int Date::getYear() {
 
 Date Date::getDate() {
 	time_t info = time(0);
-	tm now;
+	tm now;	
 	localtime_s(&now, &info);
 	return Date(now.tm_mday, now.tm_mon + 1, now.tm_year + 1900);
 }
