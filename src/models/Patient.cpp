@@ -27,12 +27,14 @@ const std::tuple<std::string, std::string, Date, std::string, std::string>& Pati
 }
 
 void Patient::viewMedicalRecords() {
+    std::cout << "Patient's Medical Records:\n";
     for (const auto& record : _medicalRecords) {
         std::cout << *record << std::endl;
     }
 }
 
 void Patient::viewAppointments() {
+    std::cout << "Patient's Apppointments:\n";
     for (const auto& appointment : _appointments) {
         std::cout << *appointment << std::endl;
     }
