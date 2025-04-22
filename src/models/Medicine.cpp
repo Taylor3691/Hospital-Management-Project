@@ -1,7 +1,7 @@
 #include "Medicine.h"
 
 
-Medicine::Medicine(const string& id, const string& name, const string& type, int quantity, double price
+Medicine::Medicine(const std::string& id, const std::string& name, const std::string& type, int quantity, double price
 	, const Date& expiryDate) : _expiryDate(expiryDate) {
 	_medicineId = id;
 	_name = name;
@@ -10,8 +10,8 @@ Medicine::Medicine(const string& id, const string& name, const string& type, int
 	_price = price;
 }
 
-Medicine::Medicine(const string& id, const string& name, const string& type, int quantity, double price
-	, const string& expiryDate) : _expiryDate(expiryDate) {
+Medicine::Medicine(const std::string& id, const std::string& name, const std::string& type, int quantity, double price
+	, const std::string& expiryDate) : _expiryDate(expiryDate) {
 	_medicineId = id;
 	_name = name;
 	_type = type;
@@ -19,7 +19,7 @@ Medicine::Medicine(const string& id, const string& name, const string& type, int
 	_price = price;
 }
 
-Medicine::Medicine(const string& id, const string& name, const string& type, int quantity, double price) : _expiryDate(Date::getDate()) {
+Medicine::Medicine(const std::string& id, const std::string& name, const std::string& type, int quantity, double price) : _expiryDate(Date::getDate()) {
 	_medicineId = id;
 	_name = name;
 	_type = type;
@@ -27,7 +27,7 @@ Medicine::Medicine(const string& id, const string& name, const string& type, int
 	_price = price;
 }
 
-Medicine::Medicine(const string& id, const string& name, const string& type, int quantity, double price
+Medicine::Medicine(const std::string& id, const std::string& name, const std::string& type, int quantity, double price
 	, int day, int month, int year) : _expiryDate(day, month, year) {
 	_medicineId = id;
 	_name = name;
@@ -36,7 +36,7 @@ Medicine::Medicine(const string& id, const string& name, const string& type, int
 	_price = price;
 }
 
-Medicine::Medicine(const string& id, const string& name, const string& type, int quantity, double price
+Medicine::Medicine(const std::string& id, const std::string& name, const std::string& type, int quantity, double price
 	, int days) : _expiryDate(days) {
 	_medicineId = id;
 	_name = name;
@@ -54,10 +54,15 @@ void Medicine::addStock(int quantity) {
 }
 
 void Medicine::getMedicineDetail() {
-	cout << "Medicine ID: " << _medicineId << " ";
-	cout << "Name: " << _name << " ";
-	cout << "Type: " << _type << " ";
-	cout << "Quantity: " << _quantity << " ";
-	cout << "Price: " << _price << " ";
-	cout << "Expiry Date: " << _expiryDate << " ";
+	std::cout << "Medicine ID: " << _medicineId << " ";
+	std::cout << "Name: " << _name << " ";
+	std::cout << "Type: " << _type << " ";
+	std::cout << "Quantity: " << _quantity << " ";
+	std::cout << "Price: " << _price << " ";
+	std::cout << "Expiry Date: " << _expiryDate << " ";
 }
+
+bool Medicine::checkAvailability() {
+	return (_quantity > 0);
+}
+
