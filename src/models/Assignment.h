@@ -1,6 +1,7 @@
 #ifndef ASSIGNMENT_H
 #define ASSIGNMENT_H
 
+#include <iostream>
 #include "Employee.h"
 #include "Shift.h"
 
@@ -16,6 +17,8 @@ public:
 
     Employee* getEmployee();
     Shift* getShift();
+
+    friend std::ostream& operator<<(std::ostream& os, const Assignment& record);
 };
 
 #endif
