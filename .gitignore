@@ -1,2 +1,5 @@
 .vs/
+external/
 build/
+html/
+tests/*/
