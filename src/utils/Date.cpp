@@ -1,6 +1,5 @@
 #include "Date.h"
 
-
 Date::Date() {
 	_day = _month = _year = 1;
 }
@@ -15,7 +14,7 @@ void Date::normalize() {
 		_month %= 12;
 	}
 	int index = isLeapYear(_year) ? 1 : 0;
-	while(_day > _daysInMonth[index][_month]) {
+	while (_day > _daysInMonth[index][_month]) {
 		_day -= _daysInMonth[index][_month];
 		_month++;
 		if (_month > 12) {
@@ -41,8 +40,7 @@ Date::Date(int days) : Date() {
 	}
 }
 
-Date::Date(const string& str) {
-	_day = _month = _year = 1;
+Date::Date(const std::string& str) {
 	sscanf_s(str.c_str(), "%d/%d/%d", &_day, &_month, &_year);
 	_day = abs(_day);
 	_month = abs(_month);
@@ -81,7 +79,7 @@ int Date::getYear() {
 	tm now;
 	localtime_s(&now, &info);
 	return now.tm_year + 1900;
-}	
+}
 
 Date Date::getDate() {
 	time_t info = time(0);
@@ -90,11 +88,13 @@ Date Date::getDate() {
 	return Date(now.tm_mday, now.tm_mon + 1, now.tm_year + 1900);
 }
 
-string Date::toString(const Date& date) {
-	return std::to_string(date._day) + "/" + std::to_string(date._month) + "/" + std::to_string(date._year);
+std::string Date::toString(const Date& date) {
+	const int bufferSize = 12;
+	char buffer[bufferSize];
+	sprintf_s(buffer, "%02d/%02d/%d", date._day, date._month, date._year);
+	return std::string(buffer);
 }
 
-ostream& operator<<(ostream& os, const Date& date) {
-	os << Date::toString(date);
-	return os;
+std::ostream& operator<<(std::ostream& os, const Date& date) {
+	return os << Date::toString(date);
 }
