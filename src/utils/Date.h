@@ -4,8 +4,7 @@
 #include <string>
 #include <sstream>
 #include <cstring>
-using std::ostream;
-using std::string;
+#include <cstdio>
 class Date {
 private:
 	int _day;
@@ -17,23 +16,26 @@ private:
 	};
     static bool isLeapYear(int);
     void normalize();
+
 public:
-	Date();
-	Date(int,int,int);
-	Date(int);
-    Date(const string&);
-    Date(const Date&);
-    int day();
-    int month();
-    int year();
-	
-    static string toString(const Date& date);
-    friend ostream& operator<<(ostream& os, const Date& date);
-    Date& operator=(const Date& date);
     static int getDay();
     static int getMonth();
     static int getYear();
     static Date getDate();
+    static std::string toString(const Date& date);
+
+public:
+	Date();
+	Date(int day,int month,int year);
+	Date(int days);
+    Date(const std::string& date);
+    Date(const Date& date);
+    int day();
+    int month();
+    int year();
+	
+    friend std::ostream& operator<<(std::ostream& os, const Date& date);
+    Date& operator=(const Date& date);
 };
 
 #endif

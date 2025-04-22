@@ -55,7 +55,7 @@ Date::Date(int days) : Date() {
 	}
 }
 
-Date::Date(const string& str) {
+Date::Date(const std::string& str) {
 	_day = _month = _year = 1;
 	sscanf_s(str.c_str(), "%d/%d/%d", &_day, &_month, &_year);
 	_day = abs(_day);
@@ -104,11 +104,13 @@ Date Date::getDate() {
 	return Date(now.tm_mday, now.tm_mon + 1, now.tm_year + 1900);
 }
 
-string Date::toString(const Date& date) {
-	return std::to_string(date._day) + "/" + std::to_string(date._month) + "/" + std::to_string(date._year);
+std::string Date::toString(const Date& date) {
+	char buffer[20];
+	sprintf_s(buffer, sizeof(buffer), "%02d/%02d/%04d", date._day, date._month, date._year);
+	return std::string(buffer);
 }
 
-ostream& operator<<(ostream& os, const Date& date) {
+std::ostream& operator<<(std::ostream& os, const Date& date) {
 	os << Date::toString(date);
 	return os;
 }
