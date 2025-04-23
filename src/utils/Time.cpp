@@ -89,6 +89,14 @@ bool Time::operator<(const Time& t) const {
     return 0;
 }
 
+bool Time::operator<=(const Time& t) const {
+    return *this < t || *this == t;
+}
+
+bool Time::operator==(const Time& t) const {
+    return _h == t._h && _m == t._m && _s == t._s;
+}
+
 int Time::operator-(const Time& t) const {
     if (*this < t) {
         throw std::runtime_error("cannot subtract a later time");

@@ -28,6 +28,8 @@ public:
 	std::string toString() const;
 	int toSec() const;
 	bool operator<(const Time& t) const;
+    bool operator<=(const Time& t) const;
+    bool operator==(const Time& t) const;
 	int operator-(const Time& t) const;
 };
 
