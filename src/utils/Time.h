@@ -16,19 +16,19 @@ private:
 
 public:
 	Time();
-	Time(int);
-	Time(int, int);
-	Time(int, int, int);
-	Time(const std::string&);
+	Time(int s);
+	Time(int m, int s);
+	Time(int h, int m, int s);
+	Time(const std::string& str);
 	
-	static std::string toString(int);
-	static int toSec(const std::string&);
+	static std::string toString(int s);
+	static int toSec(const std::string& str);
 	static Time getCurrentTime();
 
 	std::string toString() const;
 	int toSec() const;
-	bool operator<(const Time&) const;
-	int operator-(const Time&) const;
+	bool operator<(const Time& t) const;
+	int operator-(const Time& t) const;
 };
 
 #endif
