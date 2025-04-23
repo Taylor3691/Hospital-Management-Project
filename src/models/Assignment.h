@@ -13,12 +13,11 @@ private:
     bool _isHoliday;
 
 public:
-    Assignment(const Employee*, const Shift*, bool = false, bool = false);
+    Assignment(Employee* employee, Shift* shift, bool isNight = false, bool isHoliday = false);
 
     Employee* getEmployee();
     Shift* getShift();
-
-    friend std::ostream& operator<<(std::ostream& os, const Assignment& record);
+    friend std::ostream& operator<<(std::ostream& os, const Assignment& assignment);
 };
 
 #endif

@@ -138,9 +138,13 @@
   <ItemGroup>
     <ClCompile Include="src\controllers\keep.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\models\Assignment.cpp" />
+    <ClCompile Include="src\models\Doctor.cpp" />
     <ClCompile Include="src\models\Employee.cpp" />
+    <ClCompile Include="src\models\Nurse.cpp" />
     <ClCompile Include="src\models\Patient.cpp" />
     <ClCompile Include="src\models\Medicine.cpp" />
+    <ClCompile Include="src\models\Shift.cpp" />
     <ClCompile Include="src\utils\Date.cpp" />
     <ClCompile Include="src\utils\Time.cpp" />
     <ClCompile Include="src\views\keep.cpp" />

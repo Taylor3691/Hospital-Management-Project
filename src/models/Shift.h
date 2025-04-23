@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include <cstdio>
 #include "../utils/Time.h"
 #include "../utils/Date.h"
 #include "Assignment.h"
@@ -13,17 +14,16 @@ private:
     Time _startTime;
     Time _endTime;
     Date _workingDate;
-    int _workingHours;
     std::vector<Assignment*> _employees;
 
 public:
-    Shift(const std::string& id, const std::string& schedule);
+    Shift(const std::string& id, const Date& workingDate, const std::string& schedule);
 
-    void getWorkingHours();
+    double getWorkingHours();
     bool checkStatus();
-    void releaseShift();
+    void releaseShift(); // redundant, will be managed by `Database` class or somewhere else
     void showEmployees();
-    void addAssignment(const Assignment&);
+    void addAssignment(Assignment* assignment);
 };
 
 #endif
