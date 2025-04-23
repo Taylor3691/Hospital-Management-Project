@@ -26,7 +26,8 @@ private:
 public:
     Patient(const std::string& id, const std::string& name, const std::string& gender,
         const std::string& phone, const std::string& dob, const std::string& address);
-    void updatePersonalInfo(const std::string& id, const std::string& name, const std::string& dob, const std::string& gender);
+    void updatePersonalInfo(const std::string& id, const std::string& name,
+        const std::string& dob, const std::string& gender);
     void updateConnectInfo(const std::string& phone, const std::string& address);
     const std::tuple<std::string, std::string, Date, std::string, std::string>& getPatientInfo();
     void viewMedicalRecords();

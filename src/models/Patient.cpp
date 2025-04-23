@@ -1,6 +1,13 @@
 #include "Patient.h"
 
-Patient::Patient(const std::string& id, const std::string& name, const std::string& gender, const std::string& phone, const std::string& dob, const std::string& address) {
+Patient::Patient(
+    const std::string& id,
+    const std::string& name,
+    const std::string& gender,
+    const std::string& phone,
+    const std::string& dob,
+    const std::string& address
+) {
     _patientId = id;
     _name = name;
     _gender = gender;
@@ -10,7 +17,12 @@ Patient::Patient(const std::string& id, const std::string& name, const std::stri
     _address = address;
 }
 
-void Patient::updatePersonalInfo(const std::string& id, const std::string& name, const std::string& dob, const std::string& gender) {
+void Patient::updatePersonalInfo(
+    const std::string& id,
+    const std::string& name,
+    const std::string& dob,
+    const std::string& gender
+) {
     _patientId = id;
     _name = name;
     _dateOfBirth = dob;
