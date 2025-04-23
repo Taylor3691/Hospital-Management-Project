@@ -4,6 +4,10 @@ Date::Date() {
 	_day = _month = _year = 1;
 }
 
+Date::Date(const Date& date) : Date(date._day, date._month, date._year) {
+	return;
+}
+
 bool Date::isLeapYear(int year) {
 	return ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0));
 }
@@ -83,7 +87,7 @@ int Date::getYear() {
 
 Date Date::getDate() {
 	time_t info = time(0);
-	tm now;
+	tm now;	
 	localtime_s(&now, &info);
 	return Date(now.tm_mday, now.tm_mon + 1, now.tm_year + 1900);
 }
@@ -97,4 +101,9 @@ std::string Date::toString(const Date& date) {
 
 std::ostream& operator<<(std::ostream& os, const Date& date) {
 	return os << Date::toString(date);
+}
+
+Date& Date::operator=(const Date& date) {
+	Date tem(date);
+	return tem;
 }
