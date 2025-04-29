@@ -20,19 +20,22 @@ public:
     Medicine(const std::string& id, const std::string& name, const std::string& type, int quantity, double price, int day, int month, int year);
     Medicine(const std::string& id, const std::string& name, const std::string& type, int quantity, double price, int days);
     ~Medicine();
-    void addStock(int quantity);
-    bool checkAvailability();
-    void getMedicineDetail();
-    void setMedicineId(const std::string& id);
-    void setName(const std::string& name);
-    void setType(const std::string& type);
-    void setQuantity(int quantity);
+public:
     std::string id();
     std::string name();
     std::string type();
     int quantity();
     double price();
     Date expiryDate();
+public:
+    void setMedicineId(const std::string& id);
+    void setName(const std::string& name);
+    void setType(const std::string& type);
+    void setQuantity(int quantity);
+public:
+    void addStock(int quantity);
+    bool checkAvailability();
+    void getMedicineDetail();
 };
 
 #endif

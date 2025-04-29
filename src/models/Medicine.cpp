@@ -49,39 +49,6 @@ Medicine::~Medicine() {
     // Destructor
 }
 
-void Medicine::addStock(int quantity) {
-    _quantity += quantity;
-}
-
-void Medicine::getMedicineDetail() {
-    std::cout << "Medicine ID: " << _medicineId << " ";
-    std::cout << "Name: " << _name << " ";
-    std::cout << "Type: " << _type << " ";
-    std::cout << "Quantity: " << _quantity << " ";
-    std::cout << "Price: " << _price << " ";
-    std::cout << "Expiry Date: " << _expiryDate << " ";
-}
-
-bool Medicine::checkAvailability() {
-    return (_quantity > 0);
-}
-
-void Medicine::setMedicineId(const std::string& id) {
-    _medicineId = id;
-}
-
-void Medicine::setName(const std::string& name) {
-    _name = name;
-}
-
-void Medicine::setType(const std::string& type) {
-    _type = type;
-}
-
-void Medicine::setQuantity(int quantity) {
-    _quantity = quantity;
-}
-
 std::string Medicine::id() {
     return _medicineId;
 }
@@ -104,4 +71,37 @@ double Medicine::price() {
 
 Date Medicine::expiryDate() {
     return _expiryDate;
+}
+
+void Medicine::setMedicineId(const std::string& id) {
+    _medicineId = id;
+}
+
+void Medicine::setName(const std::string& name) {
+    _name = name;
+}
+
+void Medicine::setType(const std::string& type) {
+    _type = type;
+}
+
+void Medicine::setQuantity(int quantity) {
+    _quantity = quantity;
+}
+
+void Medicine::addStock(int quantity) {
+    _quantity += quantity;
+}
+
+void Medicine::getMedicineDetail() {
+    std::cout << "Medicine ID: " << _medicineId << " ";
+    std::cout << "Name: " << _name << " ";
+    std::cout << "Type: " << _type << " ";
+    std::cout << "Quantity: " << _quantity << " ";
+    std::cout << "Price: " << _price << " ";
+    std::cout << "Expiry Date: " << _expiryDate << " ";
+}
+
+bool Medicine::checkAvailability() {
+    return (_quantity > 0);
 }
