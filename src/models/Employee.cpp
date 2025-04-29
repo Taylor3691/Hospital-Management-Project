@@ -15,21 +15,7 @@ Employee::Employee(
     _salary = 0;
 }
 
-const std::tuple<std::string, std::string, Date, Date, double, std::vector<Assignment*>> Employee::getEmployeeInfo() {
-    return { _employeeId, _name, _dateOfBirth, _startWorkingAt, _salary, _shiftList };
-}
-
 void Employee::updateDepartment(const Department& department) {
     _department = department;
 }
 
-void Employee::showShifts() {
-    std::cout << "Employee's Shifts:\n";
-    for (const auto& shift : _shiftList) {
-        std::cout << *shift << std::endl;
-    }
-}
-
-void Employee::addAssignment(Assignment* assignment) {
-    _shiftList.push_back(assignment);
-}

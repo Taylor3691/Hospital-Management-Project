@@ -2,8 +2,8 @@
 #define ASSIGNMENT_H
 
 #include <iostream>
-#include "Employee.h"
-#include "Shift.h"
+#include "../models/Employee.h"
+#include "../models/Shift.h"
 
 class Assignment {
 private:

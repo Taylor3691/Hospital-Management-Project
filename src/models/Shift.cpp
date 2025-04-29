@@ -19,13 +19,5 @@ bool Shift::checkStatus() {
     return _startTime <= now && now < _endTime;
 }
 
-void Shift::showEmployees() {
-    std::cout << "Employees:\n";
-    for (const auto& employee : _employees) {
-        std::cout << *employee << std::endl;
-    }
-}
 
-void Shift::addAssignment(Assignment* assignment) {
-    _employees.push_back(assignment);
-}
+
