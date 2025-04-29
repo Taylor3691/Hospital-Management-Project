@@ -8,29 +8,29 @@
 
 class Time {
 private:
-	int _h;
-	int _m;
-	int _s;
+    int _h;
+    int _m;
+    int _s;
 
-	void normalize();
+    void normalize();
 
 public:
-	Time();
-	Time(int s);
-	Time(int m, int s);
-	Time(int h, int m, int s);
-	Time(const std::string& str);
-	
-	static std::string toString(int s);
-	static int toSec(const std::string& str);
-	static Time getCurrentTime();
+    Time();
+    Time(int s);
+    Time(int m, int s);
+    Time(int h, int m, int s);
+    Time(const std::string& str);
+    
+    static std::string toString(int s);
+    static int toSec(const std::string& str);
+    static Time getCurrentTime();
 
-	std::string toString() const;
-	int toSec() const;
-	bool operator<(const Time& t) const;
+    std::string toString() const;
+    int toSec() const;
+    bool operator<(const Time& t) const;
     bool operator<=(const Time& t) const;
     bool operator==(const Time& t) const;
-	int operator-(const Time& t) const;
+    int operator-(const Time& t) const;
 };
 
 #endif
