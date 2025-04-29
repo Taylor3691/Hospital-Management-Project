@@ -141,9 +141,9 @@
     <ClCompile Include="src\models\Assignment.cpp" />
     <ClCompile Include="src\models\Doctor.cpp" />
     <ClCompile Include="src\models\Employee.cpp" />
-    <ClCompile Include="src\models\Nurse.cpp" />
-    <ClCompile Include="src\models\Patient.cpp" />
+    <ClCompile Include="src\models\MedicineManager.cpp" />
     <ClCompile Include="src\models\Medicine.cpp" />
+    <ClCompile Include="src\models\Patient.cpp" />
     <ClCompile Include="src\models\Shift.cpp" />
     <ClCompile Include="src\utils\Date.cpp" />
     <ClCompile Include="src\utils\Time.cpp" />
@@ -158,7 +158,7 @@
     <ClInclude Include="src\models\HealthInsurance.h" />
     <ClInclude Include="src\models\MedicalRecord.h" />
     <ClInclude Include="src\models\Medicine.h" />
-    <ClInclude Include="src\models\Nurse.h" />
+    <ClInclude Include="src\models\MedicineManager.h" />
     <ClInclude Include="src\models\Patient.h" />
     <ClInclude Include="src\models\Room.h" />
     <ClInclude Include="src\models\Service.h" />

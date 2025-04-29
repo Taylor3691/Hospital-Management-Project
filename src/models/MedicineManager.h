@@ -8,6 +8,7 @@ private:
     std::vector<Medicine*> _allMedicines;
 public:
     MedicineManager();
+    MedicineManager(std::vector<Medicine*>& medicineList);
 public:
     ~MedicineManager();
 public:
