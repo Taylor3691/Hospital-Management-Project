@@ -9,18 +9,44 @@ Doctor::Doctor(
     const std::string& specialty
 ) : Employee(id, name, dob, department, startWorkingAt), _specialty(specialty) {}
 
-double Doctor::calculateSalary() {
-    // TODO: use an appropriate formula
-    return _salary;
+std::string Doctor::getSpecialty() {
+    return _specialty;
 }
 
-void Doctor::addAppointment(Appointment* appointment) {
+const std::vector<Patient*>& Doctor::getPatients() {
+    return _patients;
+}
+
+const std::vector<Appointment*>& Doctor::getAppointments() {
+    return _appointments;
+}
+
+void Doctor::setSpecialty(const std::string& specialty) {
+    _specialty = specialty;
+}
+
+void Doctor::addPatients(Patient* patient) {
+    _patients.push_back(patient);
+}
+
+void Doctor::addAppointments(Appointment* appointment) {
     _appointments.push_back(appointment);
 }
 
-void Doctor::viewAppointments() {
-    std::cout << "Doctor's Apppointments:\n";
-    for (const auto& appointment : _appointments) {
-        std::cout << *appointment << std::endl;
+void Doctor::removePatients(Patient* patient) {
+    for (auto it = _patients.begin(); it != _patients.end(); ++it) {
+        if ((*it) == patient) {
+            _patients.erase(it);
+            return;
+        }
+    }
+}
+
+void Doctor::removeAppointments(Appointment* appointment) {
+    for (auto it = _appointments.begin(); it != _appointments.end(); ++it) {
+        if ((*it) == appointment) {
+            _appointments.erase(it);
+            return;
+        }
     }
 }

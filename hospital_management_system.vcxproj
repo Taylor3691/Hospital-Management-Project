@@ -155,6 +155,7 @@
     <ClInclude Include="src\models\Department.h" />
     <ClInclude Include="src\models\Doctor.h" />
     <ClInclude Include="src\models\Employee.h" />
+    <ClInclude Include="src\models\HealthInsurance.h" />
     <ClInclude Include="src\models\MedicalRecord.h" />
     <ClInclude Include="src\models\Medicine.h" />
     <ClInclude Include="src\models\Nurse.h" />

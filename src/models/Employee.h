@@ -26,8 +26,6 @@ public:
     void updateDepartment(const Department& department);
     void showShifts();
     void addAssignment(Assignment* assignment);
-    
-    virtual double calculateSalary() = 0;
 };
 
 #endif

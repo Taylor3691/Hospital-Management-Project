@@ -15,11 +15,14 @@ public:
     Doctor(const std::string& id, const std::string& name, const Date& dob, const Department& department,
         const Date& startWorkingAt, const std::string& specialty);
 
-    double calculateSalary() override;
-    void viewPatientHistory(const Patient& patient); // should be in `Patient` class
-    void prescribeMedicine(const Patient& patient, const Medicine& medicine); // should be in `Medicine` class
-    void addAppointment(Appointment* appointment);
-    void viewAppointments();
+    std::string getSpecialty();
+    const std::vector<Patient*>& getPatients();
+    const std::vector<Appointment*>& getAppointments();
+    void setSpecialty(const std::string& specialty);
+    void addPatients(Patient* patient);
+    void addAppointments(Appointment* appointment);
+    void removePatients(Patient* patient);
+    void removeAppointments(Appointment* appointment);
 };
 
 #endif
