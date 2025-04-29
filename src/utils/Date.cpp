@@ -48,6 +48,10 @@ Date::Date(const std::string& str) {
     normalize();
 }
 
+Date::~Date() {
+    //Destructor
+}
+
 int Date::day() {
     return _day;
 }
@@ -97,4 +101,50 @@ std::string Date::toString(const Date& date) {
 
 std::ostream& operator<<(std::ostream& os, const Date& date) {
     return os << Date::toString(date);
+}
+
+bool Date::operator<(const Date& date) {
+    if (_year < date._year) {
+        return true;
+    }
+
+    if (_year == date._year && _month < date._month) {
+        return true;
+    }
+
+    if (_year == date._year && _month == date._month && _day < date._day) {
+        return true;
+    }
+
+    return false;
+}
+
+bool Date::operator>(const Date& date) {
+    if (_year > date._year) {
+        return true;
+    }
+
+    if (_year == date._year && _month > date._month) {
+        return true;
+    }
+
+    if (_year == date._year && _month == date._month && _day > date._day) {
+        return true;
+    }
+    return false;
+}
+
+bool Date::operator==(const Date& date) {
+    if (_year != date._year || _month != date._month || _day != date._day) {
+        return false;
+    }
+    return true;
+}
+
+bool Date::operator<=(const Date& date) {
+    return *this < date || *this == date;
+}
+
+bool Date::operator>=(const Date& date) {
+    return *this > date || *this == date;
 }
