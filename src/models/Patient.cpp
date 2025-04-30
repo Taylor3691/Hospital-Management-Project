@@ -50,15 +50,15 @@ void Patient::setInsurance(HealthInsurance* insurance) {
     _insurance = insurance;
 }
 
-const std::vector<MedicalRecord*>& Patient::getMedicalRecords() {
+std::vector<MedicalRecord*> Patient::getMedicalRecords() {
     return _medicalRecords;
 }
 
-const std::vector<Appointment*>& Patient::getAppointments() {
+std::vector<Appointment*> Patient::getAppointments() {
     return _appointments;
 }
 
-const std::vector<Service*>& Patient::getUsedServices() {
+std::vector<Service*> Patient::getUsedServices() {
     return _usedServices;
 }
 
@@ -75,28 +75,16 @@ void Patient::addUsedService(Service* service) {
 }
 
 void Patient::removeMedicalRecord(MedicalRecord* medicalRecord) {
-    for (auto it = _medicalRecords.begin(); it != _medicalRecords.end(); ++it) {
-        if ((*it) == medicalRecord) {
-            _medicalRecords.erase(it);
-            return;
-        }
-    }
+    auto it = std::find(_medicalRecords.begin(), _medicalRecords.end(), medicalRecord);
+    _medicalRecords.erase(it);
 }
 
 void Patient::removeAppointment(Appointment* appointment) {
-    for (auto it = _appointments.begin(); it != _appointments.end(); ++it) {
-        if ((*it) == appointment) {
-            _appointments.erase(it);
-            return;
-        }
-    }
+    auto it = std::find(_appointments.begin(), _appointments.end(), appointment);
+    _appointments.erase(it);
 }
 
 void Patient::removeUsedService(Service* service) {
-    for (auto it = _usedServices.begin(); it != _usedServices.end(); ++it) {
-        if ((*it) == service) {
-            _usedServices.erase(it);
-            return;
-        }
-    }
+    auto it = std::find(_usedServices.begin(), _usedServices.end(), service);
+    _usedServices.erase(it);
 }

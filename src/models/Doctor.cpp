@@ -4,20 +4,20 @@ Doctor::Doctor(
     const std::string& id,
     const std::string& name,
     const Date& dob,
-    const Department& department,
-    const Date& startWorkingAt,
+    Department* department,
+    const Date& startWorkingDate,
     const std::string& specialty
-) : Employee(id, name, dob, department, startWorkingAt), _specialty(specialty) {}
+) : Employee(id, name, dob, department, startWorkingDate), _specialty(specialty) {}
 
-std::string Doctor::getSpecialty() {
+std::string Doctor::specialty() {
     return _specialty;
 }
 
-const std::vector<Patient*>& Doctor::getPatients() {
+std::vector<Patient*> Doctor::patients() {
     return _patients;
 }
 
-const std::vector<Appointment*>& Doctor::getAppointments() {
+std::vector<Appointment*> Doctor::appointments() {
     return _appointments;
 }
 
@@ -34,19 +34,11 @@ void Doctor::addAppointments(Appointment* appointment) {
 }
 
 void Doctor::removePatients(Patient* patient) {
-    for (auto it = _patients.begin(); it != _patients.end(); ++it) {
-        if ((*it) == patient) {
-            _patients.erase(it);
-            return;
-        }
-    }
+    auto it = std::find(_patients.begin(), _patients.end(), patient);
+    _patients.erase(it);
 }
 
 void Doctor::removeAppointments(Appointment* appointment) {
-    for (auto it = _appointments.begin(); it != _appointments.end(); ++it) {
-        if ((*it) == appointment) {
-            _appointments.erase(it);
-            return;
-        }
-    }
+    auto it = std::find(_appointments.begin(), _appointments.end(), appointment);
+    _appointments.erase(it);
 }

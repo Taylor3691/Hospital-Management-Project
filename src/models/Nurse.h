@@ -4,7 +4,6 @@
 #include "Employee.h"
 #include "Shift.h"
 #include "Room.h"
-#include "Patient.h"
 
 class Nurse : public Employee {
 private:
@@ -13,11 +12,17 @@ private:
 
 public:
     Nurse(const std::string& id, const std::string& name, const Date& dob,
-        const Department& department, const Date& startWorkingAt, double salary);
+        Department* department, const Date& startWorkingDate);
 
-    double calculateSalary() override;
-    void checkPatientStatus(const Patient& patient); // should be in `Patient` class
-    void updateRoomStatus(const Room& room); // should be in `Room` class
+public:
+    std::vector<Shift*> shifts() const;
+    std::vector<Room*> assignedRooms() const;
+
+public:
+    void addShift(Shift* shift);
+    void addRoom(Room* room);
+    void removeShift(Shift* shift);
+    void removeRoom(Room* room);
 };
 
 #endif

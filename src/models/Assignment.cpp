@@ -14,8 +14,3 @@ Employee* Assignment::getEmployee() {
 Shift* Assignment::getShift() {
     return _shift;
 }
-
-std::ostream& operator<<(std::ostream& os, const Assignment& assignment) {
-    // TODO: design an appropriate output
-    return os;
-}

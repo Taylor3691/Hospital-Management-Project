@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include <algorithm>
 #include "../utils/Date.h"
 #include "MedicalRecord.h"
 #include "Appointment.h"
@@ -29,15 +30,20 @@ public:
     Patient(const std::string& id, const std::string& name, const std::string& gender, const std::string& phone,
         const std::string& dob, const std::string& address, HealthInsurance* insurance);
 
+public:
+    std::vector<MedicalRecord*> getMedicalRecords();
+    std::vector<Appointment*> getAppointments();
+    std::vector<Service*> getUsedServices();
+
+public:
+    void setInsurance(HealthInsurance* insurance);
+
+public:
+    const std::tuple<std::string, std::string, Date, std::string, std::string, HealthInsurance*>& getPatientInfo();
     void updatePersonalInfo(const std::string& id, const std::string& name,
         const std::string& dob, const std::string& gender, HealthInsurance* insurance);
     void updateConnectInfo(const std::string& phone, const std::string& address);
-    const std::tuple<std::string, std::string, Date, std::string, std::string, HealthInsurance*>& getPatientInfo();
     bool hasInsurance();
-    void setInsurance(HealthInsurance* insurance);
-    const std::vector<MedicalRecord*>& getMedicalRecords();
-    const std::vector<Appointment*>& getAppointments();
-    const std::vector<Service*>& getUsedServices();
     void addMedicalRecord(MedicalRecord* medicalRecord);
     void addAppointment(Appointment* appointment);
     void addUsedService(Service* service);

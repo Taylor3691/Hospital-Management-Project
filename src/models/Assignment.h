@@ -2,8 +2,8 @@
 #define ASSIGNMENT_H
 
 #include <iostream>
-#include "../models/Employee.h"
-#include "../models/Shift.h"
+#include "Employee.h"
+#include "Shift.h"
 
 class Assignment {
 private:
@@ -15,9 +15,9 @@ private:
 public:
     Assignment(Employee* employee, Shift* shift, bool isNight = false, bool isHoliday = false);
 
+public:
     Employee* getEmployee();
     Shift* getShift();
-    friend std::ostream& operator<<(std::ostream& os, const Assignment& assignment);
 };
 
 #endif
