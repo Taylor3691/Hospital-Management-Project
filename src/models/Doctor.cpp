@@ -34,11 +34,9 @@ void Doctor::addAppointments(Appointment* appointment) {
 }
 
 void Doctor::removePatients(Patient* patient) {
-    auto it = std::find(_patients.begin(), _patients.end(), patient);
-    _patients.erase(it);
+    std::erase_if(_patients, [&patient](Patient* p) { return p == patient; });
 }
 
 void Doctor::removeAppointments(Appointment* appointment) {
-    auto it = std::find(_appointments.begin(), _appointments.end(), appointment);
-    _appointments.erase(it);
+    std::erase_if(_appointments, [&appointment](Appointment* a) { return a == appointment; });
 }

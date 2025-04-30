@@ -75,16 +75,13 @@ void Patient::addUsedService(Service* service) {
 }
 
 void Patient::removeMedicalRecord(MedicalRecord* medicalRecord) {
-    auto it = std::find(_medicalRecords.begin(), _medicalRecords.end(), medicalRecord);
-    _medicalRecords.erase(it);
+    std::erase_if(_medicalRecords, [&medicalRecord](MedicalRecord* r) { return r == medicalRecord; });
 }
 
 void Patient::removeAppointment(Appointment* appointment) {
-    auto it = std::find(_appointments.begin(), _appointments.end(), appointment);
-    _appointments.erase(it);
+    std::erase_if(_appointments, [&appointment](Appointment* a) { return a == appointment; });
 }
 
 void Patient::removeUsedService(Service* service) {
-    auto it = std::find(_usedServices.begin(), _usedServices.end(), service);
-    _usedServices.erase(it);
+    std::erase_if(_usedServices, [&service](Service* s) { return s == service; });
 }
