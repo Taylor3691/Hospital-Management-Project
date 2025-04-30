@@ -141,12 +141,14 @@
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\controllers\ServiceManager.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\models\Assignment.cpp" />
     <ClCompile Include="src\models\Doctor.cpp" />
     <ClCompile Include="src\models\Employee.cpp" />
     <ClCompile Include="src\models\MedicineManager.cpp" />
     <ClCompile Include="src\models\Medicine.cpp" />
+    <ClCompile Include="src\models\Nurse.cpp" />
     <ClCompile Include="src\models\Patient.cpp" />
     <ClCompile Include="src\models\Service.cpp" />
     <ClCompile Include="src\models\Shift.cpp" />
@@ -154,6 +156,7 @@
     <ClCompile Include="src\utils\Time.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\controllers\ServiceManager.h" />
     <ClInclude Include="src\models\Appointment.h" />
     <ClInclude Include="src\models\Assignment.h" />
     <ClInclude Include="src\models\Department.h" />
@@ -163,6 +166,7 @@
     <ClInclude Include="src\models\MedicalRecord.h" />
     <ClInclude Include="src\models\Medicine.h" />
     <ClInclude Include="src\models\MedicineManager.h" />
+    <ClInclude Include="src\models\Nurse.h" />
     <ClInclude Include="src\models\Patient.h" />
     <ClInclude Include="src\models\Room.h" />
     <ClInclude Include="src\models\Service.h" />
