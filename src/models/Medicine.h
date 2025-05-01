@@ -14,6 +14,7 @@ private:
     double _price;
     Date _expiryDate;
 public:
+    Medicine();
     Medicine(const std::string& id, const std::string& name, const std::string& type, int quantity, double price, const Date& expiryDate);
     Medicine(const std::string& id, const std::string& name, const std::string& type, int quantity, double price, const std::string& expiryDate);
     Medicine(const std::string& id, const std::string& name, const std::string& type, int quantity, double price);
@@ -33,6 +34,7 @@ public:
     void setType(const std::string& type);
     void setQuantity(int quantity);
 public:
+
     void addStock(int quantity);
     bool checkAvailability();
     void getMedicineDetail();
