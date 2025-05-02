@@ -2,8 +2,7 @@
 #define DEPARTMENT_H
 
 #include <string>
-#include <vector>
-#include "Room.h"  
+#include <iostream>
 
 class Department {
 private:
@@ -11,8 +10,13 @@ private:
     std::string _name;
 
 public:
-    std::string id() const;
-    std::string name() const;
+    Department(const std::string& id, const std::string& name)
+        : _departmentId(id), _name(name) {}
+    //~Department() { std::cout << "Department " << _departmentId << " is destroying\n"; }
+
+public:
+    std::string id() const { return _departmentId; }
+    std::string name() const { return _name; }
 };
 
 #endif

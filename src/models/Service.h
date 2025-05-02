@@ -4,6 +4,8 @@
 #include <string>
 #include "Department.h"
 
+#include <iostream>
+
 class Service {
 private:
     std::string _serviceId;
@@ -16,6 +18,7 @@ private:
 public:
     Service(const std::string& id, const std::string& name, double cost, const std::string& status,
         const std::string& description, Department* department);
+    //~Service() { std::cout << "Service " << _serviceId << " is destroying\n"; }
 
 public:
     std::string id() const;
@@ -23,7 +26,7 @@ public:
     double cost() const;
     std::string status() const;
     std::string description() const;
-    Department* department() const;
+    const Department* department() const;
 
 public:
     void setId(const std::string& id);

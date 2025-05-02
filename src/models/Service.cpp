@@ -36,7 +36,7 @@ std::string Service::description() const {
     return _description;
 }
 
-Department* Service::department() const {
+const Department* Service::department() const {
     return _department;
 }
 
