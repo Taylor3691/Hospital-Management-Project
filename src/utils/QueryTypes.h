@@ -27,10 +27,9 @@ using ConditionValue = std::variant<
     Condition<int>,
     Condition<bool>,
     Condition<double>,
-    Condition<std::string>
-    // wait for implementing all necessary operators
-    /*Condition<Date>,
-    Condition<Time>*/
+    Condition<std::string>,
+    Condition<Date>,
+    Condition<Time>
 >;
 
 template<typename T>
