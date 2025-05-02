@@ -16,8 +16,10 @@ public:
     Assignment(Employee* employee, Shift* shift, bool isNight = false, bool isHoliday = false);
 
 public:
-    Employee* getEmployee();
-    Shift* getShift();
+    Employee* employee() const;
+    Shift* shift() const;
+    bool isNightShift() const;
+    bool isHoliday() const;
 };
 
 #endif

@@ -4,7 +4,7 @@ Patient::Patient(
     const std::string& id,
     const std::string& name,
     const std::string& gender,
-    const std::string& phone,
+    const std::string& phoneNumber,
     const std::string& dob,
     const std::string& address,
     HealthInsurance* insurance
@@ -12,76 +12,73 @@ Patient::Patient(
     _patientId = id;
     _name = name;
     _gender = gender;
-    _phoneNumber = phone;
+    _phoneNumber = phoneNumber;
     _dateOfBirth = dob;
     _age = Date::getYear() - _dateOfBirth.year();
     _address = address;
     _insurance = insurance;
 }
 
-void Patient::updatePersonalInfo(
-    const std::string& id,
-    const std::string& name,
-    const std::string& dob,
-    const std::string& gender,
-    HealthInsurance* insurance
-) {
+std::string Patient::id() const {
+    return _patientId;
+}
+
+std::string Patient::name() const {
+    return _name;
+}
+
+Date Patient::dob() const {
+    return _dateOfBirth;
+}
+
+int Patient::age() const {
+    return _age;
+}
+
+std::string Patient::gender() const {
+    return _gender;
+}
+
+std::string Patient::phoneNumber() const {
+    return _phoneNumber;
+}
+
+std::string Patient::address() const {
+    return _address;
+}
+
+HealthInsurance* Patient::insurance() const {
+    return _insurance;
+}
+
+void Patient::setId(const std::string& id) {
     _patientId = id;
+}
+
+void Patient::setName(const std::string& name) {
     _name = name;
+}
+
+void Patient::setDOB(const Date& dob) {
     _dateOfBirth = dob;
+}
+
+void Patient::setGender(const std::string& gender) {
     _gender = gender;
-    _insurance = insurance;
 }
 
-void Patient::updateConnectInfo(const std::string& phone, const std::string& address) {
-    _phoneNumber = phone;
+void Patient::setPhoneNumber(const std::string& phoneNumber) {
+    _phoneNumber = phoneNumber;
+}
+
+void Patient::setAddress(const std::string& address) {
     _address = address;
-}
-
-const std::tuple<std::string, std::string, Date, std::string, std::string, HealthInsurance*>& Patient::getPatientInfo() {
-    return { _patientId, _name, _dateOfBirth, _phoneNumber, _address, _insurance };
-}
-
-bool Patient::hasInsurance() {
-    return _insurance != nullptr;
 }
 
 void Patient::setInsurance(HealthInsurance* insurance) {
     _insurance = insurance;
 }
 
-std::vector<MedicalRecord*> Patient::getMedicalRecords() {
-    return _medicalRecords;
-}
-
-std::vector<Appointment*> Patient::getAppointments() {
-    return _appointments;
-}
-
-std::vector<Service*> Patient::getUsedServices() {
-    return _usedServices;
-}
-
-void Patient::addMedicalRecord(MedicalRecord* medicalRecord) {
-    _medicalRecords.push_back(medicalRecord);
-}
-
-void Patient::addAppointment(Appointment* appointment) {
-    _appointments.push_back(appointment);
-}
-
-void Patient::addUsedService(Service* service) {
-    _usedServices.push_back(service);
-}
-
-void Patient::removeMedicalRecord(MedicalRecord* medicalRecord) {
-    std::erase_if(_medicalRecords, [&medicalRecord](MedicalRecord* r) { return r == medicalRecord; });
-}
-
-void Patient::removeAppointment(Appointment* appointment) {
-    std::erase_if(_appointments, [&appointment](Appointment* a) { return a == appointment; });
-}
-
-void Patient::removeUsedService(Service* service) {
-    std::erase_if(_usedServices, [&service](Service* s) { return s == service; });
+bool Patient::hasInsurance() {
+    return _insurance != nullptr;
 }
