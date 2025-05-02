@@ -52,15 +52,15 @@ Date::~Date() {
     //Destructor
 }
 
-int Date::day() {
+int Date::day() const {
     return _day;
 }
 
-int Date::month() {
+int Date::month() const {
     return _month;
 }
 
-int Date::year() {
+int Date::year() const {
     return _year;
 }
 
@@ -103,7 +103,7 @@ std::ostream& operator<<(std::ostream& os, const Date& date) {
     return os << Date::toString(date);
 }
 
-bool Date::operator<(const Date& date) {
+bool Date::operator<(const Date& date) const {
     if (_year < date._year) {
         return true;
     }
@@ -119,7 +119,7 @@ bool Date::operator<(const Date& date) {
     return false;
 }
 
-bool Date::operator>(const Date& date) {
+bool Date::operator>(const Date& date) const {
     if (_year > date._year) {
         return true;
     }
@@ -134,17 +134,21 @@ bool Date::operator>(const Date& date) {
     return false;
 }
 
-bool Date::operator==(const Date& date) {
+bool Date::operator==(const Date& date) const {
     if (_year != date._year || _month != date._month || _day != date._day) {
         return false;
     }
     return true;
 }
 
-bool Date::operator<=(const Date& date) {
+bool Date::operator!=(const Date& date) const {
+    return !(*this == date);
+}
+
+bool Date::operator<=(const Date& date) const {
     return *this < date || *this == date;
 }
 
-bool Date::operator>=(const Date& date) {
+bool Date::operator>=(const Date& date) const {
     return *this > date || *this == date;
 }
