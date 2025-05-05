@@ -3,14 +3,24 @@
 
 #include "Manager.h"
 #include "Employee.h"
+#include "Department.h"
 
 class DepartmentStaffManager : public Manager<Employee> {
 private:
-    int _maxStaff;
+    DepartmentStaffManager() = default;
+    ~DepartmentStaffManager() = default;
 
 public:
-    void add(std::vector<std::unique_ptr<Employee>>& employees,
-        std::unique_ptr<Employee> employee) override;
+    DepartmentStaffManager(const DepartmentStaffManager&) = delete;
+
+public:
+    static DepartmentStaffManager* getInstance();
+
+public:
+    void add(Department* department, std::unique_ptr<Employee> staff);
+
+public:
+    DepartmentStaffManager& operator=(const DepartmentStaffManager&) = delete;
 };
 
 #endif

@@ -8,15 +8,37 @@
 
 template<typename T>
 class Manager {
+protected:
+    Manager() = default;
+    ~Manager() = default;
+
+public:
+    Manager(const Manager&) = delete;
+
+public:
+    static Manager* getInstance();
+
 public:
     virtual void add(std::vector<std::unique_ptr<T>>& entities, std::unique_ptr<T> entity);
     void removeById(std::vector<std::unique_ptr<T>>& entities, const std::string& id);
     void removeByName(std::vector<std::unique_ptr<T>>& entities, const std::string& name);
     T* findById(std::vector<std::unique_ptr<T>>& entities, const std::string& id);
     std::vector<T*> findByName(std::vector<std::unique_ptr<T>>& entities, const std::string& name);
+
+public:
+    Manager& operator=(const Manager&) = delete;
 };
 
 #endif
+
+template<typename T>
+Manager<T>* Manager<T>::getInstance() {
+    static std::unique_ptr<Manager, void(*)(Manager*)> instance(
+        new Manager(),
+        [](Manager* ptr) { delete ptr; }
+    );
+    return instance.get();
+}
 
 template<typename T>
 void Manager<T>::add(std::vector<std::unique_ptr<T>>& entities, std::unique_ptr<T> entity) {
