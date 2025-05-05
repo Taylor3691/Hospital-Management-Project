@@ -16,5 +16,5 @@ This is an OOP project the second-semester in HCMUS
 
 ## Install packages
 
-1. Press **Ctrl+`** to open **Pacakge Manager Console**.
+1. Press **Ctrl+`** to open **Package Manager Console**.
 1. Use the command `Update-Package` to restore and update all packages.
