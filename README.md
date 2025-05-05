@@ -6,7 +6,7 @@ This is an OOP project the second-semester in HCMUS
 ```
 ├─── build
 │    ├─── bin              //  executable files
-│    └─── obj              //  build files        
+│    └─── obj              //  build files
 └─── src
      ├─── controllers      //  controller classes
      ├─── models           //  model classes
@@ -18,3 +18,7 @@ This is an OOP project the second-semester in HCMUS
 
 1. Press **Ctrl+`** to open **Package Manager Console**.
 1. Use the command `Update-Package` to restore and update all packages.
+
+## Generate documentation
+
+Run the command: `./packages/Doxygen.1.8.14/tools/doxygen docs/Doxyfile`
