@@ -25,15 +25,6 @@
     <ClCompile Include="src\utils\Date.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\views\keep.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\controllers\keep.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\models\Medicine.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\utils\Time.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -46,20 +37,23 @@
     <ClCompile Include="src\models\Doctor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\models\Nurse.cpp">
+    <ClCompile Include="src\models\DepartmentInfo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\models\Shift.cpp">
+    <ClCompile Include="src\models\Hospital.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\models\Assignment.cpp">
+    <ClCompile Include="src\models\DepartmentStaffManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\models\Department.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\models\Person.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\models\Medicine.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\utils\Date.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -69,19 +63,10 @@
     <ClInclude Include="src\utils\Time.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\models\Appointment.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\models\Assignment.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\models\Doctor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\models\Employee.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\models\MedicalRecord.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\models\Nurse.h">
@@ -90,16 +75,34 @@
     <ClInclude Include="src\models\Patient.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\models\Room.h">
+    <ClInclude Include="src\models\DepartmentInfo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\models\Service.h">
+    <ClInclude Include="src\models\DepartmentStaffManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\models\Shift.h">
+    <ClInclude Include="src\models\Hospital.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\models\HealthInsurance.h">
+    <ClInclude Include="src\models\Manager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\models\Person.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\models\Receptionist.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utils\QueryBuilder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utils\QueryTypes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\interfaces\IPerson.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\models\MedicineUsage.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

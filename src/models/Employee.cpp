@@ -1,21 +1,29 @@
 #include "Employee.h"
 
 Employee::Employee(
-    const std::string& employeeId,
+    const std::string& id,
     const std::string& name,
-    const Date& dateOfBirth,
-    const Department& department,
-    const Date& startWorkingAt
-) {
-    _employeeId = employeeId;
-    _name = name;
-    _dateOfBirth = dateOfBirth;
-    _department = department;
+    const Date& dob,
+    const std::string& gender,
+    const std::string& phone,
+    const std::string& address,
+    const Date& startWorkingAt,
+    const std::string& education,
+    double baseSalary
+) : Person(id, name, dob, gender, phone, address) {
     _startWorkingAt = startWorkingAt;
-    _salary = 0;
+    _education = education;
+    _baseSalary = baseSalary;
 }
 
-void Employee::updateDepartment(const Department& department) {
-    _department = department;
+Date Employee::startWorkingAt() const {
+    return _startWorkingAt;
 }
 
+std::string Employee::education() const {
+    return _education;
+}
+
+double Employee::baseSalary() const {
+    return _baseSalary;
+}

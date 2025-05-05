@@ -1,26 +1,23 @@
 #ifndef EMPLOYEE_H
 #define EMPLOYEE_H
 
-#include <string>
-#include <vector>
-#include <tuple>
-#include "../utils/Date.h"
-#include "Department.h"
+#include "Person.h"
 
-class Employee {
+class Employee : public Person {
 protected:
-    std::string _employeeId;
-    std::string _name;
-    Date _dateOfBirth;
-    Department _department;
     Date _startWorkingAt;
-    double _salary;
+    std::string _education;
+    double _baseSalary;
 
 public:
-    Employee(const std::string& employeeId, const std::string& name, const Date& dateOfBirth,
-        const Department& department, const Date& startWorkingAt);
+    Employee(const std::string& id, const std::string& name, const Date& dob,
+        const std::string& gender, const std::string& phone, const std::string& address,
+        const Date& startWorkingAt, const std::string& education, double baseSalary);
 
-    void updateDepartment(const Department& department);
+public:
+    Date startWorkingAt() const;
+    std::string education() const;
+    double baseSalary() const;
 };
 
 #endif
