@@ -1,6 +1,5 @@
-﻿# hospital_management_project
+# hospital_management_project
 This is an OOP project the second-semester in HCMUS
-
 
 ## Project Structure
 
@@ -14,3 +13,8 @@ This is an OOP project the second-semester in HCMUS
      ├─── utils            //  utility classes
      └─── views            //  view classes
 ```
+
+## Install packages
+
+1. Press **Ctrl+`** to open **Pacakge Manager Console**.
+1. Use the command `Update-Package` to restore and update all packages.
