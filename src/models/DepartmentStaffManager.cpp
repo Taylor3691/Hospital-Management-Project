@@ -10,7 +10,7 @@ DepartmentStaffManager* DepartmentStaffManager::getInstance() {
 
 void DepartmentStaffManager::add(Department* department, std::unique_ptr<Employee> staff) {  
    if (department->staffs().size() >= department->info()->maxStaff()) {  
-       throw std::runtime_error("Maximum staff limit reached.");  
-   }  
+        throw std::runtime_error("Maximum staff limit reached.");
+    }
    this->Manager<Employee>::add(department->staffs(), std::move(staff));  
 }
