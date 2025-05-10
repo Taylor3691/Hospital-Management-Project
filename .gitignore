@@ -1,5 +1,5 @@
 .vs/
-external/
+packages/
 build/
 html/
 tests/*/
