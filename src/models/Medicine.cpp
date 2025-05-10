@@ -1,5 +1,10 @@
 #include "Medicine.h"
 
+Medicine::Medicine() {
+    // Constructor Default
+    _quantity = 0;
+    _price = 0;
+}
 
 Medicine::Medicine(const std::string& id, const std::string& name, const std::string& type, int quantity, double price
     , const Date& expiryDate) : _expiryDate(expiryDate) {
