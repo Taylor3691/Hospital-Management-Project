@@ -1,13 +1,5 @@
 #include "Time.h"
 
-void Time::normalize() {
-    _m += _s / 60;
-    _s %= 60;
-
-    _h += _m / 60;
-    _m %= 60;
-}
-
 Time::Time() {
     _h = _m = _s = 0;
 }
@@ -39,6 +31,32 @@ Time::Time(const std::string& str) {
     normalize();
 }
 
+int Time::hour() const {
+    return _h;
+}
+
+int Time::minute() const {
+    return _m;
+}
+
+int Time::second() const {
+    return _s;
+}
+
+void Time::setHour(int h) {
+    _h = abs(h);
+}
+
+void Time::setMinute(int m) {
+    _m = abs(m);
+    normalize();
+}
+
+void Time::setSecond(int s) {
+    _s = abs(s);
+    normalize();
+}
+
 std::string Time::toString(int s) {
     Time t(s);
     return t.toString();
@@ -54,6 +72,14 @@ Time Time::getCurrentTime() {
     tm now;
     localtime_s(&now, &info);
     return Time(now.tm_hour, now.tm_min, now.tm_sec);
+}
+
+void Time::normalize() {
+    _m += _s / 60;
+    _s %= 60;
+
+    _h += _m / 60;
+    _m %= 60;
 }
 
 std::string Time::toString() const {
@@ -93,8 +119,20 @@ bool Time::operator<=(const Time& t) const {
     return *this < t || *this == t;
 }
 
+bool Time::operator>(const Time& t) const {
+    return !(*this <= t);
+}
+
+bool Time::operator>=(const Time& t) const {
+    return *this > t || *this == t;
+}
+
 bool Time::operator==(const Time& t) const {
     return _h == t._h && _m == t._m && _s == t._s;
+}
+
+bool Time::operator!=(const Time& t) const {
+    return !(*this == t);
 }
 
 int Time::operator-(const Time& t) const {

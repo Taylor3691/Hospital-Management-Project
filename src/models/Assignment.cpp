@@ -7,15 +7,18 @@ Assignment::Assignment(Employee* employee, Shift* shift, bool isNight, bool isHo
     _isHoliday = isHoliday;
 }
 
-Employee* Assignment::getEmployee() {
+Employee* Assignment::employee() const {
     return _employee;
 }
 
-Shift* Assignment::getShift() {
+Shift* Assignment::shift() const {
     return _shift;
 }
 
-std::ostream& operator<<(std::ostream& os, const Assignment& assignment) {
-    // TODO: design an appropriate output
-    return os;
+bool Assignment::isNightShift() const {
+    return _isNightShift;
+}
+
+bool Assignment::isHoliday() const {
+    return _isHoliday;
 }

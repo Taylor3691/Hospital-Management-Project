@@ -17,19 +17,20 @@ private:
     int _month;
     int _year;
 
-    static bool isLeapYear(int year);
-    void normalize();
-
 public:
     Date();
     Date(int day, int month, int year);
     Date(int days);
     Date(const std::string& str);
     ~Date();
+
 public:
-    int day();
-    int month();
-    int year();
+    int day() const;
+    int month() const;
+    int year() const;
+
+private:
+    static bool isLeapYear(int year);
 
 public:
     static int getDay();
@@ -37,12 +38,17 @@ public:
     static int getYear();
     static Date getDate();
     static std::string toString(const Date& date);
+
+private:
+    void normalize();
+
 public:
-    bool operator<(const Date& date);
-    bool operator>(const Date& date);
-    bool operator==(const Date& date);
-    bool operator>=(const Date& date);
-    bool operator<=(const Date& date);
+    bool operator<(const Date& date) const;
+    bool operator>(const Date& date) const;
+    bool operator==(const Date& date) const;
+    bool operator!=(const Date& date) const;
+    bool operator>=(const Date& date) const;
+    bool operator<=(const Date& date) const;
     friend std::ostream& operator<<(std::ostream& os, const Date& date);
 };
 
