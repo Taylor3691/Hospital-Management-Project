@@ -53,7 +53,7 @@ int main() {
     // 2. Test findOne() - Find first service costing more than 120000
     std::cout << "\n--- Testing findOne() ---\n";
     auto expensiveService = from(services)
-        .where(makeGetter(&Service::cost), 120000.0, ComparisonOp::GT)
+        .where(makeGetter(&Service::cost), 120000.0, ComparisonOperator::GT)
         .findOne();
     std::cout << "First expensive service found:\n";
     printService(expensiveService);
@@ -71,7 +71,7 @@ int main() {
     // 4. Test deleteMany() - Delete all services costing less than 75000
     std::cout << "\n--- Testing deleteMany() ---\n";
     from(services)
-        .where(makeGetter(&Service::cost), 75000.0, ComparisonOp::LT)
+        .where(makeGetter(&Service::cost), 75000.0, ComparisonOperator::LT)
         .deleteMany();
     std::cout << "After deleting cheap services, remaining services:\n";
     for (const auto& service : services) {

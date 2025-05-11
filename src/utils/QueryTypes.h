@@ -8,7 +8,7 @@
 #include "Date.h"
 #include "Time.h"
 
-enum class ComparisonOp {
+enum class ComparisonOperator {
     EQ,
     NE,
     GT,
@@ -18,27 +18,35 @@ enum class ComparisonOp {
 };
 
 template<typename T>
-struct Condition {
+struct FilterCondition {
     T value;
-    ComparisonOp op = ComparisonOp::EQ;
+    ComparisonOperator op = ComparisonOperator::EQ;
 };
 
-using ConditionValue = std::variant<
-    Condition<int>,
-    Condition<bool>,
-    Condition<double>,
-    Condition<std::string>,
-    Condition<Date>,
-    Condition<Time>
+using FilterCriteria = std::variant<
+    FilterCondition<int>,
+    FilterCondition<bool>,
+    FilterCondition<double>,
+    FilterCondition<std::string>,
+    FilterCondition<Date>,
+    FilterCondition<Time>
 >;
 
 template<typename T>
 using Getter = std::function<std::any(const T&)>;
 
 template<typename T>
-struct Filter {
+struct RFilter {
+    FilterCriteria criteria;
     Getter<T> getter;
-    ConditionValue value;
 };
 
-#endif
+template<typename T>
+using Setter = std::function<void(const T&, const std::any&)>;
+
+template<typename T>
+struct WFilter : RFilter<T> {
+    Setter<T> setter;
+};
+
+#endif // !QUERYTYPES_H
