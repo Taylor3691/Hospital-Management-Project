@@ -168,7 +168,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\interfaces\IManager.h" />
-    <ClInclude Include="src\interfaces\IPerson.h" />
     <ClInclude Include="src\interfaces\IQuery.h" />
     <ClInclude Include="src\interfaces\IRepository.h" />
     <ClInclude Include="src\models\Appointment.h" />
