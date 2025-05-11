@@ -7,29 +7,10 @@ Person::Person(
     const std::string& gender,
     const std::string& phone,
     const std::string& address
-) {
-    _id = id;
-    _fullname = name;
-    _dateOfBirth = dob;
-    _gender = gender;
-    _phone = phone;
-    _homeAdress = address;
-}
+) : Object(id, name), _dateOfBirth(dob), _gender(gender), _phone(phone), _address(address) {}
 
-std::string Person::id() const {
-    return _id;
-}
-
-std::string Person::name() const {
-    return _fullname;
-}
-
-Date Person::dateOfBirth() const {
+Date Person::dob() const {
     return _dateOfBirth;
-}
-
-int Person::age() const {
-    return Date::getYear() - _dateOfBirth.getYear();
 }
 
 std::string Person::gender() const {
@@ -41,5 +22,9 @@ std::string Person::phone() const {
 }
 
 std::string Person::address() const {
-    return _homeAdress;
+    return _address;
+}
+
+int Person::age() const {
+    return Date::getYear() - _dateOfBirth.getYear();
 }

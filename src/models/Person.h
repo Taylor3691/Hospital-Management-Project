@@ -1,29 +1,29 @@
 #ifndef PERSON_H
 #define PERSON_H
 
-#include "../interfaces/IPerson.h"
+#include "Object.h"
+#include "../utils/Date.h"
 
-class Person : public IPerson {
-private:
-    std::string _id;
-    std::string _fullname;
+class Person : public Object {
+protected:
     Date _dateOfBirth;
     std::string _gender;
     std::string _phone;
-    std::string _homeAdress;
+    std::string _address;
 
 public:
     Person(const std::string& id, const std::string& name, const Date& dob,
         const std::string& gender, const std::string& phone, const std::string& address);
+    virtual ~Person() = default;
 
 public:
-    std::string id() const override;
-    std::string name() const override;
-    Date dateOfBirth() const override;
-    int age() const override;
-    std::string gender() const override;
-    std::string phone() const override;
-    std::string address() const override;
+    virtual Date dob() const;
+    virtual std::string gender() const;
+    virtual std::string phone() const;
+    virtual std::string address() const;
+
+public:
+    virtual int age() const;
 };
 
 #endif
