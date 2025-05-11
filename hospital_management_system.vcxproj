@@ -156,6 +156,7 @@
     <ClCompile Include="src\models\MedicineManager.cpp" />
     <ClCompile Include="src\models\MedicineUsage.cpp" />
     <ClCompile Include="src\models\Nurse.cpp" />
+    <ClCompile Include="src\models\Object.cpp" />
     <ClCompile Include="src\models\Patient.cpp" />
     <ClCompile Include="src\models\PatientManager.cpp" />
     <ClCompile Include="src\models\Person.cpp" />
@@ -188,6 +189,7 @@
     <ClInclude Include="src\models\MedicineManager.h" />
     <ClInclude Include="src\models\MedicineUsage.h" />
     <ClInclude Include="src\models\Nurse.h" />
+    <ClInclude Include="src\models\Object.h" />
     <ClInclude Include="src\models\Patient.h" />
     <ClInclude Include="src\models\PatientManager.h" />
     <ClInclude Include="src\models\Person.h" />
