@@ -4,8 +4,7 @@
 #include <vector>
 #include <memory>
 #include <string>
-#include "../models/Entity.h"
-
+template<class Entity>
 class IManager {
 public:
     virtual void removeById(const std::string& id) const = 0;

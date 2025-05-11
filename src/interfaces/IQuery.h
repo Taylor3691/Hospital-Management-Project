@@ -2,11 +2,11 @@
 #define IQUERY_H
 
 #include <string>
-#include "../models/Entity.h"
-
+template<class Entity>
 class IQuery {
 public:
     virtual Entity* findById(const std::string& id) const = 0;
+    virtual std::vector<Entity*> findAll() const = 0;
 };
 
 #endif // !IQUERY_H
