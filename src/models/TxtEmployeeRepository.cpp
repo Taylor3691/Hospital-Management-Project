@@ -12,124 +12,126 @@ TxtEmployeeRepository::TxtEmployeeRepository(
     _receptionistFile(receptionistFile) {}
 
 void TxtEmployeeRepository::load() {  
-   std::string buffer;  
+    _employees.clear();
 
-   std::ifstream fd(_doctorFile);
-   if (!fd.is_open()) {  
-       throw std::runtime_error("Cannot open doctor file for reading");
-   }
+    std::string buffer;  
 
-   while (std::getline(fd, buffer, '|')) {
-       auto doctor = std::make_unique<Doctor>();
-       doctor->setId(buffer);
+    std::ifstream fd(_doctorFile);
+    if (!fd.is_open()) {  
+        throw std::runtime_error("Cannot open doctor file for reading");
+    }
 
-       std::getline(fd, buffer, '|');
-       doctor->setName(buffer);
+    while (std::getline(fd, buffer, '|')) {
+        auto doctor = std::make_unique<Doctor>();
+        doctor->setId(buffer);
 
-       std::getline(fd, buffer, '|');
-       doctor->setDob(buffer);
+        std::getline(fd, buffer, '|');
+        doctor->setName(buffer);
 
-       std::getline(fd, buffer, '|');
-       doctor->setGender(buffer);
+        std::getline(fd, buffer, '|');
+        doctor->setDob(buffer);
 
-       std::getline(fd, buffer, '|');
-       doctor->setPhone(buffer);
+        std::getline(fd, buffer, '|');
+        doctor->setGender(buffer);
 
-       std::getline(fd, buffer, '|');
-       doctor->setAddress(buffer);
+        std::getline(fd, buffer, '|');
+        doctor->setPhone(buffer);
 
-       std::getline(fd, buffer, '|');
-       doctor->setEducation(buffer);
+        std::getline(fd, buffer, '|');
+        doctor->setAddress(buffer);
 
-       std::getline(fd, buffer, '|');
-       doctor->setBaseSalary(stod(buffer));
+        std::getline(fd, buffer, '|');
+        doctor->setEducation(buffer);
 
-       std::getline(fd, buffer, '|');
-       doctor->setSpecialty(buffer);
+        std::getline(fd, buffer, '|');
+        doctor->setBaseSalary(stod(buffer));
 
-       std::getline(fd, buffer);
-       doctor->setLicense(buffer);
+        std::getline(fd, buffer, '|');
+        doctor->setSpecialty(buffer);
 
-       _employees.push_back(std::move(doctor));
-   }
-   fd.close();
+        std::getline(fd, buffer);
+        doctor->setLicense(buffer);
 
-   std::ifstream fn(_nurseFile);
-   if (!fn.is_open()) {
-       throw std::runtime_error("Cannot open nurse file for reading");
-   }
+        _employees.push_back(std::move(doctor));
+    }
+    fd.close();
 
-   while (std::getline(fn, buffer, '|')) {
-       auto nurse = std::make_unique<Nurse>();
-       nurse->setId(buffer);
+    std::ifstream fn(_nurseFile);
+    if (!fn.is_open()) {
+        throw std::runtime_error("Cannot open nurse file for reading");
+    }
 
-       std::getline(fn, buffer, '|');
-       nurse->setName(buffer);
+    while (std::getline(fn, buffer, '|')) {
+        auto nurse = std::make_unique<Nurse>();
+        nurse->setId(buffer);
 
-       std::getline(fn, buffer, '|');
-       nurse->setDob(buffer);
+        std::getline(fn, buffer, '|');
+        nurse->setName(buffer);
 
-       std::getline(fn, buffer, '|');
-       nurse->setGender(buffer);
+        std::getline(fn, buffer, '|');
+        nurse->setDob(buffer);
 
-       std::getline(fn, buffer, '|');
-       nurse->setPhone(buffer);
+        std::getline(fn, buffer, '|');
+        nurse->setGender(buffer);
 
-       std::getline(fn, buffer, '|');
-       nurse->setAddress(buffer);
+        std::getline(fn, buffer, '|');
+        nurse->setPhone(buffer);
 
-       std::getline(fn, buffer, '|');
-       nurse->setEducation(buffer);
+        std::getline(fn, buffer, '|');
+        nurse->setAddress(buffer);
 
-       std::getline(fn, buffer, '|');
-       nurse->setBaseSalary(stod(buffer));
+        std::getline(fn, buffer, '|');
+        nurse->setEducation(buffer);
 
-       std::getline(fn, buffer);
-       nurse->setDuty(buffer);
+        std::getline(fn, buffer, '|');
+        nurse->setBaseSalary(stod(buffer));
 
-       _employees.push_back(std::move(nurse));
-   }
-   fn.close();
+        std::getline(fn, buffer);
+        nurse->setDuty(buffer);
 
-   std::ifstream fr(_receptionistFile);
-   if (!fr.is_open()) {
-       throw std::runtime_error("Cannot open receptionist file for reading");
-   }
+        _employees.push_back(std::move(nurse));
+    }
+    fn.close();
 
-   while (std::getline(fr, buffer, '|')) {
-       auto receptionist = std::make_unique<Receptionist>();
-       receptionist->setId(buffer);
+    std::ifstream fr(_receptionistFile);
+    if (!fr.is_open()) {
+        throw std::runtime_error("Cannot open receptionist file for reading");
+    }
 
-       std::getline(fr, buffer, '|');
-       receptionist->setName(buffer);
+    while (std::getline(fr, buffer, '|')) {
+        auto receptionist = std::make_unique<Receptionist>();
+        receptionist->setId(buffer);
 
-       std::getline(fr, buffer, '|');
-       receptionist->setDob(buffer);
+        std::getline(fr, buffer, '|');
+        receptionist->setName(buffer);
 
-       std::getline(fr, buffer, '|');
-       receptionist->setGender(buffer);
+        std::getline(fr, buffer, '|');
+        receptionist->setDob(buffer);
 
-       std::getline(fr, buffer, '|');
-       receptionist->setPhone(buffer);
+        std::getline(fr, buffer, '|');
+        receptionist->setGender(buffer);
 
-       std::getline(fr, buffer, '|');
-       receptionist->setAddress(buffer);
+        std::getline(fr, buffer, '|');
+        receptionist->setPhone(buffer);
 
-       std::getline(fr, buffer, '|');
-       receptionist->setEducation(buffer);
+        std::getline(fr, buffer, '|');
+        receptionist->setAddress(buffer);
 
-       std::getline(fr, buffer, '|');
-       receptionist->setBaseSalary(stod(buffer));
+        std::getline(fr, buffer, '|');
+        receptionist->setEducation(buffer);
 
-       std::getline(fr, buffer, '|');
-       receptionist->setSubsidies(stod(buffer));
+        std::getline(fr, buffer, '|');
+        receptionist->setBaseSalary(stod(buffer));
 
-       std::getline(fr, buffer);
-       receptionist->setWorkingDays(stoi(buffer));
+        std::getline(fr, buffer, '|');
+        receptionist->setSubsidies(stod(buffer));
 
-       _employees.push_back(std::move(receptionist));
-   }
-   fr.close();
+        std::getline(fr, buffer);
+        receptionist->setWorkingDays(stoi(buffer));
+
+        _employees.push_back(std::move(receptionist));
+    }
+    fr.close();
 }
 
 void TxtEmployeeRepository::save() const {
@@ -196,18 +198,20 @@ void TxtEmployeeRepository::save() const {
 
 void TxtEmployeeRepository::add(std::unique_ptr<Employee> employee) {
     _employees.push_back(std::move(employee));
+    save();
 }
 
 void TxtEmployeeRepository::removeById(const std::string& id) {
     from(_employees).where(&Employee::id, id).deleteOne();
+    save();
 }
 
 void TxtEmployeeRepository::update(const Employee& employee) {
     auto ptr = from(_employees).where(&Employee::id, employee.id()).findOne();
-
     if (ptr) {
         *ptr = employee;
     }
+    save();
 }
 
 std::vector<const Employee*> TxtEmployeeRepository::findAll() const {
