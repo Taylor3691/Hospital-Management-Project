@@ -7,18 +7,10 @@ Employee::Employee(
     const std::string& gender,
     const std::string& phone,
     const std::string& address,
-    const Date& startWorkingAt,
     const std::string& education,
     double baseSalary
-) : Person(id, name, dob, gender, phone, address) {
-    _startWorkingAt = startWorkingAt;
-    _education = education;
-    _baseSalary = baseSalary;
-}
-
-Date Employee::startWorkingAt() const {
-    return _startWorkingAt;
-}
+) : Person(id, name, dob, gender, phone , address),
+    _education(education), _baseSalary(baseSalary) {}
 
 std::string Employee::education() const {
     return _education;
@@ -26,4 +18,12 @@ std::string Employee::education() const {
 
 double Employee::baseSalary() const {
     return _baseSalary;
+}
+
+void Employee::setEducation(const std::string& education) {
+    _education = education;
+}
+
+void Employee::setBaseSalary(double salary) {
+    _baseSalary = salary;
 }

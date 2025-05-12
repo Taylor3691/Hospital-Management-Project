@@ -5,19 +5,22 @@
 
 class Employee : public Person {
 protected:
-    Date _startWorkingAt;
     std::string _education;
     double _baseSalary;
 
 public:
     Employee(const std::string& id, const std::string& name, const Date& dob,
-        const std::string& gender, const std::string& phone, const std::string& address,
-        const Date& startWorkingAt, const std::string& education, double baseSalary);
+        const std::string& gender, const std::string& phone,
+        const std::string& address, const std::string& education, double baseSalary);
+    virtual ~Employee() = default;
 
 public:
-    Date startWorkingAt() const;
     std::string education() const;
     double baseSalary() const;
+
+public:
+    void setEducation(const std::string& education);
+    void setBaseSalary(double salary);
 };
 
-#endif
+#endif // !EMPLOYEE_H
