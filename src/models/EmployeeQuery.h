@@ -16,7 +16,7 @@ public:
     std::vector<const Employee*> findByName(const std::string& name) const;
     std::vector<const Employee*> findByEducation(const std::string& education) const;
     std::vector<const Employee*> findByType(const std::string& type) const;
-    std::vector<const Employee*> findBySalary(const std::string& salary,
+    std::vector<const Employee*> findBySalary(double salary,
         ComparisonOperator op = ComparisonOperator::EQ) const;
 };
 

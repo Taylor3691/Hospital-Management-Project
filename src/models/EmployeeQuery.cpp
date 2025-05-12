@@ -34,7 +34,7 @@ std::vector<const Employee*> EmployeeQuery::findByType(
 }
 
 std::vector<const Employee*> EmployeeQuery::findBySalary(
-    const std::string& salary,
+    double salary, ComparisonOperator op
     ComparisonOperator op
 ) const {
     auto employees = _repo->employees();
