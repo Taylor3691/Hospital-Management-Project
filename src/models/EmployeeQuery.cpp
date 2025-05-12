@@ -1,5 +1,15 @@
 #include "EmployeeQuery.h"
 
+const Employee* EmployeeQuery::findById(const std::string& id) const {
+    auto employees = _repo->employees();
+    return from(employees).where(&Employee::id, id).findOne();
+}
+
+std::vector<const Employee*> EmployeeQuery::findAll() const {
+    auto employees = _repo->employees();
+    return from(employees).find();
+}
+
 std::vector<const Employee*> EmployeeQuery::findByName(
     const std::string& name
 ) const {
