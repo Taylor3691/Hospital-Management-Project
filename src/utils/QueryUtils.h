@@ -22,7 +22,7 @@ template<typename T>
 bool compare(const T& value, const FilterCondition<T>& condition);
 
 template<typename T>
-bool matches(const T& item, const std::vector<RFilter<T>>& filters);
+bool matches(const T& item, const std::vector<RFilter<std::remove_const_t<T>>>& filters);
 
 #endif // !QUERYUTILS_H
 
@@ -94,7 +94,7 @@ inline bool compare(const T& value, const FilterCondition<T>& condition) {
 }
 
 template<typename T>
-inline bool matches(const T& item, const std::vector<RFilter<T>>& filters) {
+inline bool matches(const T& item, const std::vector<RFilter<std::remove_const_t<T>>>& filters) {
     if (filters.empty()) return true;
 
     bool result = true;
@@ -105,7 +105,7 @@ inline bool matches(const T& item, const std::vector<RFilter<T>>& filters) {
                 auto value = std::any_cast<CondType>(filter.getter(item));
                 result = compare(value, cond);
             }
-            catch (const std::bad_any_cast& e) {
+            catch (const std::bad_any_cast&) {
                 throw std::runtime_error("Type mismatch in filter");
             }
         }, filter.criteria);
