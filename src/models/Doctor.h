@@ -19,8 +19,8 @@ public:
     std::string license() const;
 
 public:
-    void specialty(const std::string& specialty);
-    void license(const std::string& license);
+    void setSpecialty(const std::string& specialty);
+    void setLicense(const std::string& license);
 };
 
 #endif // !DOCTOR_H
