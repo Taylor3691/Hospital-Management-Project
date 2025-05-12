@@ -1,5 +1,8 @@
 #include "EmployeeQuery.h"
 
+EmployeeQuery::EmployeeQuery(IEmployeeRepository* repo)
+    : _repo(repo) {}
+
 const Employee* EmployeeQuery::findById(const std::string& id) const {
     auto employees = _repo->employees();
     return from(employees).where(&Employee::id, id).findOne();
@@ -35,7 +38,6 @@ std::vector<const Employee*> EmployeeQuery::findByType(
 
 std::vector<const Employee*> EmployeeQuery::findBySalary(
     double salary, ComparisonOperator op
-    ComparisonOperator op
 ) const {
     auto employees = _repo->employees();
     return from(employees).where(&Employee::baseSalary, salary, op).find();

@@ -11,6 +11,9 @@ private:
     IEmployeeRepository* _repo;
 
 public:
+    EmployeeQuery(IEmployeeRepository* repo);
+
+public:
     const Employee* findById(const std::string& id) const override;
     std::vector<const Employee*> findAll() const override;
     std::vector<const Employee*> findByName(const std::string& name) const;
