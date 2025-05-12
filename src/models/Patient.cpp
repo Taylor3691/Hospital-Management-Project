@@ -8,21 +8,23 @@ Patient::Patient(
     const std::string& phone,
     const std::string& address,
     const std::vector<std::string>& allergies,
-    std::vector<std::unique_ptr<MedicineUsage>>& usages
+    const std::vector<std::string>& symptoms
 ) : Person(id, name, dob, gender, phone, address) {
     _allergies = allergies;
-    _medicineUsages.insert(
-        _medicineUsages.end(),
-        std::make_move_iterator(usages.begin()),
-        std::make_move_iterator(usages.end())
-    );
-    usages.clear();
+    _symptoms = symptoms;
 }
 
-std::vector<std::string>& Patient::allergies() {
+
+Patient::~Patient() {
+    _allergies.clear();
+    _symptoms.clear();
+}
+
+std::vector<std::string> Patient::allergies() {
     return _allergies;
 }
 
-std::vector<std::unique_ptr<MedicineUsage>>& Patient::medicineUsages() {
-    return _medicineUsages;
+std::vector<std::string> Patient::symptoms() {
+    return _symptoms;
 }
+
