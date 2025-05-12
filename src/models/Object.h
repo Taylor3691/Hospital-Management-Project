@@ -13,8 +13,12 @@ public:
     virtual ~Object() = default;
 
 public:
-    virtual std::string id() const;
-    virtual std::string name() const;
+    std::string id() const;
+    std::string name() const;
+
+public:
+    void setId(const std::string& id);
+    void setName(const std::string& name);
 };
 
 #endif // !OBJECT_H

@@ -10,3 +10,11 @@ std::string Object::id() const {
 std::string Object::name() const {
     return _name;
 }
+
+void Object::setId(const std::string& id) {
+    _id = id;
+}
+
+void Object::setName(const std::string& name) {
+    _name = name;
+}

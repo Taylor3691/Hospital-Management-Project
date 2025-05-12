@@ -17,13 +17,19 @@ public:
     virtual ~Person() = default;
 
 public:
-    virtual Date dob() const;
-    virtual std::string gender() const;
-    virtual std::string phone() const;
-    virtual std::string address() const;
+    Date dob() const;
+    std::string gender() const;
+    std::string phone() const;
+    std::string address() const;
 
 public:
-    virtual int age() const;
+    void setDob(const Date& dob);
+    void setGender(const std::string& gender);
+    void setPhone(const std::string& phone);
+    void setAddress(const std::string& address);
+
+public:
+    int age() const;
 };
 
-#endif
+#endif // !PERSON_H
