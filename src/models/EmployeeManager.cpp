@@ -8,6 +8,7 @@ EmployeeManager::~EmployeeManager() {
 }
 
 void EmployeeManager::add(std::unique_ptr<Employee> employee) {
+    _employeeRepo->add(std::move(employee));
 }
 
 void EmployeeManager::removeById(const std::string& id) {
