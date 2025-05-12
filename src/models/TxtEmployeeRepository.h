@@ -26,7 +26,7 @@ public:
     void add(std::unique_ptr<Employee> employee) override;
     void removeById(const std::string& id) override;
     void update(const Employee& employee) override;
-    std::vector<const Employee*> findAll() const override;
+    std::vector<const Employee*> employees() const override;
 };
 
 #endif // !TXTEMPLOYEEREPOSITORY_H

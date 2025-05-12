@@ -11,13 +11,13 @@ TxtEmployeeRepository::TxtEmployeeRepository(
 ) : _doctorFile(doctorFile), _nurseFile(nurseFile),
     _receptionistFile(receptionistFile) {}
 
-void TxtEmployeeRepository::load() {  
+void TxtEmployeeRepository::load() {
     _employees.clear();
 
-    std::string buffer;  
+    std::string buffer;
 
     std::ifstream fd(_doctorFile);
-    if (!fd.is_open()) {  
+    if (!fd.is_open()) {
         throw std::runtime_error("Cannot open doctor file for reading");
     }
 
@@ -214,6 +214,11 @@ void TxtEmployeeRepository::update(const Employee& employee) {
     save();
 }
 
-std::vector<const Employee*> TxtEmployeeRepository::findAll() const {
-    return std::vector<const Employee*>(_employees.begin(), _employees.end());
+std::vector<const Employee*> TxtEmployeeRepository::employees() const {
+    std::vector<const Employee*> result;
+    result.reserve(_employees.size());
+    for (const auto& emp : _employees) {
+        result.push_back(emp.get());
+    }
+    return result;
 }
