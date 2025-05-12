@@ -4,6 +4,23 @@
 #include "Employee.h"
 
 class Receptionist : public Employee {
+private:
+    double _subsidies;
+    int _workingDays;
+
+public:
+    Receptionist(const std::string& id, const std::string& name,
+        const Date& dob, const std::string& gender, const std::string& phone,
+        const std::string& address, const std::string& education,
+        double baseSalary, double subsidies, int workingDays);
+
+public:
+    double subsidies() const;
+    int workingDays() const;
+
+public:
+    void subsidies(double subsidies);
+    void workingDays(int workingDays);
 };
 
-#endif
+#endif // !RECEPTIONIST_H

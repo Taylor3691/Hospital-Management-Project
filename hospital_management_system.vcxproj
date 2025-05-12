@@ -160,6 +160,7 @@
     <ClCompile Include="src\models\Patient.cpp" />
     <ClCompile Include="src\models\PatientManager.cpp" />
     <ClCompile Include="src\models\Person.cpp" />
+    <ClCompile Include="src\models\Receptionist.cpp" />
     <ClCompile Include="src\models\Service.cpp" />
     <ClCompile Include="src\models\ServiceManager.cpp" />
     <ClCompile Include="src\models\ServiceUsage.cpp" />
