@@ -9,6 +9,7 @@ protected:
     double _baseSalary;
 
 public:
+    Employee() = default;
     Employee(const std::string& id, const std::string& name, const Date& dob,
         const std::string& gender, const std::string& phone,
         const std::string& address, const std::string& education, double baseSalary);

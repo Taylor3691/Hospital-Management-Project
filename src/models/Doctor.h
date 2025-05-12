@@ -9,6 +9,7 @@ private:
     std::string _license;
 
 public:
+    Doctor() = default;
     Doctor(const std::string& id, const std::string& name, const Date& dob,
         const std::string& gender, const std::string& phone, const std::string& address,
         const std::string& education, double baseSalary, const std::string& specialty,
