@@ -24,10 +24,10 @@ std::string Doctor::license() const {
     return _license;
 }
 
-void Doctor::specialty(const std::string& specialty) {
+void Doctor::setSpecialty(const std::string& specialty) {
     _specialty = specialty;
 }
 
-void Doctor::license(const std::string& license) {
+void Doctor::setLicense(const std::string& license) {
     _license = license;
 }

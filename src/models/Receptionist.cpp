@@ -23,10 +23,10 @@ int Receptionist::workingDays() const {
     return _workingDays;
 }
 
-void Receptionist::subsidies(double subsidies) {
+void Receptionist::setSubsidies(double subsidies) {
     _subsidies = subsidies;
 }
 
-void Receptionist::workingDays(int workingDays) {
+void Receptionist::setWorkingDays(int workingDays) {
     _workingDays = workingDays;
 }

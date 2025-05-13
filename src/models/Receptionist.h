@@ -19,8 +19,8 @@ public:
     int workingDays() const;
 
 public:
-    void subsidies(double subsidies);
-    void workingDays(int workingDays);
+    void setSubsidies(double subsidies);
+    void setWorkingDays(int workingDays);
 };
 
 #endif // !RECEPTIONIST_H
