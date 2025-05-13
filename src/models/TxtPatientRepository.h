@@ -1,0 +1,22 @@
+#ifndef TXTPATIENTREPOSITORY_H_
+#define TXTPATIENTREPOSITORY_H_
+#include "../interfaces/IPatientRepository.h"
+#include "../utils/QueryBuilder.h"
+
+class TxtPatientRepository : public IPatientRepository {
+    private:
+    std::string _filePath;
+    std::vector<std:unique_ptr<Patient>> _patients;
+    public:
+    TxtPatientRepository(const std::string& filePath);
+    ~TxtPatientRepository() override;
+    void load() override;
+    void save() const override;
+    void add(std::unique_ptr<Patient> entity) override;
+    void removeById(const std::string& id) override;
+    void update(const Patient& entity) override;
+    std::vector<const Patient*> data() const override;
+
+};
+
+#endif // !TXTPATIENTREPOSITORY_H_
