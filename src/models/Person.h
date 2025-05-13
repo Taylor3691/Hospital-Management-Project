@@ -12,6 +12,7 @@ protected:
     std::string _address;
 
 public:
+    Person() = default;
     Person(const std::string& id, const std::string& name, const Date& dob,
         const std::string& gender, const std::string& phone, const std::string& address);
     virtual ~Person() = default;

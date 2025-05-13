@@ -9,6 +9,7 @@ protected:
     std::string _name;
 
 public:
+    Object() = default;
     Object(const std::string& id, const std::string& name);
     virtual ~Object() = default;
 
