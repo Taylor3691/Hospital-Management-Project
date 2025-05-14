@@ -137,11 +137,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <None Include=".gitignore" />
-    <None Include="packages.config" />
-    <None Include="README.md" />
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\models\Doctor.cpp" />
     <ClCompile Include="src\models\Employee.cpp" />
@@ -164,7 +159,6 @@
     <ClInclude Include="src\models\Employee.h" />
     <ClInclude Include="src\models\EmployeeManager.h" />
     <ClInclude Include="src\models\EmployeeQuery.h" />
-    <ClInclude Include="src\models\Entity.h" />
     <ClInclude Include="src\models\Nurse.h" />
     <ClInclude Include="src\models\Object.h" />
     <ClInclude Include="src\models\Person.h" />
