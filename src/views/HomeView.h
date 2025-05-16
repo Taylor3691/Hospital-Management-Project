@@ -1,0 +1,37 @@
+#ifndef HOME_VIEW_H
+#define HOME_VIEW_H
+
+#include <QMainWindow>
+#include <QFile>
+#include <QTextStream>
+#include <QStackedWidget>
+#include "ui_HomeView.h"
+#include "LoginView.h"
+#include "ManagementView.h"
+
+namespace Ui {
+    class HomeView;
+}
+
+class HomeView : public QMainWindow {
+    Q_OBJECT
+
+private:
+    Ui::HomeView* _ui;
+    LoginView* _loginView;
+    ManagementView* _managementView;
+    QStackedWidget* _loginView_stack;
+    QStackedWidget* _managementView_stack;
+
+public:
+    HomeView(QWidget* parent = nullptr);
+    ~HomeView();
+
+private:
+    void setup();
+    void setConnections();
+    QString themeStyleSheet(const QString& theme = "light");
+    void updateCheckedState();
+};
+
+#endif // !HOME_VIEW_H
