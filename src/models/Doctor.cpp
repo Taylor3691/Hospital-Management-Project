@@ -1,4 +1,5 @@
 #include "Doctor.h"
+#include "TxtWritingVisitor.h"
 
 Doctor::Doctor(
     const std::string& id,
@@ -31,4 +32,8 @@ void Doctor::setSpecialty(const std::string& specialty) {
 
 void Doctor::setLicense(const std::string& license) {
     _license = license;
+}
+
+void Doctor::acceptWrite(IVisitor* visitor, std::ostream& os) {
+    dynamic_cast<TxtWritingVisitor*>(visitor)->write(this, os);
 }

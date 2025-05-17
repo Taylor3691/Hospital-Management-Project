@@ -1,4 +1,5 @@
 #include "Receptionist.h"
+#include "TxtWritingVisitor.h"
 
 Receptionist::Receptionist(
     const std::string& id,
@@ -31,4 +32,8 @@ void Receptionist::setSubsidies(double subsidies) {
 
 void Receptionist::setWorkingDays(int workingDays) {
     _workingDays = workingDays;
+}
+
+void Receptionist::acceptWrite(IVisitor* visitor, std::ostream& os) {
+    dynamic_cast<TxtWritingVisitor*>(visitor)->write(this, os);
 }

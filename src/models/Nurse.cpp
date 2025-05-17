@@ -1,4 +1,5 @@
 #include "Nurse.h"
+#include "TxtWritingVisitor.h"
 
 Nurse::Nurse(
     const std::string& id,
@@ -21,4 +22,8 @@ std::string Nurse::duty() const {
 
 void Nurse::setDuty(const std::string& duty) {
     _duty = duty;
+}
+
+void Nurse::acceptWrite(IVisitor* visitor, std::ostream& os) {
+    dynamic_cast<TxtWritingVisitor*>(visitor)->write(this, os);
 }

@@ -20,6 +20,9 @@ public:
 
 public:
     void setDuty(const std::string& duty);
+
+public:
+    void acceptWrite(IVisitor* visitor, std::ostream& os) override;
 };
 
 #endif // !NURSE_H

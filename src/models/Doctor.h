@@ -23,6 +23,9 @@ public:
 public:
     void setSpecialty(const std::string& specialty);
     void setLicense(const std::string& license);
+
+public:
+    void acceptWrite(IVisitor* visitor, std::ostream& os) override;
 };
 
 #endif // !DOCTOR_H

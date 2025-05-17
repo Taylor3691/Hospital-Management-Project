@@ -1,42 +1,19 @@
 #ifndef TXT_EMPLOYEE_REPOSITORY_H
 #define TXT_EMPLOYEE_REPOSITORY_H
 
-#include <fstream>
-#include <typeinfo>
 #include "../interfaces/IEmployeeRepository.h"
 #include "../utils/QueryBuilder.h"
-#include "Doctor.h"
-#include "Nurse.h"
-#include "Receptionist.h"
-
-#define DEFAULT_DELIM '|'
+#include "../utils/utils_template.h"
 
 class TxtEmployeeRepository : public IEmployeeRepository {
 private:
-    std::string _doctorFile;
-    std::string _nurseFile;
-    std::string _receptionistFile;
     std::vector<std::unique_ptr<Employee>> _employees;
+    std::string _fileName;
     char _delim;
 
 public:
     TxtEmployeeRepository();
-    TxtEmployeeRepository(const std::string& doctorFile, const std::string& nurseFile,
-        const std::string& receptionistFile, char delim = DEFAULT_DELIM);
-
-private:
-    static void serialize(std::ofstream& file, const Employee* employee);
-    static void serialize(std::ofstream& file, const Doctor* doctor);
-    static void serialize(std::ofstream& file, const Nurse* nurse);
-    static void serialize(std::ofstream& file, const Receptionist* receptionist);
-    static void deserialize(std::ifstream& file, Employee* employee, std::string& buffer);
-    static void deserialize(std::ifstream& file, Doctor* doctor, std::string& buffer);
-    static void deserialize(std::ifstream& file, Nurse* nurse, std::string& buffer);
-    static void deserialize(std::ifstream& file, Receptionist* receptionist, std::string& buffer);
-
-private:
-    template<typename T>
-    void load(const std::string& fileName, const char* errorMsg);
+    TxtEmployeeRepository(const std::string& fileName, char delim = '|');
 
 public:
     void load() override;
@@ -48,20 +25,3 @@ public:
 };
 
 #endif // !TXT_EMPLOYEE_REPOSITORY_H
-
-template<typename T>
-inline void TxtEmployeeRepository::load(const std::string& fileName, const char* errorMsg) {
-    std::string buffer;
-
-    std::ifstream file(fileName);
-    if (!file.is_open()) {
-        throw std::runtime_error(errorMsg);
-    }
-
-    while (std::getline(file, buffer, _delim)) {
-        auto employee = std::make_unique<T>();
-        deserialize(file, employee.get(), buffer);
-        _employees.push_back(std::move(employee));
-    }
-    file.close();
-}

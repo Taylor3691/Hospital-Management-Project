@@ -1,4 +1,5 @@
 #include "Department.h"
+#include "TxtWritingVisitor.h"
 
 Department::Department(
     const std::string& id,
@@ -34,4 +35,8 @@ void Department::setFoundationDate(const Date& date) {
 
 void Department::setSubscription(const std::string& subscription) {
     _subscription = subscription;
+}
+
+void Department::acceptWrite(IVisitor* visitor, std::ostream& os) {
+    dynamic_cast<TxtWritingVisitor*>(visitor)->write(this, os);
 }

@@ -25,6 +25,9 @@ public:
     void setHeadId(const std::string& id);
     void setFoundationDate(const Date& date);
     void setSubscription(const std::string& subscription);
+
+public:
+    void acceptWrite(IVisitor* visitor, std::ostream& os) override;
 };
 
 #endif // !DEPARTMENT_H

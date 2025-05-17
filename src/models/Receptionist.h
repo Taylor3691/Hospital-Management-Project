@@ -23,6 +23,9 @@ public:
 public:
     void setSubsidies(double subsidies);
     void setWorkingDays(int workingDays);
+
+public:
+    void acceptWrite(IVisitor* visitor, std::ostream& os) override;
 };
 
 #endif // !RECEPTIONIST_H
