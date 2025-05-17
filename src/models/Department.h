@@ -11,6 +11,7 @@ private:
     std::string _subscription;
 
 public:
+    Department() = default;
     Department(const std::string& id, const std::string& name,
         const std::string& headId, const Date& date,
         const std::string& subscription);
