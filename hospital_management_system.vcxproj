@@ -137,7 +137,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\controllers\DepartmentManager.cpp" />
+    <ClCompile Include="src\controllers\EmployeeManager.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\models\Department.cpp" />
+    <ClCompile Include="src\models\DepartmentQuery.cpp" />
     <ClCompile Include="src\models\Doctor.cpp" />
     <ClCompile Include="src\models\Employee.cpp" />
     <ClCompile Include="src\models\EmployeeManager.cpp" />
@@ -146,15 +150,21 @@
     <ClCompile Include="src\models\Object.cpp" />
     <ClCompile Include="src\models\Person.cpp" />
     <ClCompile Include="src\models\Receptionist.cpp" />
+    <ClCompile Include="src\models\TxtDepartmentRepository.cpp" />
     <ClCompile Include="src\models\TxtEmployeeRepository.cpp" />
     <ClCompile Include="src\utils\Date.cpp" />
     <ClCompile Include="src\utils\Time.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\controllers\DepartmentManager.h" />
+    <ClInclude Include="src\controllers\EmployeeManager.h" />
+    <ClInclude Include="src\interfaces\IDepartmentRepository.h" />
     <ClInclude Include="src\interfaces\IEmployeeRepository.h" />
     <ClInclude Include="src\interfaces\IManager.h" />
     <ClInclude Include="src\interfaces\IQuery.h" />
     <ClInclude Include="src\interfaces\IRepository.h" />
+    <ClInclude Include="src\models\Department.h" />
+    <ClInclude Include="src\models\DepartmentQuery.h" />
     <ClInclude Include="src\models\Doctor.h" />
     <ClInclude Include="src\models\Employee.h" />
     <ClInclude Include="src\models\EmployeeManager.h" />
@@ -163,6 +173,7 @@
     <ClInclude Include="src\models\Object.h" />
     <ClInclude Include="src\models\Person.h" />
     <ClInclude Include="src\models\Receptionist.h" />
+    <ClInclude Include="src\models\TxtDepartmentRepository.h" />
     <ClInclude Include="src\models\TxtEmployeeRepository.h" />
     <ClInclude Include="src\utils\Date.h" />
     <ClInclude Include="src\utils\QueryBuilder.h" />

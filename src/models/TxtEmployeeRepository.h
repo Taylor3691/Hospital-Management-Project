@@ -1,5 +1,5 @@
-#ifndef TXTEMPLOYEEREPOSITORY_H
-#define TXTEMPLOYEEREPOSITORY_H
+#ifndef TXT_EMPLOYEE_REPOSITORY_H
+#define TXT_EMPLOYEE_REPOSITORY_H
 
 #include <fstream>
 #include <typeinfo>
@@ -47,7 +47,7 @@ public:
     std::vector<const Employee*> data() const override;
 };
 
-#endif // !TXTEMPLOYEEREPOSITORY_H
+#endif // !TXT_EMPLOYEE_REPOSITORY_H
 
 template<typename T>
 inline void TxtEmployeeRepository::load(const std::string& fileName, const char* errorMsg) {

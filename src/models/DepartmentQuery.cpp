@@ -1,22 +1,28 @@
-// DepartmentQuery.cpp
 #include "DepartmentQuery.h"
-#include <algorithm>
 
-DepartmentQuery::DepartmentQuery(IDepartmentRepository* repo) : _repo(repo) {}
+DepartmentQuery::DepartmentQuery(IDepartmentRepository* repo)
+    : _repo(repo) {}
 
-std::vector<Department*> DepartmentQuery::findByName(const std::string& name) {
-    auto condition = [&name](Department* dept) {
-        return dept->name().find(name) != std::string::npos;
-    };
-    return buildQuery(_repo->findAll(), condition); // Sử dụng QueryBuild.h
+const Department* DepartmentQuery::findById(const std::string& id) const {
+    auto employees = _repo->data();
+    return from(employees).where(&Department::id, id).findOne();
 }
 
-std::vector<Department*> DepartmentQuery::findByFoundedDate(const std::tm& date) {
-    auto condition = [&date](Department* dept) {
-        std::tm deptDate = dept->getFoundedDay();
-        return deptDate.tm_year == date.tm_year &&
-               deptDate.tm_mon == date.tm_mon &&
-               deptDate.tm_mday == date.tm_mday;
-    };
-    return buildQuery(_repo->findAll(), condition); // Sử dụng QueryBuild.h
+std::vector<const Department*> DepartmentQuery::findAll() const {
+    auto employees = _repo->data();
+    return from(employees).find();
+}
+
+std::vector<const Department*> DepartmentQuery::findByName(
+    const std::string& name
+) const {
+    auto employees = _repo->data();
+    return from(employees).where(&Department::name, name).find();
+}
+
+std::vector<const Department*> DepartmentQuery::findByFoundationDate(
+    const Date& date
+) const {
+    auto employees = _repo->data();
+    return from(employees).where(&Department::foundationDate, date).find();
 }

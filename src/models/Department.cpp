@@ -1,42 +1,35 @@
 #include "Department.h"
 
-Department::Department(const std::string& id, const std::string& name, const std::string& headId,
-                       const std::tm& foundedDay, const std::string& subscription) {
-    _id = id;
-    _name = name;
-    _headId = headId;
-    _foundedDay = foundedDay;
-    _subscription = subscription;
-}
+Department::Department(
+    const std::string& id,
+    const std::string& name,
+    const std::string& headId,
+    const Date& date,
+    const std::string& subscription
+)
+    : Object(id, name)
+    , _headId(headId)
+    , _foundationDate(date)
+    , _subscription(subscription) {}
 
-std::string Department::name() const {
-    return _name;
-}
-
-std::string Department::id() const {
-    return _id;
-}
-
-// Getter
-std::string Department::getHeadId() const {
+std::string Department::headId() const {
     return _headId;
 }
 
-std::tm Department::getFoundedDay() const {
-    return _foundedDay;
+Date Department::foundationDate() const {
+    return _foundationDate;
 }
 
-std::string Department::getSubscription() const {
+std::string Department::subscription() const {
     return _subscription;
 }
 
-// Setter
-void Department::setHeadId(const std::string& headId) {
-    _headId = headId;
+void Department::setHeadId(const std::string& id) {
+    _headId = id;
 }
 
-void Department::setFoundedDay(const std::tm& foundedDay) {
-    _foundedDay = foundedDay;
+void Department::setFoundationDate(const Date& date) {
+    _foundationDate = date;
 }
 
 void Department::setSubscription(const std::string& subscription) {
