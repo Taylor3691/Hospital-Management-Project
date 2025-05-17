@@ -10,10 +10,11 @@ private:
 
 public:
     Doctor() = default;
-    Doctor(const std::string& id, const std::string& name, const Date& dob,
-        const std::string& gender, const std::string& phone, const std::string& address,
-        const std::string& education, double baseSalary, const std::string& specialty,
-        const std::string& license);
+    Doctor(const std::string& id, const std::string& name,
+        const std::string& gender, const std::string& address,
+        const std::string& phone, const Date& dob,
+        const std::string& education, double baseSalary,
+        const std::string& specialty, const std::string& license);
 
 public:
     std::string specialty() const;

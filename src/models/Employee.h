@@ -10,9 +10,10 @@ protected:
 
 public:
     Employee() = default;
-    Employee(const std::string& id, const std::string& name, const Date& dob,
-        const std::string& gender, const std::string& phone,
-        const std::string& address, const std::string& education, double baseSalary);
+    Employee(const std::string& id, const std::string& name,
+        const std::string& gender, const std::string& address,
+        const std::string& phone, const Date& dob,
+        const std::string& education, double baseSalary);
     virtual ~Employee() = default;
 
 public:
