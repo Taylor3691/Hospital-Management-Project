@@ -144,7 +144,6 @@
     <ClCompile Include="src\models\DepartmentQuery.cpp" />
     <ClCompile Include="src\models\Doctor.cpp" />
     <ClCompile Include="src\models\Employee.cpp" />
-    <ClCompile Include="src\models\EmployeeManager.cpp" />
     <ClCompile Include="src\models\EmployeeQuery.cpp" />
     <ClCompile Include="src\models\Nurse.cpp" />
     <ClCompile Include="src\models\Object.cpp" />
@@ -167,7 +166,6 @@
     <ClInclude Include="src\models\DepartmentQuery.h" />
     <ClInclude Include="src\models\Doctor.h" />
     <ClInclude Include="src\models\Employee.h" />
-    <ClInclude Include="src\models\EmployeeManager.h" />
     <ClInclude Include="src\models\EmployeeQuery.h" />
     <ClInclude Include="src\models\Nurse.h" />
     <ClInclude Include="src\models\Object.h" />

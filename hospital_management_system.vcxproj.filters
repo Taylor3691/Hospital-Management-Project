@@ -36,9 +36,6 @@
     <ClCompile Include="src\models\Person.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\models\EmployeeManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\models\EmployeeQuery.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -108,9 +105,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\interfaces\IEmployeeRepository.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\models\EmployeeManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\models\EmployeeQuery.h">
