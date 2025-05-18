@@ -1,5 +1,4 @@
 #include "Doctor.h"
-#include "TxtWritingVisitor.h"
 
 Doctor::Doctor(
     const std::string& id,

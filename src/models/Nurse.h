@@ -2,6 +2,7 @@
 #define NURSE_H
 
 #include "Employee.h"
+#include "TxtWritingVisitor.h"
 
 class Nurse : public Employee {
 private:

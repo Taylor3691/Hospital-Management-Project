@@ -3,10 +3,6 @@
 
 #include <iostream>
 #include "IVisitor.h"
-#include "../models/Doctor.h"
-#include "../models/Nurse.h"
-#include "../models/Receptionist.h"
-#include "../models/Department.h"
 
 class IWritingVisitor : public IVisitor {
 public:

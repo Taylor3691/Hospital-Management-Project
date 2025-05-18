@@ -1,5 +1,4 @@
 #include "Nurse.h"
-#include "TxtWritingVisitor.h"
 
 Nurse::Nurse(
     const std::string& id,

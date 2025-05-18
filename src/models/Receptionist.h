@@ -2,6 +2,7 @@
 #define RECEPTIONIST_H
 
 #include "Employee.h"
+#include "TxtWritingVisitor.h"
 
 class Receptionist : public Employee {
 private:

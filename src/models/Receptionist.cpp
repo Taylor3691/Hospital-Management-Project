@@ -1,5 +1,4 @@
 #include "Receptionist.h"
-#include "TxtWritingVisitor.h"
 
 Receptionist::Receptionist(
     const std::string& id,

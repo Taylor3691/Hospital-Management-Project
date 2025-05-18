@@ -3,6 +3,7 @@
 
 #include "Object.h"
 #include "../utils/Date.h"
+#include "TxtWritingVisitor.h"
 
 class Department : public Object {
 private:

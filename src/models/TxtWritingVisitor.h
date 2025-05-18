@@ -2,11 +2,10 @@
 #define TXT_WRITING_VISITOR_H
 
 #include "../interfaces/IWritingVisitor.h"
-
-class Doctor;
-class Nurse;
-class Receptionist;
-class Department;
+#include "Doctor.h"
+#include "Nurse.h"
+#include "Receptionist.h"
+#include "Department.h"
 
 class TxtWritingVisitor : public IWritingVisitor {
 private:

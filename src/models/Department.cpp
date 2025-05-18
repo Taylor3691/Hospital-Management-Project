@@ -1,5 +1,4 @@
 #include "Department.h"
-#include "TxtWritingVisitor.h"
 
 Department::Department(
     const std::string& id,
