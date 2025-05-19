@@ -2,6 +2,7 @@
 #define RECEPTIONIST_H
 
 #include "Employee.h"
+#include "TxtWritingVisitor.h"
 
 class Receptionist : public Employee {
 private:
@@ -11,9 +12,10 @@ private:
 public:
     Receptionist() = default;
     Receptionist(const std::string& id, const std::string& name,
-        const Date& dob, const std::string& gender, const std::string& phone,
-        const std::string& address, const std::string& education,
-        double baseSalary, double subsidies, int workingDays);
+        const std::string& gender, const std::string& address,
+        const std::string& phone, const Date& dob,
+        const std::string& education, double baseSalary,
+        double subsidies, int workingDays);
 
 public:
     double subsidies() const;
@@ -22,6 +24,9 @@ public:
 public:
     void setSubsidies(double subsidies);
     void setWorkingDays(int workingDays);
+
+public:
+    void acceptWrite(IVisitor* visitor, std::ostream& os) override;
 };
 
 #endif // !RECEPTIONIST_H

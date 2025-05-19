@@ -1,7 +1,8 @@
 #include "EmployeeManager.h"
 
 EmployeeManager::EmployeeManager(IEmployeeRepository* repo)
-    : _employeeRepo(repo), _employeeQuery(new EmployeeQuery(repo)) {}
+    : _employeeRepo(repo)
+    , _employeeQuery(new EmployeeQuery(repo)) {}
 
 EmployeeManager::~EmployeeManager() {
     delete _employeeQuery;

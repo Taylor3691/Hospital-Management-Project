@@ -6,28 +6,29 @@
 
 class Person : public Object {
 protected:
-    Date _dateOfBirth;
     std::string _gender;
-    std::string _phone;
     std::string _address;
+    std::string _phone;
+    Date _dateOfBirth;
 
 public:
     Person() = default;
-    Person(const std::string& id, const std::string& name, const Date& dob,
-        const std::string& gender, const std::string& phone, const std::string& address);
+    Person(const std::string& id, const std::string& name,
+        const std::string& gender, const std::string& address,
+        const std::string& phone, const Date& dob);
     virtual ~Person() = default;
 
 public:
-    Date dob() const;
     std::string gender() const;
-    std::string phone() const;
     std::string address() const;
+    std::string phone() const;
+    Date dob() const;
 
 public:
-    void setDob(const Date& dob);
     void setGender(const std::string& gender);
-    void setPhone(const std::string& phone);
     void setAddress(const std::string& address);
+    void setPhone(const std::string& phone);
+    void setDob(const Date& dob);
 
 public:
     int age() const;

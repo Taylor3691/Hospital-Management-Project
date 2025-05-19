@@ -1,43 +1,28 @@
 #ifndef MEDICINE_H
 #define MEDICINE_H
 
-#include <string>
-#include <iostream>
-#include <vector>
-#include "../utils/Date.h"
-class Medicine {
+#include "Object.h"
+
+class Medicine : public Object {
 private:
-    std::string _medicineId;
-    std::string _name;
-    std::string _type;
+    std::string _unit;
+    double _pricePerUnit;
     int _quantity;
-    double _price;
-    Date _expiryDate;
+
 public:
     Medicine();
-    Medicine(const std::string& id, const std::string& name, const std::string& type, int quantity, double price, const Date& expiryDate);
-    Medicine(const std::string& id, const std::string& name, const std::string& type, int quantity, double price, const std::string& expiryDate);
-    Medicine(const std::string& id, const std::string& name, const std::string& type, int quantity, double price);
-    Medicine(const std::string& id, const std::string& name, const std::string& type, int quantity, double price, int day, int month, int year);
-    Medicine(const std::string& id, const std::string& name, const std::string& type, int quantity, double price, int days);
-    ~Medicine();
-public:
-    std::string id();
-    std::string name();
-    std::string type();
-    int quantity();
-    double price();
-    Date expiryDate();
-public:
-    void setMedicineId(const std::string& id);
-    void setName(const std::string& name);
-    void setType(const std::string& type);
-    void setQuantity(int quantity);
-public:
+    Medicine(const std::string& id, const std::string& name,
+        const std::string& unit, double price, int quantity);
 
-    void addStock(int quantity);
-    bool checkAvailability();
-    void getMedicineDetail();
+public:
+    std::string unit() const;
+    double pricePerUnit() const;
+    int quantity() const;
+
+public:
+    void setUnit(const std::string& unit);
+    void setPricePerUnit(double price);
+    void setQuantity(int quantity);
 };
 
 #endif

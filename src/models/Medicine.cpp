@@ -1,112 +1,40 @@
 #include "Medicine.h"
 
-Medicine::Medicine() {
-    // Constructor Default
-    _quantity = 0;
-    _price = 0;
+Medicine::Medicine()
+    : _pricePerUnit(), _quantity() {}
+
+Medicine::Medicine(
+    const std::string& id,
+    const std::string& name,
+    const std::string& unit,
+    double price,
+    int quantity
+)
+    : Object(id, name)
+    , _unit(unit)
+    , _pricePerUnit(price)
+    , _quantity(quantity) {}
+
+std::string Medicine::unit() const {
+    return _unit;
 }
 
-Medicine::Medicine(const std::string& id, const std::string& name, const std::string& type, int quantity, double price
-    , const Date& expiryDate) : _expiryDate(expiryDate) {
-    _medicineId = id;
-    _name = name;
-    _type = type;
-    _quantity = quantity;
-    _price = price;
+double Medicine::pricePerUnit() const {
+    return _pricePerUnit;
 }
 
-Medicine::Medicine(const std::string& id, const std::string& name, const std::string& type, int quantity, double price
-    , const std::string& expiryDate) : _expiryDate(expiryDate) {
-    _medicineId = id;
-    _name = name;
-    _type = type;
-    _quantity = quantity;
-    _price = price;
-}
-
-Medicine::Medicine(const std::string& id, const std::string& name, const std::string& type, int quantity, double price) : _expiryDate(Date::getDate()) {
-    _medicineId = id;
-    _name = name;
-    _type = type;
-    _quantity = quantity;
-    _price = price;
-}
-
-Medicine::Medicine(const std::string& id, const std::string& name, const std::string& type, int quantity, double price
-    , int day, int month, int year) : _expiryDate(day, month, year) {
-    _medicineId = id;
-    _name = name;
-    _type = type;
-    _quantity = quantity;
-    _price = price;
-}
-
-Medicine::Medicine(const std::string& id, const std::string& name, const std::string& type, int quantity, double price
-    , int days) : _expiryDate(days) {
-    _medicineId = id;
-    _name = name;
-    _type = type;
-    _quantity = quantity;
-    _price = price;
-}
-
-Medicine::~Medicine() {
-    // Destructor
-}
-
-std::string Medicine::id() {
-    return _medicineId;
-}
-
-std::string Medicine::name() {
-    return _name;
-}
-
-std::string Medicine::type() {
-    return _type;
-}
-
-int Medicine::quantity() {
+int Medicine::quantity() const {
     return _quantity;
 }
 
-double Medicine::price() {
-    return _price;
+void Medicine::setUnit(const std::string& unit) {
+    _unit = unit;
 }
 
-Date Medicine::expiryDate() {
-    return _expiryDate;
-}
-
-void Medicine::setMedicineId(const std::string& id) {
-    _medicineId = id;
-}
-
-void Medicine::setName(const std::string& name) {
-    _name = name;
-}
-
-void Medicine::setType(const std::string& type) {
-    _type = type;
+void Medicine::setPricePerUnit(double price) {
+    _pricePerUnit = price;
 }
 
 void Medicine::setQuantity(int quantity) {
     _quantity = quantity;
-}
-
-void Medicine::addStock(int quantity) {
-    _quantity += quantity;
-}
-
-void Medicine::getMedicineDetail() {
-    std::cout << "Medicine ID: " << _medicineId << " ";
-    std::cout << "Name: " << _name << " ";
-    std::cout << "Type: " << _type << " ";
-    std::cout << "Quantity: " << _quantity << " ";
-    std::cout << "Price: " << _price << " ";
-    std::cout << "Expiry Date: " << _expiryDate << " ";
-}
-
-bool Medicine::checkAvailability() {
-    return (_quantity > 0);
 }

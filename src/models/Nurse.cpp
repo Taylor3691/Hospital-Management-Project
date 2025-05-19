@@ -3,15 +3,17 @@
 Nurse::Nurse(
     const std::string& id,
     const std::string& name,
-    const Date& dob,
     const std::string& gender,
-    const std::string& phone,
     const std::string& address,
+    const std::string& phone,
+    const Date& dob,
     const std::string& education,
     double baseSalary,
     const std::string& duty
-) : Employee(id, name, dob, gender, phone,
-    address, education, baseSalary), _duty(duty) {}
+)
+    : Employee(id, name, gender, address,
+        phone, dob, education, baseSalary)
+    , _duty(duty) {}
 
 std::string Nurse::duty() const {
     return _duty;
@@ -19,4 +21,8 @@ std::string Nurse::duty() const {
 
 void Nurse::setDuty(const std::string& duty) {
     _duty = duty;
+}
+
+void Nurse::acceptWrite(IVisitor* visitor, std::ostream& os) {
+    dynamic_cast<TxtWritingVisitor*>(visitor)->write(this, os);
 }

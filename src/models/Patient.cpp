@@ -1,28 +1,34 @@
 #include "Patient.h"
 
-Patient::Patient(
-    const std::string& id,
+Patient::Patient(const std::string& id,
     const std::string& name,
-    const Date& dob,
     const std::string& gender,
-    const std::string& phone,
     const std::string& address,
+    const std::string& phone,
+    const Date& dob,
     const std::vector<std::string>& allergies,
-    std::vector<std::unique_ptr<MedicineUsage>>& usages
-) : Person(id, name, dob, gender, phone, address) {
-    _allergies = allergies;
-    _medicineUsages.insert(
-        _medicineUsages.end(),
-        std::make_move_iterator(usages.begin()),
-        std::make_move_iterator(usages.end())
-    );
-    usages.clear();
-}
+    std::unique_ptr<HealthInsurance> insuranceCard
+)
+    : Person(id, name, gender, address, phone, dob)
+    , _allergies(allergies)
+    , _insuranceCard(std::move(insuranceCard)) {}
 
-std::vector<std::string>& Patient::allergies() {
+std::vector<std::string> Patient::allergies() const {
     return _allergies;
 }
 
-std::vector<std::unique_ptr<MedicineUsage>>& Patient::medicineUsages() {
-    return _medicineUsages;
+const HealthInsurance* Patient::insuranceCard() const {
+    return _insuranceCard.get();
+}
+
+void Patient::allergies(
+    const std::vector<std::string>& allergies
+) {
+    _allergies = allergies;
+}
+
+void Patient::insuranceCard(
+    std::unique_ptr<HealthInsurance> insuranceCard
+) {
+    _insuranceCard = std::move(insuranceCard);
 }

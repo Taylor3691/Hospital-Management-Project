@@ -2,6 +2,8 @@
 #define OBJECT_H
 
 #include <string>
+#include <iostream>
+#include "../interfaces/IVisitor.h"
 
 class Object {
 protected:
@@ -20,6 +22,9 @@ public:
 public:
     void setId(const std::string& id);
     void setName(const std::string& name);
+
+public:
+    virtual void acceptWrite(IVisitor* visitor, std::ostream& os) = 0;
 };
 
 #endif // !OBJECT_H

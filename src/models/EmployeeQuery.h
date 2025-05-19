@@ -1,5 +1,5 @@
-#ifndef EMPLOYEEQUERY_H
-#define EMPLOYEEQUERY_H
+#ifndef EMPLOYEE_QUERY_H
+#define EMPLOYEE_QUERY_H
 
 #include <typeinfo>
 #include "../interfaces/IQuery.h"
@@ -23,4 +23,4 @@ public:
         ComparisonOperator op = ComparisonOperator::EQ) const;
 };
 
-#endif // !EMPLOYEEQUERY_H
+#endif // !EMPLOYEE_QUERY_H

@@ -1,25 +1,41 @@
-#ifndef MEDICINEUSAGE_H
-#define MEDICINEUSAGE_H
+#ifndef MEDICINE_USAGE_H
+#define MEDICINE_USAGE_H
 
-#include "Medicine.h"
+#include "BillableComponent.h"
 
-class MedicineUsage {
+class MedicineUsage : public BillableComponent {
 private:
-    Medicine _medicine;
-    int _dosage;
-    std::pair<int, std::string> _frequency;
-    std::string _instructions;
+    std::string _patientId;
+    std::string _doctorId;
+    std::string _medicineId;
+    int _usedQuantity;
+    double _price;
+    std::string _description;
 
 public:
     MedicineUsage();
-    MedicineUsage(const Medicine& medicine, int dosage, std::pair<int, std::string> frequency, std::string instruction);
-    ~MedicineUsage();
+    MedicineUsage(const std::string& id, const std::string& patientId,
+        const std::string& doctorId, const std::string& medicineId,
+        int usedQuantity, double price, const std::string& description);
 
 public:
-    std::string getMedicineInfo();
-    std::string getInstructions();
-    void setMedicine(Medicine& medicine);
-    void setInstructions(std::string instruction);
+    std::string patientId() const;
+    std::string doctorId() const;
+    std::string medicineId() const;
+    int usedQuantity() const;
+    double price() const;
+    std::string description() const;
+
+public:
+    void setPatientId(const std::string& patientId);
+    void setDoctorId(const std::string& doctorId);
+    void setMedicineId(const std::string& medicineId);
+    void setUsedQuantity(int usedQuantity);
+    void setPrice(double price);
+    void setDescription(const std::string& description);
+
+public:
+    double calculateFee() const override;
 };
 
-#endif // !MEDICINEUSAGE_H_
+#endif // !MEDICINE_USAGE_H

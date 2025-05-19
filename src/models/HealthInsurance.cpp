@@ -1,37 +1,54 @@
 #include "HealthInsurance.h"
 
-std::string HealthInsurance::id() const {
-    return _insuranceId;
+HealthInsurance::HealthInsurance()
+    : _coveragePercent() {}
+
+HealthInsurance::HealthInsurance(
+    const std::string& id,
+    const std::string& name,
+    const std::string& cardNumber,
+    const Date& issueDate,
+    const Date& expiryDate,
+    double percent
+)
+    : Object(id, name)
+    , _cardNumber(cardNumber)
+    , _issueDate(issueDate)
+    , _expiryDate(expiryDate)
+    , _coveragePercent(percent) {}
+
+std::string HealthInsurance::cardNumber() const {
+    return _cardNumber;
 }
 
-double HealthInsurance::serviceCoveragePercent() const {
-    return _serviceCoveragePercent;
-}
-
-double HealthInsurance::medicineCoveragePercent() const {
-    return _medicineCoveragePercent;
+Date HealthInsurance::issueDate() const {
+    return _issueDate;
 }
 
 Date HealthInsurance::expiryDate() const {
     return _expiryDate;
 }
 
-void HealthInsurance::setId(const std::string& id) {
-    _insuranceId = id;
+double HealthInsurance::coveragePercent() const {
+    return _coveragePercent;
 }
 
-void HealthInsurance::setServiceCoveragePercent(double percent) {
-    _serviceCoveragePercent = percent;
+void HealthInsurance::setCardNumber(const std::string& cardNumber) {
+    _cardNumber = cardNumber;
 }
 
-void HealthInsurance::setMedicineCoveragePercent(double percent) {
-    _medicineCoveragePercent = percent;
+void HealthInsurance::setIssueDate(const Date& date) {
+    _issueDate = date;
 }
 
 void HealthInsurance::setExpiryDate(const Date& date) {
     _expiryDate = date;
 }
 
-bool HealthInsurance::checkExpired() const {
-    return _expiryDate <= Date::getDate();
+void HealthInsurance::setCoveragePercent(const double& percent) {
+    _coveragePercent = percent;
+}
+
+bool HealthInsurance::checkValid() const {
+    return _expiryDate > Date::getDate();
 }

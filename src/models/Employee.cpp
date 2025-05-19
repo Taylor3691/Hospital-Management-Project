@@ -3,14 +3,16 @@
 Employee::Employee(
     const std::string& id,
     const std::string& name,
-    const Date& dob,
     const std::string& gender,
-    const std::string& phone,
     const std::string& address,
+    const std::string& phone,
+    const Date& dob,
     const std::string& education,
     double baseSalary
-) : Person(id, name, dob, gender, phone , address),
-    _education(education), _baseSalary(baseSalary) {}
+)
+    : Person(id, name, gender, address, phone, dob)
+    , _education(education)
+    , _baseSalary(baseSalary) {}
 
 std::string Employee::education() const {
     return _education;

@@ -1,42 +1,52 @@
-#ifndef MEDICALRECORD_H
-#define MEDICALRECORD_H
+#ifndef MEDICAL_RECORD_H
+#define MEDICAL_RECORD_H
 
+#include <vector>
+#include <memory>
+#include "BillableComponent.h"
 #include "MedicineUsage.h"
-#include "Patient.h"
-#include "Doctor.h"
+#include "ClinicalTest.h"
+#include "RegisteredState.h"
+#include "CompletedState.h"
 #include "../utils/Date.h"
-class MedicalRecord{
+#include "../utils/Time.h"
+
+class MedicalRecord : public BillableComponent {
 private:
-    std::string _recordId;
-    Patient* _patient;
-    Doctor* _doctor;
-    std::string _diagnosis;
-    std::string _treatment;
-    Date _date;
-    std::vector<MedicineUsage> _prescribedMedicines;
+    std::string _patientId;
+    std::string _roomId;
+    std::string _doctorId;
+    std::string _diagnosisResult;
+    std::vector<MedicineUsage*> _prescribedMedicines;
+    std::vector<ClinicalTest*> _clinicalTests;
+    std::unique_ptr<ExaminationState> _state;
+    Date _createdDate;
+    Time _createdTime;
 
 public:
-    MedicalRecord();
-    MedicalRecord(std::string id, Patient* patient, Doctor* doctor,
-        std::string diagnosis, std::string treatment, std::vector<MedicineUsage> medicine);
-    ~MedicalRecord();
+    MedicalRecord() = default;
+    MedicalRecord(const std::string& id, const std::string& patientId);
 
 public:
-    std::string id();
-    Patient* patient();
-    Doctor* doctor();
-    std::string diagnosis();
-    std::string treatment();
-    Date& date();
-    std::vector<MedicineUsage>& prescribedMedicines();
-    void setID(std::string id);
-    void setPatient(Patient* patient);
-    void setDoctor(Doctor* doctor);
-    void setDate(const Date& date);
+    std::string patientId() const;
+    std::string roomId() const;
+    std::string doctorId() const;
+    std::string diagnosisResult() const;
+    std::vector<const MedicineUsage*> prescribedMedicines() const;
+    std::vector<const ClinicalTest*> clinicalTests() const;
+    const ExaminationState* state() const;
+    Date createdDate() const;
+    Time createdTime() const;
 
 public:
-    bool addMedicineUsage(const MedicineUsage& medicine);
-    bool removeMedicineUsage(std::string id);
+    double calculateFee() const override;
+    void assignToRoom(const std::string& roomId);
+    void startExamination(const std::string& doctorId);
+    void setDiagnosisResult(const std::string& result);
+    void prescribeMedicine(MedicineUsage* medicine);
+    void orderClinicalTest(ClinicalTest* test);
+    void compeleteExamination();
+    void changeState(std::unique_ptr<ExaminationState> state);
 };
 
-#endif
+#endif // !MEDICAL_RECORD_H

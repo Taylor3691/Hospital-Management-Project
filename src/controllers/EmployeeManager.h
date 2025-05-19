@@ -1,9 +1,9 @@
-#ifndef EMPLOYEEMANAGER_H
-#define EMPLOYEEMANAGER_H
+#ifndef EMPLOYEE_MANAGER_H
+#define EMPLOYEE_MANAGER_H
 
 #include "../interfaces/IManager.h"
 #include "../interfaces/IEmployeeRepository.h"
-#include "EmployeeQuery.h"
+#include "../models/EmployeeQuery.h"
 
 class EmployeeManager : public IManager<Employee> {
 private:
@@ -25,4 +25,4 @@ public:
         ComparisonOperator op = ComparisonOperator::EQ) const;
 };
 
-#endif // !EMPLOYEEMANAGER_H
+#endif // !EMPLOYEE_MANAGER_H

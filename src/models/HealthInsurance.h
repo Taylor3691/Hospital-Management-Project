@@ -1,30 +1,38 @@
-#ifndef HEALTHINSURANCE_H
-#define HEALTHINSURANCE_H
+#ifndef HEALTH_INSURANCE_H
+#define HEALTH_INSURANCE_H
 
 #include <string>
+#include "Object.h"
 #include "../utils/Date.h"
 
-class HealthInsurance {
+class HealthInsurance : public Object {
 private:
-    std::string _insuranceId;
-    double _serviceCoveragePercent;
-    double _medicineCoveragePercent;
+    std::string _cardNumber;
+    Date _issueDate;
     Date _expiryDate;
+    double _coveragePercent;
 
 public:
-    std::string id() const;
-    double serviceCoveragePercent() const;
-    double medicineCoveragePercent() const;
+    HealthInsurance();
+    HealthInsurance(const std::string& id, const std::string& name,
+        const std::string& cardNumber, const Date& issueDate,
+        const Date& expiryDate, double percent);
+
+public:
+    std::string cardNumber() const;
+    Date issueDate() const;
     Date expiryDate() const;
+    double coveragePercent() const;
 
 public:
-    void setId(const std::string& id);
-    void setServiceCoveragePercent(double percent);
-    void setMedicineCoveragePercent(double percent);
+    void setCardNumber(const std::string& cardNumber);
+    void setIssueDate(const Date& date);
     void setExpiryDate(const Date& date);
+    void setCoveragePercent(const double& percent);
 
 public:
-    bool checkExpired() const;
+    void acceptWrite(IVisitor* visitor, std::ostream& os) override {};
+    bool checkValid() const;
 };
 
-#endif
+#endif // !HEALTH_INSURANCE_H
