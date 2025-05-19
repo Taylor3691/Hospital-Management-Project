@@ -33,6 +33,7 @@ public:
 public:
     void acceptWrite(IVisitor* visitor, std::ostream& os) override {};
     bool checkValid() const;
+
 };
 
 #endif // !HEALTH_INSURANCE_H

@@ -2,15 +2,17 @@
 #define TXTPATIENTREPOSITORY_H_
 #include "../interfaces/IPatientRepository.h"
 #include "../utils/QueryBuilder.h"
+#include "../utils/utils_template.h"
 
 class TxtPatientRepository : public IPatientRepository {
 private:
     std::string _filePath;
     std::vector<std::unique_ptr<Patient>> _patients;
+    char _delim;
 
 public:
-    TxtPatientRepository(const std::string& filePath);
-    ~TxtPatientRepository() override;
+    TxtPatientRepository();
+    TxtPatientRepository(const std::string& filePath, char delim = '|');
     void load() override;
     void save() const override;
     void add(std::unique_ptr<Patient> entity) override;

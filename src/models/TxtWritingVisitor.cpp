@@ -1,5 +1,6 @@
 #include "TxtWritingVisitor.h"
-
+#include <sstream>
+#include <string>
 TxtWritingVisitor::TxtWritingVisitor(char delim)
     : _delim(delim) {}
 
@@ -47,4 +48,28 @@ void TxtWritingVisitor::write(Department* department, std::ostream& os) {
         << department->headId() << _delim
         << department->foundationDate() << _delim
         << department->description();
+}
+
+void TxtWritingVisitor::write(Patient* patient, std::ostream& os) {
+    os << patient->id() << _delim
+        << patient->name() << _delim
+        << patient->gender() << _delim
+        << patient->phone() << _delim
+        << patient->address() << _delim
+        << patient->dob() << _delim;
+        if (patient->insuranceCard() != nullptr) {
+            os << patient->insuranceCard()->cardNumber() << ','
+                << patient->insuranceCard()->issueDate() << ','
+                << patient->insuranceCard()->expiryDate() << ','
+                << patient->insuranceCard()->coveragePercent();
+        }else{
+            os << "null";
+        }
+    os << _delim;
+    for (int i = 0; i < patient->allergies().size(); i++) {
+        os << patient->allergies()[i];
+        if(i != patient->allergies().size() - 1) {
+            os << ',';
+        }
+    }
 }
