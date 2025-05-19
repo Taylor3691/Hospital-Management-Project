@@ -4,10 +4,11 @@
 #include "../utils/QueryBuilder.h"
 
 class TxtPatientRepository : public IPatientRepository {
-    private:
+private:
     std::string _filePath;
-    std::vector<std:unique_ptr<Patient>> _patients;
-    public:
+    std::vector<std::unique_ptr<Patient>> _patients;
+
+public:
     TxtPatientRepository(const std::string& filePath);
     ~TxtPatientRepository() override;
     void load() override;

@@ -148,15 +148,19 @@
     <ClCompile Include="src\models\EmployeeQuery.cpp" />
     <ClCompile Include="src\models\Nurse.cpp" />
     <ClCompile Include="src\models\Object.cpp" />
+    <ClCompile Include="src\models\Patient.cpp" />
     <ClCompile Include="src\models\Person.cpp" />
     <ClCompile Include="src\models\Receptionist.cpp" />
     <ClCompile Include="src\models\TxtEmployeeRepository.cpp" />
+    <ClCompile Include="src\models\TxtPatientRepository.cpp" />
+    <ClCompile Include="src\models\TxtPatientRepository.h" />
     <ClCompile Include="src\utils\Date.cpp" />
     <ClCompile Include="src\utils\Time.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\interfaces\IEmployeeRepository.h" />
     <ClInclude Include="src\interfaces\IManager.h" />
+    <ClInclude Include="src\interfaces\IPatientRepository.h" />
     <ClInclude Include="src\interfaces\IQuery.h" />
     <ClInclude Include="src\interfaces\IRepository.h" />
     <ClInclude Include="src\models\Doctor.h" />
@@ -166,6 +170,7 @@
     <ClInclude Include="src\models\Entity.h" />
     <ClInclude Include="src\models\Nurse.h" />
     <ClInclude Include="src\models\Object.h" />
+    <ClInclude Include="src\models\Patient.h" />
     <ClInclude Include="src\models\Person.h" />
     <ClInclude Include="src\models\Receptionist.h" />
     <ClInclude Include="src\models\TxtEmployeeRepository.h" />

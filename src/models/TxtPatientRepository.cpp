@@ -107,5 +107,5 @@ std::vector<const Patient*> TxtPatientRepository::data() const {
     for (const auto& patient : _patients) {
         result.push_back(patient.get());
     }
-    return result;
+    return result;  
 }
