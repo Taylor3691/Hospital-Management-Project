@@ -13,6 +13,8 @@ private:
 public:
     TxtPatientRepository();
     TxtPatientRepository(const std::string& filePath, char delim = '|');
+
+public:
     void load() override;
     void save() const override;
     void add(std::unique_ptr<Patient> entity) override;

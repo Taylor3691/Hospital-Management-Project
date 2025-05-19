@@ -13,10 +13,6 @@ TxtPatientRepository::TxtPatientRepository(const std::string& filePath, char del
     load();
 }
 
-TxtPatientRepository::~TxtPatientRepository() {
-    save();
-}
-
 void TxtPatientRepository::save() const {
     ::save(_patients, _delim, _filePath);
 }
