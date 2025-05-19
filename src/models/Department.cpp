@@ -5,12 +5,12 @@ Department::Department(
     const std::string& name,
     const std::string& headId,
     const Date& date,
-    const std::string& subscription
+    const std::string& description
 )
     : Object(id, name)
     , _headId(headId)
     , _foundationDate(date)
-    , _subscription(subscription) {}
+    , _description(description) {}
 
 std::string Department::headId() const {
     return _headId;
@@ -20,8 +20,8 @@ Date Department::foundationDate() const {
     return _foundationDate;
 }
 
-std::string Department::subscription() const {
-    return _subscription;
+std::string Department::description() const {
+    return _description;
 }
 
 void Department::setHeadId(const std::string& id) {
@@ -32,8 +32,8 @@ void Department::setFoundationDate(const Date& date) {
     _foundationDate = date;
 }
 
-void Department::setSubscription(const std::string& subscription) {
-    _subscription = subscription;
+void Department::setDescription(const std::string& description) {
+    _description = description;
 }
 
 void Department::acceptWrite(IVisitor* visitor, std::ostream& os) {

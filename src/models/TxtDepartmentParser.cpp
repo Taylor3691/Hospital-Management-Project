@@ -22,7 +22,7 @@ Object* TxtDepartmentParser::parse(const std::string& str) const {
     department->setFoundationDate(buffer);
 
     std::getline(stream, buffer);
-    department->setSubscription(buffer);
+    department->setDescription(buffer);
 
     return department;
 }

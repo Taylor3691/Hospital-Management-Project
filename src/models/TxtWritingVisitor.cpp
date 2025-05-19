@@ -46,5 +46,5 @@ void TxtWritingVisitor::write(Department* department, std::ostream& os) {
         << department->name() << _delim
         << department->headId() << _delim
         << department->foundationDate() << _delim
-        << department->subscription();
+        << department->description();
 }
