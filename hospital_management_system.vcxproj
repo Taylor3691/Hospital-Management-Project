@@ -155,6 +155,10 @@
     <ClCompile Include="src\models\Receipt.cpp" />
     <ClCompile Include="src\models\RegisteredState.cpp" />
     <ClCompile Include="src\models\RoomExamination.cpp" />
+    <ClCompile Include="src\models\TxtEmployeeRepository.cpp" />
+    <ClCompile Include="src\models\TxtPatientParser.cpp" />
+    <ClCompile Include="src\models\TxtPatientRepository.cpp" />
+    <ClCompile Include="src\models\TxtWritingVisitor.cpp" />
     <ClCompile Include="src\models\WaitingState.cpp" />
     <ClCompile Include="src\utils\Date.cpp" />
     <ClCompile Include="src\utils\Time.cpp" />
@@ -174,11 +178,16 @@
     <ClInclude Include="src\models\NormalPayment.h" />
     <ClInclude Include="src\models\Object.h" />
     <ClInclude Include="src\models\Patient.h" />
+    <ClInclude Include="src\models\PatientParser.h" />
     <ClInclude Include="src\models\PendingTestState.h" />
     <ClInclude Include="src\models\Person.h" />
     <ClInclude Include="src\models\Receipt.h" />
     <ClInclude Include="src\models\RegisteredState.h" />
     <ClInclude Include="src\models\RoomExamination.h" />
+    <ClInclude Include="src\models\TxtEmployeeRepository.h" />
+    <ClInclude Include="src\models\TxtPatientParser.h" />
+    <ClInclude Include="src\models\TxtPatientRepository.h" />
+    <ClInclude Include="src\models\TxtWritingVisitor.h" />
     <ClInclude Include="src\models\WaitingState.h" />
     <ClInclude Include="src\utils\Date.h" />
     <ClInclude Include="src\utils\QueryBuilder.h" />
