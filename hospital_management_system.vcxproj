@@ -147,6 +147,7 @@
     <ClCompile Include="src\models\EmployeeQuery.cpp" />
     <ClCompile Include="src\models\Nurse.cpp" />
     <ClCompile Include="src\models\Object.cpp" />
+    <ClCompile Include="src\models\Patient.cpp" />
     <ClCompile Include="src\models\Person.cpp" />
     <ClCompile Include="src\models\Receptionist.cpp" />
     <ClCompile Include="src\models\TxtDepartmentParser.cpp" />
@@ -182,6 +183,7 @@
     <ClInclude Include="src\models\Nurse.h" />
     <ClInclude Include="src\models\NurseParser.h" />
     <ClInclude Include="src\models\Object.h" />
+    <ClInclude Include="src\models\Patient.h" />
     <ClInclude Include="src\models\Person.h" />
     <ClInclude Include="src\models\Receptionist.h" />
     <ClInclude Include="src\models\ReceptionistParser.h" />
