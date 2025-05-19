@@ -3,23 +3,29 @@
 
 #include <vector>
 #include <memory>
-#include <iterator>
 #include "Person.h"
-#include "MedicineUsage.h"
+#include "HealthInsurance.h"
 
 class Patient : public Person {
 private:
     std::vector<std::string> _allergies;
-    std::vector<std::unique_ptr<MedicineUsage>> _medicineUsages;
+    std::unique_ptr<HealthInsurance> _insuranceCard;
 
 public:
-    Patient(const std::string& id, const std::string& name, const Date& dob,
-        const std::string& gender, const std::string& phone, const std::string& address,
-        const std::vector<std::string>& allergies, std::vector<std::unique_ptr<MedicineUsage>>& usages);
+    Patient() = default;
+    Patient(const std::string& id, const std::string& name,
+        const std::string& gender, const std::string& address,
+        const std::string& phone, const Date& dob,
+        const std::vector<std::string>& allergies,
+        std::unique_ptr<HealthInsurance> insuranceCard = nullptr);
 
 public:
-    std::vector<std::string>& allergies();
-    std::vector<std::unique_ptr<MedicineUsage>>& medicineUsages();
+    std::vector<std::string> allergies() const;
+    const HealthInsurance* insuranceCard() const;
+
+public:
+    void allergies(const std::vector<std::string>& allergies);
+    void insuranceCard(std::unique_ptr<HealthInsurance> insuranceCard);
 };
 
 #endif
