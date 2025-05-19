@@ -25,8 +25,8 @@ public:
     const HealthInsurance* insuranceCard() const;
 
 public:
-    void allergies(const std::vector<std::string>& allergies);
-    void insuranceCard(std::unique_ptr<HealthInsurance> insuranceCard);
+    void setAllergies(const std::vector<std::string>& allergies);
+    void setInsuranceCard(std::unique_ptr<HealthInsurance> insuranceCard);
 
 public:
     void acceptWrite(IVisitor* visitor, std::ostream& os) override;
