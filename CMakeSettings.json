@@ -4,7 +4,7 @@
       "name": "x64-Debug",
       "generator": "Visual Studio 17 2022 Win64",
       "configurationType": "Debug",
-      "inheritEnvironments": [ "msvc_x86_x64" ],
+      "inheritEnvironments": [ "msvc_x64" ],
       "buildRoot": "${projectDir}\\build\\${name}",
       "installRoot": "${projectDir}\\out\\install\\${name}",
       "cmakeCommandArgs": "",
@@ -22,7 +22,7 @@
       "cmakeCommandArgs": "",
       "buildCommandArgs": "",
       "ctestCommandArgs": "",
-      "inheritEnvironments": [ "msvc_x86_x64" ],
+      "inheritEnvironments": [ "msvc_x64" ],
       "environments": [ { "PATH": "${projectDir}\\packages\\bulbqt-msvc-x64.5.15.2.10889\\build\\native\\bin" } ],
       "intelliSenseMode": "windows-msvc-x64"
     }
