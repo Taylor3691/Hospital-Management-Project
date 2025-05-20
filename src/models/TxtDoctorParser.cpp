@@ -6,7 +6,7 @@ TxtDoctorParser::TxtDoctorParser(char delim)
 Object* TxtDoctorParser::parse(const std::string& str) const {
     auto doctor = new Doctor();
 
-    std::istringstream stream;
+    std::istringstream stream(str);
     std::string buffer;
 
     std::getline(stream, buffer, _delim);

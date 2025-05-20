@@ -6,7 +6,7 @@ TxtNurseParser::TxtNurseParser(char delim)
 Object* TxtNurseParser::parse(const std::string& str) const {
     auto nurse = new Nurse();
 
-    std::istringstream stream;
+    std::istringstream stream(str);
     std::string buffer;
 
     std::getline(stream, buffer, _delim);
