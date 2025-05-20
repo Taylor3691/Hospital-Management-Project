@@ -48,15 +48,15 @@ Object* TxtPatientParser::parse(const std::string& str) const {
     if (buffer != "") {
         std::stringstream substream(buffer);
         std::string subbuffer;
-        std::vector<std::string> allergy;
+        std::vector<std::string> symptoms;
         while (std::getline(substream, subbuffer, ',')) {
-            allergy.push_back(subbuffer);
+            symptoms.push_back(subbuffer);
         }
-        patient->setAllergies(allergy);
+        patient->setSymptoms(symptoms);
     }
     else
     {
-        patient->setAllergies({});
+        patient->setSymptoms({});
     }
     return patient;
 }

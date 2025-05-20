@@ -6,25 +6,25 @@ Patient::Patient(const std::string& id,
     const std::string& address,
     const std::string& phone,
     const Date& dob,
-    const std::vector<std::string>& allergies,
+    const std::vector<std::string>& symptoms,
     std::unique_ptr<HealthInsurance> insuranceCard
 )
     : Person(id, name, gender, address, phone, dob)
-    , _allergies(allergies)
+    , _symptoms(symptoms)
     , _insuranceCard(std::move(insuranceCard)) {}
 
-std::vector<std::string> Patient::allergies() const {
-    return _allergies;
+std::vector<std::string> Patient::symptoms() const {
+    return _symptoms;
 }
 
 const HealthInsurance* Patient::insuranceCard() const {
     return _insuranceCard.get();
 }
 
-void Patient::setAllergies(
-    const std::vector<std::string>& allergies
+void Patient::setSymptoms(
+    const std::vector<std::string>& symptoms
 ) {
-    _allergies = allergies;
+    _symptoms = symptoms;
 }
 
 void Patient::setInsuranceCard(
@@ -42,7 +42,7 @@ Patient& Patient::operator=(
 ) {
     if (this != &other) {
         Person::operator=(other);
-        _allergies = other._allergies;
+        _symptoms = other._symptoms;
         _insuranceCard = std::make_unique<HealthInsurance>(*other._insuranceCard);
     }
     return *this;

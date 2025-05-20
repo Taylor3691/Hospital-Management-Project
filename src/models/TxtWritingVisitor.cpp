@@ -66,9 +66,9 @@ void TxtWritingVisitor::write(Patient* patient, std::ostream& os) {
             os << "null";
         }
     os << _delim;
-    for (int i = 0; i < patient->allergies().size(); i++) {
-        os << patient->allergies()[i];
-        if(i != patient->allergies().size() - 1) {
+    for (int i = 0; i < patient->symptoms().size(); i++) {
+        os << patient->symptoms()[i];
+        if(i != patient->symptoms().size() - 1) {
             os << ',';
         }
     }
