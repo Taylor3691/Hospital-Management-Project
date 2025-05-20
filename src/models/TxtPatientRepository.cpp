@@ -13,6 +13,22 @@ TxtPatientRepository::TxtPatientRepository(const std::string& filePath, char del
     load();
 }
 
+const std::string& TxtPatientRepository::filePath() const {
+    return _filePath;
+}
+
+void TxtPatientRepository::setFilePath(const std::string& filePath) {
+    _filePath = filePath;
+}
+
+char TxtPatientRepository::delim() const {
+    return _delim;
+}
+
+void TxtPatientRepository::setDelim(char delim) {
+    _delim = delim;
+}
+
 void TxtPatientRepository::save() const {
     ::save(_patients, _delim, _filePath);
 }

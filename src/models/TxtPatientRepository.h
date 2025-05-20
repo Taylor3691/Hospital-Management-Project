@@ -15,6 +15,12 @@ public:
     TxtPatientRepository(const std::string& filePath, char delim = '|');
 
 public:
+    const std::string& filePath() const;
+    void setFilePath(const std::string& filePath);
+    char delim() const;
+    void setDelim(char delim);
+
+public:
     void load() override;
     void save() const override;
     void add(std::unique_ptr<Patient> entity) override;
