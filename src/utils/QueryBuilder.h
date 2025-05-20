@@ -35,14 +35,6 @@ public:
 };
 
 template<typename T>
-QueryBuilder<T> from(std::vector<std::unique_ptr<T>>& collection);
-
-template<typename T>
-QueryBuilder<T> from(std::vector<T*>& collection);
-
-#endif // !QUERYBUILDER_H
-
-template<typename T>
 inline QueryBuilder<T> from(std::vector<std::unique_ptr<T>>& collection) {
     auto wrapper = Collection<T>(std::ref(collection));
     return QueryBuilder<T>(wrapper);
@@ -177,3 +169,5 @@ inline QueryBuilder<T>& QueryBuilder<T>::where(Getter<T> getter, const U& value,
     _filters.push_back(filter);
     return *this;
 }
+
+#endif // !QUERYBUILDER_H

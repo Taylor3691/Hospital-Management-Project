@@ -10,17 +10,7 @@
 #include "../models/TxtWritingVisitor.h"
 
 template<typename T>
-void load(std::vector<std::unique_ptr<T>>& container,
-    char delim, const std::string& fileName);
-
-template<typename T>
-void save(const std::vector<std::unique_ptr<T>>& container,
-    char delim, const std::string& fileName);
-
-#endif // !UTILS_TEMPLATE_H
-
-template<typename T>
-inline void load(
+void load(
     std::vector<std::unique_ptr<T>>& container,
     char delim,
     const std::string& fileName
@@ -56,7 +46,7 @@ inline void load(
 }
 
 template<typename T>
-inline void save(
+void save(
     const std::vector<std::unique_ptr<T>>& container,
     char delim,
     const std::string& fileName
@@ -74,3 +64,5 @@ inline void save(
 
     file.close();
 }
+
+#endif // !UTILS_TEMPLATE_H
