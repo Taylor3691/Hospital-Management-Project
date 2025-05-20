@@ -37,7 +37,7 @@ Object* TxtPatientParser::parse(const std::string& str) const {
         std::getline(substream, subbuffer, ',');
         insurance->setExpiryDate(subbuffer);
         std::getline(substream, subbuffer, ',');
-        insurance->setCoveragePercent(std::stoi(subbuffer));
+        insurance->setCoveragePercent(std::stod(subbuffer));
         patient->setInsuranceCard(std::move(insurance));
     }
     else {
