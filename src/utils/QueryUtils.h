@@ -24,7 +24,7 @@ bool compare(const T& value, const FilterCondition<T>& condition);
 template<typename T>
 bool matches(const T& item, const std::vector<RFilter<std::remove_const_t<T>>>& filters);
 
-#endif // !QUERYUTILS_H
+//#endif // !QUERYUTILS_H
 
 template<typename T, typename U>
 inline Getter<T> makeGetter(U(T::* getter)() const) {
@@ -117,3 +117,5 @@ inline bool matches(const T& item, const std::vector<RFilter<std::remove_const_t
 
     return true;
 }
+
+#endif // !QUERYUTILS_H
