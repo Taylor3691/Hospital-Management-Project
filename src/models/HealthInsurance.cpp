@@ -53,3 +53,7 @@ bool HealthInsurance::checkValid() const {
     return _expiryDate > Date::getDate();
 }
 
+Object* HealthInsurance::clone() const {
+    return new HealthInsurance(*this);
+}
+

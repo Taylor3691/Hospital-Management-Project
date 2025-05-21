@@ -14,8 +14,9 @@ public:
         const std::string& gender, const std::string& address,
         const std::string& phone, const Date& dob,
         const std::string& education, double baseSalary);
-    virtual ~Employee() = default;
     Employee(const Employee& other);
+    virtual ~Employee() = default;
+
 public:
     std::string education() const;
     double baseSalary() const;
@@ -23,9 +24,11 @@ public:
 public:
     void setEducation(const std::string& education);
     void setBaseSalary(double salary);
+
 public:
-    Object* clone() const override;
-    void acceptWrite(IVisitor* visitor, std::ostream& os) override;
+    void acceptWrite(IVisitor* visitor, std::ostream& os) = 0;
+    Object* clone() const = 0;
+
 };
 
 #endif // !EMPLOYEE_H
