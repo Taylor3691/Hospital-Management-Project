@@ -12,6 +12,12 @@ Department::Department(
     , _foundationDate(date)
     , _description(description) {}
 
+Department::Department(const Department& other):
+    Object(other.id(), other.name()),
+    _headId(other.headId()),
+    _foundationDate(other.foundationDate()),
+    _description(other.description()) {}
+
 std::string Department::headId() const {
     return _headId;
 }
