@@ -28,7 +28,7 @@ public:
 
 public:
     void acceptWrite(IVisitor* visitor, std::ostream& os) override;
-    Object* clone() override;
+    Object* clone() const override;
 };
 
 #endif // !DOCTOR_H
