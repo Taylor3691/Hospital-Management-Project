@@ -1,7 +1,7 @@
 #include "TxtDepartmentRepository.h"
 
 TxtDepartmentRepository::TxtDepartmentRepository()
-    : _fileName("departments.txt") {
+    : _fileName("departments.txt"), _delim('|') {
 }
 
 TxtDepartmentRepository::TxtDepartmentRepository(
@@ -9,6 +9,22 @@ TxtDepartmentRepository::TxtDepartmentRepository(
     char delim
 )
     : _fileName(fileName), _delim(delim) {
+}
+
+std::string TxtDepartmentRepository::fileName() const {
+    return _fileName;
+}
+
+char TxtDepartmentRepository::delim() const {
+    return _delim;
+}
+
+void TxtDepartmentRepository::setFileName(const std::string& fileName) {
+    _fileName = fileName;
+}
+
+void TxtDepartmentRepository::setDelim(char delim) {
+    _delim = delim;
 }
 
 void TxtDepartmentRepository::load() {
@@ -47,3 +63,4 @@ std::vector<const Department*> TxtDepartmentRepository::data() const {
     }
     return result;
 }
+

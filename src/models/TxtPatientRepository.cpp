@@ -6,18 +6,16 @@
 
 TxtPatientRepository::TxtPatientRepository()
     : _filePath("patients.txt"), _delim('|') {
-    load();
 }
 
 TxtPatientRepository::TxtPatientRepository(const std::string& filePath, char delim) : _filePath(filePath), _delim(delim) {
-    load();
 }
 
-const std::string& TxtPatientRepository::filePath() const {
+const std::string& TxtPatientRepository::fileName() const {
     return _filePath;
 }
 
-void TxtPatientRepository::setFilePath(const std::string& filePath) {
+void TxtPatientRepository::setFileName(const std::string& filePath) {
     _filePath = filePath;
 }
 
@@ -34,6 +32,7 @@ void TxtPatientRepository::save() const {
 }
 
 void TxtPatientRepository::load() {
+    _patients.clear();
     ::load(_patients, _delim, _filePath);
 }
 

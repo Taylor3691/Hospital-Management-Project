@@ -15,9 +15,9 @@ public:
     TxtPatientRepository(const std::string& filePath, char delim = '|');
 
 public:
-    const std::string& filePath() const;
-    void setFilePath(const std::string& filePath);
+    const std::string& fileName() const;
     char delim() const;
+    void setFileName(const std::string& filePath);
     void setDelim(char delim);
 
 public:

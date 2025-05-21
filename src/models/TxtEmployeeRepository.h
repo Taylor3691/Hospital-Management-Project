@@ -16,6 +16,12 @@ public:
     TxtEmployeeRepository(const std::string& fileName, char delim = '|');
 
 public:
+    const std::string& fileName() const;
+    char delim() const;
+    void setFileName(const std::string& fileName);
+    void setDelim(char delim);
+
+public:
     void load() override;
     void save() const override;
     void add(std::unique_ptr<Employee> employee) override;
