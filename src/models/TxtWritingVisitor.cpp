@@ -1,6 +1,7 @@
 #include "TxtWritingVisitor.h"
 #include <sstream>
 #include <string>
+#include <iomanip>
 TxtWritingVisitor::TxtWritingVisitor(char delim)
     : _delim(delim) {}
 
@@ -12,7 +13,8 @@ void TxtWritingVisitor::write(Doctor* doctor, std::ostream& os) {
         << doctor->phone() << _delim
         << doctor->dob() << _delim
         << doctor->education() << _delim
-        << std::to_string(doctor->baseSalary()) << _delim
+        <<std::fixed<< std::setprecision(2)
+        << doctor->baseSalary() << _delim
         << doctor->specialty() << _delim
         << doctor->license();
 }
@@ -25,7 +27,8 @@ void TxtWritingVisitor::write(Nurse* nurse, std::ostream& os) {
         << nurse->phone() << _delim
         << nurse->dob() << _delim
         << nurse->education() << _delim
-        << std::to_string(nurse->baseSalary()) << _delim
+        << std::fixed << std::setprecision(2)
+        << nurse->baseSalary() << _delim
         << nurse->duty();
 }
 
@@ -37,9 +40,12 @@ void TxtWritingVisitor::write(Receptionist* receptionist, std::ostream& os) {
         << receptionist->phone() << _delim
         << receptionist->dob() << _delim
         << receptionist->education() << _delim
-        << std::to_string(receptionist->baseSalary()) << _delim
-        << std::to_string(receptionist->subsidies()) << _delim
-        << std::to_string(receptionist->workingDays());
+        << std::fixed << std::setprecision(2)
+        << receptionist->baseSalary() << _delim
+        << std::fixed << std::setprecision(2)
+        << receptionist->subsidies() << _delim
+        << std::fixed << std::setprecision(2)
+        << receptionist->workingDays();
 }
 
 void TxtWritingVisitor::write(Department* department, std::ostream& os) {
@@ -61,7 +67,8 @@ void TxtWritingVisitor::write(Patient* patient, std::ostream& os) {
             os << patient->insuranceCard()->cardNumber() << ','
                 << patient->insuranceCard()->issueDate() << ','
                 << patient->insuranceCard()->expiryDate() << ','
-                << std::to_string(patient->insuranceCard()->coveragePercent());
+                << std::fixed << std::setprecision(2)
+                << patient->insuranceCard()->coveragePercent();
         }else{
             os << "null";
         }

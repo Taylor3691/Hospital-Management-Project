@@ -6,6 +6,7 @@
 #include <string>
 #include <fstream>
 #include <regex>
+#include <filesystem>
 #include "../models/TxtParserFactory.h"
 #include "../models/TxtWritingVisitor.h"
 
@@ -61,7 +62,8 @@ inline void save(
     char delim,
     const std::string& fileName
 ) {
-    std::ofstream file(fileName, std::ios::trunc);
+    const std::string tmpFileName = fileName + ".tmp";
+    std::ofstream file(tmpFileName, std::ios::trunc | std::ios::out);
     if (!file.is_open()) {
         throw std::runtime_error("Cannot open file `" + fileName + "` for writing");
     }
@@ -72,7 +74,15 @@ inline void save(
         file << "\n";
     }
 
+    delete visitor;
+    file.flush();
     file.close();
+
+    std::error_code ec;
+    std::filesystem::rename(tmpFileName, fileName, ec);
+    if (ec) {
+        throw std::runtime_error("Cannot rename temp file to target");
+    }
 }
 
 #endif // !UTILS_TEMPLATE_H
