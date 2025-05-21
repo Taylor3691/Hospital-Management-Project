@@ -3,13 +3,15 @@
 
 #include <QVector>
 #include "ui_ManagementView.h"
+//#include "../models/DepartmentTableModel.h"
 #include "../models/EmployeeTableModel.h"
+#include "../views/EmployeeRecordView.h"
 
 namespace Ui {
     class ManagementView;
 }
 
-enum class Model {
+enum class ModelType {
     Patient,
     Department,
     Employee,
@@ -26,8 +28,12 @@ public:
     explicit ManagementView(QWidget* parent = nullptr);
     ~ManagementView();
 
+private:
+    void setup();
+    void setConnections();
+
 public:
-    void changeModel(Model model);
+    void changeModel(ModelType model);
 };
 
 #endif // !MANAGEMENT_VIEW_H

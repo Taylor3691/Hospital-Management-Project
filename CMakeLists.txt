@@ -26,47 +26,73 @@ set(TARGET_NAME HospitalManagementSystem)
 add_executable(${TARGET_NAME}
     packages/qdarkstyle/style.qrc
     src/main.cpp
-    src/models/Doctor.cpp
-    src/models/Employee.cpp
-    src/models/EmployeeManager.cpp
-    src/models/EmployeeQuery.cpp
-    src/models/EmployeeTableModel.cpp
-    src/models/Nurse.cpp
-    src/models/Object.cpp
-    src/models/Person.cpp
-    src/models/Receptionist.cpp
-    src/models/TxtEmployeeRepository.cpp
+    src/controllers/EmployeeManager.cpp    
+    src/models/Department.cpp              
+    src/models/Doctor.cpp                  
+    src/models/Employee.cpp                
+    src/models/EmployeeTableModel.cpp  
+    src/models/Nurse.cpp             
+    src/models/Object.cpp            
+    src/models/Person.cpp            
+    src/models/Receptionist.cpp      
+    src/models/TxtDepartmentParser.cpp      
+    src/models/TxtDepartmentRepository.cpp  
+    src/models/TxtDoctorParser.cpp          
+    src/models/TxtEmployeeRepository.cpp    
+    src/models/TxtNurseParser.cpp           
+    src/models/TxtParserFactory.cpp         
+    src/models/TxtReceptionistParser.cpp    
+    src/models/TxtWritingVisitor.cpp
     src/utils/Date.cpp
     src/utils/Time.cpp
+    src/views/EmployeeRecordView.cpp
+    src/views/EmployeeRecordView.ui
     src/views/HomeView.cpp
     src/views/HomeView.ui
     src/views/LoginView.cpp
     src/views/LoginView.ui
     src/views/ManagementView.cpp
     src/views/ManagementView.ui
-    packages/qdarkstyle/style.qrc
 )
 
 target_sources(${TARGET_NAME} PRIVATE
-    src/interfaces/IEmployeeRepository.h
-    src/interfaces/IManager.h
-    src/interfaces/IQuery.h
+    src/ServiceLocator.h
+    src/controllers/EmployeeManager.h       
+    src/interfaces/IDepartmentRepository.h  
+    src/interfaces/IEmployeeRepository.h    
+    src/interfaces/IManager.h               
+    src/interfaces/IParser.h                
+    src/interfaces/IParserFactory.h         
     src/interfaces/IRepository.h
-    src/models/Doctor.h
-    src/models/Employee.h
-    src/models/EmployeeManager.h
-    src/models/EmployeeQuery.h
-    src/models/EmployeeTableModel.h
-    src/models/Nurse.h
-    src/models/Object.h
-    src/models/Person.h
-    src/models/Receptionist.h
-    src/models/TxtEmployeeRepository.h
+    src/interfaces/IVisitor.h         
+    src/interfaces/IWritingVisitor.h  
+    src/models/Department.h           
+    src/models/DepartmentParser.h     
+    src/models/Doctor.h               
+    src/models/DoctorParser.h         
+    src/models/Employee.h             
+    src/models/EmployeeTableModel.h  
+    src/models/Nurse.h             
+    src/models/NurseParser.h       
+    src/models/Object.h            
+    src/models/Person.h            
+    src/models/Receptionist.h      
+    src/models/ReceptionistParser.h       
+    src/models/TxtDepartmentParser.h      
+    src/models/TxtDepartmentRepository.h  
+    src/models/TxtDoctorParser.h          
+    src/models/TxtEmployeeRepository.h    
+    src/models/TxtNurseParser.h           
+    src/models/TxtParserFactory.h         
+    src/models/TxtReceptionistParser.h    
+    src/models/TxtWritingVisitor.h
     src/utils/Date.h
     src/utils/QueryBuilder.h
     src/utils/QueryTypes.h
     src/utils/QueryUtils.h
     src/utils/Time.h
+    src/utils/utils_template.h
+    src/views/EmployeeRecordView.h
     src/views/HomeView.h
     src/views/LoginView.h
     src/views/ManagementView.h

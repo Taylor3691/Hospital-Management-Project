@@ -4,46 +4,102 @@ ManagementView::ManagementView(QWidget* parent)
     : QWidget(parent)
     , _ui(new Ui::ManagementView)
     , _models({
-        new EmployeeTableModel(
-            {
-                "ID",
-                "Tên",
-                "Ngày sinh",
-                "Giới tính",
-                "Điện thoại",
-                "Địa chỉ",
-                "Học vị",
-                "Lương cơ bản",
-            },
-            {
-                new Employee("BS-001", "Nguyen Van An", Date("01/01/1999"), "Nam", "Ho Chi Minh", "0123456789", "Tien Si Y Hoc", 4000000),
-                new Employee("BS-002", "Tran Thi Lan", Date("15/03/1985"), "Nu", "Da Nang", "0912345678", "Tien Si Y Hoc", 5000000),
-            },
-            this
-        ),
+        nullptr,
+        nullptr,
+        new EmployeeTableModel(this),
     })
 {
-    _ui->setupUi(this);
+    setup();
+    setConnections();
 }
 
 ManagementView::~ManagementView() {
     delete _ui;
 }
 
-void ManagementView::changeModel(Model model) {
-    _ui->tableView->setModel(_models[(int)Model::Patient]); // Just a placeholder
-    switch (model) {
-    case Model::Patient:
-        _ui->add_pushButton->setText("Thêm bệnh nhân");
-        _ui->delete_pushButton->setText("Xóa bệnh nhân");
-        break;
-    case Model::Department:
-        _ui->add_pushButton->setText("Thêm khoa");
-        _ui->delete_pushButton->setText("Xóa khoa");
-        break;
-    case Model::Employee:
-        _ui->add_pushButton->setText("Thêm nhân viên");
-        _ui->delete_pushButton->setText("Xóa nhân viên");
-        break;
+void ManagementView::setup() {
+    _ui->setupUi(this);
+
+    _ui->update_pushButton->setVisible(0);
+    _ui->delete_pushButton->setVisible(0);
+
+    _ui->tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
+}
+
+void ManagementView::setConnections() {
+    connect(_ui->add_pushButton, &QPushButton::clicked, this,
+        [this](bool) {
+            auto model = _ui->tableView->model();
+            auto index = (ModelType)_models.indexOf(qobject_cast<QAbstractTableModel*>(model), 0);
+            if (index == ModelType::Employee) {
+                EmployeeRecordView view(qApp->styleSheet());
+                view.setWindowTitle("Thêm nhân viên");
+                view.setAcceptButtonText("Thêm");
+
+                if (view.exec() == QDialog::DialogCode::Accepted) {
+                    static_cast<EmployeeTableModel*>(model)->add(view.getEmployee());
+                }
+            }
+        });
+
+    connect(_ui->update_pushButton, &QPushButton::clicked, this,
+        [this](bool) {
+            auto index = _ui->tableView->selectionModel()->selectedRows()[0];
+            auto model = _ui->tableView->model();
+
+            auto modelIndex = (ModelType)_models.indexOf(qobject_cast<QAbstractTableModel*>(model), 0);
+            if (modelIndex == ModelType::Employee) {
+                auto employee = static_cast<const Employee*>(model->data(index, Qt::UserRole).value<void*>());
+
+                EmployeeRecordView view(qApp->styleSheet());
+                view.setWindowTitle("Cập nhật thông tin");
+                view.setAcceptButtonText("Lưu");
+                view.setEmployee(employee);
+                view.disableNotEditableFields();
+
+                if (view.exec() == QDialog::DialogCode::Accepted) {
+                    static_cast<EmployeeTableModel*>(model)->update(*view.getEmployee().get());
+                }
+            }
+            else if (modelIndex == ModelType::Department) {
+
+            }
+            else {
+
+            }
+        });
+
+    connect(_ui->delete_pushButton, &QPushButton::clicked, this,
+        [this](bool) {
+            std::vector<std::string> ids;
+            auto model = _ui->tableView->model();
+            for (const auto& index : _ui->tableView->selectionModel()->selectedRows()) {
+                auto obj = static_cast<const Object*>(model->data(index, Qt::UserRole).value<void*>());
+                ids.push_back(obj->id());
+            }
+            static_cast<EmployeeTableModel*>(model)->removeByIds(ids);
+        });
+}
+
+void ManagementView::changeModel(ModelType model) {
+    if (auto currentModel = _ui->tableView->model()) {
+        disconnect(currentModel, &QAbstractItemModel::dataChanged, this, nullptr);
     }
+
+    _ui->tableView->setModel(_models[(int)model]);
+    _ui->update_pushButton->setVisible(0);
+    _ui->delete_pushButton->setVisible(0);
+
+    connect(_ui->tableView->selectionModel(), &QItemSelectionModel::selectionChanged, this,
+        [this](const QItemSelection&, const QItemSelection&) {
+            QModelIndexList selectedRows = _ui->tableView->selectionModel()->selectedRows();
+            _ui->update_pushButton->setVisible(selectedRows.count() == 1);
+            _ui->delete_pushButton->setVisible(selectedRows.count());
+        });
+
+    connect(_ui->tableView->model(), &QAbstractItemModel::modelReset, this,
+        [this]() {
+            _ui->update_pushButton->setVisible(0);
+            _ui->delete_pushButton->setVisible(0);
+        });
 }
