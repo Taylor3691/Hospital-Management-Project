@@ -15,6 +15,22 @@ TxtEmployeeRepository::TxtEmployeeRepository(
     ::load(_employees, _delim, _fileName);
 }
 
+const std::string& TxtEmployeeRepository::fileName() const {
+    return _fileName;
+}
+
+char TxtEmployeeRepository::delim() const {
+    return _delim;
+}
+
+void TxtEmployeeRepository::setFileName(const std::string& fileName) {
+    _fileName = fileName;
+}
+
+void TxtEmployeeRepository::setDelim(char delim) {
+    _delim = delim;
+}
+
 void TxtEmployeeRepository::load() {
     _employees.clear();
     ::load(_employees, _delim, _fileName);

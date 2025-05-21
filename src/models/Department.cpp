@@ -12,6 +12,12 @@ Department::Department(
     , _foundationDate(date)
     , _description(description) {}
 
+Department::Department(const Department& other):
+    Object(other.id(), other.name()),
+    _headId(other.headId()),
+    _foundationDate(other.foundationDate()),
+    _description(other.description()) {}
+
 std::string Department::headId() const {
     return _headId;
 }
@@ -38,4 +44,8 @@ void Department::setDescription(const std::string& description) {
 
 void Department::acceptWrite(IVisitor* visitor, std::ostream& os) {
     dynamic_cast<TxtWritingVisitor*>(visitor)->write(this, os);
+}
+
+Object* Department::clone() const {
+    return new Department(*this);
 }

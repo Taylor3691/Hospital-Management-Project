@@ -52,3 +52,4 @@ void HealthInsurance::setCoveragePercent(const double& percent) {
 bool HealthInsurance::checkValid() const {
     return _expiryDate > Date::getDate();
 }
+

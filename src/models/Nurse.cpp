@@ -15,6 +15,11 @@ Nurse::Nurse(
         phone, dob, education, baseSalary)
     , _duty(duty) {}
 
+Nurse::Nurse(const Nurse& other) :
+    Employee(other.id(), other.name(), other.gender(), other.address(), other.phone(),
+        other.dob(), other.education(), other.baseSalary()),
+    _duty(other.duty()) {}
+
 std::string Nurse::duty() const {
     return _duty;
 }
@@ -25,4 +30,8 @@ void Nurse::setDuty(const std::string& duty) {
 
 void Nurse::acceptWrite(IVisitor* visitor, std::ostream& os) {
     dynamic_cast<TxtWritingVisitor*>(visitor)->write(this, os);
+}
+
+Object* Nurse::clone() const  {
+    return new Nurse(*this);
 }

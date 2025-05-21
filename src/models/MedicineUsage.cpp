@@ -5,27 +5,21 @@ MedicineUsage::MedicineUsage()
 
 MedicineUsage::MedicineUsage(
     const std::string& id,
-    const std::string& patientId,
-    const std::string& doctorId,
+    const std::string& recordId,
     const std::string& medicineId,
     int usedQuantity,
     double price,
     const std::string& description
 )
     : BillableComponent(id, "")
-    , _patientId(patientId)
-    , _doctorId(doctorId)
+    , _recordId(recordId)
     , _medicineId(medicineId)
     , _usedQuantity(usedQuantity)
     , _price(price)
     , _description(description) {}
 
-std::string MedicineUsage::patientId() const {
-    return _patientId;
-}
-
-std::string MedicineUsage::doctorId() const {
-    return _doctorId;
+std::string MedicineUsage::recordId() const {
+    return _recordId;
 }
 
 std::string MedicineUsage::medicineId() const {
@@ -44,12 +38,8 @@ std::string MedicineUsage::description() const {
     return _description;
 }
 
-void MedicineUsage::setPatientId(const std::string& patientId) {
-    _patientId = patientId;
-}
-
-void MedicineUsage::setDoctorId(const std::string& doctorId) {
-    _doctorId = doctorId;
+void MedicineUsage::setRecordId(const std::string& recordId) {
+    _recordId = recordId;
 }
 
 void MedicineUsage::setMedicineId(const std::string& medicineId) {

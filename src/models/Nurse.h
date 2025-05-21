@@ -15,6 +15,7 @@ public:
         const std::string& phone, const Date& dob, 
         const std::string& education, double baseSalary,
         const std::string& duty);
+    Nurse(const Nurse& other);
 
 public:
     std::string duty() const;
@@ -24,6 +25,7 @@ public:
 
 public:
     void acceptWrite(IVisitor* visitor, std::ostream& os) override;
+    Object* clone() const override;
 };
 
 #endif // !NURSE_H
