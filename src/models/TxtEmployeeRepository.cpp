@@ -1,13 +1,19 @@
 #include "TxtEmployeeRepository.h"
 
 TxtEmployeeRepository::TxtEmployeeRepository()
-    : _fileName("employees.txt") {}
+    : _fileName("employees.txt"), _delim('|')
+{
+    ::load(_employees, _delim, _fileName);
+}
 
 TxtEmployeeRepository::TxtEmployeeRepository(
     const std::string& fileName,
     char delim
 )
-    : _fileName(fileName), _delim(delim) {}
+    : _fileName(fileName), _delim(delim)
+{
+    ::load(_employees, _delim, _fileName);
+}
 
 void TxtEmployeeRepository::load() {
     _employees.clear();
@@ -20,12 +26,21 @@ void TxtEmployeeRepository::save() const {
 
 void TxtEmployeeRepository::add(std::unique_ptr<Employee> employee) {
     _employees.push_back(std::move(employee));
-    save();
+    //save();
 }
 
 void TxtEmployeeRepository::removeById(const std::string& id) {
     from(_employees).where(&Employee::id, id).deleteOne();
-    save();
+    //save();
+}
+
+void TxtEmployeeRepository::removeByIds(const std::vector<std::string>& ids) {
+    auto query = from(_employees, FilterMode::OR);
+    for (const auto& id : ids) {
+        query.where(&Employee::id, id);
+    }
+    query.deleteMany();
+    //save();
 }
 
 void TxtEmployeeRepository::update(const Employee& employee) {
@@ -34,7 +49,7 @@ void TxtEmployeeRepository::update(const Employee& employee) {
     if (ptr) {
         *ptr = employee;
     }
-    save();
+    //save();
 }
 
 std::vector<const Employee*> TxtEmployeeRepository::data() const {

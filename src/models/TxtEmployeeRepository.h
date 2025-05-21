@@ -20,6 +20,7 @@ public:
     void save() const override;
     void add(std::unique_ptr<Employee> employee) override;
     void removeById(const std::string& id) override;
+    void removeByIds(const std::vector<std::string>& ids);
     void update(const Employee& employee) override;
     std::vector<const Employee*> data() const override;
 };
