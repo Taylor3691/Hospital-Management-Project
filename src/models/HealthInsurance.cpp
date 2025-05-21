@@ -52,8 +52,3 @@ void HealthInsurance::setCoveragePercent(const double& percent) {
 bool HealthInsurance::checkValid() const {
     return _expiryDate > Date::getDate();
 }
-
-Object* HealthInsurance::clone() const {
-    return new HealthInsurance(*this);
-}
-

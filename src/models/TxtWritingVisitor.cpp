@@ -1,7 +1,5 @@
 #include "TxtWritingVisitor.h"
-#include <sstream>
-#include <string>
-#include <iomanip>
+
 TxtWritingVisitor::TxtWritingVisitor(char delim)
     : _delim(delim) {}
 
@@ -13,7 +11,7 @@ void TxtWritingVisitor::write(Doctor* doctor, std::ostream& os) {
         << doctor->phone() << _delim
         << doctor->dob() << _delim
         << doctor->education() << _delim
-        <<std::fixed<< std::setprecision(2)
+        << std::fixed<< std::setprecision(2)
         << doctor->baseSalary() << _delim
         << doctor->specialty() << _delim
         << doctor->license();

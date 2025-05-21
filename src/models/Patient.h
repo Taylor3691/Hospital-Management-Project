@@ -31,7 +31,6 @@ public:
 
 public:
     void acceptWrite(IVisitor* visitor, std::ostream& os) override;
-    Object* clone() const override;
 
 public:
     Patient& operator=(const Patient& other);

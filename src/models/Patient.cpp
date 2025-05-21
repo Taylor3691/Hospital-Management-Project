@@ -13,11 +13,12 @@ Patient::Patient(const std::string& id,
     , _symptoms(symptoms)
     , _insuranceCard(std::move(insuranceCard)) {}
 
-Patient::Patient(const Patient& other) :
-    Person(other.id(), other.name(), other.gender(), other.address(), other.phone(), other.dob()),
-    _symptoms(other.symptoms()),
-    _insuranceCard(other.insuranceCard() ? std::make_unique<HealthInsurance>(*other.insuranceCard()) : nullptr)
-{}
+Patient::Patient(const Patient& other)
+    : Person(other)
+    , _symptoms(other._symptoms)
+    , _insuranceCard(
+        std::make_unique<HealthInsurance>(*other._insuranceCard)) {}
+
 std::vector<std::string> Patient::symptoms() const {
     return _symptoms;
 }
@@ -42,13 +43,7 @@ void Patient::acceptWrite(IVisitor* visitor, std::ostream& os) {
     dynamic_cast<TxtWritingVisitor*>(visitor)->write(this, os);
 }
 
-Object* Patient::clone() const {
-    return new Patient(*this);
-}
-
-Patient& Patient::operator=(
-    const Patient& other
-    ) {
+Patient& Patient::operator=(const Patient& other) {
     if (this != &other) {
         Person::operator=(other);
         _symptoms = other._symptoms;

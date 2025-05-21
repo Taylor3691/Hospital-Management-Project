@@ -1,6 +1,7 @@
 #include "TxtPatientParser.h"
 
-TxtPatientParser::TxtPatientParser(char delim) : _delim(delim) {}
+TxtPatientParser::TxtPatientParser(char delim)
+    : _delim(delim) {}
 
 Object* TxtPatientParser::parse(const std::string& str) const {
     std::stringstream stream(str);

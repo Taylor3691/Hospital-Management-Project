@@ -1,12 +1,14 @@
 #ifndef TXT_WRITING_VISITOR_H
 #define TXT_WRITING_VISITOR_H
 
+#include <iomanip>
 #include "../interfaces/IWritingVisitor.h"
 #include "Doctor.h"
 #include "Nurse.h"
 #include "Receptionist.h"
 #include "Department.h"
 #include "Patient.h"
+
 class TxtWritingVisitor : public IWritingVisitor {
 private:
     char _delim;

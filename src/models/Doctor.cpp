@@ -17,12 +17,6 @@ Doctor::Doctor(
     , _specialty(specialty)
     , _license(license) {}
 
-Doctor::Doctor(const Doctor& other)
-    : Employee(other.id(), other.name(), other.gender(), other.address(), other.phone(),
-        other.dob(), other.education(), other.baseSalary()),
-    _specialty(other.specialty()),
-    _license(other.license()) {}
-
 std::string Doctor::specialty() const {
     return _specialty;
 }
@@ -41,8 +35,4 @@ void Doctor::setLicense(const std::string& license) {
 
 void Doctor::acceptWrite(IVisitor* visitor, std::ostream& os) {
     dynamic_cast<TxtWritingVisitor*>(visitor)->write(this, os);
-}
-
-Object* Doctor::clone() const {
-    return new Doctor(*this);
 }

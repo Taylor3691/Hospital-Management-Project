@@ -63,7 +63,18 @@ void TxtEmployeeRepository::update(const Employee& employee) {
     auto ptr = from(_employees)
         .where(&Employee::id, employee.id()).findOne();
     if (ptr) {
-        *ptr = employee;
+        if (auto doctorPtr = dynamic_cast<Doctor*>(ptr)) {
+            *doctorPtr = dynamic_cast<const Doctor&>(employee);
+        }
+        else if (auto nursePtr = dynamic_cast<Nurse*>(ptr)) {
+            *nursePtr = dynamic_cast<const Nurse&>(employee);
+        }
+        else if (auto receptionistPtr = dynamic_cast<Receptionist*>(ptr)) {
+            *receptionistPtr = dynamic_cast<const Receptionist&>(employee);
+        }
+        else {
+            *ptr = employee;
+        }
     }
     //save();
 }

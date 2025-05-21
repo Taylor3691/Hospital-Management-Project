@@ -16,7 +16,6 @@ public:
     Department(const std::string& id, const std::string& name,
         const std::string& headId, const Date& date,
         const std::string& description);
-    Department(const Department& other);
 
 public:
     std::string headId() const;
@@ -30,7 +29,6 @@ public:
 
 public:
     void acceptWrite(IVisitor* visitor, std::ostream& os) override;
-    Object* clone() const override;
 };
 
 #endif // !DEPARTMENT_H
