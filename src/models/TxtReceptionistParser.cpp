@@ -6,7 +6,7 @@ TxtReceptionistParser::TxtReceptionistParser(char delim)
 Object* TxtReceptionistParser::parse(const std::string& str) const {
     auto receptionist = new Receptionist();
 
-    std::istringstream stream;
+    std::istringstream stream(str);
     std::string buffer;
 
     std::getline(stream, buffer, _delim);
