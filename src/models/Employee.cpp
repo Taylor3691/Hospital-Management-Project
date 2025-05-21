@@ -14,6 +14,11 @@ Employee::Employee(
     , _education(education)
     , _baseSalary(baseSalary) {}
 
+Employee::Employee(const Employee& other)
+    : Person(other.id(), other.name(), other.gender(), other.address(), other.phone(), other.dob()),
+    _education(other.education()),
+    _baseSalary(other.baseSalary()) {}
+
 std::string Employee::education() const {
     return _education;
 }
@@ -28,4 +33,12 @@ void Employee::setEducation(const std::string& education) {
 
 void Employee::setBaseSalary(double salary) {
     _baseSalary = salary;
+}
+
+Object* Employee::clone() {
+    return new Employee(*this);
+}
+
+void Employee::acceptWrite(IVisitor* visitor, std::ostream& os) {
+
 }

@@ -17,6 +17,12 @@ Receptionist::Receptionist(
     , _subsidies(subsidies)
     , _workingDays(workingDays) {}
 
+Receptionist::Receptionist(const Receptionist& other):
+    Employee(other.id(), other.name(), other.gender(), other.address(), other.phone(),
+        other.dob(), other.education(), other.baseSalary()),
+    _subsidies(other.subsidies()),
+    _workingDays(other.workingDays()) {}
+
 double Receptionist::subsidies() const {
     return _subsidies;
 }
