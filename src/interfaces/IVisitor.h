@@ -5,6 +5,7 @@ class Doctor;
 class Nurse;
 class Receptionist;
 class Department;
+class Patient;
 
 class IVisitor {
 public:

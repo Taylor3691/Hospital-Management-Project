@@ -43,6 +43,6 @@ void Doctor::acceptWrite(IVisitor* visitor, std::ostream& os) {
     dynamic_cast<TxtWritingVisitor*>(visitor)->write(this, os);
 }
 
-Object* Doctor::clone() {
+Object* Doctor::clone() const {
     return new Doctor(*this);
 }

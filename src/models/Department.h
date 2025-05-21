@@ -29,6 +29,7 @@ public:
 
 public:
     void acceptWrite(IVisitor* visitor, std::ostream& os) override;
+    Object* clone() override;
 };
 
 #endif // !DEPARTMENT_H

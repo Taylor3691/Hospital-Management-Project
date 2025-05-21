@@ -9,6 +9,7 @@ public:
     virtual ~IWritingVisitor() = default;
 
 public:
+    virtual void write(Patient* patient, std::ostream& os) = 0;
     virtual void write(Doctor* doctor, std::ostream& os) = 0;
     virtual void write(Nurse* nurse, std::ostream& os) = 0;
     virtual void write(Receptionist* receptionist, std::ostream& os) = 0;

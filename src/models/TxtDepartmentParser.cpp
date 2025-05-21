@@ -6,7 +6,7 @@ TxtDepartmentParser::TxtDepartmentParser(char delim)
 Object* TxtDepartmentParser::parse(const std::string& str) const {
     auto department = new Department();
 
-    std::istringstream stream;
+    std::istringstream stream(str);
     std::string buffer;
 
     std::getline(stream, buffer, _delim);

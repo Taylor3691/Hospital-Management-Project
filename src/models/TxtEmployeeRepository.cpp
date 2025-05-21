@@ -1,7 +1,7 @@
 #include "TxtEmployeeRepository.h"
 
 TxtEmployeeRepository::TxtEmployeeRepository()
-    : _fileName("employees.txt") {}
+    : _fileName("employees.txt"), _delim('|') {}
 
 TxtEmployeeRepository::TxtEmployeeRepository(
     const std::string& fileName,

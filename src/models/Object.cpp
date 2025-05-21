@@ -24,6 +24,6 @@ void Object::setName(const std::string& name) {
     _name = name;
 }
 
-Object* Object::clone() {
+Object* Object::clone() const {
     return nullptr;
 }

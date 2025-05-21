@@ -5,10 +5,10 @@
 #include <memory>
 #include "Person.h"
 #include "HealthInsurance.h"
-
+#include "TxtWritingVisitor.h"
 class Patient : public Person {
-private:
-    std::vector<std::string> _allergies;
+protected:
+    std::vector<std::string> _symptoms;
     std::unique_ptr<HealthInsurance> _insuranceCard;
 
 public:
@@ -19,17 +19,21 @@ public:
         const std::vector<std::string>& allergies,
         std::unique_ptr<HealthInsurance> insuranceCard = nullptr);
     Patient(const Patient& other);
+    virtual ~Patient() = default;
 
 public:
-    std::vector<std::string> allergies() const;
+    std::vector<std::string> symptoms() const;
     const HealthInsurance* insuranceCard() const;
 
 public:
-    void allergies(const std::vector<std::string>& allergies);
-    void insuranceCard(std::unique_ptr<HealthInsurance> insuranceCard);
+    void setSymptoms(const std::vector<std::string>& allergies);
+    void setInsuranceCard(std::unique_ptr<HealthInsurance> insuranceCard);
+
 public:
-    Object* clone() override;
     void acceptWrite(IVisitor* visitor, std::ostream& os) override;
+    Object* clone() const override;
+public:
+    Patient& operator=(const Patient& other);
 };
 
 #endif

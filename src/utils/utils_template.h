@@ -17,7 +17,7 @@ template<typename T>
 void save(const std::vector<std::unique_ptr<T>>& container,
     char delim, const std::string& fileName);
 
-#endif // !UTILS_TEMPLATE_H
+//#endif // !UTILS_TEMPLATE_H
 
 template<typename T>
 inline void load(
@@ -74,3 +74,5 @@ inline void save(
 
     file.close();
 }
+
+#endif // !UTILS_TEMPLATE_H
