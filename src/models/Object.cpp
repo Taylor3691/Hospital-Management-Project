@@ -3,6 +3,11 @@
 Object::Object(const std::string& id, const std::string& name)
     : _id(id), _name(name) {}
 
+Object::Object(const Object& other) {
+    _id = other._id;
+    _name = other._name;
+}
+
 std::string Object::id() const {
     return _id;
 }
@@ -17,4 +22,8 @@ void Object::setId(const std::string& id) {
 
 void Object::setName(const std::string& name) {
     _name = name;
+}
+
+Object* Object::clone() const {
+    return nullptr;
 }

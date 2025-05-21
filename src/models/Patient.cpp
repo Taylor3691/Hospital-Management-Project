@@ -13,6 +13,11 @@ Patient::Patient(const std::string& id,
     , _symptoms(symptoms)
     , _insuranceCard(std::move(insuranceCard)) {}
 
+Patient::Patient(const Patient& other) :
+    Person(other.id(), other.name(), other.gender(), other.address(), other.phone(), other.dob()),
+    _symptoms(other.symptoms()),
+    _insuranceCard(other.insuranceCard() ? std::make_unique<HealthInsurance>(*other.insuranceCard()) : nullptr)
+{}
 std::vector<std::string> Patient::symptoms() const {
     return _symptoms;
 }
@@ -46,4 +51,7 @@ Patient& Patient::operator=(
         _insuranceCard = std::make_unique<HealthInsurance>(*other._insuranceCard);
     }
     return *this;
+}
+Object* Patient::clone() const {
+    return new Patient(*this);
 }

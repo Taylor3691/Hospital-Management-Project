@@ -14,6 +14,13 @@ Person::Person(
     , _phone(phone)
     , _dateOfBirth(dob) {}
 
+Person::Person(const Person& other)
+    : Object(other.id(), other.name()),
+    _gender(other.gender()),
+    _address(other.address()),
+    _phone(other.phone()),
+    _dateOfBirth(other.dob()){}
+
 std::string Person::gender() const {
     return _gender;
 }

@@ -16,6 +16,7 @@ public:
     Person(const std::string& id, const std::string& name,
         const std::string& gender, const std::string& address,
         const std::string& phone, const Date& dob);
+    Person(const Person&);
     virtual ~Person() = default;
 
 public:

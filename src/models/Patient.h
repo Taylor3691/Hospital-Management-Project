@@ -18,6 +18,7 @@ public:
         const std::string& phone, const Date& dob,
         const std::vector<std::string>& allergies,
         std::unique_ptr<HealthInsurance> insuranceCard = nullptr);
+    Patient(const Patient& other);
     virtual ~Patient() = default;
 
 public:
@@ -30,7 +31,7 @@ public:
 
 public:
     void acceptWrite(IVisitor* visitor, std::ostream& os) override;
-
+    Object* clone() const override;
 public:
     Patient& operator=(const Patient& other);
 };
