@@ -18,6 +18,7 @@ public:
         const std::string& phone, const Date& dob,
         const std::vector<std::string>& allergies,
         std::unique_ptr<HealthInsurance> insuranceCard = nullptr);
+    Patient(const Patient& other);
 
 public:
     std::vector<std::string> allergies() const;
@@ -26,6 +27,9 @@ public:
 public:
     void allergies(const std::vector<std::string>& allergies);
     void insuranceCard(std::unique_ptr<HealthInsurance> insuranceCard);
+public:
+    Object* clone() override;
+    void acceptWrite(IVisitor* visitor, std::ostream& os) override;
 };
 
 #endif

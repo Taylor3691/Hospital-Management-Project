@@ -13,6 +13,7 @@ protected:
 public:
     Object() = default;
     Object(const std::string& id, const std::string& name);
+    Object(const Object&);
     virtual ~Object() = default;
 
 public:
@@ -25,6 +26,8 @@ public:
 
 public:
     virtual void acceptWrite(IVisitor* visitor, std::ostream& os) = 0;
+    virtual Object* clone();
+
 };
 
 #endif // !OBJECT_H

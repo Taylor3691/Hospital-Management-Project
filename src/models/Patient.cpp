@@ -13,6 +13,12 @@ Patient::Patient(const std::string& id,
     , _allergies(allergies)
     , _insuranceCard(std::move(insuranceCard)) {}
 
+Patient::Patient(const Patient& other) :
+    Person(other.id(), other.name(), other.gender(), other.address(), other.phone(), other.dob()),
+    _allergies(other.allergies()),
+    _insuranceCard(other.insuranceCard() ? std::make_unique<HealthInsurance>(*other.insuranceCard()) : nullptr)
+{}
+
 std::vector<std::string> Patient::allergies() const {
     return _allergies;
 }
@@ -31,4 +37,12 @@ void Patient::insuranceCard(
     std::unique_ptr<HealthInsurance> insuranceCard
 ) {
     _insuranceCard = std::move(insuranceCard);
+}
+
+Object* Patient::clone() {
+    return new Patient(*this);
+}
+
+void Patient::acceptWrite(IVisitor* visitor, std::ostream& os) {
+    
 }
