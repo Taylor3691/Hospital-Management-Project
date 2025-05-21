@@ -1,70 +1,47 @@
-#ifndef QUERYUTILS_H
-#define QUERYUTILS_H
+#ifndef QUERY_UTILS_H
+#define QUERY_UTILS_H
 
 #include "QueryTypes.h"
 
-template<typename T, typename U>
-Getter<T> makeGetter(U(T::* getter)() const);
-
-template<typename T, typename U>
-Getter<T> makeGetter(const U* (T::* getter)() const);
-
-template<typename T, typename U>
-Setter<T> makeSetter(void(T::* setter)(const U&));
-
-template<typename T, typename U>
-Getter<T> compose(Getter<T> parent, Getter<U> child);
-
-template<typename T, typename U>
-Setter<T> compose(Getter<T> parent, Setter<U> child);
-
-template<typename T>
-bool compare(const T& value, const FilterCondition<T>& condition);
-
-template<typename T>
-bool matches(const T& item, const std::vector<RFilter<std::remove_const_t<T>>>& filters);
-
-#endif // !QUERYUTILS_H
-
-template<typename T, typename U>
-inline Getter<T> makeGetter(U(T::* getter)() const) {
-    return [getter](const T& obj) -> std::any {
+template<class ClassType, class ValueType>
+inline Getter<ClassType> makeGetter(ValueType(ClassType::* getter)() const) {
+    return [getter](const ClassType& obj) -> std::any {
         return (obj.*getter)();
     };
 }
 
-template<typename T, typename U>
-inline Getter<T> makeGetter(const U* (T::* getter)() const) {
-    return [getter](const T& obj) -> std::any {
+template<class ClassType, class ValueType>
+inline Getter<ClassType> makeGetter(const ValueType* (ClassType::* getter)() const) {
+    return [getter](const ClassType& obj) -> std::any {
         return *(obj.*getter)();
     };
 }
 
-template<typename T, typename U>
-inline Setter<T> makeSetter(void(T::* setter)(const U&)) {
-    return [setter](const T& obj, const U& value) -> std::any {
+template<class ClassType, class ValueType>
+inline Setter<ClassType> makeSetter(void(ClassType::* setter)(const ValueType&)) {
+    return [setter](const ClassType& obj, const ValueType& value) -> std::any {
         return (obj.*setter)(value);
     };
 }
 
-template<typename T, typename U>
-inline Getter<T> compose(Getter<T> parent, Getter<U> child) {
-    return [parent, child](const T& obj) -> std::any {
+template<class Parent, class Child>
+inline Getter<Parent> compose(Getter<Parent> parent, Getter<Child> child) {
+    return [parent, child](const Parent& obj) -> std::any {
         try {
-            auto parentValue = std::any_cast<U>(parent(obj));
+            auto parentValue = std::any_cast<Child>(parent(obj));
             return child(parentValue);
         }
         catch (const std::bad_any_cast& e) {
-            throw std::runtime_error("Type mismatch in compose");
+            throw std::runtime_error("Parentype mismatch in compose");
         }
     };
 }
 
-template<typename T, typename U>
-inline Setter<T> compose(Getter<T> parent, Setter<U> child) {
-    return [parent, child](const T& obj, const U& value) -> std::any {
+template<class Parent, class Child>
+inline Setter<Parent> compose(Getter<Parent> parent, Setter<Child> child) {
+    return [parent, child](const Parent& obj, const Child& value) -> std::any {
         try {
-            auto parentValue = std::any_cast<U>(parent(obj));
+            auto parentValue = std::any_cast<Child>(parent(obj));
             return child(parentValue, value);
         }
         catch (const std::bad_any_cast& e) {
@@ -73,47 +50,56 @@ inline Setter<T> compose(Getter<T> parent, Setter<U> child) {
     };
 }
 
-template<typename T>
-inline bool compare(const T& value, const FilterCondition<T>& condition) {
-    switch (condition.op) {
-    case ComparisonOperator::EQ:
-        return value == condition.value;
-    case ComparisonOperator::NE:
-        return value != condition.value;
-    case ComparisonOperator::GT:
-        return value > condition.value;
-    case ComparisonOperator::LT:
-        return value < condition.value;
-    case ComparisonOperator::GTE:
-        return value >= condition.value;
-    case ComparisonOperator::LTE:
-        return value <= condition.value;
-    default:
-        return false;
+template<class ValueType>
+inline bool compare(const ValueType& value, const FilterCriteria& criteria) {
+    if (auto ptr = std::get_if<ValueType>(&criteria.value)) {
+        switch (criteria.op) {
+        case ComparisonOperator::EQ: return value == *ptr;
+        case ComparisonOperator::NE: return value != *ptr;
+        case ComparisonOperator::GT: return value > *ptr;
+        case ComparisonOperator::LT: return value < *ptr;
+        case ComparisonOperator::GTE: return value >= *ptr;
+        case ComparisonOperator::LTE: return value <= *ptr;
+        default: return false;
+        }
     }
+    return false;
 }
 
-template<typename T>
-inline bool matches(const T& item, const std::vector<RFilter<std::remove_const_t<T>>>& filters) {
+template<class ClassType>
+inline bool matches(
+    const ClassType& item,
+    const std::vector<RFilter<std::remove_const_t<ClassType>>>& filters,
+    FilterMode mode = FilterMode::AND
+) {
     if (filters.empty()) return true;
 
     bool result = true;
-    for (const RFilter<T>& filter : filters) {
-        std::visit([&](const auto& cond) {
+    for (const RFilter<ClassType>& filter : filters) {
+        std::visit([&](const auto& condValue) {
             try {
-                using CondType = std::decay_t<decltype(cond.value)>;
-                auto value = std::any_cast<CondType>(filter.getter(item));
-                result = compare(value, cond);
+                using ValueType = std::decay_t<decltype(condValue)>;
+                auto value = std::any_cast<ValueType>(filter.getter(item));
+                result = compare(value, filter.criteria);
             }
             catch (const std::bad_any_cast&) {
                 throw std::runtime_error("Type mismatch in filter");
             }
-        }, filter.criteria);
+        }, filter.criteria.value);
 
-        if (!result) {
+        if (mode == FilterMode::OR) {
+            if (result) {
+                return true;
+            }
+            else if (!result && &filter == &filters.back()) {
+                return false;
+            }
+        }
+        else if (!result) {
             return false;
         }
     }
-
     return true;
 }
+
+#endif // !QUERY_UTILS_H
