@@ -11,9 +11,10 @@ public:
     virtual ~IManager() = default;
 
 public:
-    virtual void removeById(const std::string& id) = 0;
     virtual void add(std::unique_ptr<Entity> entity) = 0;
-    virtual std::vector<const Entity*> findAll() const = 0;
+    virtual void removeById(const std::string& id) = 0;
+    virtual void update(const Entity& entity) = 0;
+    virtual std::vector<const Entity*> getAll() const = 0;
 };
 
 #endif // !IMANAGER_H
