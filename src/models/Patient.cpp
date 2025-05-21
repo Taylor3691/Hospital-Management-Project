@@ -42,16 +42,17 @@ void Patient::acceptWrite(IVisitor* visitor, std::ostream& os) {
     dynamic_cast<TxtWritingVisitor*>(visitor)->write(this, os);
 }
 
+Object* Patient::clone() const {
+    return new Patient(*this);
+}
+
 Patient& Patient::operator=(
     const Patient& other
-) {
+    ) {
     if (this != &other) {
         Person::operator=(other);
         _symptoms = other._symptoms;
         _insuranceCard = std::make_unique<HealthInsurance>(*other._insuranceCard);
     }
     return *this;
-}
-Object* Patient::clone() const {
-    return new Patient(*this);
 }

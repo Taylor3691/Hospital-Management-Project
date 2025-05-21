@@ -26,7 +26,7 @@ public:
 
 public:
     virtual void acceptWrite(IVisitor* visitor, std::ostream& os) = 0;
-    virtual Object* clone() const;
+    virtual Object* clone() const = 0;
 
 };
 
