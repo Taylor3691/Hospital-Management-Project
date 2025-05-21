@@ -19,6 +19,8 @@ public:
     ~LoginView();
 
 private:
+    void setup();
+    void setConnections();
     bool checkPassword() const;
 
 signals:

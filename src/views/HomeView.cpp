@@ -40,64 +40,72 @@ void HomeView::setup() {
 }
 
 void HomeView::setConnections() {
-    connect(_ui->navigate_menu, &QMenu::triggered, this, [this](QAction* action) {
-        if (action->text() == QStringLiteral("Trang chủ")) {
-            updateCheckedState();
-            _ui->manage_pushButton->setChecked(0);
+    connect(_ui->navigate_menu, &QMenu::triggered, this,
+        [this](QAction* action) {
+            if (action->text() == QStringLiteral("Trang chủ")) {
+                updateCheckedState();
+                _ui->manage_pushButton->setChecked(0);
+                _loginView_stack->setCurrentIndex(0);
+                _managementView_stack->setCurrentIndex(0);
+            }
+            else if (action->text() == QStringLiteral("Thoát")) {
+                close();
+            }
+        });
+
+    connect(_ui->theme_menu, &QMenu::triggered, this,
+        [this](QAction* action) {
+            if (action->text() == QStringLiteral("Tối")) {
+                qApp->setStyleSheet(themeStyleSheet("dark"));
+                _ui->dark_action->setEnabled(0);
+                _ui->light_action->setEnabled(1);
+            }
+            else if (action->text() == QStringLiteral("Sáng")) {
+                qApp->setStyleSheet(themeStyleSheet("light"));
+                _ui->dark_action->setEnabled(1);
+                _ui->light_action->setEnabled(0);
+            }
+        });
+
+    connect(_ui->account_menu, &QMenu::triggered, this,
+        [this](QAction*) {
+            _loginView_stack->setCurrentIndex(1);
+            _ui->home_action->setEnabled(0);
+            _ui->logout_action->setEnabled(0);
+        });
+
+    connect(_loginView, &LoginView::loginSucceeded, this,
+        [this]() {
             _loginView_stack->setCurrentIndex(0);
-            _managementView_stack->setCurrentIndex(0);
-        }
-        else if (action->text() == QStringLiteral("Thoát")) {
-            close();
-        }
-    });
+            _ui->home_action->setEnabled(1);
+            _ui->logout_action->setEnabled(1);
+        });
 
-    connect(_ui->theme_menu, &QMenu::triggered, this, [this](QAction* action) {
-        if (action->text() == QStringLiteral("Tối")) {
-            qApp->setStyleSheet(themeStyleSheet("dark"));
-            _ui->dark_action->setEnabled(0);
-            _ui->light_action->setEnabled(1);
-        }
-        else if (action->text() == QStringLiteral("Sáng")) {
-            qApp->setStyleSheet(themeStyleSheet("light"));
-            _ui->dark_action->setEnabled(1);
-            _ui->light_action->setEnabled(0);
-        }
-    });
+    connect(_ui->manage_pushButton, &QPushButton::toggled, this,
+        [this](bool checked) {
+            _ui->detailManagement_frame->setVisible(checked);
+        });
 
-    connect(_ui->account_menu, &QMenu::triggered, this, [this](QAction*) {
-        _loginView_stack->setCurrentIndex(1);
-        _ui->home_action->setEnabled(0);
-        _ui->logout_action->setEnabled(0);
-    });
+    connect(_ui->patient_pushButton, &QPushButton::clicked, this,
+        [this](bool) {
+            updateCheckedState();
+            _managementView_stack->setCurrentIndex(1);
+            _managementView->changeModel(ModelType::Patient);
+        });
 
-    connect(_loginView, &LoginView::loginSucceeded, this, [this]() {
-        _loginView_stack->setCurrentIndex(0);
-        _ui->home_action->setEnabled(1);
-        _ui->logout_action->setEnabled(1);
-    });
+    connect(_ui->department_pushButton, &QPushButton::clicked, this,
+        [this](bool) {
+            updateCheckedState();
+            _managementView_stack->setCurrentIndex(1);
+            _managementView->changeModel(ModelType::Department);
+        });
 
-    connect(_ui->manage_pushButton, &QPushButton::toggled, this, [this](bool checked) {
-        _ui->detailManagement_frame->setVisible(checked);
-    });
-
-    connect(_ui->patient_pushButton, &QPushButton::clicked, this, [this](bool) {
-        updateCheckedState();
-        _managementView_stack->setCurrentIndex(1);
-        _managementView->changeModel(Model::Patient);
-    });
-
-    connect(_ui->department_pushButton, &QPushButton::clicked, this, [this](bool) {
-        updateCheckedState();
-        _managementView_stack->setCurrentIndex(1);
-        _managementView->changeModel(Model::Department);
-    });
-
-    connect(_ui->employee_pushButton, &QPushButton::clicked, this, [this](bool) {
-        updateCheckedState();
-        _managementView_stack->setCurrentIndex(1);
-        _managementView->changeModel(Model::Employee);
-    });
+    connect(_ui->employee_pushButton, &QPushButton::clicked, this,
+        [this](bool) {
+            updateCheckedState();
+            _managementView_stack->setCurrentIndex(1);
+            _managementView->changeModel(ModelType::Employee);
+        });
 }
 
 QString HomeView::themeStyleSheet(const QString& theme) {
