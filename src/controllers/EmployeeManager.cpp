@@ -1,45 +1,24 @@
 #include "EmployeeManager.h"
 
 EmployeeManager::EmployeeManager(IEmployeeRepository* repo)
-    : _employeeRepo(repo)
-    , _employeeQuery(new EmployeeQuery(repo)) {}
-
-EmployeeManager::~EmployeeManager() {
-    delete _employeeQuery;
-}
+    : _repo(repo) {}
 
 void EmployeeManager::add(std::unique_ptr<Employee> employee) {
-    _employeeRepo->add(std::move(employee));
+    _repo->add(std::move(employee));
 }
 
 void EmployeeManager::removeById(const std::string& id) {
-    _employeeRepo->removeById(id);
+    _repo->removeById(id);
 }
 
-std::vector<const Employee*> EmployeeManager::findAll() const {
-    return _employeeQuery->findAll();
+void EmployeeManager::removeByIds(const std::vector<std::string>& ids) {
+    _repo->removeByIds(ids);
 }
 
-std::vector<const Employee*> EmployeeManager::findByName(
-    const std::string& name
-) const {
-    return _employeeQuery->findByName(name);
+void EmployeeManager::update(const Employee& employee) {
+    _repo->update(employee);
 }
 
-std::vector<const Employee*> EmployeeManager::findByType(
-    const std::string& type
-) const {
-    return _employeeQuery->findByType(type);
-}
-
-std::vector<const Employee*> EmployeeManager::findByEducation(
-    const std::string& education
-) const {
-    return _employeeQuery->findByEducation(education);
-}
-
-std::vector<const Employee*> EmployeeManager::findBySalary(
-    double salary, ComparisonOperator op
-) const {
-    return _employeeQuery->findBySalary(salary, op);
+std::vector<const Employee*> EmployeeManager::getAll() const {
+    return _repo->data();
 }

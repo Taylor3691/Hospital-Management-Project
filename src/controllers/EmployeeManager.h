@@ -3,26 +3,20 @@
 
 #include "../interfaces/IManager.h"
 #include "../interfaces/IEmployeeRepository.h"
-#include "../models/EmployeeQuery.h"
 
 class EmployeeManager : public IManager<Employee> {
 private:
-    IEmployeeRepository* _employeeRepo;
-    EmployeeQuery* _employeeQuery;
+    IEmployeeRepository* _repo;
 
 public:
     EmployeeManager(IEmployeeRepository* repo);
-    ~EmployeeManager();
 
 public:
     void add(std::unique_ptr<Employee> employee) override;
     void removeById(const std::string& id) override;
-    std::vector<const Employee*> findAll() const;
-    std::vector<const Employee*> findByName(const std::string& name) const;
-    std::vector<const Employee*> findByType(const std::string& type) const;
-    std::vector<const Employee*> findByEducation(const std::string& education) const;
-    std::vector<const Employee*> findBySalary(double salary,
-        ComparisonOperator op = ComparisonOperator::EQ) const;
+    void removeByIds(const std::vector<std::string>& ids);
+    void update(const Employee& employee) override;
+    std::vector<const Employee*> getAll() const override;
 };
 
 #endif // !EMPLOYEE_MANAGER_H
