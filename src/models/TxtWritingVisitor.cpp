@@ -8,8 +8,8 @@ void TxtWritingVisitor::write(Doctor* doctor, std::ostream& os) {
     os << doctor->id() << _delim
         << doctor->name() << _delim
         << doctor->gender() << _delim
-        << doctor->phone() << _delim
         << doctor->address() << _delim
+        << doctor->phone() << _delim
         << doctor->dob() << _delim
         << doctor->education() << _delim
         << std::to_string(doctor->baseSalary()) << _delim
@@ -21,8 +21,8 @@ void TxtWritingVisitor::write(Nurse* nurse, std::ostream& os) {
     os << nurse->id() << _delim
         << nurse->name() << _delim
         << nurse->gender()<<_delim
-        << nurse->phone() << _delim
         << nurse->address() << _delim
+        << nurse->phone() << _delim
         << nurse->dob() << _delim
         << nurse->education() << _delim
         << std::to_string(nurse->baseSalary()) << _delim
@@ -33,8 +33,8 @@ void TxtWritingVisitor::write(Receptionist* receptionist, std::ostream& os) {
     os << receptionist->id() << _delim
         << receptionist->name() << _delim
         << receptionist->gender()<<_delim
-        << receptionist->phone() << _delim
         << receptionist->address() << _delim
+        << receptionist->phone() << _delim
         << receptionist->dob() << _delim
         << receptionist->education() << _delim
         << std::to_string(receptionist->baseSalary()) << _delim
@@ -54,8 +54,8 @@ void TxtWritingVisitor::write(Patient* patient, std::ostream& os) {
     os << patient->id() << _delim
         << patient->name() << _delim
         << patient->gender() << _delim
-        << patient->phone() << _delim
         << patient->address() << _delim
+        << patient->phone() << _delim
         << patient->dob() << _delim;
         if (patient->insuranceCard() != nullptr) {
             os << patient->insuranceCard()->cardNumber() << ','
