@@ -46,6 +46,6 @@ void Department::acceptWrite(IVisitor* visitor, std::ostream& os) {
     dynamic_cast<TxtWritingVisitor*>(visitor)->write(this, os);
 }
 
-Object* Department::clone() {
+Object* Department::clone() const {
     return new Department(*this);
 }

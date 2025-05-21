@@ -32,6 +32,6 @@ void Nurse::acceptWrite(IVisitor* visitor, std::ostream& os) {
     dynamic_cast<TxtWritingVisitor*>(visitor)->write(this, os);
 }
 
-Object* Nurse::clone() const {
+Object* Nurse::clone() const  {
     return new Nurse(*this);
 }

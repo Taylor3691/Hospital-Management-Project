@@ -24,7 +24,7 @@ public:
     void setEducation(const std::string& education);
     void setBaseSalary(double salary);
 public:
-    Object* clone() override;
+    Object* clone() const override;
     void acceptWrite(IVisitor* visitor, std::ostream& os) override;
 };
 

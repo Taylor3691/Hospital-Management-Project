@@ -35,10 +35,10 @@ void Employee::setBaseSalary(double salary) {
     _baseSalary = salary;
 }
 
-Object* Employee::clone() {
+Object* Employee::clone() const {
     return new Employee(*this);
 }
 
 void Employee::acceptWrite(IVisitor* visitor, std::ostream& os) {
-
+    
 }
