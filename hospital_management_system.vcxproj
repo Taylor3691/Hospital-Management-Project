@@ -144,6 +144,7 @@
     <ClCompile Include="src\models\Doctor.cpp" />
     <ClCompile Include="src\models\Employee.cpp" />
     <ClCompile Include="src\models\HealthInsurance.cpp" />
+    <ClCompile Include="src\models\Medicine.cpp" />
     <ClCompile Include="src\models\Nurse.cpp" />
     <ClCompile Include="src\models\Object.cpp" />
     <ClCompile Include="src\models\Patient.cpp" />
@@ -153,6 +154,10 @@
     <ClCompile Include="src\models\TxtDepartmentRepository.cpp" />
     <ClCompile Include="src\models\TxtDoctorParser.cpp" />
     <ClCompile Include="src\models\TxtEmployeeRepository.cpp" />
+    <ClCompile Include="src\models\TxtMedicineParser.cpp" />
+    <ClCompile Include="src\models\TxtMedicineParser.h" />
+    <ClCompile Include="src\models\TxtMedicineRepository.cpp" />
+    <ClCompile Include="src\models\TxtMedicineRepository.h" />
     <ClCompile Include="src\models\TxtNurseParser.cpp" />
     <ClCompile Include="src\models\TxtParserFactory.cpp" />
     <ClCompile Include="src\models\TxtPatientParser.cpp" />
@@ -163,13 +168,16 @@
     <ClCompile Include="src\utils\Time.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\interfaces\IMedicineRepository.h" />
     <ClInclude Include="src\interfaces\IPaymentMethod.h" />
+    <ClInclude Include="src\models\MedicineParser.h" />
     <ClInclude Include="src\models\Department.h" />
     <ClInclude Include="src\models\DepartmentParser.h" />
     <ClInclude Include="src\models\Doctor.h" />
     <ClInclude Include="src\models\DoctorParser.h" />
     <ClInclude Include="src\models\Employee.h" />
     <ClInclude Include="src\models\HealthInsurance.h" />
+    <ClInclude Include="src\models\Medicine.h" />
     <ClInclude Include="src\models\Nurse.h" />
     <ClInclude Include="src\models\NurseParser.h" />
     <ClInclude Include="src\models\Object.h" />

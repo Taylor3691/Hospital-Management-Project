@@ -2,8 +2,6 @@
 #define TXT_DEPARTMENT_REPOSITORY_H
 
 #include "../interfaces/IDepartmentRepository.h"
-#include "../utils/QueryBuilder.h"
-#include "../utils/utils_template.h"
 
 class TxtDepartmentRepository : public IDepartmentRepository {
 private:

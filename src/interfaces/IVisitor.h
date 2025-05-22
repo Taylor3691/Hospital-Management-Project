@@ -6,6 +6,7 @@ class Nurse;
 class Receptionist;
 class Department;
 class Patient;
+class Medicine;
 
 class IVisitor {
 public:

@@ -80,3 +80,13 @@ void TxtWritingVisitor::write(Patient* patient, std::ostream& os) {
         }
     }
 }
+
+void TxtWritingVisitor::write(Medicine* medicine, std::ostream& os) {
+    os << medicine->id() << _delim
+        << medicine->name() << _delim
+        << medicine->unit() << _delim
+        << std::fixed << std::setprecision(2)
+        << medicine->pricePerUnit() << _delim
+        << std::fixed << std::setprecision(2)
+        << medicine->quantity();
+}

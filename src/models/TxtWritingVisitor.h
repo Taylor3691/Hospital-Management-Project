@@ -7,6 +7,8 @@
 #include "Receptionist.h"
 #include "Department.h"
 #include "Patient.h"
+#include "Medicine.h"
+
 class TxtWritingVisitor : public IWritingVisitor {
 private:
     char _delim;
@@ -20,6 +22,7 @@ public:
     void write(Nurse* nurse, std::ostream& os) override;
     void write(Receptionist* receptionist, std::ostream& os) override;
     void write(Department* department, std::ostream& os) override;
+    void write(Medicine* medicine, std::ostream& os) override;
 };
 
 #endif // !TXT_WRITING_VISITOR_H
