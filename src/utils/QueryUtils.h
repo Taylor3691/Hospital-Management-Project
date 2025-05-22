@@ -30,21 +30,21 @@ template<typename T, typename U>
 inline Getter<T> makeGetter(U(T::* getter)() const) {
     return [getter](const T& obj) -> std::any {
         return (obj.*getter)();
-    };
+        };
 }
 
 template<typename T, typename U>
 inline Getter<T> makeGetter(const U* (T::* getter)() const) {
     return [getter](const T& obj) -> std::any {
         return *(obj.*getter)();
-    };
+        };
 }
 
 template<typename T, typename U>
 inline Setter<T> makeSetter(void(T::* setter)(const U&)) {
     return [setter](const T& obj, const U& value) -> std::any {
         return (obj.*setter)(value);
-    };
+        };
 }
 
 template<typename T, typename U>
@@ -57,7 +57,7 @@ inline Getter<T> compose(Getter<T> parent, Getter<U> child) {
         catch (const std::bad_any_cast& e) {
             throw std::runtime_error("Type mismatch in compose");
         }
-    };
+        };
 }
 
 template<typename T, typename U>
@@ -70,7 +70,7 @@ inline Setter<T> compose(Getter<T> parent, Setter<U> child) {
         catch (const std::bad_any_cast& e) {
             throw std::runtime_error("Type mismatch in compose");
         }
-    };
+        };
 }
 
 template<typename T>
@@ -108,7 +108,7 @@ inline bool matches(const T& item, const std::vector<RFilter<std::remove_const_t
             catch (const std::bad_any_cast&) {
                 throw std::runtime_error("Type mismatch in filter");
             }
-        }, filter.criteria);
+            }, filter.criteria);
 
         if (!result) {
             return false;
