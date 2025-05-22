@@ -1,5 +1,5 @@
-#ifndef QUERYTYPES_H
-#define QUERYTYPES_H
+#ifndef QUERY_TYPES_H
+#define QUERY_TYPES_H
 
 #include <variant>
 #include <string>
@@ -7,6 +7,15 @@
 #include <any>
 #include "Date.h"
 #include "Time.h"
+
+using ValueVariant = std::variant<
+    int,
+    bool,
+    double,
+    std::string,
+    Date,
+    Time
+>;
 
 enum class ComparisonOperator {
     EQ,
@@ -17,36 +26,31 @@ enum class ComparisonOperator {
     LTE
 };
 
-template<typename T>
-struct FilterCondition {
-    T value;
+enum class FilterMode {
+    AND,
+    OR
+};
+
+struct FilterCriteria {
+    ValueVariant value;
     ComparisonOperator op = ComparisonOperator::EQ;
 };
 
-using FilterCriteria = std::variant<
-    FilterCondition<int>,
-    FilterCondition<bool>,
-    FilterCondition<double>,
-    FilterCondition<std::string>,
-    FilterCondition<Date>,
-    FilterCondition<Time>
->;
+template<class ClassType>
+using Getter = std::function<std::any(const ClassType&)>;
 
-template<typename T>
-using Getter = std::function<std::any(const T&)>;
-
-template<typename T>
+template<class ClassType>
 struct RFilter {
     FilterCriteria criteria;
-    Getter<T> getter;
+    Getter<ClassType> getter;
 };
 
-template<typename T>
-using Setter = std::function<void(const T&, const std::any&)>;
+template<class ClassType>
+using Setter = std::function<void(const ClassType&, const std::any&)>;
 
-template<typename T>
-struct WFilter : RFilter<T> {
-    Setter<T> setter;
+template<class ClassType>
+struct WFilter : RFilter<ClassType> {
+    Setter<ClassType> setter;
 };
 
-#endif // !QUERYTYPES_H
+#endif // !QUERY_TYPES_H
