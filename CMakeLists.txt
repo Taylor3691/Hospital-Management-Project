@@ -47,10 +47,12 @@ add_executable(${TARGET_NAME}
     src/models/TxtWritingVisitor.cpp
     src/utils/Date.cpp
     src/utils/Time.cpp
+    src/views/EmployeeFilteringView.cpp
     src/views/EmployeeRecordView.cpp
     src/views/HomeView.cpp
     src/views/LoginView.cpp
     src/views/ManagementView.cpp
+    src/views/EmployeeFilteringView.ui
     src/views/EmployeeRecordView.ui
     src/views/HomeView.ui
     src/views/LoginView.ui
@@ -98,6 +100,7 @@ target_sources(${TARGET_NAME} PRIVATE
     src/utils/QueryUtils.h
     src/utils/Time.h
     src/utils/utils_template.h
+    src/views/EmployeeFilteringView.h
     src/views/EmployeeRecordView.h
     src/views/HomeView.h
     src/views/LoginView.h

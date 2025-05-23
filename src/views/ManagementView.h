@@ -6,6 +6,7 @@
 //#include "../models/DepartmentTableModel.h"
 #include "../models/EmployeeTableModel.h"
 #include "../views/EmployeeRecordView.h"
+#include "../views/EmployeeFilteringView.h"
 
 namespace Ui {
     class ManagementView;

@@ -29,6 +29,7 @@ public:
     void add(std::unique_ptr<Employee> employee);
     void update(const Employee& employee);
     void removeByIds(const std::vector<std::string>& ids);
+    void find(const std::vector<RFilter<Employee>>& filters);
     void refresh();
 };
 

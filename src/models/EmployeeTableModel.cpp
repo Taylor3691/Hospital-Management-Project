@@ -10,7 +10,7 @@ EmployeeTableModel::EmployeeTableModel(QObject* parent)
             "Địa chỉ",
             "Điện thoại",
             "Ngày sinh",
-            "Học vị",
+            "Học vấn",
             "Lương cơ bản",
             "ID khoa",
             "Giấy phép",
@@ -125,6 +125,13 @@ void EmployeeTableModel::update(const Employee& employee) {
 void EmployeeTableModel::removeByIds(const std::vector<std::string>& ids) {
     ServiceLocator::employeeManager()->removeByIds(ids);
     refresh();
+}
+
+void EmployeeTableModel::find(const std::vector<RFilter<Employee>>& filters) {
+    beginResetModel();
+    auto filteredData = ServiceLocator::employeeManager()->find(filters);
+    _cachedData = QVector<const Employee*>(filteredData.begin(), filteredData.end());
+    endResetModel();
 }
 
 void EmployeeTableModel::refresh() {

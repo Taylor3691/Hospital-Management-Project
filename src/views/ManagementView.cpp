@@ -42,6 +42,18 @@ void ManagementView::setConnections() {
             }
         });
 
+    connect(_ui->find_pushButton, &QPushButton::clicked, this,
+        [this](bool) {
+            auto model = _ui->tableView->model();
+            auto modelIndex = (ModelType)_models.indexOf(qobject_cast<QAbstractTableModel*>(model), 0);
+            if (modelIndex == ModelType::Employee) {
+                EmployeeFilteringView view(qApp->styleSheet());
+                if (view.exec() == QDialog::DialogCode::Accepted) {
+                    static_cast<EmployeeTableModel*>(model)->find(view.getFilters());
+                }
+            }
+        });
+
     connect(_ui->update_pushButton, &QPushButton::clicked, this,
         [this](bool) {
             auto index = _ui->tableView->selectionModel()->selectedRows()[0];
