@@ -36,7 +36,9 @@ void ManagementView::setConnections() {
                 view.setWindowTitle("Thêm nhân viên");
                 view.setAcceptButtonText("Thêm");
 
-                if (view.exec() == QDialog::DialogCode::Accepted) {
+                QString title = "Xác nhận thêm nhân viên";
+                QString msg = "Bạn có chắc chắn muốn thêm nhân viên?";
+                if (view.exec() == QDialog::DialogCode::Accepted && confirm(title, msg)) {
                     static_cast<EmployeeTableModel*>(model)->add(view.getEmployee());
                 }
             }
@@ -69,7 +71,9 @@ void ManagementView::setConnections() {
                 view.setEmployee(employee);
                 view.disableNotEditableFields();
 
-                if (view.exec() == QDialog::DialogCode::Accepted) {
+                QString title = "Xác nhận cập nhật thông tin nhân viên";
+                QString msg = "Bạn có chắc chắn muốn lưu những cập nhật?";
+                if (view.exec() == QDialog::DialogCode::Accepted && confirm(title, msg)) {
                     static_cast<EmployeeTableModel*>(model)->update(*view.getEmployee().get());
                 }
             }
@@ -89,7 +93,12 @@ void ManagementView::setConnections() {
                 auto obj = static_cast<const Object*>(model->data(index, Qt::UserRole).value<void*>());
                 ids.push_back(obj->id());
             }
-            static_cast<EmployeeTableModel*>(model)->removeByIds(ids);
+
+            QString title = "Xác nhận xóa nhân viên";
+            QString msg = "Bạn có chắc chắn muốn xóa những nhân viên đã chọn?";
+            if (confirm(title, msg)) {
+                static_cast<EmployeeTableModel*>(model)->removeByIds(ids);
+            }
         });
 }
 
