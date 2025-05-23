@@ -57,10 +57,10 @@ std::unique_ptr<Employee> EmployeeRecordView::getEmployee() const {
 
         doctor->setId(_ui->id_lineEdit->text().toStdString());
         doctor->setName(_ui->name_lineEdit->text().toStdString());
-        doctor->setGender(_ui->gender_comboBox->currentText().toStdString());
+        doctor->setGender(_ui->gender_comboBox->currentIndex() ? "Nu" : "Nam");
         doctor->setAddress(_ui->address_lineEdit->text().toStdString());
         doctor->setPhone(_ui->phone_lineEdit->text().toStdString());
-        QDate date = _ui->dob_dateEdit->date();
+        auto date = _ui->dob_dateEdit->date();
         doctor->setDob(Date(date.day(), date.month(), date.year()));
         doctor->setEducation(_ui->education_lineEdit->text().toStdString());
         doctor->setBaseSalary(_ui->salary_doubleSpinBox->value());
@@ -74,10 +74,11 @@ std::unique_ptr<Employee> EmployeeRecordView::getEmployee() const {
 
         nurse->setId(_ui->id_lineEdit->text().toStdString());
         nurse->setName(_ui->name_lineEdit->text().toStdString());
-        nurse->setGender(_ui->gender_comboBox->currentText().toStdString());
+        nurse->setGender(_ui->gender_comboBox->currentIndex() ? "Nu" : "Nam");
         nurse->setAddress(_ui->address_lineEdit->text().toStdString());
         nurse->setPhone(_ui->phone_lineEdit->text().toStdString());
-        nurse->setDob(_ui->dob_dateEdit->text().toStdString());
+        auto date = _ui->dob_dateEdit->date();
+        nurse->setDob(Date(date.day(), date.month(), date.year()));
         nurse->setEducation(_ui->education_lineEdit->text().toStdString());
         nurse->setBaseSalary(_ui->salary_doubleSpinBox->value());
         nurse->setDuty(_ui->duty_lineEdit->text().toStdString());
@@ -89,10 +90,11 @@ std::unique_ptr<Employee> EmployeeRecordView::getEmployee() const {
 
         receptionist->setId(_ui->id_lineEdit->text().toStdString());
         receptionist->setName(_ui->name_lineEdit->text().toStdString());
-        receptionist->setGender(_ui->gender_comboBox->currentText().toStdString());
+        receptionist->setGender(_ui->gender_comboBox->currentIndex() ? "Nu" : "Nam");
         receptionist->setAddress(_ui->address_lineEdit->text().toStdString());
         receptionist->setPhone(_ui->phone_lineEdit->text().toStdString());
-        receptionist->setDob(_ui->dob_dateEdit->text().toStdString());
+        auto date = _ui->dob_dateEdit->date();
+        receptionist->setDob(Date(date.day(), date.month(), date.year()));
         receptionist->setEducation(_ui->education_lineEdit->text().toStdString());
         receptionist->setBaseSalary(_ui->salary_doubleSpinBox->value());
         receptionist->setSubsidies(_ui->subsidies_doubleSpinBox->value());
@@ -110,10 +112,10 @@ void EmployeeRecordView::setEmployee(const Employee* employee) {
 
     _ui->id_lineEdit->setText(QString::fromStdString(employee->id()));
     _ui->name_lineEdit->setText(QString::fromStdString(employee->name()));
-    _ui->gender_comboBox->setCurrentText(QString::fromStdString(employee->gender()));
+    _ui->gender_comboBox->setCurrentIndex(employee->gender() == "Nu");
     _ui->address_lineEdit->setText(QString::fromStdString(employee->address()));
     _ui->phone_lineEdit->setText(QString::fromStdString(employee->phone()));
-    Date dob = employee->dob();
+    auto dob = employee->dob();
     _ui->dob_dateEdit->setDate(QDate(dob.year(), dob.month(), dob.day()));
     _ui->education_lineEdit->setText(QString::fromStdString(employee->education()));
     _ui->salary_doubleSpinBox->setValue(employee->baseSalary());

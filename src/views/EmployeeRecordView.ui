@@ -2407,7 +2407,7 @@ PlotWidget {
             </item>
             <item>
              <property name="text">
-              <string>Nu</string>
+              <string>Nữ</string>
              </property>
             </item>
            </widget>
