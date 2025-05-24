@@ -10,6 +10,10 @@ MedicalRecord::MedicalRecord(
     , _createdDate(Date::getDate())
     , _createdTime(Time::getCurrentTime()) {}
 
+MedicalRecord::MedicalRecord(const MedicalRecord& other) {
+    *this = other;
+}
+
 std::string MedicalRecord::patientId() const {
     return _patientId;
 }
@@ -99,11 +103,12 @@ void MedicalRecord::changeState(std::unique_ptr<ExaminationState> state) {
 }
 
 void MedicalRecord::acceptWrite(IVisitor* visitor, std::ostream& os) {
-
+    auto unit = (dynamic_cast<IWritingVisitor*>(visitor));
+    unit->write(this, os, unit);
 }
 
 Object* MedicalRecord::clone() const {
-    return nullptr;
+    return new MedicalRecord(*this);
 }
 
 MedicalRecord& MedicalRecord::operator=(const MedicalRecord& other) {

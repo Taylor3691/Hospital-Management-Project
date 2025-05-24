@@ -3,6 +3,7 @@
 
 #include <queue>
 #include "Object.h"
+#include "TxtWritingVisitor.h"
 
 class RoomExamination : public Object {
 private:
@@ -24,6 +25,8 @@ public:
     void addToWaitingQueue(const std::string& id);
     void removeFromWaitingQueue();
     int getQueueCount() const;
+    void acceptWrite(IVisitor* visitor, std::ostream& os) override;
+    Object* clone() const override;
 };
 
 #endif // !ROOM_EXAMINATION_H

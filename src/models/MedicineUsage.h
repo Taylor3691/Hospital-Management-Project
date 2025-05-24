@@ -13,8 +13,7 @@ private:
 
 public:
     MedicineUsage();
-    MedicineUsage(const std::string& id, const std::string& name
-        , const std::string& medicineId,
+    MedicineUsage(const std::string& id, const std::string& name, const std::string& medicineId,
         int usedQuantity, double price, const std::string& description);
 
 public:

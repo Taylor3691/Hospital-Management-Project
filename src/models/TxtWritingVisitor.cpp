@@ -97,3 +97,43 @@ void TxtWritingVisitor::write(TestService* testService, std::ostream& os) {
         << std::fixed << std::setprecision(2)
         << testService->cost();
 }
+
+void TxtWritingVisitor::write(MedicalRecord* record, std::ostream& os, IWritingVisitor* write) {
+    os << record->id() << _delim
+        << record->name() << _delim
+        << record->patientId() << _delim
+        << record->roomId() << _delim
+        << record->doctorId() << _delim
+        << record->diagnosisResult() << _delim
+        << record->prescribedMedicines().size() << _delim;
+    for (auto medicine : record->prescribedMedicines()) {
+        auto sample = dynamic_cast<MedicineUsage*>(medicine->clone());
+        sample->acceptWrite(write, os);
+        delete sample;
+    }
+
+    for (auto test : record->clinicalTests()) {
+        auto sample = dynamic_cast<ClinicalTest*>(test->clone());
+        sample->acceptWrite(write, os);
+        delete sample;
+    }
+}
+
+void TxtWritingVisitor::write(MedicineUsage* usage, std::ostream& os) {
+    os << usage->id() << ','
+        << usage->name() << ','
+        << usage->medicineId() << ','
+        << std::fixed << std::setprecision(2)
+        << usage->price() << ','
+        << usage->usedQuantity() << ','
+        << usage->description();
+}
+
+void TxtWritingVisitor::write(ClinicalTest* test, std::ostream& os) {
+    os << test->id() << ','
+        << test->name() << ','
+        << test->testId() << ','
+        << test->cost() << ','
+        << test->result() << ','
+        << (test->completed() ? "1" : "0");
+}

@@ -150,6 +150,7 @@
     <ClCompile Include="src\models\HealthInsurance.cpp" />
     <ClCompile Include="src\models\MedicalRecord.cpp" />
     <ClCompile Include="src\models\Medicine.cpp" />
+    <ClCompile Include="src\models\MedicineUsage.cpp" />
     <ClCompile Include="src\models\Nurse.cpp" />
     <ClCompile Include="src\models\Object.cpp" />
     <ClCompile Include="src\models\Patient.cpp" />
@@ -197,6 +198,7 @@
     <ClInclude Include="src\models\Employee.h" />
     <ClInclude Include="src\models\HealthInsurance.h" />
     <ClInclude Include="src\models\Medicine.h" />
+    <ClInclude Include="src\models\MedicineUsage.h" />
     <ClInclude Include="src\models\Nurse.h" />
     <ClInclude Include="src\models\NurseParser.h" />
     <ClInclude Include="src\models\Object.h" />

@@ -13,7 +13,7 @@ private:
 
 public:
     ClinicalTest();
-    ClinicalTest(const std::string& id, const std::string& name,
+    ClinicalTest(const std::string& id, const std::string& name, const std::string& testId,
         double cost, const std::string& result = "", bool completed = false);
 
 public:

@@ -42,3 +42,11 @@ void RoomExamination::removeFromWaitingQueue() {
 int RoomExamination::getQueueCount() const {
     return _waitingQueue.size();
 }
+
+void RoomExamination::acceptWrite(IVisitor* visitor, std::ostream& os) {
+
+}
+
+Object* RoomExamination::clone() const {
+    return nullptr;
+}

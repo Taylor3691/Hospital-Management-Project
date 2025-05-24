@@ -8,6 +8,10 @@ class Department;
 class Patient;
 class Medicine;
 class TestService;
+class MedicalRecord;
+class MedicineUsage;
+class ClinicalTest;
+class RoomExamination;
 
 class IVisitor {
 public:

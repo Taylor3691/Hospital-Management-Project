@@ -6,11 +6,13 @@ ClinicalTest::ClinicalTest()
 ClinicalTest::ClinicalTest(
     const std::string& id,
     const std::string& name,
+    const std::string& testId,
     double cost,
     const std::string& result,
     bool completed
 )
     : BillableComponent(id, name)
+    , _testId(testId)
     , _cost(cost)
     , _result(result)
     , _completed(completed) {}

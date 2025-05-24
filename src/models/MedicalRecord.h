@@ -8,6 +8,7 @@
 #include "ClinicalTest.h"
 #include "RegisteredState.h"
 #include "CompletedState.h"
+#include "../interfaces/IWritingVisitor.h"
 #include "../utils/Date.h"
 #include "../utils/Time.h"
 
@@ -26,6 +27,7 @@ private:
 public:
     MedicalRecord() = default;
     MedicalRecord(const std::string& id, const std::string& patientId);
+    MedicalRecord(const MedicalRecord& other);
 
 public:
     std::string patientId() const;
