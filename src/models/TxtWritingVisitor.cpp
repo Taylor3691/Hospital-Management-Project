@@ -137,3 +137,17 @@ void TxtWritingVisitor::write(ClinicalTest* test, std::ostream& os) {
         << test->result() << ','
         << (test->completed() ? "1" : "0");
 }
+
+void TxtWritingVisitor::write(RoomExamination* room, std::ostream& os) {
+    os << room->id() << _delim
+        << room->name() << _delim
+        << std::fixed << std::setprecision(2)
+        << room->examinationFee() << _delim
+        << room->getQueueCount() << _delim;
+    for (int i = 0; i < room->waitingQueue().size(); i++) {
+        os << room->waitingQueue()[i];
+        if (i != room->waitingQueue().size() - 1) {
+            os << ',';
+        }
+    }
+}

@@ -44,7 +44,7 @@ int RoomExamination::getQueueCount() const {
 }
 
 void RoomExamination::acceptWrite(IVisitor* visitor, std::ostream& os) {
-
+    (dynamic_cast<IWritingVisitor*>(visitor))->write(this, os);
 }
 
 Object* RoomExamination::clone() const {
