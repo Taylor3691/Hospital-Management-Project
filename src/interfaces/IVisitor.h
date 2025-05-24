@@ -7,6 +7,7 @@ class Receptionist;
 class Department;
 class Patient;
 class Medicine;
+class TestService;
 
 class IVisitor {
 public:

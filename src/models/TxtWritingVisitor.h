@@ -8,6 +8,7 @@
 #include "Department.h"
 #include "Patient.h"
 #include "Medicine.h"
+#include "TestService.h"
 
 class TxtWritingVisitor : public IWritingVisitor {
 private:
@@ -23,6 +24,7 @@ public:
     void write(Receptionist* receptionist, std::ostream& os) override;
     void write(Department* department, std::ostream& os) override;
     void write(Medicine* medicine, std::ostream& os) override;
+    void write(TestService* testService, std::ostream& os) override;
 };
 
 #endif // !TXT_WRITING_VISITOR_H

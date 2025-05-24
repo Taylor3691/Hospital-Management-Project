@@ -42,3 +42,4 @@ void ClinicalTest::setCompleted(bool completed) {
 double ClinicalTest::calculateFee() const {
     return _cost;
 }
+

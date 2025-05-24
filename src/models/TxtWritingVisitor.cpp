@@ -90,3 +90,10 @@ void TxtWritingVisitor::write(Medicine* medicine, std::ostream& os) {
         << std::fixed << std::setprecision(2)
         << medicine->quantity();
 }
+
+void TxtWritingVisitor::write(TestService* testService, std::ostream& os) {
+    os << testService->id() << _delim
+        << testService->name() << _delim
+        << std::fixed << std::setprecision(2)
+        << testService->cost();
+}

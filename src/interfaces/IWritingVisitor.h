@@ -15,6 +15,7 @@ public:
     virtual void write(Receptionist* receptionist, std::ostream& os) = 0;
     virtual void write(Department* department, std::ostream& os) = 0;
     virtual void write(Medicine* medicine, std::ostream& os) = 0;
+    virtual void write(TestService* testService, std::ostream& os) = 0;
 };
 
 #endif // !IWRITING_VISITOR_H

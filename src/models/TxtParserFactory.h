@@ -9,6 +9,7 @@
 #include "TxtDepartmentParser.h"
 #include "TxtPatientParser.h"
 #include "TxtMedicineParser.h"
+#include "TxtTestServiceParser.h"
 
 class TxtParserFactory : public IParserFactory {
 private:

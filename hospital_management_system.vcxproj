@@ -150,6 +150,7 @@
     <ClCompile Include="src\models\Patient.cpp" />
     <ClCompile Include="src\models\Person.cpp" />
     <ClCompile Include="src\models\Receptionist.cpp" />
+    <ClCompile Include="src\models\TestService.cpp" />
     <ClCompile Include="src\models\TxtDepartmentParser.cpp" />
     <ClCompile Include="src\models\TxtDepartmentRepository.cpp" />
     <ClCompile Include="src\models\TxtDoctorParser.cpp" />
@@ -163,6 +164,8 @@
     <ClCompile Include="src\models\TxtPatientParser.cpp" />
     <ClCompile Include="src\models\TxtPatientRepository.cpp" />
     <ClCompile Include="src\models\TxtReceptionistParser.cpp" />
+    <ClCompile Include="src\models\TxtTestServiceParser.cpp" />
+    <ClCompile Include="src\models\TxtTestServiceRepository.cpp" />
     <ClCompile Include="src\models\TxtWritingVisitor.cpp" />
     <ClCompile Include="src\utils\Date.cpp" />
     <ClCompile Include="src\utils\Time.cpp" />
@@ -170,6 +173,7 @@
   <ItemGroup>
     <ClInclude Include="src\interfaces\IMedicineRepository.h" />
     <ClInclude Include="src\interfaces\IPaymentMethod.h" />
+    <ClInclude Include="src\interfaces\ITestServiceRepository.h" />
     <ClInclude Include="src\models\MedicineParser.h" />
     <ClInclude Include="src\models\Department.h" />
     <ClInclude Include="src\models\DepartmentParser.h" />
@@ -186,6 +190,8 @@
     <ClInclude Include="src\models\Person.h" />
     <ClInclude Include="src\models\Receptionist.h" />
     <ClInclude Include="src\models\ReceptionistParser.h" />
+    <ClInclude Include="src\models\TestService.h" />
+    <ClInclude Include="src\models\TestServiceParser.h" />
     <ClInclude Include="src\models\TxtDepartmentParser.h" />
     <ClInclude Include="src\models\TxtDepartmentRepository.h" />
     <ClInclude Include="src\models\TxtDoctorParser.h" />
@@ -195,6 +201,8 @@
     <ClInclude Include="src\models\TxtPatientParser.h" />
     <ClInclude Include="src\models\TxtPatientRepository.h" />
     <ClInclude Include="src\models\TxtReceptionistParser.h" />
+    <ClInclude Include="src\models\TxtTestServiceParser.h" />
+    <ClInclude Include="src\models\TxtTestServiceRepository.h" />
     <ClInclude Include="src\models\TxtWritingVisitor.h" />
     <ClInclude Include="src\utils\Date.h" />
     <ClInclude Include="src\utils\QueryBuilder.h" />
