@@ -61,7 +61,7 @@ std::unique_ptr<Employee> EmployeeRecordView::getEmployee() const {
         doctor->setAddress(_ui->address_lineEdit->text().toStdString());
         doctor->setPhone(_ui->phone_lineEdit->text().toStdString());
         auto date = _ui->dob_dateEdit->date();
-        doctor->setDob(Date(date.day(), date.month(), date.year()));
+        doctor->setDob({ date.day(), date.month(), date.year() });
         doctor->setEducation(_ui->education_lineEdit->text().toStdString());
         doctor->setBaseSalary(_ui->salary_doubleSpinBox->value());
         doctor->setSpecialty(_ui->specialty_lineEdit->text().toStdString());
@@ -78,14 +78,14 @@ std::unique_ptr<Employee> EmployeeRecordView::getEmployee() const {
         nurse->setAddress(_ui->address_lineEdit->text().toStdString());
         nurse->setPhone(_ui->phone_lineEdit->text().toStdString());
         auto date = _ui->dob_dateEdit->date();
-        nurse->setDob(Date(date.day(), date.month(), date.year()));
+        nurse->setDob({ date.day(), date.month(), date.year() });
         nurse->setEducation(_ui->education_lineEdit->text().toStdString());
         nurse->setBaseSalary(_ui->salary_doubleSpinBox->value());
         nurse->setDuty(_ui->duty_lineEdit->text().toStdString());
 
         return std::move(nurse);
     }
-    else if (index == EmployeeType::Receptionist) {
+    else {
         auto receptionist = std::make_unique<Receptionist>();
 
         receptionist->setId(_ui->id_lineEdit->text().toStdString());
@@ -94,7 +94,7 @@ std::unique_ptr<Employee> EmployeeRecordView::getEmployee() const {
         receptionist->setAddress(_ui->address_lineEdit->text().toStdString());
         receptionist->setPhone(_ui->phone_lineEdit->text().toStdString());
         auto date = _ui->dob_dateEdit->date();
-        receptionist->setDob(Date(date.day(), date.month(), date.year()));
+        receptionist->setDob({ date.day(), date.month(), date.year() });
         receptionist->setEducation(_ui->education_lineEdit->text().toStdString());
         receptionist->setBaseSalary(_ui->salary_doubleSpinBox->value());
         receptionist->setSubsidies(_ui->subsidies_doubleSpinBox->value());
@@ -102,7 +102,6 @@ std::unique_ptr<Employee> EmployeeRecordView::getEmployee() const {
 
         return std::move(receptionist);
     }
-    return nullptr;
 }
 
 void EmployeeRecordView::setEmployee(const Employee* employee) {
@@ -116,7 +115,7 @@ void EmployeeRecordView::setEmployee(const Employee* employee) {
     _ui->address_lineEdit->setText(QString::fromStdString(employee->address()));
     _ui->phone_lineEdit->setText(QString::fromStdString(employee->phone()));
     auto dob = employee->dob();
-    _ui->dob_dateEdit->setDate(QDate(dob.year(), dob.month(), dob.day()));
+    _ui->dob_dateEdit->setDate({ dob.year(), dob.month(), dob.day() });
     _ui->education_lineEdit->setText(QString::fromStdString(employee->education()));
     _ui->salary_doubleSpinBox->setValue(employee->baseSalary());
 
