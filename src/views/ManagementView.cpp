@@ -4,8 +4,8 @@ ManagementView::ManagementView(QWidget* parent)
     : QWidget(parent)
     , _ui(new Ui::ManagementView)
     , _models({
-        nullptr,
-        nullptr,
+        new PatientTableModel(this),
+        new DepartmentTableModel(this),
         new EmployeeTableModel(this),
     })
 {
@@ -24,14 +24,15 @@ void ManagementView::setup() {
     _ui->delete_pushButton->setVisible(0);
 
     _ui->tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
+    _ui->tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
 }
 
 void ManagementView::setConnections() {
     connect(_ui->add_pushButton, &QPushButton::clicked, this,
         [this](bool) {
             auto model = _ui->tableView->model();
-            auto index = (ModelType)_models.indexOf(qobject_cast<QAbstractTableModel*>(model), 0);
-            if (index == ModelType::Employee) {
+            auto modelIndex = (ModelType)_models.indexOf(qobject_cast<QAbstractTableModel*>(model), 0);
+            if (modelIndex == ModelType::Employee) {
                 EmployeeRecordView view(qApp->styleSheet());
                 view.setWindowTitle("Thêm nhân viên");
                 view.setAcceptButtonText("Thêm");
@@ -40,6 +41,28 @@ void ManagementView::setConnections() {
                 QString msg = "Bạn có chắc chắn muốn thêm nhân viên?";
                 if (view.exec() == QDialog::DialogCode::Accepted && confirm(title, msg)) {
                     static_cast<EmployeeTableModel*>(model)->add(view.getEmployee());
+                }
+            }
+            else if (modelIndex == ModelType::Department) {
+                DepartmentRecordView view(qApp->styleSheet());
+                view.setWindowTitle("Thêm nhân viên");
+                view.setAcceptButtonText("Thêm");
+
+                QString title = "Xác nhận thêm nhân viên";
+                QString msg = "Bạn có chắc chắn muốn thêm nhân viên?";
+                if (view.exec() == QDialog::DialogCode::Accepted && confirm(title, msg)) {
+                    static_cast<DepartmentTableModel*>(model)->add(view.getDepartment());
+                }
+            }
+            else {
+                PatientRecordView view(qApp->styleSheet());
+                view.setWindowTitle("Thêm nhân viên");
+                view.setAcceptButtonText("Thêm");
+
+                QString title = "Xác nhận thêm nhân viên";
+                QString msg = "Bạn có chắc chắn muốn thêm nhân viên?";
+                if (view.exec() == QDialog::DialogCode::Accepted && confirm(title, msg)) {
+                    static_cast<PatientTableModel*>(model)->add(view.getPatient());
                 }
             }
         });
@@ -54,6 +77,18 @@ void ManagementView::setConnections() {
                     static_cast<EmployeeTableModel*>(model)->find(view.getFilters());
                 }
             }
+            else if (modelIndex == ModelType::Department) {
+                DepartmentFilteringView view(qApp->styleSheet());
+                if (view.exec() == QDialog::DialogCode::Accepted) {
+                    static_cast<DepartmentTableModel*>(model)->find(view.getFilters());
+                }
+            }
+            else {
+                PatientFilteringView view(qApp->styleSheet());
+                if (view.exec() == QDialog::DialogCode::Accepted) {
+                    static_cast<PatientTableModel*>(model)->find(view.getFilters());
+                }
+            }
         });
 
     connect(_ui->update_pushButton, &QPushButton::clicked, this,
@@ -61,6 +96,8 @@ void ManagementView::setConnections() {
             auto index = _ui->tableView->selectionModel()->selectedRows()[0];
             auto model = _ui->tableView->model();
 
+            QString title = "Xác nhận cập nhật thông tin";
+            QString msg = "Bạn có chắc chắn muốn lưu những cập nhật?";
             auto modelIndex = (ModelType)_models.indexOf(qobject_cast<QAbstractTableModel*>(model), 0);
             if (modelIndex == ModelType::Employee) {
                 auto employee = static_cast<const Employee*>(model->data(index, Qt::UserRole).value<void*>());
@@ -71,17 +108,35 @@ void ManagementView::setConnections() {
                 view.setEmployee(employee);
                 view.disableNotEditableFields();
 
-                QString title = "Xác nhận cập nhật thông tin nhân viên";
-                QString msg = "Bạn có chắc chắn muốn lưu những cập nhật?";
                 if (view.exec() == QDialog::DialogCode::Accepted && confirm(title, msg)) {
                     static_cast<EmployeeTableModel*>(model)->update(*view.getEmployee().get());
                 }
             }
             else if (modelIndex == ModelType::Department) {
+                auto department = static_cast<const Department*>(model->data(index, Qt::UserRole).value<void*>());
 
+                DepartmentRecordView view(qApp->styleSheet());
+                view.setWindowTitle("Cập nhật thông tin");
+                view.setAcceptButtonText("Lưu");
+                view.setDepartment(department);
+                view.disableNotEditableFields();
+
+                if (view.exec() == QDialog::DialogCode::Accepted && confirm(title, msg)) {
+                    static_cast<DepartmentTableModel*>(model)->update(*view.getDepartment().get());
+                }
             }
             else {
+                auto patient = static_cast<const Patient*>(model->data(index, Qt::UserRole).value<void*>());
 
+                PatientRecordView view(qApp->styleSheet());
+                view.setWindowTitle("Cập nhật thông tin");
+                view.setAcceptButtonText("Lưu");
+                view.setPatient(patient);
+                view.disableNotEditableFields();
+
+                if (view.exec() == QDialog::DialogCode::Accepted && confirm(title, msg)) {
+                    static_cast<PatientTableModel*>(model)->update(*view.getPatient().get());
+                }
             }
         });
 
@@ -94,10 +149,17 @@ void ManagementView::setConnections() {
                 ids.push_back(obj->id());
             }
 
-            QString title = "Xác nhận xóa nhân viên";
-            QString msg = "Bạn có chắc chắn muốn xóa những nhân viên đã chọn?";
-            if (confirm(title, msg)) {
+            QString title = "Xác nhận xóa";
+            QString msg = "Bạn có chắc chắn muốn xóa những dòng đã chọn?";
+            auto modelIndex = (ModelType)_models.indexOf(qobject_cast<QAbstractTableModel*>(model), 0);
+            if (modelIndex == ModelType::Employee && confirm(title, msg)) {
                 static_cast<EmployeeTableModel*>(model)->removeByIds(ids);
+            }
+            else if (modelIndex == ModelType::Department && confirm(title, msg)) {
+                static_cast<DepartmentTableModel*>(model)->removeByIds(ids);
+            }
+            else if (confirm(title, msg)) {
+                static_cast<PatientTableModel*>(model)->removeByIds(ids);
             }
         });
 }

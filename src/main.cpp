@@ -1,6 +1,8 @@
 #include <QApplication>
 #include "views/HomeView.h"
 #include "models/TxtEmployeeRepository.h"
+#include "models/TxtDepartmentRepository.h"
+#include "models/TxtPatientRepository.h"
 #include "ServiceLocator.h"
 
 int main(int argc, char* argv[]) {
@@ -8,7 +10,14 @@ int main(int argc, char* argv[]) {
 
     TxtEmployeeRepository employeeRepo("../../../data/employees.txt");
     EmployeeManager employeeManager(&employeeRepo);
-    ServiceLocator::provide(&employeeManager);
+
+    TxtDepartmentRepository departmentRepo("../../../data/departments.txt");
+    DepartmentManager departmentManager(&departmentRepo);
+
+    TxtPatientRepository patientRepo("../../../data/patients.txt");
+    PatientManager patientManager(&patientRepo);
+
+    ServiceLocator::provide(&employeeManager, &departmentManager, &patientManager);
 
     HomeView w;
     w.show();

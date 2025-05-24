@@ -26,8 +26,11 @@ set(TARGET_NAME HospitalManagementSystem)
 add_executable(${TARGET_NAME}
     packages/qdarkstyle/style.qrc
     src/main.cpp
+    src/controllers/DepartmentManager.cpp
     src/controllers/EmployeeManager.cpp
+    src/controllers/PatientManager.cpp
     src/models/Department.cpp
+    src/models/DepartmentTableModel.cpp
     src/models/Doctor.cpp
     src/models/Employee.cpp
     src/models/EmployeeTableModel.cpp
@@ -35,34 +38,47 @@ add_executable(${TARGET_NAME}
     src/models/Nurse.cpp
     src/models/Object.cpp
     src/models/Patient.cpp
+    src/models/PatientTableModel.cpp
     src/models/Person.cpp
     src/models/Receptionist.cpp
     src/models/TxtDepartmentParser.cpp
+    src/models/TxtDepartmentRepository.cpp
     src/models/TxtDoctorParser.cpp
     src/models/TxtEmployeeRepository.cpp
     src/models/TxtNurseParser.cpp
     src/models/TxtParserFactory.cpp
     src/models/TxtPatientParser.cpp
+    src/models/TxtPatientRepository.cpp
     src/models/TxtReceptionistParser.cpp
     src/models/TxtWritingVisitor.cpp
     src/utils/Date.cpp
     src/utils/Time.cpp
     src/utils/utils.cpp
+    src/views/DepartmentFilteringView.cpp
+    src/views/DepartmentRecordView.cpp
     src/views/EmployeeFilteringView.cpp
     src/views/EmployeeRecordView.cpp
     src/views/HomeView.cpp
     src/views/LoginView.cpp
     src/views/ManagementView.cpp
+    src/views/PatientFilteringView.cpp
+    src/views/PatientRecordView.cpp
+    src/views/DepartmentFilteringView.ui
+    src/views/DepartmentRecordView.ui
     src/views/EmployeeFilteringView.ui
     src/views/EmployeeRecordView.ui
     src/views/HomeView.ui
     src/views/LoginView.ui
     src/views/ManagementView.ui
+    src/views/PatientFilteringView.ui
+    src/views/PatientRecordView.ui
 )
 
 target_sources(${TARGET_NAME} PRIVATE
     src/ServiceLocator.h
+    src/controllers/DepartmentManager.h
     src/controllers/EmployeeManager.h
+    src/controllers/PatientManager.h
     src/interfaces/IDepartmentRepository.h
     src/interfaces/IEmployeeRepository.h
     src/interfaces/IManager.h
@@ -74,6 +90,7 @@ target_sources(${TARGET_NAME} PRIVATE
     src/interfaces/IWritingVisitor.h
     src/models/Department.h
     src/models/DepartmentParser.h
+    src/models/DepartmentTableModel.h
     src/models/Doctor.h
     src/models/DoctorParser.h
     src/models/Employee.h
@@ -84,15 +101,18 @@ target_sources(${TARGET_NAME} PRIVATE
     src/models/Object.h
     src/models/Patient.h
     src/models/PatientParser.h
+    src/models/PatientTableModel.h
     src/models/Person.h
     src/models/Receptionist.h
     src/models/ReceptionistParser.h
     src/models/TxtDepartmentParser.h
+    src/models/TxtDepartmentRepository.h
     src/models/TxtDoctorParser.h
     src/models/TxtEmployeeRepository.h
     src/models/TxtNurseParser.h
     src/models/TxtParserFactory.h
     src/models/TxtPatientParser.h
+    src/models/TxtPatientRepository.h
     src/models/TxtReceptionistParser.h
     src/models/TxtWritingVisitor.h
     src/utils/Date.h
@@ -102,11 +122,15 @@ target_sources(${TARGET_NAME} PRIVATE
     src/utils/Time.h
     src/utils/utils.h
     src/utils/utils_template.h
+    src/views/DepartmentFilteringView.h
+    src/views/DepartmentRecordView.h
     src/views/EmployeeFilteringView.h
     src/views/EmployeeRecordView.h
     src/views/HomeView.h
     src/views/LoginView.h
     src/views/ManagementView.h
+    src/views/PatientFilteringView.h
+    src/views/PatientRecordView.h
 )
 
 target_include_directories(${TARGET_NAME} PRIVATE "${CMAKE_CURRENT_BINARY_DIR}/${TARGET_NAME}_autogen/include_$<CONFIG>")

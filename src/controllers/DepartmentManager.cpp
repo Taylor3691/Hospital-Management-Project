@@ -1,27 +1,36 @@
 #include "DepartmentManager.h"
 
 DepartmentManager::DepartmentManager(IDepartmentRepository* repo)
-    : _departmentRepo(repo)
-    , _departmentQuery(new DepartmentQuery(repo)) {}
-
-DepartmentManager::~DepartmentManager() {
-    delete _departmentQuery;
+    : _repo(repo) {
 }
 
 void DepartmentManager::add(std::unique_ptr<Department> department) {
-    _departmentRepo->add(std::move(department));
+    _repo->add(std::move(department));
 }
 
 void DepartmentManager::removeById(const std::string& id) {
-    _departmentRepo->removeById(id);
+    _repo->removeById(id);
 }
 
-std::vector<const Department*> DepartmentManager::findAll() const {
-    return _departmentQuery->findAll();
+void DepartmentManager::removeByIds(const std::vector<std::string>& ids) {
+    _repo->removeByIds(ids);
 }
 
-std::vector<const Department*> DepartmentManager::findByName(
-    const std::string& name
+void DepartmentManager::update(const Department& department) {
+    _repo->update(department);
+}
+
+std::vector<const Department*> DepartmentManager::find(
+    const std::vector<RFilter<Department>>& filters
 ) const {
-    return _departmentQuery->findByName(name);
+    auto departments = _repo->data();
+    auto query = from(departments);
+    for (const auto& [criteria, getter] : filters) {
+        query.where(getter, criteria.value, criteria.op);
+    }
+    return query.find();
+}
+
+std::vector<const Department*> DepartmentManager::getAll() const {
+    return _repo->data();
 }

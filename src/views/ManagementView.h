@@ -3,10 +3,16 @@
 
 #include <QVector>
 #include "ui_ManagementView.h"
+#include "../utils/utils.h"
 #include "../models/EmployeeTableModel.h"
 #include "../views/EmployeeRecordView.h"
 #include "../views/EmployeeFilteringView.h"
-#include "../utils/utils.h"
+#include "../models/DepartmentTableModel.h"
+#include "../views/DepartmentRecordView.h"
+#include "../views/DepartmentFilteringView.h"
+#include "../models/PatientTableModel.h"
+#include "../views/PatientRecordView.h"
+#include "../views/PatientFilteringView.h"
 
 namespace Ui {
     class ManagementView;
