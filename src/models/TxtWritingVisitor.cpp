@@ -62,7 +62,7 @@ void TxtWritingVisitor::write(Patient* patient, std::ostream& os) {
         << patient->phone() << _delim
         << patient->dob() << _delim;
         if (patient->insuranceCard() != nullptr) {
-            os << patient->insuranceCard()->cardNumber() << ','
+            os << patient->insuranceCard()->id() << ','
                 << patient->insuranceCard()->issueDate() << ','
                 << patient->insuranceCard()->expiryDate() << ','
                 << std::fixed << std::setprecision(2)

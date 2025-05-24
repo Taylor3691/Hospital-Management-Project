@@ -30,9 +30,9 @@ Object* TxtPatientParser::parse(const std::string& str) const {
     if (buffer != "null") {
         std::stringstream substream(buffer);
         std::string subbuffer;
-        std::unique_ptr<HealthInsurance> insurance = std::make_unique<HealthInsurance>();
+        auto insurance = std::make_unique<HealthInsurance>();
         std::getline(substream, subbuffer, ',');
-        insurance->setCardNumber(subbuffer);
+        insurance->setId(subbuffer);
         std::getline(substream, subbuffer, ',');
         insurance->setIssueDate(subbuffer);
         std::getline(substream, subbuffer, ',');
