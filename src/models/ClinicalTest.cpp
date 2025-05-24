@@ -15,6 +15,10 @@ ClinicalTest::ClinicalTest(
     , _result(result)
     , _completed(completed) {}
 
+std::string ClinicalTest::testId() {
+    return _testId;
+}
+
 double ClinicalTest::cost() const {
     return _cost;
 }
@@ -25,6 +29,10 @@ std::string ClinicalTest::result() const {
 
 bool ClinicalTest::completed() const {
     return _completed;
+}
+
+void ClinicalTest::setTestId(const std::string& id) {
+    _testId = id;
 }
 
 void ClinicalTest::setCost(double cost) {
@@ -43,8 +51,8 @@ double ClinicalTest::calculateFee() const {
     return _cost;
 }
 
-void ClinicalTest::acceptWrite(IVisitor* visior, std::ostream& os) {
-
+void ClinicalTest::acceptWrite(IVisitor* visitor, std::ostream& os) {
+    (dynamic_cast<IWritingVisitor*>(visitor))->write(this, os);
 }
 
 Object* ClinicalTest::clone() const {
