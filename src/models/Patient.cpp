@@ -47,7 +47,12 @@ Patient& Patient::operator=(const Patient& other) {
     if (this != &other) {
         Person::operator=(other);
         _symptoms = other._symptoms;
-        _insuranceCard = std::make_unique<HealthInsurance>(*other._insuranceCard);
+        if (other._insuranceCard) {
+            _insuranceCard = std::make_unique<HealthInsurance>(*other._insuranceCard);
+        }
+        else {
+            _insuranceCard.reset();
+        }
     }
     return *this;
 }
