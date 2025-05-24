@@ -1,30 +1,30 @@
 #include "TxtEmployeeRepository.h"
 
 TxtEmployeeRepository::TxtEmployeeRepository()
-    : _fileName("employees.txt"), _delim('|')
+    : _filePath("employees.txt"), _delim('|')
 {
-    ::load(_employees, _delim, _fileName);
+    ::load(_employees, _delim, _filePath);
 }
 
 TxtEmployeeRepository::TxtEmployeeRepository(
-    const std::string& fileName,
+    const std::string& filePath,
     char delim
 )
-    : _fileName(fileName), _delim(delim)
+    : _filePath(filePath), _delim(delim)
 {
-    ::load(_employees, _delim, _fileName);
+    ::load(_employees, _delim, _filePath);
 }
 
-const std::string& TxtEmployeeRepository::fileName() const {
-    return _fileName;
+std::string TxtEmployeeRepository::filePath() const {
+    return _filePath;
 }
 
 char TxtEmployeeRepository::delim() const {
     return _delim;
 }
 
-void TxtEmployeeRepository::setFileName(const std::string& fileName) {
-    _fileName = fileName;
+void TxtEmployeeRepository::setFilePath(const std::string& filePath) {
+    _filePath = filePath;
 }
 
 void TxtEmployeeRepository::setDelim(char delim) {
@@ -33,11 +33,11 @@ void TxtEmployeeRepository::setDelim(char delim) {
 
 void TxtEmployeeRepository::load() {
     _employees.clear();
-    ::load(_employees, _delim, _fileName);
+    ::load(_employees, _delim, _filePath);
 }
 
 void TxtEmployeeRepository::save() const {
-    ::save(_employees, _delim, _fileName);
+    ::save(_employees, _delim, _filePath);
 }
 
 void TxtEmployeeRepository::add(std::unique_ptr<Employee> employee) {
