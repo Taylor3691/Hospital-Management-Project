@@ -1,5 +1,6 @@
-#ifndef IPATIENTREPOSITORY_H_
-#define IPATIENTREPOSITORY_H_
+#ifndef IPATIENT_REPOSITORY_H
+#define IPATIENT_REPOSITORY_H
+
 #include "IRepository.h"
 #include "../models/Patient.h"
 
@@ -8,4 +9,4 @@ public:
     virtual ~IPatientRepository() = default;
 };
 
-#endif // !IPATIENTREPOSITORY_H_
+#endif // !IPATIENT_REPOSITORY_H
