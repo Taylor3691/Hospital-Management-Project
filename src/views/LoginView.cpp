@@ -31,6 +31,11 @@ void LoginView::setConnections() {
             }
         });
 
+    connect(_ui->username_lineEdit, &QLineEdit::returnPressed, this,
+        [this]() {
+            _ui->login_pushButton->click();
+        });
+
     connect(_ui->password_lineEdit, &QLineEdit::returnPressed, this,
         [this]() {
             _ui->login_pushButton->click();
