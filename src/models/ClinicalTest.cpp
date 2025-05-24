@@ -43,3 +43,10 @@ double ClinicalTest::calculateFee() const {
     return _cost;
 }
 
+void ClinicalTest::acceptWrite(IVisitor* visior, std::ostream& os) {
+
+}
+
+Object* ClinicalTest::clone() const {
+    return new ClinicalTest(*this);
+}

@@ -12,6 +12,7 @@ public:
     virtual bool canPrescribeMedicine() const = 0;
     virtual bool canOrderClinicalTest() const = 0;
     virtual bool canComplete() const = 0;
+    virtual ExaminationState* clone() const = 0;
 };
 
 #endif // !EXAMINATION_STATE_H

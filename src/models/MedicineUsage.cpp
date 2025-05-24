@@ -61,3 +61,11 @@ void MedicineUsage::setDescription(const std::string& description) {
 double MedicineUsage::calculateFee() const {
     return _price * _usedQuantity;
 }
+
+void MedicineUsage::acceptWrite(IVisitor* visitor, std::ostream& os) {
+
+}
+
+Object* MedicineUsage::clone() const {
+    return new MedicineUsage(*this);
+}

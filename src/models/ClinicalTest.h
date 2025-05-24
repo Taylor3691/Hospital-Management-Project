@@ -26,6 +26,8 @@ public:
 
 public:
     double calculateFee() const override;
+    void acceptWrite(IVisitor* visitor, std::ostream& os);
+    Object* clone() const;
 };
 
 #endif // !CLINICAL_TEST_H

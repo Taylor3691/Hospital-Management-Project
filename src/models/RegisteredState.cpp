@@ -1,5 +1,7 @@
 #include "RegisteredState.h"
 
+RegisteredState::RegisteredState() {}
+
 std::string RegisteredState::getStateName() const {
     return "Da Dang Ky";
 }
@@ -14,4 +16,8 @@ bool RegisteredState::canOrderClinicalTest() const {
 
 bool RegisteredState::canComplete() const {
     return false;
+}
+
+ExaminationState* RegisteredState::clone() const {
+    return new RegisteredState();
 }

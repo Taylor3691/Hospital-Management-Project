@@ -9,6 +9,7 @@ public:
     bool canPrescribeMedicine() const override;
     bool canOrderClinicalTest() const override;
     bool canComplete() const override;
+    ExaminationState* clone() const override;
 };
 
 #endif // !EXAMINING_STATE_H

@@ -47,6 +47,11 @@ public:
     void orderClinicalTest(ClinicalTest* test);
     void compeleteExamination();
     void changeState(std::unique_ptr<ExaminationState> state);
+    void acceptWrite(IVisitor* visitor, std::ostream& os) override;
+    Object* clone() const override;
+
+public:
+    MedicalRecord& operator=(const MedicalRecord& other);
 };
 
 #endif // !MEDICAL_RECORD_H

@@ -140,21 +140,29 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\models\BillableComponent.cpp" />
+    <ClCompile Include="src\models\ClinicalTest.cpp" />
+    <ClCompile Include="src\models\CompletedState.cpp" />
     <ClCompile Include="src\models\Department.cpp" />
     <ClCompile Include="src\models\Doctor.cpp" />
     <ClCompile Include="src\models\Employee.cpp" />
+    <ClCompile Include="src\models\ExaminingState.cpp" />
     <ClCompile Include="src\models\HealthInsurance.cpp" />
+    <ClCompile Include="src\models\MedicalRecord.cpp" />
     <ClCompile Include="src\models\Medicine.cpp" />
     <ClCompile Include="src\models\Nurse.cpp" />
     <ClCompile Include="src\models\Object.cpp" />
     <ClCompile Include="src\models\Patient.cpp" />
+    <ClCompile Include="src\models\PendingTestState.cpp" />
     <ClCompile Include="src\models\Person.cpp" />
     <ClCompile Include="src\models\Receptionist.cpp" />
+    <ClCompile Include="src\models\RegisteredState.cpp" />
     <ClCompile Include="src\models\TestService.cpp" />
     <ClCompile Include="src\models\TxtDepartmentParser.cpp" />
     <ClCompile Include="src\models\TxtDepartmentRepository.cpp" />
     <ClCompile Include="src\models\TxtDoctorParser.cpp" />
     <ClCompile Include="src\models\TxtEmployeeRepository.cpp" />
+    <ClCompile Include="src\models\TxtMedicalRecordRepository.cpp" />
     <ClCompile Include="src\models\TxtMedicineParser.cpp" />
     <ClCompile Include="src\models\TxtMedicineParser.h" />
     <ClCompile Include="src\models\TxtMedicineRepository.cpp" />
@@ -171,9 +179,16 @@
     <ClCompile Include="src\utils\Time.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\interfaces\IMedicalRecordRepository.h" />
     <ClInclude Include="src\interfaces\IMedicineRepository.h" />
     <ClInclude Include="src\interfaces\IPaymentMethod.h" />
     <ClInclude Include="src\interfaces\ITestServiceRepository.h" />
+    <ClInclude Include="src\models\BillableComponent.h" />
+    <ClInclude Include="src\models\ClinicalTest.h" />
+    <ClInclude Include="src\models\CompletedState.h" />
+    <ClInclude Include="src\models\ExaminationState.h" />
+    <ClInclude Include="src\models\ExaminingState.h" />
+    <ClInclude Include="src\models\MedicalRecord.h" />
     <ClInclude Include="src\models\MedicineParser.h" />
     <ClInclude Include="src\models\Department.h" />
     <ClInclude Include="src\models\DepartmentParser.h" />
@@ -187,15 +202,18 @@
     <ClInclude Include="src\models\Object.h" />
     <ClInclude Include="src\models\Patient.h" />
     <ClInclude Include="src\models\PatientParser.h" />
+    <ClInclude Include="src\models\PendingTestState.h" />
     <ClInclude Include="src\models\Person.h" />
     <ClInclude Include="src\models\Receptionist.h" />
     <ClInclude Include="src\models\ReceptionistParser.h" />
+    <ClInclude Include="src\models\RegisteredState.h" />
     <ClInclude Include="src\models\TestService.h" />
     <ClInclude Include="src\models\TestServiceParser.h" />
     <ClInclude Include="src\models\TxtDepartmentParser.h" />
     <ClInclude Include="src\models\TxtDepartmentRepository.h" />
     <ClInclude Include="src\models\TxtDoctorParser.h" />
     <ClInclude Include="src\models\TxtEmployeeRepository.h" />
+    <ClInclude Include="src\models\TxtMedicalRecordRepository.h" />
     <ClInclude Include="src\models\TxtNurseParser.h" />
     <ClInclude Include="src\models\TxtParserFactory.h" />
     <ClInclude Include="src\models\TxtPatientParser.h" />
