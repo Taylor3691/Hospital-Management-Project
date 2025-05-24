@@ -12,6 +12,7 @@ private:
 public:
     TxtDepartmentRepository();
     TxtDepartmentRepository(const std::string& fileName, char delim = '|');
+
 public:
     std::string fileName() const;
     char delim() const;

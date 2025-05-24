@@ -5,7 +5,7 @@
 
 class TxtTestServiceRepository : public ITestServiceRepository {
 private:
-    std::string _filePath;
+    std::string _fileName;
     std::vector<std::unique_ptr<TestService>> _tests;
     char _delim;
 

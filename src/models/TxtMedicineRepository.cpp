@@ -1,15 +1,15 @@
 #include "TxtMedicineRepository.h"
 
 TxtMedicineRepository::TxtMedicineRepository()
-    : _filename("medicines.txt")
+    : _fileName("medicines.txt")
     , _delim('|'){}
 
 TxtMedicineRepository::TxtMedicineRepository(const std::string& filename, char delim)
-    : _filename(filename)
+    : _fileName(filename)
     , _delim(delim) {}
 
 const std::string& TxtMedicineRepository::fileName() const {
-    return _filename;
+    return _fileName;
 }
 
 char TxtMedicineRepository::delim() const {
@@ -17,7 +17,7 @@ char TxtMedicineRepository::delim() const {
 }
 
 void TxtMedicineRepository::setFilename(const std::string& filename) {
-    _filename = filename;
+    _fileName = filename;
 }
 
 void TxtMedicineRepository::setDelim(char delim) {
@@ -26,11 +26,11 @@ void TxtMedicineRepository::setDelim(char delim) {
 
 void TxtMedicineRepository::load() {
     _medicines.clear();
-    ::load(_medicines, _delim, _filename);
+    ::load(_medicines, _delim, _fileName);
 }
 
 void TxtMedicineRepository::save() const {
-    ::save(_medicines, _delim, _filename);
+    ::save(_medicines, _delim, _fileName);
 }
 
 void TxtMedicineRepository::add(std::unique_ptr<Medicine> medicine) {

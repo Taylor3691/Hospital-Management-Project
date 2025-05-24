@@ -5,7 +5,7 @@
 
 class TxtMedicineRepository : public IMedicineRepository {
 private:
-    std::string _filename;
+    std::string _fileName;
     char _delim;
     std::vector<std::unique_ptr<Medicine>> _medicines;
 

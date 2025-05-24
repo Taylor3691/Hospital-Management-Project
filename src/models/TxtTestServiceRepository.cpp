@@ -1,16 +1,16 @@
 #include "TxtTestServiceRepository.h"
 
-TxtTestServiceRepository::TxtTestServiceRepository(): _filePath("tests.txt"), _delim('|') {}
+TxtTestServiceRepository::TxtTestServiceRepository(): _fileName("tests.txt"), _delim('|') {}
 
-TxtTestServiceRepository::TxtTestServiceRepository(const std::string& filePath, char delim) : _filePath(filePath), _delim(delim) {
+TxtTestServiceRepository::TxtTestServiceRepository(const std::string& filePath, char delim) : _fileName(filePath), _delim(delim) {
 }
 
 const std::string& TxtTestServiceRepository::fileName() const {
-    return _filePath;
+    return _fileName;
 }
 
 void TxtTestServiceRepository::setFileName(const std::string& filePath) {
-    _filePath = filePath;
+    _fileName = filePath;
 }
 
 char TxtTestServiceRepository::delim() const {
@@ -22,12 +22,12 @@ void TxtTestServiceRepository::setDelim(char delim) {
 }
 
 void TxtTestServiceRepository::save() const {
-    ::save(_tests, _delim, _filePath);
+    ::save(_tests, _delim, _fileName);
 }
 
 void TxtTestServiceRepository::load() {
     _tests.clear();
-    ::load(_tests, _delim, _filePath);
+    ::load(_tests, _delim, _fileName);
 }
 
 void TxtTestServiceRepository::add(std::unique_ptr<TestService> patient) {
