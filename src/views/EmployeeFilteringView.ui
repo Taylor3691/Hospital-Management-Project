@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
+    <width>431</width>
     <height>400</height>
    </rect>
   </property>
@@ -45,6 +45,7 @@ Resetting everything helps to unify styles across different operating systems
   border-style: none;
   border-image: none;
   outline: 0;
+  font: 9pt &quot;Segoe UI&quot;;
 }
 
 /* specific reset for elements inside QToolBar */
@@ -2327,6 +2328,12 @@ PlotWidget {
      </item>
      <item>
       <widget class="QDoubleSpinBox" name="salary_doubleSpinBox">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>32</height>
+        </size>
+       </property>
        <property name="maximum">
         <double>1000000000.000000000000000</double>
        </property>
