@@ -2255,7 +2255,7 @@ PlotWidget {
      <property name="title">
       <string>Thông tin cá nhân</string>
      </property>
-     <layout class="QGridLayout" name="gridLayout_2" columnstretch="3,4,3">
+     <layout class="QGridLayout" name="gridLayout_2" columnstretch="4,4,3">
       <property name="horizontalSpacing">
        <number>20</number>
       </property>
@@ -2265,12 +2265,12 @@ PlotWidget {
          <widget class="QLabel" name="id_label">
           <property name="minimumSize">
            <size>
-            <width>85</width>
+            <width>107</width>
             <height>0</height>
            </size>
           </property>
           <property name="text">
-           <string>ID:</string>
+           <string>Mã bệnh nhân:</string>
           </property>
          </widget>
         </item>
@@ -2342,7 +2342,7 @@ PlotWidget {
          <widget class="QLabel" name="dob_label">
           <property name="minimumSize">
            <size>
-            <width>85</width>
+            <width>107</width>
             <height>0</height>
            </size>
           </property>

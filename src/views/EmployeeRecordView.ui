@@ -2474,7 +2474,7 @@ PlotWidget {
              </size>
             </property>
             <property name="text">
-             <string>ID:</string>
+             <string>Mã nhân viên:</string>
             </property>
            </widget>
           </item>
@@ -2586,7 +2586,7 @@ PlotWidget {
              </size>
             </property>
             <property name="text">
-             <string>ID khoa:</string>
+             <string>Mã khoa:</string>
             </property>
            </widget>
           </item>

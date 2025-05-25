@@ -2270,7 +2270,7 @@ PlotWidget {
         </size>
        </property>
        <property name="text">
-        <string>ID:</string>
+        <string>Mã bệnh nhân:</string>
        </property>
       </widget>
      </item>

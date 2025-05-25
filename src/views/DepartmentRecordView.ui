@@ -2276,12 +2276,12 @@ PlotWidget {
             </property>
             <property name="minimumSize">
              <size>
-              <width>115</width>
+              <width>120</width>
               <height>0</height>
              </size>
             </property>
             <property name="text">
-             <string>ID:</string>
+             <string>Mã khoa:</string>
             </property>
            </widget>
           </item>
@@ -2312,7 +2312,7 @@ PlotWidget {
             </property>
             <property name="minimumSize">
              <size>
-              <width>115</width>
+              <width>120</width>
               <height>0</height>
              </size>
             </property>
@@ -2351,12 +2351,12 @@ PlotWidget {
             </property>
             <property name="minimumSize">
              <size>
-              <width>115</width>
+              <width>120</width>
               <height>0</height>
              </size>
             </property>
             <property name="text">
-             <string>ID trưởng khoa:</string>
+             <string>Mã trưởng khoa:</string>
             </property>
            </widget>
           </item>
