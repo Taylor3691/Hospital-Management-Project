@@ -5,8 +5,11 @@ HomeView::HomeView(QWidget* parent)
     , _ui(new Ui::HomeView) 
     , _loginView(new LoginView(this))
     , _managementView(new ManagementView(this))
-    , _loginView_stack(new QStackedWidget(this))
-    , _managementView_stack(new QStackedWidget(this))
+    , _registerView(new RegisterView(this))
+    , _roomView(new RoomView(this))
+    , _paraclinicalView(new ParaclinicalView(this))
+    , _loginStack(new QStackedWidget(this))
+    , _mainStack(new QStackedWidget(this))
 {
     setup();
     setConnections();
@@ -21,6 +24,8 @@ void HomeView::setup() {
     
     _loginView->setStyleSheet("");
     _managementView->setStyleSheet("");
+    _registerView->setStyleSheet("");
+    _roomView->setStyleSheet("");
     setStyleSheet("");
     qApp->setStyleSheet(themeStyleSheet());
 
@@ -28,25 +33,45 @@ void HomeView::setup() {
     _ui->light_action->setEnabled(0);
     _ui->logout_action->setEnabled(0);
     _ui->detailManagement_frame->setVisible(0);
+    _ui->room_frame->setVisible(0);
 
-    _loginView_stack->addWidget(_ui->centralwidget);
-    _loginView_stack->addWidget(_loginView);
-    _loginView_stack->setCurrentIndex(1);
-    setCentralWidget(_loginView_stack);
+    _loginStack->addWidget(_ui->centralwidget);
+    _loginStack->addWidget(_loginView);
+    _loginStack->setCurrentIndex(1);
+    setCentralWidget(_loginStack);
 
-    _managementView_stack->addWidget(_ui->instructions_textBrowser);
-    _managementView_stack->addWidget(_managementView);
-    _ui->central_horizontalLayout->addWidget(_managementView_stack);
+    _mainStack->addWidget(_ui->instructions_textBrowser);
+    _mainStack->addWidget(_managementView);
+    _mainStack->addWidget(_registerView);
+    _mainStack->addWidget(_roomView);
+    _mainStack->addWidget(_paraclinicalView);
+    _ui->central_horizontalLayout->addWidget(_mainStack);
+
+    _managementButtonGroup = new QButtonGroup(this);
+    _managementButtonGroup->addButton(_ui->patient_pushButton);
+    _managementButtonGroup->addButton(_ui->department_pushButton);
+    _managementButtonGroup->addButton(_ui->employee_pushButton);
+
+    _roomButtonGroup = new QButtonGroup(this);
+    createRoomButtons();
+
+    _mainButtonGroup = new QButtonGroup(this);
+    _mainButtonGroup->addButton(_ui->manage_pushButton);
+    _mainButtonGroup->addButton(_ui->register_pushButton);
+    _mainButtonGroup->addButton(_ui->room_pushButton);
+    _mainButtonGroup->addButton(_ui->paraclinical_pushButton);
+    _mainButtonGroup->addButton(_ui->bill_pushButton);
+    _mainButtonGroup->addButton(_ui->medicine_pushButton);
 }
 
 void HomeView::setConnections() {
     connect(_ui->navigate_menu, &QMenu::triggered, this,
         [this](QAction* action) {
             if (action->text() == QStringLiteral("Trang chủ")) {
-                updateCheckedState();
-                _ui->manage_pushButton->setChecked(0);
-                _loginView_stack->setCurrentIndex(0);
-                _managementView_stack->setCurrentIndex(0);
+                clearButtonGroupSelection(_mainButtonGroup);
+                clearButtonGroupSelection(_managementButtonGroup);
+                clearButtonGroupSelection(_roomButtonGroup);
+                switchToView(View::Home);
             }
             else if (action->text() == QStringLiteral("Thoát")) {
                 close();
@@ -69,16 +94,27 @@ void HomeView::setConnections() {
 
     connect(_ui->account_menu, &QMenu::triggered, this,
         [this](QAction*) {
-            _loginView_stack->setCurrentIndex(1);
+            switchToLogin(1);
             _ui->home_action->setEnabled(0);
             _ui->logout_action->setEnabled(0);
         });
 
     connect(_loginView, &LoginView::loginSucceeded, this,
         [this]() {
-            _loginView_stack->setCurrentIndex(0);
+            switchToLogin(0);
             _ui->home_action->setEnabled(1);
             _ui->logout_action->setEnabled(1);
+        });
+
+    connect(
+        _mainButtonGroup,
+        QOverload<QAbstractButton*, bool>::of(&QButtonGroup::buttonToggled),
+        this,
+        [this](QAbstractButton*, bool checked) {
+            if (!checked) {
+                clearButtonGroupSelection(_managementButtonGroup);
+                clearButtonGroupSelection(_roomButtonGroup);
+            }
         });
 
     connect(_ui->manage_pushButton, &QPushButton::toggled, this,
@@ -88,23 +124,48 @@ void HomeView::setConnections() {
 
     connect(_ui->patient_pushButton, &QPushButton::clicked, this,
         [this](bool) {
-            updateCheckedState();
-            _managementView_stack->setCurrentIndex(1);
+            switchToView(View::Management);
             _managementView->changeModel(ModelType::Patient);
         });
 
     connect(_ui->department_pushButton, &QPushButton::clicked, this,
         [this](bool) {
-            updateCheckedState();
-            _managementView_stack->setCurrentIndex(1);
+            switchToView(View::Management);
             _managementView->changeModel(ModelType::Department);
         });
 
     connect(_ui->employee_pushButton, &QPushButton::clicked, this,
         [this](bool) {
-            updateCheckedState();
-            _managementView_stack->setCurrentIndex(1);
+            switchToView(View::Management);
             _managementView->changeModel(ModelType::Employee);
+        });
+
+    connect(_ui->register_pushButton, &QPushButton::clicked, this,
+        [this](bool) {
+            switchToView(View::Register);
+        });
+
+    connect(_ui->room_pushButton, &QPushButton::toggled, this,
+        [this](bool checked) {
+            _ui->room_frame->setVisible(checked);
+        });
+
+    connect(
+        _roomButtonGroup,
+        QOverload<QAbstractButton*, bool>::of(&QButtonGroup::buttonToggled),
+        this,
+        [this](QAbstractButton* button, bool checked) {
+            if (checked) {
+                auto buttons = _roomButtonGroup->buttons();
+                auto it = std::find(buttons.begin(), buttons.end(), button);
+                _roomView->changeRoom(it - buttons.begin());
+                switchToView(View::Room);
+            }
+        });
+
+    connect(_ui->paraclinical_pushButton, &QPushButton::clicked, this,
+        [this](bool) {
+            switchToView(View::Paraclinical);
         });
 }
 
@@ -122,14 +183,37 @@ QString HomeView::themeStyleSheet(const QString& theme) {
     }
 }
 
-void HomeView::updateCheckedState() {
-    auto& children = _ui->detailManagement_frame->children();
-    for (auto& child : children) {
-        if (sender() != child) {
-            auto button = qobject_cast<QPushButton*>(child);
-            if (button) {
-                button->setChecked(0);
-            }
+void HomeView::switchToLogin(bool yes) {
+    _loginStack->setCurrentIndex(yes);
+}
+
+void HomeView::switchToView(View view) {
+    _mainStack->setCurrentIndex((int)view);
+}
+
+void HomeView::clearButtonGroupSelection(QButtonGroup* group) {
+    if (group) {
+        group->setExclusive(0);
+        for (auto button : group->buttons()) {
+            button->setChecked(0);
         }
+        group->setExclusive(1);
+    }
+}
+
+void HomeView::createRoomButtons() {
+    auto layout = _ui->room_frame->layout();
+    QPushButton* button = nullptr;
+    for (int i = 0; i < ServiceLocator::rooms().size(); ++i) {
+        button = new QPushButton(_ui->room_frame);
+        button->setText(QString("Phòng %1").arg(i + 1));
+        button->setSizePolicy(
+            QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Fixed)
+        );
+        button->setMinimumSize(QSize(140, 30));
+        button->setCheckable(1);
+
+        layout->addWidget(button);
+        _roomButtonGroup->addButton(button);
     }
 }

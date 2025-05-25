@@ -35,6 +35,7 @@ add_executable(${TARGET_NAME}
     src/models/Employee.cpp
     src/models/EmployeeTableModel.cpp
     src/models/HealthInsurance.cpp
+    src/models/MedicalRecordListModel.cpp
     src/models/Nurse.cpp
     src/models/Object.cpp
     src/models/Patient.cpp
@@ -61,8 +62,12 @@ add_executable(${TARGET_NAME}
     src/views/HomeView.cpp
     src/views/LoginView.cpp
     src/views/ManagementView.cpp
+    src/views/MedicinePrecribingView.cpp
+    src/views/ParaclinicalView.cpp
     src/views/PatientFilteringView.cpp
     src/views/PatientRecordView.cpp
+    src/views/RegisterView.cpp
+    src/views/RoomView.cpp
     src/views/DepartmentFilteringView.ui
     src/views/DepartmentRecordView.ui
     src/views/EmployeeFilteringView.ui
@@ -70,67 +75,12 @@ add_executable(${TARGET_NAME}
     src/views/HomeView.ui
     src/views/LoginView.ui
     src/views/ManagementView.ui
+    src/views/MedicinePrecribingView.ui
+    src/views/ParaclinicalView.ui
     src/views/PatientFilteringView.ui
     src/views/PatientRecordView.ui
-)
-
-target_sources(${TARGET_NAME} PRIVATE
-    src/ServiceLocator.h
-    src/controllers/DepartmentManager.h
-    src/controllers/EmployeeManager.h
-    src/controllers/PatientManager.h
-    src/interfaces/IDepartmentRepository.h
-    src/interfaces/IEmployeeRepository.h
-    src/interfaces/IManager.h
-    src/interfaces/IParser.h
-    src/interfaces/IParserFactory.h
-    src/interfaces/IPatientRepository.h
-    src/interfaces/IRepository.h
-    src/interfaces/IVisitor.h
-    src/interfaces/IWritingVisitor.h
-    src/models/Department.h
-    src/models/DepartmentParser.h
-    src/models/DepartmentTableModel.h
-    src/models/Doctor.h
-    src/models/DoctorParser.h
-    src/models/Employee.h
-    src/models/EmployeeTableModel.h
-    src/models/HealthInsurance.h
-    src/models/Nurse.h
-    src/models/NurseParser.h
-    src/models/Object.h
-    src/models/Patient.h
-    src/models/PatientParser.h
-    src/models/PatientTableModel.h
-    src/models/Person.h
-    src/models/Receptionist.h
-    src/models/ReceptionistParser.h
-    src/models/TxtDepartmentParser.h
-    src/models/TxtDepartmentRepository.h
-    src/models/TxtDoctorParser.h
-    src/models/TxtEmployeeRepository.h
-    src/models/TxtNurseParser.h
-    src/models/TxtParserFactory.h
-    src/models/TxtPatientParser.h
-    src/models/TxtPatientRepository.h
-    src/models/TxtReceptionistParser.h
-    src/models/TxtWritingVisitor.h
-    src/utils/Date.h
-    src/utils/QueryBuilder.h
-    src/utils/QueryTypes.h
-    src/utils/QueryUtils.h
-    src/utils/Time.h
-    src/utils/utils.h
-    src/utils/utils_template.h
-    src/views/DepartmentFilteringView.h
-    src/views/DepartmentRecordView.h
-    src/views/EmployeeFilteringView.h
-    src/views/EmployeeRecordView.h
-    src/views/HomeView.h
-    src/views/LoginView.h
-    src/views/ManagementView.h
-    src/views/PatientFilteringView.h
-    src/views/PatientRecordView.h
+    src/views/RegisterView.ui
+    src/views/RoomView.ui
 )
 
 target_include_directories(${TARGET_NAME} PRIVATE "${CMAKE_CURRENT_BINARY_DIR}/${TARGET_NAME}_autogen/include_$<CONFIG>")
