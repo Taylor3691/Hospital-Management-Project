@@ -8,7 +8,8 @@ TxtParserFactory::TxtParserFactory(char delim)
         { "DEPT", new TxtDepartmentParser(delim) },
         { "BN", new TxtPatientParser(delim) },
         { "ME", new TxtMedicineParser(delim)},
-        { "CLS", new TxtTestServiceParser(delim)}
+        { "CLS", new TxtTestServiceParser(delim)},
+        { "PHG", new TxtRoomExaminationParser(delim)}
     }) {}
 
 TxtParserFactory::~TxtParserFactory() {

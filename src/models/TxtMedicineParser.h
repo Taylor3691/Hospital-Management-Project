@@ -1,5 +1,5 @@
-#ifndef TXTMEDICINEPARSER_H
-#define TXTMEDICINEPARSER_H
+#ifndef TXTMEDICINEPARSER_H_
+#define TXTMEDICINEPARSER_H_
 
 #include <sstream>
 #include "MedicineParser.h"

@@ -20,6 +20,9 @@ public:
     std::string departmentId() const;
     std::vector<std::string> waitingQueue() const;
     double examinationFee() const;
+    void setDepartmentId(const std::string& id);
+    void setWaitingQueue(std::vector<std::string> queue);
+    void setRoomFee(double fee);
 
 public:
     void addToWaitingQueue(const std::string& id);

@@ -87,7 +87,6 @@ void TxtWritingVisitor::write(Medicine* medicine, std::ostream& os) {
         << medicine->unit() << _delim
         << std::fixed << std::setprecision(2)
         << medicine->pricePerUnit() << _delim
-        << std::fixed << std::setprecision(2)
         << medicine->quantity();
 }
 
@@ -104,19 +103,21 @@ void TxtWritingVisitor::write(MedicalRecord* record, std::ostream& os, IWritingV
         << record->patientId() << _delim
         << record->roomId() << _delim
         << record->doctorId() << _delim
-        << record->diagnosisResult() << _delim
         << record->prescribedMedicines().size() << _delim;
     for (auto medicine : record->prescribedMedicines()) {
         auto sample = dynamic_cast<MedicineUsage*>(medicine->clone());
         sample->acceptWrite(write, os);
+        os << _delim;
         delete sample;
     }
-
+    os << record->clinicalTests().size() << _delim;
     for (auto test : record->clinicalTests()) {
         auto sample = dynamic_cast<ClinicalTest*>(test->clone());
         sample->acceptWrite(write, os);
+        os << _delim;
         delete sample;
     }
+    os << record->diagnosisResult();
 }
 
 void TxtWritingVisitor::write(MedicineUsage* usage, std::ostream& os) {
@@ -141,13 +142,13 @@ void TxtWritingVisitor::write(ClinicalTest* test, std::ostream& os) {
 void TxtWritingVisitor::write(RoomExamination* room, std::ostream& os) {
     os << room->id() << _delim
         << room->name() << _delim
-        << std::fixed << std::setprecision(2)
-        << room->examinationFee() << _delim
-        << room->getQueueCount() << _delim;
+        << room->departmentId() << _delim;
     for (int i = 0; i < room->waitingQueue().size(); i++) {
         os << room->waitingQueue()[i];
         if (i != room->waitingQueue().size() - 1) {
             os << ',';
         }
     }
+    os << _delim;
+    os <<std::fixed << std::setprecision(2)<< room->examinationFee();
 }
