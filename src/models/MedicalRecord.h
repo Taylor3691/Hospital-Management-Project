@@ -39,6 +39,7 @@ public:
     const ExaminationState* state() const;
     Date createdDate() const;
     Time createdTime() const;
+    void setPatientId(const std::string& id);
 
 public:
     double calculateFee() const override;

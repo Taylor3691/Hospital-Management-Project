@@ -60,6 +60,10 @@ Time MedicalRecord::createdTime() const {
     return _createdTime;
 }
 
+void MedicalRecord::setPatientId(const std::string& id) {
+    _patientId = id;
+}
+
 double MedicalRecord::calculateFee() const {
     double totalCost = 0.0;
 

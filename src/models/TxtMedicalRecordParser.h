@@ -5,6 +5,7 @@
 #include "TxtClinicalTestParser.h"
 #include "TxtMedicineUsageParser.h"
 #include "MedicalRecord.h"
+#include <sstream>
 
 class TxtMedicalRecordParser : public MedicalRecordParser {
 private:
