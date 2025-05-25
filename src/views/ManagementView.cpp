@@ -24,7 +24,7 @@ void ManagementView::setup() {
     _ui->delete_pushButton->setVisible(0);
 
     _ui->tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
-    _ui->tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+    _ui->tableView->verticalHeader()->setStyleSheet("QHeaderView::section { padding-right: 10px; }");
 }
 
 void ManagementView::setConnections() {
@@ -172,6 +172,14 @@ void ManagementView::changeModel(ModelType model) {
     _ui->tableView->setModel(_models[(int)model]);
     _ui->update_pushButton->setVisible(0);
     _ui->delete_pushButton->setVisible(0);
+
+    _ui->tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+    auto header = _ui->tableView->horizontalHeader();
+    for (int i = 0; i < header->count(); ++i) {
+        int width = header->sectionSize(i);
+        header->setSectionResizeMode(i, QHeaderView::Interactive);
+        header->resizeSection(i, width + 20);
+    }
 
     connect(_ui->tableView->selectionModel(), &QItemSelectionModel::selectionChanged, this,
         [this](const QItemSelection&, const QItemSelection&) {
