@@ -6,14 +6,20 @@ ClinicalTest::ClinicalTest()
 ClinicalTest::ClinicalTest(
     const std::string& id,
     const std::string& name,
+    const std::string& testId,
     double cost,
     const std::string& result,
     bool completed
 )
     : BillableComponent(id, name)
+    , _testId(testId)
     , _cost(cost)
     , _result(result)
     , _completed(completed) {}
+
+std::string ClinicalTest::testId() {
+    return _testId;
+}
 
 double ClinicalTest::cost() const {
     return _cost;
@@ -25,6 +31,10 @@ std::string ClinicalTest::result() const {
 
 bool ClinicalTest::completed() const {
     return _completed;
+}
+
+void ClinicalTest::setTestId(const std::string& id) {
+    _testId = id;
 }
 
 void ClinicalTest::setCost(double cost) {
@@ -41,4 +51,12 @@ void ClinicalTest::setCompleted(bool completed) {
 
 double ClinicalTest::calculateFee() const {
     return _cost;
+}
+
+void ClinicalTest::acceptWrite(IVisitor* visitor, std::ostream& os) {
+    (dynamic_cast<IWritingVisitor*>(visitor))->write(this, os);
+}
+
+Object* ClinicalTest::clone() const {
+    return new ClinicalTest(*this);
 }

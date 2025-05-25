@@ -6,6 +6,7 @@
 #include "Person.h"
 #include "HealthInsurance.h"
 #include "TxtWritingVisitor.h"
+
 class Patient : public Person {
 protected:
     std::vector<std::string> _symptoms;

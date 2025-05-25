@@ -4,8 +4,6 @@
 #include "PatientParser.h"
 #include "Patient.h"
 
-
-
 class TxtPatientParser : public PatientParser {
 protected:
    char _delim;

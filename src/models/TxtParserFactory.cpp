@@ -7,6 +7,12 @@ TxtParserFactory::TxtParserFactory(char delim)
         { "TT", new TxtReceptionistParser(delim) },
         { "DEPT", new TxtDepartmentParser(delim) },
         { "BN", new TxtPatientParser(delim) },
+        { "ME", new TxtMedicineParser(delim)},
+        { "CLS", new TxtTestServiceParser(delim)},
+        { "PHG", new TxtRoomExaminationParser(delim)},
+        { "MEUSE", new TxtMedicineUsageParser(delim)},
+        { "CLSUSE", new TxtClinicalTestParser(delim)},
+        { "HS", new TxtMedicalRecordParser(delim)},
     }) {}
 
 TxtParserFactory::~TxtParserFactory() {

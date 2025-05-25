@@ -5,22 +5,17 @@ MedicineUsage::MedicineUsage()
 
 MedicineUsage::MedicineUsage(
     const std::string& id,
-    const std::string& recordId,
+    const std::string& name,
     const std::string& medicineId,
     int usedQuantity,
     double price,
     const std::string& description
 )
-    : BillableComponent(id, "")
-    , _recordId(recordId)
+    : BillableComponent(id, name)
     , _medicineId(medicineId)
     , _usedQuantity(usedQuantity)
     , _price(price)
     , _description(description) {}
-
-std::string MedicineUsage::recordId() const {
-    return _recordId;
-}
 
 std::string MedicineUsage::medicineId() const {
     return _medicineId;
@@ -36,10 +31,6 @@ double MedicineUsage::price() const {
 
 std::string MedicineUsage::description() const {
     return _description;
-}
-
-void MedicineUsage::setRecordId(const std::string& recordId) {
-    _recordId = recordId;
 }
 
 void MedicineUsage::setMedicineId(const std::string& medicineId) {
@@ -60,4 +51,12 @@ void MedicineUsage::setDescription(const std::string& description) {
 
 double MedicineUsage::calculateFee() const {
     return _price * _usedQuantity;
+}
+
+void MedicineUsage::acceptWrite(IVisitor* visitor, std::ostream& os) {
+    (dynamic_cast<IWritingVisitor*>(visitor))->write(this, os);
+}
+
+Object* MedicineUsage::clone() const {
+    return new MedicineUsage(*this);
 }

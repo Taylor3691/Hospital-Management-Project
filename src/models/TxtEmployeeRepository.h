@@ -2,8 +2,6 @@
 #define TXT_EMPLOYEE_REPOSITORY_H
 
 #include "../interfaces/IEmployeeRepository.h"
-#include "../utils/QueryBuilder.h"
-#include "../utils/utils_template.h"
 
 class TxtEmployeeRepository : public IEmployeeRepository {
 private:

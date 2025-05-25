@@ -74,7 +74,7 @@ inline std::vector<T*> QueryBuilder<T>::find() {
                 }
             }
         }
-    }, _collection);
+        }, _collection);
 
     return results;
 }
@@ -100,7 +100,7 @@ inline T* QueryBuilder<T>::findOne() {
                 result = *it;
             }
         }
-    }, _collection);
+        }, _collection);
 
     return result;
 }
@@ -114,7 +114,7 @@ inline void QueryBuilder<T>::deleteMany() {
                 return matches(*item, _filters, _mode);
             });
         }
-    }, _collection);
+        }, _collection);
 }
 
 template<typename T>
@@ -131,7 +131,7 @@ inline void QueryBuilder<T>::deleteOne() {
                 vec.erase(it);
             }
         }
-    }, _collection);
+        }, _collection);
 }
 
 template<typename T>
@@ -146,7 +146,7 @@ inline void QueryBuilder<T>::updateMany(Setter<T> setter, const U& value) {
                 }
             }
         }
-    }, _collection);
+        }, _collection);
 }
 
 template<typename T>
@@ -164,7 +164,7 @@ inline void QueryBuilder<T>::updateOne(Setter<T> setter, const U& value) {
                 setter(**it, value);
             }
         }
-    }, _collection);
+        }, _collection);
 }
 
 template<typename T>

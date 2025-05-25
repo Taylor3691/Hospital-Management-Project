@@ -7,21 +7,21 @@ template<class ClassType, class ValueType>
 inline Getter<ClassType> makeGetter(ValueType(ClassType::* getter)() const) {
     return [getter](const ClassType& obj) -> std::any {
         return (obj.*getter)();
-    };
+        };
 }
 
 template<class ClassType, class ValueType>
 inline Getter<ClassType> makeGetter(const ValueType* (ClassType::* getter)() const) {
     return [getter](const ClassType& obj) -> std::any {
         return *(obj.*getter)();
-    };
+        };
 }
 
 template<class ClassType, class ValueType>
 inline Setter<ClassType> makeSetter(void(ClassType::* setter)(const ValueType&)) {
     return [setter](const ClassType& obj, const ValueType& value) -> std::any {
         return (obj.*setter)(value);
-    };
+        };
 }
 
 template<class Parent, class Child>
@@ -34,7 +34,7 @@ inline Getter<Parent> compose(Getter<Parent> parent, Getter<Child> child) {
         catch (const std::bad_any_cast& e) {
             throw std::runtime_error("Parentype mismatch in compose");
         }
-    };
+        };
 }
 
 template<class Parent, class Child>
@@ -47,7 +47,7 @@ inline Setter<Parent> compose(Getter<Parent> parent, Setter<Child> child) {
         catch (const std::bad_any_cast& e) {
             throw std::runtime_error("Type mismatch in compose");
         }
-    };
+        };
 }
 
 template<class ValueType>

@@ -31,6 +31,24 @@ double RoomExamination::examinationFee() const {
     return _examinationFee;
 }
 
+void RoomExamination::setDepartmentId(const std::string& id) {
+    _departmentId = id;
+}
+
+void RoomExamination::setWaitingQueue(std::vector<std::string> queue) {
+    while (!_waitingQueue.empty()) {
+        _waitingQueue.pop();
+    }
+
+    for (auto room : queue) {
+        _waitingQueue.push(room);
+    }
+}
+
+void RoomExamination::setRoomFee(double fee) {
+    _examinationFee = fee;
+}
+
 void RoomExamination::addToWaitingQueue(const std::string& id) {
     _waitingQueue.push(id);
 }
@@ -41,4 +59,12 @@ void RoomExamination::removeFromWaitingQueue() {
 
 int RoomExamination::getQueueCount() const {
     return _waitingQueue.size();
+}
+
+void RoomExamination::acceptWrite(IVisitor* visitor, std::ostream& os) {
+    (dynamic_cast<IWritingVisitor*>(visitor))->write(this, os);
+}
+
+Object* RoomExamination::clone() const {
+    return nullptr;
 }

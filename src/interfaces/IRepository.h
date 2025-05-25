@@ -4,6 +4,8 @@
 #include <memory>
 #include <string>
 #include <vector>
+#include "../utils/QueryBuilder.h"
+#include "../utils/utils_template.h"
 
 template<class Entity>
 class IRepository {

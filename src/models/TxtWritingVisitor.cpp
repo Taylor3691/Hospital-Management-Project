@@ -78,3 +78,76 @@ void TxtWritingVisitor::write(Patient* patient, std::ostream& os) {
         }
     }
 }
+
+void TxtWritingVisitor::write(Medicine* medicine, std::ostream& os) {
+    os << medicine->id() << _delim
+        << medicine->name() << _delim
+        << medicine->unit() << _delim
+        << std::fixed << std::setprecision(2)
+        << medicine->pricePerUnit() << _delim
+        << medicine->quantity();
+}
+
+void TxtWritingVisitor::write(TestService* testService, std::ostream& os) {
+    os << testService->id() << _delim
+        << testService->name() << _delim
+        << std::fixed << std::setprecision(2)
+        << testService->cost();
+}
+
+void TxtWritingVisitor::write(MedicalRecord* record, std::ostream& os, IWritingVisitor* write) {
+    os << record->id() << _delim
+        << record->name() << _delim
+        << record->patientId() << _delim
+        << record->roomId() << _delim
+        << record->doctorId() << _delim
+        << record->prescribedMedicines().size() << _delim;
+    for (auto medicine : record->prescribedMedicines()) {
+        auto sample = dynamic_cast<MedicineUsage*>(medicine->clone());
+        sample->acceptWrite(write, os);
+        os << _delim;
+        delete sample;
+    }
+    os << record->clinicalTests().size() << _delim;
+    for (auto test : record->clinicalTests()) {
+        auto sample = dynamic_cast<ClinicalTest*>(test->clone());
+        sample->acceptWrite(write, os);
+        os << _delim;
+        delete sample;
+    }
+    os << record->diagnosisResult();
+}
+
+void TxtWritingVisitor::write(MedicineUsage* usage, std::ostream& os) {
+    os << usage->id() << ','
+        << usage->name() << ','
+        << usage->medicineId() << ','
+        << std::fixed << std::setprecision(2)
+        << usage->price() << ','
+        << usage->usedQuantity() << ','
+        << usage->description();
+}
+
+void TxtWritingVisitor::write(ClinicalTest* test, std::ostream& os) {
+    os << test->id() << ','
+        << test->name() << ','
+        << test->testId() << ','
+        <<std::fixed<<std::setprecision(2)
+        << test->cost() << ','
+        << test->result() << ','
+        << (test->completed() ? "1" : "0");
+}
+
+void TxtWritingVisitor::write(RoomExamination* room, std::ostream& os) {
+    os << room->id() << _delim
+        << room->name() << _delim
+        << room->departmentId() << _delim;
+    for (int i = 0; i < room->waitingQueue().size(); i++) {
+        os << room->waitingQueue()[i];
+        if (i != room->waitingQueue().size() - 1) {
+            os << ',';
+        }
+    }
+    os << _delim;
+    os <<std::fixed << std::setprecision(2)<< room->examinationFee();
+}

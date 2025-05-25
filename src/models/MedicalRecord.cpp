@@ -10,7 +10,11 @@ MedicalRecord::MedicalRecord(
     , _createdDate(Date::getDate())
     , _createdTime(Time::getCurrentTime()) {}
 
-std::string MedicineUsage::patientId() const {
+MedicalRecord::MedicalRecord(const MedicalRecord& other) {
+    *this = other;
+}
+
+std::string MedicalRecord::patientId() const {
     return _patientId;
 }
 
@@ -18,7 +22,7 @@ std::string MedicalRecord::roomId() const {
     return _roomId;
 }
 
-std::string MedicineUsage::doctorId() const {
+std::string MedicalRecord::doctorId() const {
     return _doctorId;
 }
 
@@ -54,6 +58,10 @@ Date MedicalRecord::createdDate() const {
 
 Time MedicalRecord::createdTime() const {
     return _createdTime;
+}
+
+void MedicalRecord::setPatientId(const std::string& id) {
+    _patientId = id;
 }
 
 double MedicalRecord::calculateFee() const {
@@ -96,4 +104,36 @@ void MedicalRecord::compeleteExamination() {
 
 void MedicalRecord::changeState(std::unique_ptr<ExaminationState> state) {
     _state = std::move(state);
+}
+
+void MedicalRecord::acceptWrite(IVisitor* visitor, std::ostream& os) {
+    auto unit = (dynamic_cast<IWritingVisitor*>(visitor));
+    unit->write(this, os, unit);
+}
+
+Object* MedicalRecord::clone() const {
+    return new MedicalRecord(*this);
+}
+
+MedicalRecord& MedicalRecord::operator=(const MedicalRecord& other) {
+    this->_id = other._id;
+    this->_name = other._name;
+    this->_patientId = other._patientId;
+    this->_doctorId = other._doctorId;
+    this->_createdDate = other._createdDate;
+    this->_createdTime = other._createdTime;
+    this->_prescribedMedicines.clear();
+    this->_clinicalTests.clear();
+
+    for (auto medicine : other._prescribedMedicines) {
+        this->_prescribedMedicines.push_back(dynamic_cast<MedicineUsage*>(medicine->clone()));
+    }
+
+    for (auto test : other._clinicalTests) {
+        this->_clinicalTests.push_back(dynamic_cast<ClinicalTest*>(test->clone()));
+    }
+
+    ExaminationState* sample = _state.get();
+    this->_state = std::move(std::unique_ptr<ExaminationState>(sample->clone()));
+    return *this;
 }

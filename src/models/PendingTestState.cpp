@@ -15,3 +15,7 @@ bool PendingTestState::canOrderClinicalTest() const {
 bool PendingTestState::canComplete() const {
     return false;
 }
+
+ExaminationState* PendingTestState::clone() const {
+    return new PendingTestState();
+}

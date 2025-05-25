@@ -38,3 +38,11 @@ void Medicine::setPricePerUnit(double price) {
 void Medicine::setQuantity(int quantity) {
     _quantity = quantity;
 }
+
+void Medicine::acceptWrite(IVisitor* visitor, std::ostream& os) {
+    (dynamic_cast<IWritingVisitor*>(visitor))->write(this, os);
+}
+
+Object* Medicine::clone() const {
+    return new Medicine(*this);
+}

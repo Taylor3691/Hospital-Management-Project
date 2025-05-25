@@ -8,6 +8,7 @@
 #include "ClinicalTest.h"
 #include "RegisteredState.h"
 #include "CompletedState.h"
+#include "../interfaces/IWritingVisitor.h"
 #include "../utils/Date.h"
 #include "../utils/Time.h"
 
@@ -26,6 +27,7 @@ private:
 public:
     MedicalRecord() = default;
     MedicalRecord(const std::string& id, const std::string& patientId);
+    MedicalRecord(const MedicalRecord& other);
 
 public:
     std::string patientId() const;
@@ -37,6 +39,7 @@ public:
     const ExaminationState* state() const;
     Date createdDate() const;
     Time createdTime() const;
+    void setPatientId(const std::string& id);
 
 public:
     double calculateFee() const override;
@@ -47,6 +50,11 @@ public:
     void orderClinicalTest(ClinicalTest* test);
     void compeleteExamination();
     void changeState(std::unique_ptr<ExaminationState> state);
+    void acceptWrite(IVisitor* visitor, std::ostream& os) override;
+    Object* clone() const override;
+
+public:
+    MedicalRecord& operator=(const MedicalRecord& other);
 };
 
 #endif // !MEDICAL_RECORD_H
