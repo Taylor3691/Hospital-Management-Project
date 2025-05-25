@@ -39,3 +39,7 @@ void Department::setDescription(const std::string& description) {
 void Department::acceptWrite(IVisitor* visitor, std::ostream& os) {
     dynamic_cast<TxtWritingVisitor*>(visitor)->write(this, os);
 }
+
+Object* Department::clone() const {
+    return new Department(*this);
+}

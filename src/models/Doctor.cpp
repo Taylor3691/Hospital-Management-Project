@@ -36,3 +36,7 @@ void Doctor::setLicense(const std::string& license) {
 void Doctor::acceptWrite(IVisitor* visitor, std::ostream& os) {
     dynamic_cast<TxtWritingVisitor*>(visitor)->write(this, os);
 }
+
+Object* Doctor::clone() const {
+    return new Doctor(*this);
+}

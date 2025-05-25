@@ -29,29 +29,56 @@ add_executable(${TARGET_NAME}
     src/controllers/DepartmentManager.cpp
     src/controllers/EmployeeManager.cpp
     src/controllers/PatientManager.cpp
+    src/models/BillableComponent.cpp
+    src/models/ClinicalTest.cpp
+    src/models/CompletedState.cpp
     src/models/Department.cpp
     src/models/DepartmentTableModel.cpp
     src/models/Doctor.cpp
     src/models/Employee.cpp
     src/models/EmployeeTableModel.cpp
+    src/models/ExaminingState.cpp
     src/models/HealthInsurance.cpp
+    src/models/Hospital.cpp
+    src/models/InsurancePayment.cpp
+    src/models/MedicalRecord.cpp
     src/models/MedicalRecordListModel.cpp
+    src/models/Medicine.cpp
+    src/models/MedicineUsage.cpp
+    src/models/NormalPayment.cpp
     src/models/Nurse.cpp
     src/models/Object.cpp
     src/models/Patient.cpp
+    src/models/PatientManager.cpp
     src/models/PatientTableModel.cpp
+    src/models/PendingTestState.cpp
     src/models/Person.cpp
+    src/models/Receipt.cpp
     src/models/Receptionist.cpp
+    src/models/RegisteredState.cpp
+    src/models/RoomExamination.cpp
+    src/models/TestService.cpp
+    src/models/TxtClinicalTestParser.cpp
     src/models/TxtDepartmentParser.cpp
     src/models/TxtDepartmentRepository.cpp
     src/models/TxtDoctorParser.cpp
     src/models/TxtEmployeeRepository.cpp
+    src/models/TxtMedicalRecordParser.cpp
+    src/models/TxtMedicalRecordRepository.cpp
+    src/models/TxtMedicineParser.cpp
+    src/models/TxtMedicineRepository.cpp
+    src/models/TxtMedicineUsageParser.cpp
     src/models/TxtNurseParser.cpp
     src/models/TxtParserFactory.cpp
     src/models/TxtPatientParser.cpp
     src/models/TxtPatientRepository.cpp
     src/models/TxtReceptionistParser.cpp
+    src/models/TxtRoomExaminationParser.cpp
+    src/models/TxtRoomExaminationRepository.cpp
+    src/models/TxtTestServiceParser.cpp
+    src/models/TxtTestServiceRepository.cpp
     src/models/TxtWritingVisitor.cpp
+    src/models/WaitingState.cpp
     src/utils/Date.cpp
     src/utils/Time.cpp
     src/utils/utils.cpp
@@ -79,6 +106,7 @@ add_executable(${TARGET_NAME}
     src/views/ParaclinicalView.ui
     src/views/PatientFilteringView.ui
     src/views/PatientRecordView.ui
+    src/views/ReceiptView.ui
     src/views/RegisterView.ui
     src/views/RoomView.ui
 )

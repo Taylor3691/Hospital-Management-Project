@@ -116,24 +116,25 @@ Object* MedicalRecord::clone() const {
 }
 
 MedicalRecord& MedicalRecord::operator=(const MedicalRecord& other) {
-    this->_id = other._id;
-    this->_name = other._name;
-    this->_patientId = other._patientId;
-    this->_doctorId = other._doctorId;
-    this->_createdDate = other._createdDate;
-    this->_createdTime = other._createdTime;
-    this->_prescribedMedicines.clear();
-    this->_clinicalTests.clear();
+    if (this != &other) {
+        _id = other._id;
+        _name = other._name;
+        _patientId = other._patientId;
+        _doctorId = other._doctorId;
+        _createdDate = other._createdDate;
+        _createdTime = other._createdTime;
+        _prescribedMedicines.clear();
+        _clinicalTests.clear();
 
-    for (auto medicine : other._prescribedMedicines) {
-        this->_prescribedMedicines.push_back(dynamic_cast<MedicineUsage*>(medicine->clone()));
+        for (auto medicine : other._prescribedMedicines) {
+            _prescribedMedicines.push_back(static_cast<MedicineUsage*>(medicine->clone()));
+        }
+
+        for (auto test : other._clinicalTests) {
+            _clinicalTests.push_back(static_cast<ClinicalTest*>(test->clone()));
+        }
+
+        _state = std::unique_ptr<ExaminationState>(_state.get()->clone());
     }
-
-    for (auto test : other._clinicalTests) {
-        this->_clinicalTests.push_back(dynamic_cast<ClinicalTest*>(test->clone()));
-    }
-
-    ExaminationState* sample = _state.get();
-    this->_state = std::move(std::unique_ptr<ExaminationState>(sample->clone()));
     return *this;
 }

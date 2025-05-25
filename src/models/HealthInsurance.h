@@ -29,6 +29,7 @@ public:
 public:
     void acceptWrite(IVisitor* visitor, std::ostream& os) override {};
     bool checkValid() const;
+    Object* clone() const override;
 };
 
 #endif // !HEALTH_INSURANCE_H

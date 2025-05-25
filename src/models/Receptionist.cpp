@@ -36,3 +36,7 @@ void Receptionist::setWorkingDays(int workingDays) {
 void Receptionist::acceptWrite(IVisitor* visitor, std::ostream& os) {
     dynamic_cast<TxtWritingVisitor*>(visitor)->write(this, os);
 }
+
+Object* Receptionist::clone() const {
+    return new Receptionist(*this);
+}
