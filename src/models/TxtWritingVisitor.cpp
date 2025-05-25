@@ -134,6 +134,7 @@ void TxtWritingVisitor::write(ClinicalTest* test, std::ostream& os) {
     os << test->id() << ','
         << test->name() << ','
         << test->testId() << ','
+        <<std::fixed<<std::setprecision(2)
         << test->cost() << ','
         << test->result() << ','
         << (test->completed() ? "1" : "0");

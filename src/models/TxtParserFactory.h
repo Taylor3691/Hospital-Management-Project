@@ -11,6 +11,7 @@
 #include "TxtMedicineParser.h"
 #include "TxtTestServiceParser.h"
 #include "TxtRoomExaminationParser.h"
+#include "TxtMedicalRecordParser.h"
 
 class TxtParserFactory : public IParserFactory {
 private:

@@ -141,6 +141,15 @@
     <ClCompile Include="src\models\TxtRoomExaminationParser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\models\TxtMedicineUsageParser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\models\TxtClinicalTestParser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\models\TxtMedicalRecordParser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\utils\Date.h">
@@ -306,6 +315,24 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\models\TxtRoomExaminationParser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\models\MedicineUsageParser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\models\TxtMedicineUsageParser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\models\ClinicalTestParser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\models\TxtClinicalTestParser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\models\MedicalRecordParser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\models\TxtMedicalRecordParser.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
