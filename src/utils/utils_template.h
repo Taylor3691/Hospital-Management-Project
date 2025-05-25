@@ -75,4 +75,9 @@ void save(
     }
 }
 
+template<typename T>
+int compare(const T& a, const T& b) {
+    return a == b ? 0 : (a < b ? -1 : 1);
+}
+
 #endif // !UTILS_TEMPLATE_H

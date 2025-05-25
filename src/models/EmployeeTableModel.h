@@ -8,6 +8,7 @@
 #include "Doctor.h"
 #include "Nurse.h"
 #include "Receptionist.h"
+#include "../utils/utils_template.h"
 
 class EmployeeTableModel : public QAbstractTableModel {
     Q_OBJECT
@@ -31,6 +32,7 @@ public:
     void removeByIds(const std::vector<std::string>& ids);
     void find(const std::vector<RFilter<Employee>>& filters);
     void refresh();
+    void sort(int column, Qt::SortOrder order = Qt::AscendingOrder) override;
 };
 
 #endif // !EMPLOYEE_TABLE_MODEL_H

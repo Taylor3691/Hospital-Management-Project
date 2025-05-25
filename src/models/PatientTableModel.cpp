@@ -46,7 +46,6 @@ QVariant PatientTableModel::data(const QModelIndex& index, int role) const {
         return {};
     }
 
-    const auto& insurance = patient->insuranceCard();
     switch (col) {
     case 0: return QString::fromStdString(patient->id());
     case 1: return QString::fromStdString(patient->name());
@@ -54,8 +53,10 @@ QVariant PatientTableModel::data(const QModelIndex& index, int role) const {
     case 3: return QString::fromStdString(patient->address());
     case 4: return QString::fromStdString(patient->phone());
     case 5: return QString::fromStdString(Date::toString(patient->dob()));
-    case 6:
+    case 6: {
+        const auto& insurance = patient->insuranceCard();
         return QString::fromStdString(insurance ? insurance->id() : "");
+    }
     default: return {};
     }
 }
@@ -109,5 +110,36 @@ void PatientTableModel::refresh() {
     beginResetModel();
     auto data = ServiceLocator::patientManager()->getAll();
     _cachedData = QVector<const Patient*>(data.begin(), data.end());
+    endResetModel();
+}
+
+void PatientTableModel::sort(int column, Qt::SortOrder order) {
+    beginResetModel();
+    std::stable_sort(_cachedData.begin(), _cachedData.end(),
+        [column, order](const Patient* a, const Patient* b) {
+            int compareResult = 0;
+            switch (column) {
+            case 0: compareResult = compare(a->id(), b->id()); break;
+            case 1: compareResult = compare(a->name(), b->name()); break;
+            case 2: compareResult = compare(a->gender(), b->gender()); break;
+            case 3: compareResult = compare(a->address(), b->address()); break;
+            case 4: compareResult = compare(a->phone(), b->phone()); break;
+            case 5: compareResult = compare(a->dob(), b->dob()); break;
+            case 6: {
+                const auto insuranceA = a->insuranceCard();
+                const auto insuranceB = b->insuranceCard();
+                compareResult = (insuranceA && insuranceB) ?
+                    compare(insuranceA->id(), insuranceB->id()) :
+                    (!insuranceA && !insuranceB) ? 0 : insuranceA ? 1 : -1;
+                break;
+            }
+            default: return false;
+            }
+
+            if (compareResult == 0) {
+                return false;
+            }
+            return order == Qt::AscendingOrder ? (compareResult < 0) : (compareResult > 0);
+        });
     endResetModel();
 }

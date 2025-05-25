@@ -105,3 +105,25 @@ void DepartmentTableModel::refresh() {
     _cachedData = QVector<const Department*>(data.begin(), data.end());
     endResetModel();
 }
+
+void DepartmentTableModel::sort(int column, Qt::SortOrder order) {
+    beginResetModel();
+    std::stable_sort(_cachedData.begin(), _cachedData.end(),
+        [column, order](const Department* a, const Department* b) {
+            int compareResult = 0;
+            switch (column) {
+            case 0: compareResult = compare(a->id(), b->id()); break;
+            case 1: compareResult = compare(a->name(), b->name()); break;
+            case 2: compareResult = compare(a->foundationDate(), b->foundationDate()); break;
+            case 3: compareResult = compare(a->description(), b->description()); break;
+            case 4: compareResult = compare(a->headId(), b->headId()); break;
+            default: return false;
+            }
+
+            if (compareResult == 0) {
+                return false;
+            }
+            return order == Qt::AscendingOrder ? (compareResult < 0) : (compareResult > 0);
+        });
+    endResetModel();
+}

@@ -140,3 +140,63 @@ void EmployeeTableModel::refresh() {
     _cachedData = QVector<const Employee*>(data.begin(), data.end());
     endResetModel();
 }
+
+void EmployeeTableModel::sort(int column, Qt::SortOrder order) {
+    beginResetModel();
+    std::stable_sort(_cachedData.begin(), _cachedData.end(),
+        [column, order](const Employee* a, const Employee* b) {
+            int compareResult = 0;
+            switch (column) {
+            case 0: compareResult = compare(a->id(), b->id()); break;
+            case 1: compareResult = compare(a->name(), b->name()); break;
+            case 2: compareResult = compare(a->gender(), b->gender()); break;
+            case 3: compareResult = compare(a->address(), b->address()); break;
+            case 4: compareResult = compare(a->phone(), b->phone()); break;
+            case 5: compareResult = compare(a->dob(), b->dob()); break;
+            case 6: compareResult = compare(a->education(), b->education()); break;
+            case 7: compareResult = compare(a->baseSalary(), b->baseSalary()); break;
+            case 8: {
+                auto docA = dynamic_cast<const Doctor*>(a);
+                auto docB = dynamic_cast<const Doctor*>(b);
+                compareResult = (docA && docB) ? compare(docA->specialty(), docB->specialty()) :
+                    (!docA && !docB) ? 0 : docA ? 1 : -1;
+                break;
+            }
+            case 9: {
+                auto docA = dynamic_cast<const Doctor*>(a);
+                auto docB = dynamic_cast<const Doctor*>(b);
+                compareResult = (docA && docB) ? compare(docA->license(), docB->license()) :
+                    (!docA && !docB) ? 0 : docA ? 1 : -1;
+                break;
+            }
+            case 10: {
+                auto nurseA = dynamic_cast<const Nurse*>(a);
+                auto nurseB = dynamic_cast<const Nurse*>(b);
+                compareResult = (nurseA && nurseB) ? compare(nurseA->duty(), nurseB->duty()) :
+                    (!nurseA && !nurseB) ? 0 : nurseA ? 1 : -1;
+                break;
+            }
+            case 11: {
+                auto recA = dynamic_cast<const Receptionist*>(a);
+                auto recB = dynamic_cast<const Receptionist*>(b);
+                compareResult = (recA && recB) ? compare(recA->subsidies(), recB->subsidies()) :
+                    (!recA && !recB) ? 0 : recA ? 1 : -1;
+                break;
+            }
+            case 12: {
+                auto recA = dynamic_cast<const Receptionist*>(a);
+                auto recB = dynamic_cast<const Receptionist*>(b);
+                compareResult = (recA && recB) ? compare(recA->workingDays(), recB->workingDays()) :
+                    (!recA && !recB) ? 0 : recA ? 1 : -1;
+                break;
+            }
+            default: return false;
+            }
+
+            if (compareResult == 0) {
+                return false;
+            }
+            return order == Qt::AscendingOrder ? (compareResult < 0) : (compareResult > 0);
+        });
+    endResetModel();
+}

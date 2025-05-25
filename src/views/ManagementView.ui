@@ -2293,11 +2293,14 @@ PlotWidget {
        <property name="font">
         <font>
          <family>Segoe UI</family>
-         <pointsize>9</pointsize>
+         <pointsize>10</pointsize>
          <weight>50</weight>
          <italic>false</italic>
          <bold>false</bold>
         </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">font-size: 10pt;</string>
        </property>
        <property name="text">
         <string>Thêm</string>
@@ -2321,11 +2324,14 @@ PlotWidget {
        <property name="font">
         <font>
          <family>Segoe UI</family>
-         <pointsize>9</pointsize>
+         <pointsize>10</pointsize>
          <weight>50</weight>
          <italic>false</italic>
          <bold>false</bold>
         </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">font-size: 10pt;</string>
        </property>
        <property name="text">
         <string>Tìm</string>
@@ -2349,11 +2355,14 @@ PlotWidget {
        <property name="font">
         <font>
          <family>Segoe UI</family>
-         <pointsize>9</pointsize>
+         <pointsize>10</pointsize>
          <weight>50</weight>
          <italic>false</italic>
          <bold>false</bold>
         </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">font-size: 10pt;</string>
        </property>
        <property name="text">
         <string>Sửa</string>
@@ -2377,11 +2386,14 @@ PlotWidget {
        <property name="font">
         <font>
          <family>Segoe UI</family>
-         <pointsize>9</pointsize>
+         <pointsize>10</pointsize>
          <weight>50</weight>
          <italic>false</italic>
          <bold>false</bold>
         </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">font-size: 10pt;</string>
        </property>
        <property name="text">
         <string>Xóa</string>
@@ -2391,7 +2403,11 @@ PlotWidget {
     </layout>
    </item>
    <item row="1" column="0">
-    <widget class="QTableView" name="tableView"/>
+    <widget class="QTableView" name="tableView">
+     <property name="sortingEnabled">
+      <bool>true</bool>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>

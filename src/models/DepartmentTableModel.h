@@ -6,6 +6,7 @@
 #include <QVector>
 #include "../ServiceLocator.h"
 #include "Department.h"
+#include "../utils/utils_template.h"
 
 class DepartmentTableModel : public QAbstractTableModel {
     Q_OBJECT
@@ -29,6 +30,7 @@ public:
     void removeByIds(const std::vector<std::string>& ids);
     void find(const std::vector<RFilter<Department>>& filters);
     void refresh();
+    void sort(int column, Qt::SortOrder order = Qt::AscendingOrder) override;
 };
 
 #endif // !DEPARTMENT_TABLE_MODEL_H
