@@ -1,5 +1,6 @@
 .vs/
-packages/
+packages/*
+!packages/qdarkstyle/
 build/
 html/
-tests/*/
+tests/

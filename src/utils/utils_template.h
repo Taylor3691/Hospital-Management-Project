@@ -11,24 +11,14 @@
 #include "../models/TxtWritingVisitor.h"
 
 template<typename T>
-void load(std::vector<std::unique_ptr<T>>& container,
-    char delim, const std::string& fileName);
-
-template<typename T>
-void save(const std::vector<std::unique_ptr<T>>& container,
-    char delim, const std::string& fileName);
-
-//#endif // !UTILS_TEMPLATE_H
-
-template<typename T>
-inline void load(
+void load(
     std::vector<std::unique_ptr<T>>& container,
     char delim,
-    const std::string& fileName
+    const std::string& filePath
 ) {
-    std::ifstream file(fileName);
+    std::ifstream file(filePath);
     if (!file.is_open()) {
-        throw std::runtime_error("Cannot open file `" + fileName + "` for reading");
+        throw std::runtime_error("Cannot open file `" + filePath + "` for reading");
     }
 
     TxtParserFactory* factory = new TxtParserFactory(delim);
@@ -40,12 +30,12 @@ inline void load(
 
         bool found = std::regex_search(line, matches, pattern);
         if (!found) {
-            throw std::runtime_error("Invalid line in `" + fileName + "`");
+            throw std::runtime_error("Invalid line in `" + filePath + "`");
         }
 
         parser = factory->getParser(matches[1].str());
         if (!parser) {
-            throw std::runtime_error("Invalid line in `" + fileName + "`");
+            throw std::runtime_error("Invalid line in `" + filePath + "`");
         }
 
         std::unique_ptr<T> object(dynamic_cast<T*>(parser->parse(line)));
@@ -57,15 +47,15 @@ inline void load(
 }
 
 template<typename T>
-inline void save(
+void save(
     const std::vector<std::unique_ptr<T>>& container,
     char delim,
-    const std::string& fileName
+    const std::string& filePath
 ) {
-    const std::string tmpFileName = fileName + ".tmp";
+    const std::string tmpFileName = filePath + ".tmp";
     std::ofstream file(tmpFileName, std::ios::trunc | std::ios::out);
     if (!file.is_open()) {
-        throw std::runtime_error("Cannot open file `" + fileName + "` for writing");
+        throw std::runtime_error("Cannot open file `" + filePath + "` for writing");
     }
 
     IVisitor* visitor = new TxtWritingVisitor(delim);
@@ -79,10 +69,15 @@ inline void save(
     file.close();
 
     std::error_code ec;
-    std::filesystem::rename(tmpFileName, fileName, ec);
+    std::filesystem::rename(tmpFileName, filePath, ec);
     if (ec) {
         throw std::runtime_error("Cannot rename temp file to target");
     }
+}
+
+template<typename T>
+int compare(const T& a, const T& b) {
+    return a == b ? 0 : (a < b ? -1 : 1);
 }
 
 #endif // !UTILS_TEMPLATE_H

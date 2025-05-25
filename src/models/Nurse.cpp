@@ -15,11 +15,6 @@ Nurse::Nurse(
         phone, dob, education, baseSalary)
     , _duty(duty) {}
 
-Nurse::Nurse(const Nurse& other) :
-    Employee(other.id(), other.name(), other.gender(), other.address(), other.phone(),
-        other.dob(), other.education(), other.baseSalary()),
-    _duty(other.duty()) {}
-
 std::string Nurse::duty() const {
     return _duty;
 }

@@ -6,17 +6,17 @@
 class TxtEmployeeRepository : public IEmployeeRepository {
 private:
     std::vector<std::unique_ptr<Employee>> _employees;
-    std::string _fileName;
+    std::string _filePath;
     char _delim;
 
 public:
     TxtEmployeeRepository();
-    TxtEmployeeRepository(const std::string& fileName, char delim = '|');
+    TxtEmployeeRepository(const std::string& filePath, char delim = '|');
 
 public:
-    const std::string& fileName() const;
+    std::string filePath() const;
     char delim() const;
-    void setFileName(const std::string& fileName);
+    void setFilePath(const std::string& filePath);
     void setDelim(char delim);
 
 public:
@@ -24,6 +24,7 @@ public:
     void save() const override;
     void add(std::unique_ptr<Employee> employee) override;
     void removeById(const std::string& id) override;
+    void removeByIds(const std::vector<std::string>& ids) override;
     void update(const Employee& employee) override;
     std::vector<const Employee*> data() const override;
 };

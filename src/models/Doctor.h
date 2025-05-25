@@ -16,7 +16,6 @@ public:
         const std::string& phone, const Date& dob,
         const std::string& education, double baseSalary,
         const std::string& specialty, const std::string& license);
-    Doctor(const Doctor& other);
 
 public:
     std::string specialty() const;

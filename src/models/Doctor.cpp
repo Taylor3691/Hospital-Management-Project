@@ -17,12 +17,6 @@ Doctor::Doctor(
     , _specialty(specialty)
     , _license(license) {}
 
-Doctor::Doctor(const Doctor& other)
-    : Employee(other.id(), other.name(), other.gender(), other.address(), other.phone(),
-        other.dob(), other.education(), other.baseSalary()),
-    _specialty(other.specialty()),
-    _license(other.license()) {}
-
 std::string Doctor::specialty() const {
     return _specialty;
 }

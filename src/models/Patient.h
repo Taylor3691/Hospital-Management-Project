@@ -8,7 +8,7 @@
 #include "TxtWritingVisitor.h"
 
 class Patient : public Person {
-protected:
+private:
     std::vector<std::string> _symptoms;
     std::unique_ptr<HealthInsurance> _insuranceCard;
 
@@ -20,7 +20,6 @@ public:
         const std::vector<std::string>& allergies,
         std::unique_ptr<HealthInsurance> insuranceCard = nullptr);
     Patient(const Patient& other);
-    virtual ~Patient() = default;
 
 public:
     std::vector<std::string> symptoms() const;

@@ -1,26 +1,30 @@
 #include "TxtDepartmentRepository.h"
 
 TxtDepartmentRepository::TxtDepartmentRepository()
-    : _fileName("departments.txt"), _delim('|') {
+    : _filePath("departments.txt"), _delim('|')
+{
+    ::load(_departments, _delim, _filePath);
 }
 
 TxtDepartmentRepository::TxtDepartmentRepository(
-    const std::string& fileName,
+    const std::string& filePath,
     char delim
 )
-    : _fileName(fileName), _delim(delim) {
+    : _filePath(filePath), _delim(delim)
+{
+    ::load(_departments, _delim, _filePath);
 }
 
-std::string TxtDepartmentRepository::fileName() const {
-    return _fileName;
+std::string TxtDepartmentRepository::filePath() const {
+    return _filePath;
 }
 
 char TxtDepartmentRepository::delim() const {
     return _delim;
 }
 
-void TxtDepartmentRepository::setFileName(const std::string& fileName) {
-    _fileName = fileName;
+void TxtDepartmentRepository::setFilePath(const std::string& filePath) {
+    _filePath = filePath;
 }
 
 void TxtDepartmentRepository::setDelim(char delim) {
@@ -29,21 +33,30 @@ void TxtDepartmentRepository::setDelim(char delim) {
 
 void TxtDepartmentRepository::load() {
     _departments.clear();
-    ::load(_departments, _delim, _fileName);
+    ::load(_departments, _delim, _filePath);
 }
 
 void TxtDepartmentRepository::save() const {
-    ::save(_departments, _delim, _fileName);
+    ::save(_departments, _delim, _filePath);
 }
 
 void TxtDepartmentRepository::add(std::unique_ptr<Department> department) {
     _departments.push_back(std::move(department));
-    save();
+    //save();
 }
 
 void TxtDepartmentRepository::removeById(const std::string& id) {
     from(_departments).where(&Department::id, id).deleteOne();
-    save();
+    //save();
+}
+
+void TxtDepartmentRepository::removeByIds(const std::vector<std::string>& ids) {
+    auto query = from(_departments, FilterMode::OR);
+    for (const auto& id : ids) {
+        query.where(&Department::id, id);
+    }
+    query.deleteMany();
+    //save();
 }
 
 void TxtDepartmentRepository::update(const Department& department) {
@@ -52,7 +65,7 @@ void TxtDepartmentRepository::update(const Department& department) {
     if (ptr) {
         *ptr = department;
     }
-    save();
+    //save();
 }
 
 std::vector<const Department*> TxtDepartmentRepository::data() const {
@@ -63,4 +76,3 @@ std::vector<const Department*> TxtDepartmentRepository::data() const {
     }
     return result;
 }
-

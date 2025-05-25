@@ -1,6 +1,7 @@
 #ifndef TXT_WRITING_VISITOR_H
 #define TXT_WRITING_VISITOR_H
 
+#include <iomanip>
 #include "../interfaces/IWritingVisitor.h"
 #include "Doctor.h"
 #include "Nurse.h"

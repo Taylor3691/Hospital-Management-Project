@@ -69,7 +69,7 @@ inline std::vector<T*> QueryBuilder<T>::find() {
                 if constexpr (std::is_same_v<std::remove_reference_t<decltype(item)>, std::unique_ptr<T>>) {
                     results.push_back(item.get());
                 }
-                else if constexpr (std::is_same_v<std::remove_reference_t<decltype(item)>, T*>) {
+                else if constexpr (std::is_same_v<std::decay_t<decltype(item)>, T*>) {
                     results.push_back(item);
                 }
             }
@@ -96,7 +96,7 @@ inline T* QueryBuilder<T>::findOne() {
             if constexpr (std::is_same_v<std::remove_reference_t<decltype(*it)>, std::unique_ptr<T>>) {
                 result = it->get();
             }
-            else if constexpr (std::is_same_v<std::remove_reference_t<decltype(*it)>, T*>) {
+            else if constexpr (std::is_same_v<std::decay_t<decltype(*it)>, T*>) {
                 result = *it;
             }
         }
@@ -112,7 +112,7 @@ inline void QueryBuilder<T>::deleteMany() {
         if constexpr (!std::is_const_v<std::remove_pointer_t<typename std::decay_t<decltype(vec)>::value_type>>) {
             std::erase_if(vec, [this](const auto& item) {
                 return matches(*item, _filters, _mode);
-                });
+            });
         }
         }, _collection);
 }
@@ -173,7 +173,7 @@ inline QueryBuilder<T>& QueryBuilder<T>::where(
     Getter<T> getter,
     const U& value,
     ComparisonOperator op
-    ) {
+) {
     FilterCriteria criteria;
     criteria.value = value;
     criteria.op = op;

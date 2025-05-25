@@ -14,11 +14,6 @@ Employee::Employee(
     , _education(education)
     , _baseSalary(baseSalary) {}
 
-Employee::Employee(const Employee& other)
-    : Person(other.id(), other.name(), other.gender(), other.address(), other.phone(), other.dob()),
-    _education(other.education()),
-    _baseSalary(other.baseSalary()) {}
-
 std::string Employee::education() const {
     return _education;
 }

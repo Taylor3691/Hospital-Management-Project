@@ -1,5 +1,5 @@
-#ifndef IEMPLOYEE_REPOSITORY
-#define IEMPLOYEE_REPOSITORY
+#ifndef IEMPLOYEE_REPOSITORY_H
+#define IEMPLOYEE_REPOSITORY_H
 
 #include "IRepository.h"
 #include "../models/Employee.h"
@@ -9,4 +9,4 @@ public:
     virtual ~IEmployeeRepository() = default;
 };
 
-#endif // !IEMPLOYEE_REPOSITORY
+#endif // !IEMPLOYEE_REPOSITORY_H

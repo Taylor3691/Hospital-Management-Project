@@ -15,7 +15,6 @@ public:
     Department(const std::string& id, const std::string& name,
         const std::string& headId, const Date& date,
         const std::string& description);
-    Department(const Department& other);
 
 public:
     std::string headId() const;

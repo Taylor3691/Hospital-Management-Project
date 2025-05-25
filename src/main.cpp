@@ -1,13 +1,26 @@
-#include "TxtDoctorParser.h"
-#include "TxtPatientRepository.h"
-#include <filesystem>
+#include <QApplication>
+#include "views/HomeView.h"
+#include "models/TxtEmployeeRepository.h"
+#include "models/TxtDepartmentRepository.h"
+#include "models/TxtPatientRepository.h"
+#include "ServiceLocator.h"
 
-int main() {
-    std::string room = "PHG-001|Khám Da Liễu|DEPT-001|HS-001,HS-002,HS-003|35000.00";
-    IParser* parse = new TxtRoomExaminationParser('|');
-    std::stringstream os;
-    RoomExamination* sample = dynamic_cast<RoomExamination*>(parse->parse(room));
-    IWritingVisitor* visitor = new TxtWritingVisitor('|');
-    sample->acceptWrite(visitor, os);
+int main(int argc, char* argv[]) {
+    QApplication a(argc, argv);
 
+    TxtEmployeeRepository employeeRepo("../../../data/employees.txt");
+    EmployeeManager employeeManager(&employeeRepo);
+
+    TxtDepartmentRepository departmentRepo("../../../data/departments.txt");
+    DepartmentManager departmentManager(&departmentRepo);
+
+    TxtPatientRepository patientRepo("../../../data/patients.txt");
+    PatientManager patientManager(&patientRepo);
+
+    ServiceLocator::provide(&employeeManager, &departmentManager, &patientManager);
+
+    HomeView w;
+    w.show();
+    
+    return a.exec();
 }

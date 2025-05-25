@@ -1,5 +1,5 @@
-#ifndef IDEPARTMENT_REPOSITORY
-#define IDEPARTMENT_REPOSITORY
+#ifndef IDEPARTMENT_REPOSITORY_H
+#define IDEPARTMENT_REPOSITORY_H
 
 #include "IRepository.h"
 #include "../models/Department.h"
@@ -9,4 +9,4 @@ public:
     virtual ~IDepartmentRepository() = default;
 };
 
-#endif // !IDEPARTMENT_REPOSITORY
+#endif // !IDEPARTMENT_REPOSITORY_H

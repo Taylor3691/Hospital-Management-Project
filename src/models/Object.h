@@ -14,7 +14,6 @@ protected:
 public:
     Object() = default;
     Object(const std::string& id, const std::string& name);
-    Object(const Object&);
     virtual ~Object() = default;
 
 public:

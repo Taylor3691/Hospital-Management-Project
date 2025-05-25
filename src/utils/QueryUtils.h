@@ -85,7 +85,7 @@ inline bool matches(
             catch (const std::bad_any_cast&) {
                 throw std::runtime_error("Type mismatch in filter");
             }
-            }, filter.criteria.value);
+        }, filter.criteria.value);
 
         if (mode == FilterMode::OR) {
             if (result) {

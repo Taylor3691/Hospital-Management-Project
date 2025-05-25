@@ -16,7 +16,6 @@ public:
         const std::string& phone, const Date& dob,
         const std::string& education, double baseSalary,
         double subsidies, int workingDays);
-    Receptionist(const Receptionist& other);
 
 public:
     double subsidies() const;

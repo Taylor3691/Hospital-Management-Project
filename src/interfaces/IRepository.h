@@ -17,6 +17,7 @@ public:
     virtual void save() const = 0;
     virtual void add(std::unique_ptr<Entity> entity) = 0;
     virtual void removeById(const std::string& id) = 0;
+    virtual void removeByIds(const std::vector<std::string>& ids) = 0;
     virtual void update(const Entity& entity) = 0;
     virtual std::vector<const Entity*> data() const = 0;
 };

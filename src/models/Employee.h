@@ -14,7 +14,6 @@ public:
         const std::string& gender, const std::string& address,
         const std::string& phone, const Date& dob,
         const std::string& education, double baseSalary);
-    Employee(const Employee& other);
     virtual ~Employee() = default;
 
 public:
@@ -27,8 +26,6 @@ public:
 
 public:
     void acceptWrite(IVisitor* visitor, std::ostream& os) = 0;
-    Object* clone() const = 0;
-
 };
 
 #endif // !EMPLOYEE_H
