@@ -32,6 +32,10 @@ Resetting everything helps to unify styles across different operating systems
   font: 9pt "Segoe UI";
 }
 
+Line {
+  background: solid #455364;
+}
+
 /* specific reset for elements inside QToolBar */
 QToolBar * {
   margin: 0px;
