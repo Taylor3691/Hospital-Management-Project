@@ -17,7 +17,7 @@ ClinicalTest::ClinicalTest(
     , _result(result)
     , _completed(completed) {}
 
-std::string ClinicalTest::testId() {
+std::string ClinicalTest::testId() const {
     return _testId;
 }
 

@@ -17,7 +17,7 @@ public:
         double cost, const std::string& result = "", bool completed = false);
 
 public:
-    std::string testId();
+    std::string testId() const;
     double cost() const;
     std::string result() const;
     bool completed() const;

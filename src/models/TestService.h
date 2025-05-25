@@ -19,8 +19,8 @@ public:
     void setCost(double cost);
 
 public:
-    virtual void acceptWrite(IVisitor* visitor, std::ostream& os) override;
-    virtual Object* clone() const override;
+    void acceptWrite(IVisitor* visitor, std::ostream& os) override;
+    Object* clone() const override;
 };
 
 

@@ -1,0 +1,150 @@
+CLS-001|Chụp XQuang sọ thẳng|120000
+CLS-002|Chụp XQuang sọ nghiêng|130000
+CLS-003|Chụp XQuang sọ thẳng + nghiêng|150000
+CLS-004|Chụp XQuang mặt thẳng|110000
+CLS-005|Chụp XQuang mặt nghiêng|120000
+CLS-006|Chụp XQuang mặt thẳng + nghiêng|140000
+CLS-007|Chụp XQuang mắt thẳng|100000
+CLS-008|Chụp XQuang mắt nghiêng|110000
+CLS-009|Chụp XQuang mắt tăng sáng|130000
+CLS-010|Chụp XQuang hốc mắt thẳng + nghiêng|150000
+CLS-011|Chụp XQuang mũi thẳng|90000
+CLS-012|Chụp XQuang mũi nghiêng|100000
+CLS-013|Chụp XQuang mũi thẳng + nghiêng|120000
+CLS-014|Chụp XQuang hàm trên thẳng|95000
+CLS-015|Chụp XQuang hàm dưới thẳng|95000
+CLS-016|Chụp XQuang cắn khớp (bitewing)|110000
+CLS-017|Chụp XQuang quanh khớp thái dương-hàm (TMJ)|120000
+CLS-018|Chụp XQuang xoang hàm (Waters)|130000
+CLS-019|Chụp XQuang xoang trán|120000
+CLS-020|Chụp XQuang xoang bướm|120000
+CLS-021|Chụp XQuang xoang sàng|120000
+CLS-022|Chụp XQuang Stenvers|130000
+CLS-023|Chụp XQuang Schuller|130000
+CLS-024|Chụp XQuang Hirtz|140000
+CLS-025|Chụp XQuang Towne|140000
+CLS-026|Chụp XQuang Parinaud|130000
+CLS-027|Chụp XQuang Chaussé I|120000
+CLS-028|Chụp XQuang Chaussé II|120000
+CLS-029|Chụp XQuang Chaussé III|130000
+CLS-030|Chụp XQuang cột sống cổ thẳng|100000
+CLS-031|Chụp XQuang cột sống cổ nghiêng|110000
+CLS-032|Chụp XQuang cột sống cổ thẳng + nghiêng|130000
+CLS-033|Chụp XQuang cột sống ngực thẳng|100000
+CLS-034|Chụp XQuang cột sống ngực nghiêng|110000
+CLS-035|Chụp XQuang cột sống thắt lưng thẳng|100000
+CLS-036|Chụp XQuang cột sống thắt lưng nghiêng|110000
+CLS-037|Chụp XQuang cột sống thắt lưng thẳng + nghiêng|130000
+CLS-038|Chụp XQuang cột sống toàn bộ|200000
+CLS-039|Chụp XQuang ngực thẳng|90000
+CLS-040|Chụp XQuang ngực nghiêng|100000
+CLS-041|Chụp XQuang ngực thẳng + nghiêng|120000
+CLS-042|Chụp XQuang tim phổi thẳng|95000
+CLS-043|Chụp XQuang phổi hai thì|130000
+CLS-044|Chụp XQuang phổi ép|140000
+CLS-045|Chụp XQuang cổ tửng thẳng|90000
+CLS-046|Chụp XQuang bụng thẳng|90000
+CLS-047|Chụp XQuang bụng nghiêng|100000
+CLS-048|Chụp XQuang bụng thẳng + nghiêng|120000
+CLS-049|Chụp XQuang khung chậu thẳng|90000
+CLS-050|Chụp XQuang khung chậu nghiêng|100000
+CLS-051|Chụp XQuang hông thẳng|95000
+CLS-052|Chụp XQuang hông nghiêng|105000
+CLS-053|Chụp XQuang khớp háng thẳng + nghiêng|125000
+CLS-054|Chụp XQuang gối thẳng|90000
+CLS-055|Chụp XQuang gối nghiêng|100000
+CLS-056|Chụp XQuang cẳng chân thẳng|85000
+CLS-057|Chụp XQuang cẳng chân nghiêng|95000
+CLS-058|Chụp XQuang bàn chân thẳng|80000
+CLS-059|Chụp XQuang bàn chân nghiêng|90000
+CLS-060|Chụp XQuang mắt cá chân thẳng|85000
+CLS-061|Chụp XQuang mắt cá chân nghiêng|95000
+CLS-062|Chụp XQuang cổ tay thẳng|80000
+CLS-063|Chụp XQuang cổ tay nghiêng|90000
+CLS-064|Chụp XQuang bàn tay thẳng|80000
+CLS-065|Chụp XQuang bàn tay nghiêng|90000
+CLS-066|Chụp XQuang khuỷu tay thẳng|85000
+CLS-067|Chụp XQuang khuỷu tay nghiêng|95000
+CLS-068|Chụp XQuang vai thẳng|90000
+CLS-069|Chụp XQuang vai nghiêng|100000
+CLS-070|Chụp XQuang cánh tay thẳng|85000
+CLS-071|Chụp XQuang cánh tay nghiêng|95000
+CLS-072|Chụp XQuang xương đòn thẳng|85000
+CLS-073|Chụp XQuang xương đòn nghiêng|95000
+CLS-074|Chụp XQuang sườn thẳng|90000
+CLS-075|Chụp XQuang sườn nghiêng|100000
+CLS-076|Chụp XQuang ổ bụng thẳng kháng|120000
+CLS-077|Chụp XQuang khớp vai AP|105000
+CLS-078|Chụp XQuang khớp vai Y-view|125000
+CLS-079|Chụp XQuang khớp háng Frog-leg|130000
+CLS-080|Chụp XQuang cột sống cổ UR|115000
+CLS-081|Chụp XQuang cột sống cổ trục xiên|135000
+CLS-082|Chụp XQuang cột sống thắt lưng UR|115000
+CLS-083|Chụp XQuang khớp gối Skyline|130000
+CLS-084|Chụp XQuang khớp gối Tunnel view|125000
+CLS-085|Chụp XQuang bàn chân Mortise view|120000
+CLS-086|Chụp XQuang cổ tay scaphoid view|115000
+CLS-087|Chụp XQuang bàn tay oblique|90000
+CLS-088|Chụp XQuang cẳng chân AP/Lateral|105000
+CLS-089|Chụp XQuang khung chậu inlet/outlet|135000
+CLS-090|Chụp XQuang ngực Decubitus|120000
+CLS-091|Chụp XQuang bụng Decubitus|115000
+CLS-092|Chụp XQuang tim phổi PA + Lateral|140000
+CLS-093|Chụp XQuang cột sống cổ Flexion/Extension|150000
+CLS-094|Chụp XQuang cột sống thắt lưng Flexion/Extension|150000
+CLS-095|Chụp XQuang lồng ngực tư thế nghiêng trái|110000
+CLS-096|Chụp XQuang lồng ngực tư thế nghiêng phải|110000
+CLS-097|Chụp XQuang cột sống thắt lưng AP/Oblique|125000
+CLS-098|Chụp XQuang khớp gối AP/Oblique|115000
+CLS-099|Chụp XQuang ổ khớp háng AP/Oblique|125000
+CLS-100|Chụp XQuang ổ khớp háng AP/Oblique|125000
+CLS-101|CT Scan đầu không tiêm thuốc cản quang|600000
+CLS-102|CT Scan đầu có tiêm thuốc cản quang|750000
+CLS-103|CT Scan ngực không tiêm thuốc cản quang|550000
+CLS-104|CT Scan ngực có tiêm thuốc cản quang|700000
+CLS-105|CT Scan bụng - chậu không tiêm thuốc|580000
+CLS-106|CT Scan bụng - chậu có tiêm thuốc|720000
+CLS-107|CT Scan cột sống cổ|650000
+CLS-108|CT Scan cột sống ngực|650000
+CLS-109|CT Scan cột sống thắt lưng|650000
+CLS-110|CT Scan mạch vành (CTA)|900000
+CLS-111|MRI não không tiêm thuốc|900000
+CLS-112|MRI não có tiêm thuốc cản từ|1100000
+CLS-113|MRI cột sống cổ không tiêm thuốc|850000
+CLS-114|MRI cột sống lưng không tiêm thuốc|850000
+CLS-115|MRI khớp vai|800000
+CLS-116|MRI khớp gối|800000
+CLS-117|MRI khung chậu|880000
+CLS-118|Siêu âm ổ bụng tổng quát|200000
+CLS-119|Siêu âm tim (Siêu âm Doppler tim)|350000
+CLS-120|Siêu âm mạch máu cổ (Doppler)|300000
+CLS-121|Siêu âm Doppler động mạch và tĩnh mạch chi dưới|350000
+CLS-122|Siêu âm Doppler động mạch và tĩnh mạch chi trên|350000
+CLS-123|Siêu âm thận - tiết niệu|220000
+CLS-124|Siêu âm gan mật|200000
+CLS-125|Siêu âm tuyến giáp|180000
+CLS-126|Siêu âm túi mật|180000
+CLS-127|Siêu âm vú hai bên|250000
+CLS-128|Siêu âm phụ khoa đầu dò âm đạo|300000
+CLS-129|Siêu âm thai 1D|150000
+CLS-130|Siêu âm thai 2D|200000
+CLS-131|Siêu âm Doppler khảo sát thai|300000
+CLS-132|Xét nghiệm Huyết đồ đầy đủ (CBC)|120000
+CLS-133|Xét nghiệm Tổng phân tích nước tiểu|100000
+CLS-134|Xét nghiệm Chức năng gan (AST, ALT, GGT)|150000
+CLS-135|Xét nghiệm Chức năng thận (Urea, Creatinine)|140000
+CLS-136|Xét nghiệm Lipid máu (Cholesterol, Triglyceride)|160000
+CLS-137|Xét nghiệm Đường huyết đói|130000
+CLS-138|Xét nghiệm HbA1c|200000
+CLS-139|Xét nghiệm Đông máu cơ bản (PT, aPTT)|180000
+CLS-140|Xét nghiệm Điện giải đồ (Na, K, Cl)|140000
+CLS-141|Xét nghiệm HIV nhanh|250000
+CLS-142|Xét nghiệm Viêm gan B (HBsAg)|200000
+CLS-143|Xét nghiệm Viêm gan C (Anti-HCV)|200000
+CLS-144|Xét nghiệm Chlamydia|300000
+CLS-145|Xét nghiệm HPV|350000
+CLS-146|Xét nghiệm Phết tế bào cổ tử cung (Pap smear)|250000
+CLS-147|Xét nghiệm Marker ung thư (CEA)|300000
+CLS-148|Xét nghiệm Marker ung thư (CA 125)|300000
+CLS-149|Xét nghiệm Marker ung thư (PSA)|300000
+CLS-150|Xét nghiệm Marker ung thư (AFP)|300000
