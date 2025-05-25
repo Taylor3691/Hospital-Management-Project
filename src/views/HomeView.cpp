@@ -26,6 +26,7 @@ void HomeView::setup() {
     _managementView->setStyleSheet("");
     _registerView->setStyleSheet("");
     _roomView->setStyleSheet("");
+    _paraclinicalView->setStyleSheet("");
     setStyleSheet("");
     qApp->setStyleSheet(themeStyleSheet());
 

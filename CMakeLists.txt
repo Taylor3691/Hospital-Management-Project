@@ -49,7 +49,6 @@ add_executable(${TARGET_NAME}
     src/models/Nurse.cpp
     src/models/Object.cpp
     src/models/Patient.cpp
-    src/models/PatientManager.cpp
     src/models/PatientTableModel.cpp
     src/models/PendingTestState.cpp
     src/models/Person.cpp
