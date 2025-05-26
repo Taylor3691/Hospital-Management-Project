@@ -1,18 +1,19 @@
 #include "TxtParserFactory.h"
+#include "../utils/utils_template.h"
 
 TxtParserFactory::TxtParserFactory(char delim)
     : _prototypes({
-        { "BS", new TxtDoctorParser(delim) },
-        { "YT", new TxtNurseParser(delim) },
-        { "TT", new TxtReceptionistParser(delim) },
-        { "DEPT", new TxtDepartmentParser(delim) },
-        { "BN", new TxtPatientParser(delim) },
-        { "ME", new TxtMedicineParser(delim)},
-        { "CLS", new TxtTestServiceParser(delim)},
-        { "PHG", new TxtRoomExaminationParser(delim)},
-        { "MEUSE", new TxtMedicineUsageParser(delim)},
-        { "CLSUSE", new TxtClinicalTestParser(delim)},
-        { "HS", new TxtMedicalRecordParser(delim)},
+        { getIdPrefix<Doctor>(), new TxtDoctorParser(delim) },
+        { getIdPrefix<Nurse>(), new TxtNurseParser(delim) },
+        { getIdPrefix<Receptionist>(), new TxtReceptionistParser(delim) },
+        { getIdPrefix<Department>(), new TxtDepartmentParser(delim) },
+        { getIdPrefix<Patient>(), new TxtPatientParser(delim) },
+        { getIdPrefix<Medicine>(), new TxtMedicineParser(delim)},
+        { getIdPrefix<TestService>(), new TxtTestServiceParser(delim)},
+        { getIdPrefix<RoomExamination>(), new TxtRoomExaminationParser(delim)},
+        { getIdPrefix<MedicineUsage>(), new TxtMedicineUsageParser(delim)},
+        { getIdPrefix<ClinicalTest>(), new TxtClinicalTestParser(delim)},
+        { getIdPrefix<MedicalRecord>(), new TxtMedicalRecordParser(delim)},
     }) {}
 
 TxtParserFactory::~TxtParserFactory() {

@@ -80,4 +80,67 @@ int compare(const T& a, const T& b) {
     return a == b ? 0 : (a < b ? -1 : 1);
 }
 
+template<class T>
+const char* getIdPrefix();
+
+template<>
+inline const char* getIdPrefix<Doctor>() {
+    return "BS";
+}
+
+template<>
+inline const char* getIdPrefix<Nurse>() {
+    return "YT";
+}
+
+template<>
+inline const char* getIdPrefix<Receptionist>() {
+    return "TT";
+}
+
+template<>
+inline const char* getIdPrefix<Department>() {
+    return "DEPT";
+}
+
+template<>
+inline const char* getIdPrefix<Patient>() {
+    return "BN";
+}
+
+template<>
+inline const char* getIdPrefix<Medicine>() {
+    return "ME";
+}
+
+template<>
+inline const char* getIdPrefix<TestService>() {
+    return "CLS";
+}
+
+template<>
+inline const char* getIdPrefix<RoomExamination>() {
+    return "PHG";
+}
+
+template<>
+inline const char* getIdPrefix<MedicineUsage>() {
+    return "MEUSE";
+}
+
+template<>
+inline const char* getIdPrefix<ClinicalTest>() {
+    return "CLSUSE";
+}
+
+template<>
+inline const char* getIdPrefix<MedicalRecord>() {
+    return "HS";
+}
+
+template<class T>
+inline std::string getFormat() {
+    return std::string(getIdPrefix<T>()) + "-%03d";
+}
+
 #endif // !UTILS_TEMPLATE_H
