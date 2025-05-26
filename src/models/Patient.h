@@ -17,7 +17,7 @@ public:
     Patient(const std::string& id, const std::string& name,
         const std::string& gender, const std::string& address,
         const std::string& phone, const Date& dob,
-        const std::vector<std::string>& allergies,
+        const std::vector<std::string>& symptoms,
         std::unique_ptr<HealthInsurance> insuranceCard = nullptr);
     Patient(const Patient& other);
 
@@ -26,7 +26,7 @@ public:
     const HealthInsurance* insuranceCard() const;
 
 public:
-    void setSymptoms(const std::vector<std::string>& allergies);
+    void setSymptoms(const std::vector<std::string>& symptoms);
     void setInsuranceCard(std::unique_ptr<HealthInsurance> insuranceCard);
 
 public:
