@@ -17,14 +17,14 @@ void RegisterView::setup() {
 
     _ui->buttonBox->button(QDialogButtonBox::Ok)->setText("Đăng ký");
 
-    createRooms();
+    setupRooms();
 }
 
 void RegisterView::setConnections() {
 
 }
 
-void RegisterView::createRooms() {
+void RegisterView::setupRooms() {
     auto& rooms = ServiceLocator::rooms();
     for (int i = 0; i < rooms.size(); ++i) {
         auto frame = new QFrame(_ui->room_frame);
@@ -34,12 +34,11 @@ void RegisterView::createRooms() {
 
         auto verticalLayout = new QVBoxLayout(frame);
 
-        auto room_title_label = new QLabel(frame);
-        room_title_label->setStyleSheet("font-size: 10pt; font-weight: bold;");
-        room_title_label->setAlignment(Qt::AlignCenter);
-        room_title_label->setText(QString("Phòng %1").arg(i + 1));
+        auto room_title = new QCheckBox(frame);
+        room_title->setStyleSheet("font-size: 10pt; font-weight: bold;");
+        room_title->setText(QString("Phòng %1").arg(i + 1));
 
-        verticalLayout->addWidget(room_title_label);
+        verticalLayout->addWidget(room_title);
 
         auto room_name_label = new QLabel(frame);
         room_name_label->setAlignment(Qt::AlignCenter);

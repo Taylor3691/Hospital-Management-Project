@@ -4,6 +4,7 @@
 #include <QPushButton>
 #include "ui_RegisterView.h"
 #include "../ServiceLocator.h"
+#include "../utils/utils.h"
 
 namespace Ui {
     class RegisterView;
@@ -22,7 +23,7 @@ public:
 private:
     void setup();
     void setConnections();
-    void createRooms();
+    void setupRooms();
 };
 
 #endif // !REGISTER_VIEW_H
