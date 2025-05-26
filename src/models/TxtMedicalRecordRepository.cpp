@@ -43,6 +43,15 @@ void TxtMedicalRecordRepository::removeById(const std::string& id) {
     save();
 }
 
+void TxtMedicalRecordRepository::removeByIds(const std::vector<std::string>& ids) {
+    auto query = from(_records, FilterMode::OR);
+    for (const auto& id : ids) {
+        query.where(&MedicalRecord::id, id);
+    }
+    query.deleteMany();
+    save();
+}
+
 void TxtMedicalRecordRepository::update(const MedicalRecord& record) {
     auto ptr = from(_records)
         .where(&MedicalRecord::id, record.id()).findOne();

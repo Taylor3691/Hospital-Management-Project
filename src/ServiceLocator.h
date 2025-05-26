@@ -1,9 +1,18 @@
 #ifndef SERVICE_LOCATOR_H
 #define SERVICE_LOCATOR_H
 
+#include "Config.h"
 #include "controllers/EmployeeManager.h"
 #include "controllers/DepartmentManager.h"
 #include "controllers/PatientManager.h"
+#include "models/TxtPatientRepository.h"
+#include "models/TxtDepartmentRepository.h"
+#include "models/TxtMedicalRecordRepository.h"
+#include "models/TxtTestServiceRepository.h"
+#include "models/TxtEmployeeRepository.h"
+#include "models/TxtMedicineRepository.h"
+#include "models/TxtRoomExaminationRepository.h"
+#include "models/TxtParserFactory.h"
 
 struct Room {
     std::string id;
@@ -13,35 +22,35 @@ struct Room {
 
 class ServiceLocator {
 private:
-    inline static EmployeeManager* _employeeManager = nullptr;
-    inline static DepartmentManager* _departmentManager = nullptr;
-    inline static PatientManager* _patientManager = nullptr;
-    inline static std::vector<Room> _rooms = {
-        { std::string("PHG-001"), std::string("Khám Da Liễu"), 3 },
-        { std::string("PHG-002"), std::string("Khám Nội Tổng Quát"), 1 },
-        { std::string("PHG-003"), std::string("Khám Ngoại Tổng Quát"), 2 },
-        { std::string("PHG-004"), std::string("Khám Nhi"), 3 },
-        { std::string("PHG-005"), std::string("Khám Sản"), 1 },
-        { std::string("PHG-006"), std::string("Khám Mắt"), 2 },
-        { std::string("PHG-007"), std::string("Khám Tai Mũi Họng"), 3 },
-        { std::string("PHG-008"), std::string("Khám Răng Hàm Mặt"), 0 },
-    };
+    IPatientRepository* _patients;
+    IDepartmentRepository* _departments;
+    IRoomExaminationRepository* _rooms;
+    IMedicineRepository* _medicines;
+    IEmployeeRepository* _employees;
+    IMedicalRecordRepository* _records;
+    ITestServiceRepository* _tests;
+    IParserFactory* _factory;
+
+private:
+    EmployeeManager* _employeeManager;
+    DepartmentManager* _departmentManager;
+    PatientManager* _patientManager;
+
+private:
+    inline static ServiceLocator* _singleton = nullptr;
+
+private:
+    ServiceLocator();
 
 public:
-    static void provide(
-        EmployeeManager* employeeManager,
-        DepartmentManager* departmentManager,
-        PatientManager* patientManager
-    ) {
-        _employeeManager = employeeManager;
-        _departmentManager = departmentManager;
-        _patientManager = patientManager;
-    }
+    static ServiceLocator* getInstance();
 
-    static EmployeeManager* employeeManager() { return _employeeManager; }
-    static DepartmentManager* departmentManager() { return _departmentManager; }
-    static PatientManager* patientManager() { return _patientManager; }
-    static const std::vector<Room>& rooms() { return _rooms; }
+public:
+
+public:
+    EmployeeManager* employeeManager();
+    DepartmentManager* departmentManager();
+    PatientManager* patientManager();
 };
 
 #endif // !SERVICE_LOCATOR_H

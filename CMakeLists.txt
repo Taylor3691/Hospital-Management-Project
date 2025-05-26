@@ -109,6 +109,10 @@ add_executable(${TARGET_NAME}
     src/views/ReceiptView.ui
     src/views/RegisterView.ui
     src/views/RoomView.ui
+    src/Registry.cpp
+    src/App.h
+    src/App.cpp
+    src/Config.h" "src/Config.cpp
 )
 
 target_include_directories(${TARGET_NAME} PRIVATE "${CMAKE_CURRENT_BINARY_DIR}/${TARGET_NAME}_autogen/include_$<CONFIG>")

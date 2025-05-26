@@ -24,6 +24,7 @@ public:
     void save() const override;
     void add(std::unique_ptr<RoomExamination> entity) override;
     void removeById(const std::string& id) override;
+    void removeByIds(const std::vector<std::string>& ids) override;
     void update(const RoomExamination& entity) override;
     std::vector<const RoomExamination*> data() const override;
 };

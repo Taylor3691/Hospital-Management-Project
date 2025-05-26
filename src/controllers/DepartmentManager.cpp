@@ -34,3 +34,5 @@ std::vector<const Department*> DepartmentManager::find(
 std::vector<const Department*> DepartmentManager::getAll() const {
     return _repo->data();
 }
+
+
