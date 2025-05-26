@@ -43,6 +43,7 @@ void RegisterView::createRooms() {
 
         auto room_name_label = new QLabel(frame);
         room_name_label->setAlignment(Qt::AlignCenter);
+        room_name_label->setWordWrap(1);
         room_name_label->setText(QString::fromStdString(rooms[i].name));
 
         verticalLayout->addWidget(room_name_label);
