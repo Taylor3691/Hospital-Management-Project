@@ -24,6 +24,7 @@ public:
     void save() const override;
     void add(std::unique_ptr<Medicine> medicine) override;
     void removeById(const std::string& id) override;
+    void removeByIds(const std::vector<std::string>& ids) override;
     void update(const Medicine& employee) override;
     std::vector<const Medicine*> data() const override;
 };

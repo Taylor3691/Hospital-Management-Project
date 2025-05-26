@@ -1,0 +1,8 @@
+delim=|
+patient_repo=../database/patients.txt
+department_repo=../database/departments.txt
+medical_record_repo=../database/medicalRecords.txt
+medicine_repo=../database/medicines.txt
+room_repo=../database/rooms.txt
+test_repo=../database/tests.txt
+employee_repo=../database/employees.txt

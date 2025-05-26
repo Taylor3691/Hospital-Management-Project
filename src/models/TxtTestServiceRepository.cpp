@@ -40,6 +40,15 @@ void TxtTestServiceRepository::removeById(const std::string& id) {
     save();
 }
 
+void TxtTestServiceRepository::removeByIds(const std::vector<std::string>& ids) {
+    auto query = from(_tests, FilterMode::OR);
+    for (const auto& id : ids) {
+        query.where(&TestService::id, id);
+    }
+    query.deleteMany();
+    save();
+}
+
 void TxtTestServiceRepository::update(const TestService& patient) {
     auto ptr = from(_tests)
         .where(&TestService::id, patient.id()).findOne();

@@ -40,6 +40,15 @@ void TxtRoomExaminationRepository::removeById(const std::string& id) {
     save();
 }
 
+void TxtRoomExaminationRepository::removeByIds(const std::vector<std::string>& ids) {
+    auto query = from(_rooms, FilterMode::OR);
+    for (const auto& id : ids) {
+        query.where(&RoomExamination::id, id);
+    }
+    query.deleteMany();
+    save();
+}
+
 void TxtRoomExaminationRepository::update(const RoomExamination& patient) {
     auto ptr = from(_rooms)
         .where(&RoomExamination::id, patient.id()).findOne();
