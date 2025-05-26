@@ -37,3 +37,7 @@ DepartmentManager* ServiceLocator::departmentManager() {
 PatientManager* ServiceLocator::patientManager() {
     return _patientManager;
 }
+
+MedicineManager* ServiceLocator::medicineManager() {
+    return _medicineManager;
+}

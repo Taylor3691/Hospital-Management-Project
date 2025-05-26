@@ -142,6 +142,7 @@
   <ItemGroup>
     <ClCompile Include="src\controllers\DepartmentManager.cpp" />
     <ClCompile Include="src\controllers\EmployeeManager.cpp" />
+    <ClCompile Include="src\controllers\MedicineManager.cpp" />
     <ClCompile Include="src\controllers\PatientManager.cpp" />
     <ClCompile Include="src\ServiceLocator.cpp" />
     <ClCompile Include="src\App.cpp" />

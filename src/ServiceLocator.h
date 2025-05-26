@@ -2,9 +2,12 @@
 #define SERVICE_LOCATOR_H
 
 #include "Config.h"
+
+#include "controllers/MedicineManager.h"
 #include "controllers/EmployeeManager.h"
 #include "controllers/DepartmentManager.h"
 #include "controllers/PatientManager.h"
+
 #include "models/TxtPatientRepository.h"
 #include "models/TxtDepartmentRepository.h"
 #include "models/TxtMedicalRecordRepository.h"
@@ -35,6 +38,7 @@ private:
     EmployeeManager* _employeeManager;
     DepartmentManager* _departmentManager;
     PatientManager* _patientManager;
+    MedicineManager* _medicineManager;
 
 private:
     inline static ServiceLocator* _singleton = nullptr;
@@ -51,6 +55,7 @@ public:
     EmployeeManager* employeeManager();
     DepartmentManager* departmentManager();
     PatientManager* patientManager();
+    MedicineManager* medicineManager();
 };
 
 #endif // !SERVICE_LOCATOR_H
