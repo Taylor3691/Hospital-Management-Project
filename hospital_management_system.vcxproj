@@ -202,6 +202,7 @@
     <ClInclude Include="src\Config.h" />
     <ClInclude Include="src\controllers\DepartmentManager.h" />
     <ClInclude Include="src\controllers\EmployeeManager.h" />
+    <ClInclude Include="src\controllers\MedicineManager.h" />
     <ClInclude Include="src\controllers\PatientManager.h" />
     <ClInclude Include="src\interfaces\IMedicalRecordRepository.h" />
     <ClInclude Include="src\interfaces\IMedicineRepository.h" />

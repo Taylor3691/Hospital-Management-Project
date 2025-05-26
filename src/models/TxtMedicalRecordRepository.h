@@ -5,7 +5,7 @@
 
 class TxtMedicalRecordRepository : public IMedicalRecordRepository {
 private:
-    std::string _fileName;
+    std::string _filePath;
     char _delim;
     std::vector<std::unique_ptr<MedicalRecord>> _records;
 
@@ -14,9 +14,9 @@ public:
     TxtMedicalRecordRepository(const std::string& filename, char delim = '|');
 
 public:
-    const std::string& fileName() const;
+    const std::string& filePath() const;
     char delim() const;
-    void setFileName(const std::string& fileName);
+    void setFilePath(const std::string& fileName);
     void setDelim(char delim);
 
 public:

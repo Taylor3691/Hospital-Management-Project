@@ -464,6 +464,9 @@
     <ClInclude Include="src\controllers\PatientManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\controllers\MedicineManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="src\config.txt" />

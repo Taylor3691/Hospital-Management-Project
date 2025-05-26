@@ -1,19 +1,19 @@
 #include "TxtMedicalRecordRepository.h"
 
-TxtMedicalRecordRepository::TxtMedicalRecordRepository() : _fileName("records.txt"), _delim('|') {}
+TxtMedicalRecordRepository::TxtMedicalRecordRepository() : _filePath("records.txt"), _delim('|') {}
 
-TxtMedicalRecordRepository::TxtMedicalRecordRepository(const std::string& fileName, char delim)
+TxtMedicalRecordRepository::TxtMedicalRecordRepository(const std::string& filePath, char delim)
 {
-    _fileName = fileName;
+    _filePath = filePath;
     _delim = delim;
 }
 
-const std::string& TxtMedicalRecordRepository::fileName() const {
-    return _fileName;
+const std::string& TxtMedicalRecordRepository::filePath() const {
+    return _filePath;
 }
 
-void TxtMedicalRecordRepository::setFileName(const std::string& filePath) {
-    _fileName = filePath;
+void TxtMedicalRecordRepository::setFilePath(const std::string& filePath) {
+    _filePath = filePath;
 }
 
 char TxtMedicalRecordRepository::delim() const {
@@ -25,12 +25,12 @@ void TxtMedicalRecordRepository::setDelim(char delim) {
 }
 
 void TxtMedicalRecordRepository::save() const {
-    ::save(_records, _delim, _fileName);
+    ::save(_records, _delim, _filePath);
 }
 
 void TxtMedicalRecordRepository::load() {
     _records.clear();
-    ::load(_records, _delim, _fileName);
+    ::load(_records, _delim, _filePath);
 }
 
 void TxtMedicalRecordRepository::add(std::unique_ptr<MedicalRecord> record) {
