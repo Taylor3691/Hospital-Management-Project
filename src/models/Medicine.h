@@ -30,4 +30,4 @@ public:
     Object* clone() const override;
 };
 
-#endif
+#endif // !MEDICINE_H

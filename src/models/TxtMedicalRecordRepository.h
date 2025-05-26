@@ -1,5 +1,6 @@
-#ifndef TXTMEDICALRECORDREPOSITORY_H_
-#define TXTMEDICALRECORDREPOSITORY_H_
+#ifndef TXT_MEDICAL_RECORD_REPOSITORY_H
+#define TXT_MEDICAL_RECORD_REPOSITORY_H
+
 #include "../interfaces/IMedicalRecordRepository.h"
 
 class TxtMedicalRecordRepository : public IMedicalRecordRepository {
@@ -28,4 +29,4 @@ public:
     std::vector<const MedicalRecord*> data() const override;
 };
 
-#endif // !TXTMEDICALRECORDREPOSITORY_H_
+#endif // !TXT_MEDICAL_RECORD_REPOSITORY_H

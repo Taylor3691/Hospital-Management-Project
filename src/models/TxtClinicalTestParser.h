@@ -1,5 +1,5 @@
-#ifndef TXTCLINICALTESTPARSER_H_
-#define TXTCLINICALTESTPARSER_H_
+#ifndef TXT_CLINICAL_TEST_PARSER_H
+#define TXT_CLINICAL_TEST_PARSER_H
 
 #include "ClinicalTestParser.h"
 #include "ClinicalTest.h"
@@ -14,5 +14,4 @@ public:
     Object* parse(const std::string& str) const override;
 };
 
-
-#endif // !TXTCLINICALTESTPARSER_H_
+#endif // !TXT_CLINICAL_TEST_PARSER_H

@@ -1,5 +1,5 @@
-#ifndef IROOMEXAMINATIONREPOSITORY_H_
-#define IROOMEXAMINATIONREPOSITORY_H_
+#ifndef IROOM_EXAMINATION_REPOSITORY_H
+#define IROOM_EXAMINATION_REPOSITORY_H
 
 #include "IRepository.h"
 #include "../models/RoomExamination.h"
@@ -9,5 +9,4 @@ public:
     virtual ~IRoomExaminationRepository() = default;
 };
 
-
-#endif // !IMEDICALREPOSITORY_H_
+#endif // !IROOM_EXAMINATION_REPOSITORY_H

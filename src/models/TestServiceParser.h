@@ -1,5 +1,5 @@
-#ifndef TESTSERVICEPARSER_H_
-#define TESTSERVICEPARSER_H_
+#ifndef TEST_SERVICE_PARSER_H
+#define TEST_SERVICE_PARSER_H
 
 #include "../interfaces/IParser.h"
 #include "TestService.h"
@@ -9,4 +9,4 @@ public:
     ~TestServiceParser() override = default;
 };
 
-#endif // !TESTSERVICEPARSER_H_
+#endif // !TEST_SERVICE_PARSER_H

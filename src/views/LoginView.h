@@ -27,4 +27,4 @@ signals:
     void loginSucceeded();
 };
 
-#endif
+#endif // !LOGIN_VIEW_H

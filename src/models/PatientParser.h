@@ -1,11 +1,11 @@
-#ifndef PATIENTPARSER_H_
-#define PATIENTPARSER_H_
+#ifndef PATIENT_PARSER_H
+#define PATIENT_PARSER_H
+
 #include "../interfaces/IParser.h"
 
 class PatientParser : public IParser {
 public:
     virtual ~PatientParser() = default;
-
 };
 
-#endif // !PATIENTPARSE_H_
+#endif // !PATIENT_PARSER_H

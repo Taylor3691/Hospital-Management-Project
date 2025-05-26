@@ -1,5 +1,5 @@
-#ifndef IMEDICINEREPOSITORY_H
-#define IMEDICINEREPOSITORY_H
+#ifndef IMEDICINE_REPOSITORY_H
+#define IMEDICINE_REPOSITORY_H
 
 #include "IRepository.h"
 #include "../models/Medicine.h"
@@ -9,4 +9,4 @@ public:
     virtual ~IMedicineRepository() = default;
 };
 
-#endif // !IMEDICINEREPOSITORY_H
+#endif // !IMEDICINE_REPOSITORY_H

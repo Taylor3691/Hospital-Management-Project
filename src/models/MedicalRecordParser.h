@@ -1,5 +1,5 @@
-#ifndef MEDICALRECORDPARSER_H_
-#define MEDICALRECORDPARSER_H_
+#ifndef MEDICAL_RECORD_PARSER_H
+#define MEDICAL_RECORD_PARSER_H
 
 #include "../interfaces/IParser.h"
 
@@ -8,5 +8,4 @@ public:
     virtual ~MedicalRecordParser() = default;
 };
 
-
-#endif // !MEDICALRECORDPARSER_H_
+#endif // !MEDICAL_RECORD_PARSER_H

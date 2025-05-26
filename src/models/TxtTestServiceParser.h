@@ -1,5 +1,5 @@
-#ifndef TXTTESTSERVICEPARSER_H_
-#define TXTTESTSERVICEPARSER_H_
+#ifndef TXT_TEST_SERVICE_PARSER_H
+#define TXT_TEST_SERVICE_PARSER_H
 
 #include "TestServiceParser.h"
 #include <sstream>
@@ -15,4 +15,4 @@ public:
     Object* parse(const std::string& str) const override;
 };
 
-#endif // !TXTTESTSERVICEPARSER_H_
+#endif // !TXT_TEST_SERVICE_PARSER_H

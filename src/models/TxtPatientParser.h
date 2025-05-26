@@ -1,5 +1,6 @@
-#ifndef TXTPATIENTPARSER_H
-#define TXTPATIENTPARSER_H
+#ifndef TXT_PATIENT_PARSER_H
+#define TXT_PATIENT_PARSER_H
+
 #include <sstream>
 #include "PatientParser.h"
 #include "Patient.h"
@@ -12,4 +13,4 @@ public:
    Object* parse(const std::string& str) const override;
 };
 
-#endif // !TXTPATIENTPARSER_H
+#endif // !TXT_PATIENT_PARSER_H
