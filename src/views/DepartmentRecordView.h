@@ -4,6 +4,9 @@
 #include <QPushButton>
 #include "ui_DepartmentRecordView.h"
 #include "../models/Department.h"
+#include "../utils/utils.h"
+#include "../utils/utils_template.h"
+#include "../ServiceLocator.h"
 
 namespace Ui {
     class DepartmentRecordView;
@@ -16,11 +19,12 @@ private:
     Ui::DepartmentRecordView* _ui;
 
 public:
-    explicit DepartmentRecordView(const QString& styleSheet = "", QWidget* parent = nullptr);
+    explicit DepartmentRecordView(const QString& styleSheet = "",
+        Role role = Role::Add, QWidget* parent = nullptr);
     ~DepartmentRecordView();
 
 private:
-    void setup(const QString& styleSheet);
+    void setup(const QString& styleSheet, Role role);
 
 public:
     std::unique_ptr<Department> getDepartment() const;

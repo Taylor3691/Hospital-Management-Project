@@ -1,23 +1,44 @@
 #include "DepartmentRecordView.h"
 
-DepartmentRecordView::DepartmentRecordView(const QString& styleSheet, QWidget* parent)
+DepartmentRecordView::DepartmentRecordView(
+    const QString& styleSheet,
+    Role role,
+    QWidget* parent
+)
     : QDialog(parent)
     , _ui(new Ui::DepartmentRecordView)
 {
-    setup(styleSheet);
+    setup(styleSheet, role);
 }
 
 DepartmentRecordView::~DepartmentRecordView() {
     delete _ui;
 }
 
-void DepartmentRecordView::setup(const QString& styleSheet) {
+void DepartmentRecordView::setup(const QString& styleSheet, Role role) {
     _ui->setupUi(this);
 
     setWindowFlags(windowFlags() | Qt::Sheet);
     setStyleSheet(styleSheet);
 
     _ui->buttonBox->button(QDialogButtonBox::StandardButton::Cancel)->setText("Hủy");
+
+    _ui->id_label->setEnabled(0);
+    _ui->id_lineEdit->setEnabled(0);
+
+    if (role == Role::Add) {
+        setWindowTitle("Thêm khoa");
+        setAcceptButtonText("Thêm");
+
+        auto data = ServiceLocator::departmentManager()->getAll();
+        std::vector<const Object*> objectData(data.begin(), data.end());
+        auto newId = createId(objectData, getFormat<Department>());
+        _ui->id_lineEdit->setText(QString::fromStdString(newId));
+    }
+    else if (role == Role::Update) {
+        setWindowTitle("Cập nhật thông tin");
+        setAcceptButtonText("Lưu");
+    }
 }
 
 std::unique_ptr<Department> DepartmentRecordView::getDepartment() const {

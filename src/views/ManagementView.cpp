@@ -34,8 +34,6 @@ void ManagementView::setConnections() {
             auto modelIndex = (ModelType)_models.indexOf(qobject_cast<QAbstractTableModel*>(model), 0);
             if (modelIndex == ModelType::Employee) {
                 EmployeeRecordView view(qApp->styleSheet());
-                view.setWindowTitle("Thêm nhân viên");
-                view.setAcceptButtonText("Thêm");
 
                 QString title = "Xác nhận thêm nhân viên";
                 QString msg = "Bạn có chắc chắn muốn thêm nhân viên?";
@@ -45,22 +43,18 @@ void ManagementView::setConnections() {
             }
             else if (modelIndex == ModelType::Department) {
                 DepartmentRecordView view(qApp->styleSheet());
-                view.setWindowTitle("Thêm nhân viên");
-                view.setAcceptButtonText("Thêm");
 
-                QString title = "Xác nhận thêm nhân viên";
-                QString msg = "Bạn có chắc chắn muốn thêm nhân viên?";
+                QString title = "Xác nhận thêm khoa";
+                QString msg = "Bạn có chắc chắn muốn thêm khoa?";
                 if (view.exec() == QDialog::DialogCode::Accepted && confirm(title, msg)) {
                     static_cast<DepartmentTableModel*>(model)->add(view.getDepartment());
                 }
             }
             else {
                 PatientRecordView view(qApp->styleSheet());
-                view.setWindowTitle("Thêm nhân viên");
-                view.setAcceptButtonText("Thêm");
 
-                QString title = "Xác nhận thêm nhân viên";
-                QString msg = "Bạn có chắc chắn muốn thêm nhân viên?";
+                QString title = "Xác nhận thêm bệnh nhân";
+                QString msg = "Bạn có chắc chắn muốn thêm bệnh nhân?";
                 if (view.exec() == QDialog::DialogCode::Accepted && confirm(title, msg)) {
                     static_cast<PatientTableModel*>(model)->add(view.getPatient());
                 }
@@ -102,11 +96,8 @@ void ManagementView::setConnections() {
             if (modelIndex == ModelType::Employee) {
                 auto employee = static_cast<const Employee*>(model->data(index, Qt::UserRole).value<void*>());
 
-                EmployeeRecordView view(qApp->styleSheet());
-                view.setWindowTitle("Cập nhật thông tin");
-                view.setAcceptButtonText("Lưu");
+                EmployeeRecordView view(qApp->styleSheet(), Role::Update);
                 view.setEmployee(employee);
-                view.disableNotEditableFields();
 
                 if (view.exec() == QDialog::DialogCode::Accepted && confirm(title, msg)) {
                     static_cast<EmployeeTableModel*>(model)->update(*view.getEmployee().get());
@@ -115,11 +106,8 @@ void ManagementView::setConnections() {
             else if (modelIndex == ModelType::Department) {
                 auto department = static_cast<const Department*>(model->data(index, Qt::UserRole).value<void*>());
 
-                DepartmentRecordView view(qApp->styleSheet());
-                view.setWindowTitle("Cập nhật thông tin");
-                view.setAcceptButtonText("Lưu");
+                DepartmentRecordView view(qApp->styleSheet(), Role::Update);
                 view.setDepartment(department);
-                view.disableNotEditableFields();
 
                 if (view.exec() == QDialog::DialogCode::Accepted && confirm(title, msg)) {
                     static_cast<DepartmentTableModel*>(model)->update(*view.getDepartment().get());
@@ -128,11 +116,8 @@ void ManagementView::setConnections() {
             else {
                 auto patient = static_cast<const Patient*>(model->data(index, Qt::UserRole).value<void*>());
 
-                PatientRecordView view(qApp->styleSheet());
-                view.setWindowTitle("Cập nhật thông tin");
-                view.setAcceptButtonText("Lưu");
+                PatientRecordView view(qApp->styleSheet(), Role::Update);
                 view.setPatient(patient);
-                view.disableNotEditableFields();
 
                 if (view.exec() == QDialog::DialogCode::Accepted && confirm(title, msg)) {
                     static_cast<PatientTableModel*>(model)->update(*view.getPatient().get());

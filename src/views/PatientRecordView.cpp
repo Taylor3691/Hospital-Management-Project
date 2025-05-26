@@ -1,10 +1,14 @@
 #include "PatientRecordView.h"
 
-PatientRecordView::PatientRecordView(const QString& styleSheet, QWidget* parent)
+PatientRecordView::PatientRecordView(
+    const QString& styleSheet,
+    Role role,
+    QWidget* parent
+)
     : QDialog(parent)
     , _ui(new Ui::PatientRecordView)
 {
-    setup(styleSheet);
+    setup(styleSheet, role);
     setConnections();
 }
 
@@ -12,7 +16,7 @@ PatientRecordView::~PatientRecordView() {
     delete _ui;
 }
 
-void PatientRecordView::setup(const QString& styleSheet) {
+void PatientRecordView::setup(const QString& styleSheet, Role role) {
     _ui->setupUi(this);
 
     setWindowFlags(windowFlags() | Qt::Sheet);
@@ -21,6 +25,23 @@ void PatientRecordView::setup(const QString& styleSheet) {
     setInsuranceFieldsEnabled(0);
 
     _ui->buttonBox->button(QDialogButtonBox::StandardButton::Cancel)->setText("Hủy");
+
+    _ui->id_label->setEnabled(0);
+    _ui->id_lineEdit->setEnabled(0);
+
+    if (role == Role::Add) {
+        setWindowTitle("Thêm bệnh nhân");
+        setAcceptButtonText("Thêm");
+
+        auto data = ServiceLocator::patientManager()->getAll();
+        std::vector<const Object*> objectData(data.begin(), data.end());
+        auto newId = createId(objectData, getFormat<Patient>());
+        _ui->id_lineEdit->setText(QString::fromStdString(newId));
+    }
+    else if (role == Role::Update) {
+        setWindowTitle("Cập nhật thông tin");
+        setAcceptButtonText("Lưu");
+    }
 }
 
 void PatientRecordView::setConnections() {
