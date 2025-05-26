@@ -1,16 +1,16 @@
 #include "TxtRoomExaminationRepository.h"
 
-TxtRoomExaminationRepository::TxtRoomExaminationRepository() : _fileName("tests.txt"), _delim('|') {}
+TxtRoomExaminationRepository::TxtRoomExaminationRepository() : _filePath("tests.txt"), _delim('|') {}
 
-TxtRoomExaminationRepository::TxtRoomExaminationRepository(const std::string& filePath, char delim) : _fileName(filePath), _delim(delim) {
+TxtRoomExaminationRepository::TxtRoomExaminationRepository(const std::string& filePath, char delim) : _filePath(filePath), _delim(delim) {
 }
 
-const std::string& TxtRoomExaminationRepository::fileName() const {
-    return _fileName;
+const std::string& TxtRoomExaminationRepository::filePath() const {
+    return _filePath;
 }
 
-void TxtRoomExaminationRepository::setFileName(const std::string& filePath) {
-    _fileName = filePath;
+void TxtRoomExaminationRepository::setFilePath(const std::string& filePath) {
+    _filePath = filePath;
 }
 
 char TxtRoomExaminationRepository::delim() const {
@@ -22,12 +22,12 @@ void TxtRoomExaminationRepository::setDelim(char delim) {
 }
 
 void TxtRoomExaminationRepository::save() const {
-    ::save(_rooms, _delim, _fileName);
+    ::save(_rooms, _delim, _filePath);
 }
 
 void TxtRoomExaminationRepository::load() {
     _rooms.clear();
-    ::load(_rooms, _delim, _fileName);
+    ::load(_rooms, _delim, _filePath);
 }
 
 void TxtRoomExaminationRepository::add(std::unique_ptr<RoomExamination> patient) {

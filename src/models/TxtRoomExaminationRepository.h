@@ -5,7 +5,7 @@
 
 class TxtRoomExaminationRepository : public IRoomExaminationRepository {
 private:
-    std::string _fileName;
+    std::string _filePath;
     std::vector<std::unique_ptr<RoomExamination>> _rooms;
     char _delim;
 
@@ -14,9 +14,9 @@ public:
     TxtRoomExaminationRepository(const std::string& filePath, char delim = '|');
 
 public:
-    const std::string& fileName() const;
+    const std::string& filePath() const;
     char delim() const;
-    void setFileName(const std::string& filePath);
+    void setFilePath(const std::string& filePath);
     void setDelim(char delim);
 
 public:
