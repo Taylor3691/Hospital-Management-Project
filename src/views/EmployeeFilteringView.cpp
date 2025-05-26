@@ -61,14 +61,9 @@ std::vector<RFilter<Employee>> EmployeeFilteringView::getFilters() const {
         filters.push_back({ criteria, &Employee::baseSalary });
     }
 
-    std::vector<std::string> educations = {
-        "Cu Nhan", "Thac Si", "Tien Si", "Thac Si Y Hoc",
-        "Tien Si Y Hoc", "Chuyen Khoa I", "Chuyen Khoa II",
-    };
-    auto index = _ui->education_comboBox->currentIndex();
-    if (index) {
+    if (_ui->education_comboBox->currentIndex()) {
         FilterCriteria criteria;
-        criteria.value = educations[index - 1];
+        criteria.value = _ui->education_comboBox->currentText().toStdString();
         filters.push_back({ criteria, &Employee::education });
     }
 
@@ -77,7 +72,7 @@ std::vector<RFilter<Employee>> EmployeeFilteringView::getFilters() const {
         std::string(typeid(Nurse).name()),
         std::string(typeid(Receptionist).name()),
     };
-    index = _ui->role_comboBox->currentIndex();
+    auto index = _ui->role_comboBox->currentIndex();
     if (index) {
         FilterCriteria criteria;
         criteria.value = roles[index - 1];

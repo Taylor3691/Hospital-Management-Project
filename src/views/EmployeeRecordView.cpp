@@ -57,7 +57,7 @@ std::unique_ptr<Employee> EmployeeRecordView::getEmployee() const {
 
         doctor->setId(_ui->id_lineEdit->text().toStdString());
         doctor->setName(_ui->name_lineEdit->text().toStdString());
-        doctor->setGender(_ui->gender_comboBox->currentIndex() ? "Nu" : "Nam");
+        doctor->setGender(_ui->gender_comboBox->currentText().toStdString());
         doctor->setAddress(_ui->address_lineEdit->text().toStdString());
         doctor->setPhone(_ui->phone_lineEdit->text().toStdString());
         auto date = _ui->dob_dateEdit->date();
@@ -74,7 +74,7 @@ std::unique_ptr<Employee> EmployeeRecordView::getEmployee() const {
 
         nurse->setId(_ui->id_lineEdit->text().toStdString());
         nurse->setName(_ui->name_lineEdit->text().toStdString());
-        nurse->setGender(_ui->gender_comboBox->currentIndex() ? "Nu" : "Nam");
+        nurse->setGender(_ui->gender_comboBox->currentText().toStdString());
         nurse->setAddress(_ui->address_lineEdit->text().toStdString());
         nurse->setPhone(_ui->phone_lineEdit->text().toStdString());
         auto date = _ui->dob_dateEdit->date();
@@ -90,7 +90,7 @@ std::unique_ptr<Employee> EmployeeRecordView::getEmployee() const {
 
         receptionist->setId(_ui->id_lineEdit->text().toStdString());
         receptionist->setName(_ui->name_lineEdit->text().toStdString());
-        receptionist->setGender(_ui->gender_comboBox->currentIndex() ? "Nu" : "Nam");
+        receptionist->setGender(_ui->gender_comboBox->currentText().toStdString());
         receptionist->setAddress(_ui->address_lineEdit->text().toStdString());
         receptionist->setPhone(_ui->phone_lineEdit->text().toStdString());
         auto date = _ui->dob_dateEdit->date();
@@ -111,7 +111,7 @@ void EmployeeRecordView::setEmployee(const Employee* employee) {
 
     _ui->id_lineEdit->setText(QString::fromStdString(employee->id()));
     _ui->name_lineEdit->setText(QString::fromStdString(employee->name()));
-    _ui->gender_comboBox->setCurrentIndex(employee->gender() == "Nu");
+    _ui->gender_comboBox->setCurrentText(QString::fromStdString(employee->gender()));
     _ui->address_lineEdit->setText(QString::fromStdString(employee->address()));
     _ui->phone_lineEdit->setText(QString::fromStdString(employee->phone()));
     auto dob = employee->dob();
