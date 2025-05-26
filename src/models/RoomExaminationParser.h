@@ -1,5 +1,5 @@
-#ifndef ROOMEXAMINATIONPARSER_H_
-#define ROOMEXAMINATIONPARSER_H_
+#ifndef ROOM_EXAMINATION_PARSER_H
+#define ROOM_EXAMINATION_PARSER_H
 
 #include "../interfaces/IParser.h"
 
@@ -8,4 +8,4 @@ public:
     virtual ~RoomExaminationParser() = default;
 };
 
-#endif // !ROOMEXAMINATIONPARSER_H_
+#endif // !ROOM_EXAMINATION_PARSER_H

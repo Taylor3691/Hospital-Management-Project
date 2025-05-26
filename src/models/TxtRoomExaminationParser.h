@@ -1,10 +1,9 @@
-#ifndef TXTROOMEXAMINATIONPARSER_H_
-#define TXTROOMEXAMINATIONPARSER_H_
+#ifndef TXT_ROOM_EXAMINATION_PARSER_H
+#define TXT_ROOM_EXAMINATION_PARSER_H
 
 #include <sstream>
 #include "RoomExaminationParser.h"
 #include "RoomExamination.h"
-
 
 class TxtRoomExaminationParser : public RoomExaminationParser {
 private:
@@ -17,4 +16,4 @@ public:
     Object* parse(const std::string& str) const override;
 };
 
-#endif // !TXTROOMEXAMINATIONPARSER_H_
+#endif // !TXT_ROOM_EXAMINATION_PARSER_H

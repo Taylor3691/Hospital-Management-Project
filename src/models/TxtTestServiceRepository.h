@@ -1,5 +1,5 @@
-#ifndef TXTTESTSERVICEREPOSITORY_H_
-#define TXTTESTSERVICEREPOSITORY_H_
+#ifndef TXT_TEST_SERVICE_REPOSITORY_H
+#define TXT_TEST_SERVICE_REPOSITORY_H
 
 #include "../interfaces/ITestServiceRepository.h"
 
@@ -28,5 +28,4 @@ public:
     std::vector<const TestService*> data() const override;
 };
 
-
-#endif // !TXTTESTSERVICEREPOSITORY_H_
+#endif // !TXT_TEST_SERVICE_REPOSITORY_H

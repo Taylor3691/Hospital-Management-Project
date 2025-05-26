@@ -37,4 +37,4 @@ public:
     Patient& operator=(const Patient& other);
 };
 
-#endif
+#endif // !PATIENT_H

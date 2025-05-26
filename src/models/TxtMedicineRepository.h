@@ -1,5 +1,5 @@
-#ifndef TXTMEDICINEREPOSITORY_H_
-#define TXTMEDICINEREPOSITORY_H_
+#ifndef TXT_MEDICINE_REPOSITORY_H
+#define TXT_MEDICINE_REPOSITORY_H
 
 #include "../interfaces/IMedicineRepository.h"
 
@@ -26,7 +26,6 @@ public:
     void removeById(const std::string& id) override;
     void update(const Medicine& employee) override;
     std::vector<const Medicine*> data() const override;
-
 };
 
-#endif // !TXTMEDICINEREPOSITORY_H_
+#endif // !TXT_MEDICINE_REPOSITORY_H

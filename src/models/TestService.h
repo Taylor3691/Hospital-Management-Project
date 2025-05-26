@@ -1,5 +1,5 @@
-#ifndef TESTSERVICE_H_
-#define TESTSERVICE_H_
+#ifndef TEST_SERVICE_H
+#define TEST_SERVICE_H
 
 #include "Object.h"
 #include "TxtWritingVisitor.h"
@@ -23,6 +23,4 @@ public:
     Object* clone() const override;
 };
 
-
-
-#endif // !TESTSERVICE_H_
+#endif // !TEST_SERVICE_H

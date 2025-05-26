@@ -1,5 +1,5 @@
-#ifndef MEDICINEPARSER_H
-#define MEDICINEPARSER_H
+#ifndef MEDICINE_PARSER_H
+#define MEDICINE_PARSER_H
 
 #include "../interfaces/IParser.h"
 
@@ -8,4 +8,4 @@ public:
     virtual ~MedicineParser() = default;
 };
 
-#endif // !MEDICINEPARSER_H
+#endif // !MEDICINE_PARSER_H

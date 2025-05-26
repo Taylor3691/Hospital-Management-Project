@@ -1,5 +1,6 @@
-#ifndef ITESTSERVICEREPOSITORY_H_
-#define ITESTSERVICEREPOSITORY_H_
+#ifndef ITEST_SERVICE_REPOSITORY_H
+#define ITEST_SERVICE_REPOSITORY_H
+
 #include "IRepository.h"
 #include "../models/TestService.h"
 
@@ -8,4 +9,4 @@ public:
     ~ITestServiceRepository() = default;
 };
 
-#endif // !ITESTSERVICEREPOSITORY_H_
+#endif // !ITEST_SERVICE_REPOSITORY_H

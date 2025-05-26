@@ -52,4 +52,4 @@ public:
     friend std::ostream& operator<<(std::ostream& os, const Date& date);
 };
 
-#endif
+#endif // !DATE_H

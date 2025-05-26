@@ -1,5 +1,5 @@
-#ifndef MEDICINEUSAGEPARSER_H_
-#define MEDICINEUSAGEPARSER_H_
+#ifndef MEDICINE_USAGE_PARSER_H
+#define MEDICINE_USAGE_PARSER_H
 
 #include "../interfaces/IParser.h"
 
@@ -8,5 +8,4 @@ public:
     virtual ~MedicineUsageParser() = default;
 };
 
-
-#endif // !MEDICINEUSAGEPARSER_H_
+#endif // !MEDICINE_USAGE_PARSER_H

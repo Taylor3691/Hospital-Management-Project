@@ -51,4 +51,4 @@ public:
     int operator-(const Time& t) const;
 };
 
-#endif
+#endif // !TIME_H

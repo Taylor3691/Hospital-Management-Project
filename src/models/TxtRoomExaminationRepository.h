@@ -1,5 +1,5 @@
-#ifndef TXTROOMEXAMINATION_H_
-#define TXTROOMEXAMINATION_H_
+#ifndef TXT_ROOM_EXAMINATION_H
+#define TXT_ROOM_EXAMINATION_H
 
 #include "../interfaces/IRoomExaminationRepository.h"
 
@@ -28,5 +28,4 @@ public:
     std::vector<const RoomExamination*> data() const override;
 };
 
-
-#endif // !TXTROOMEXAMINATION_H_
+#endif // !TXT_ROOM_EXAMINATION_H

@@ -1,5 +1,5 @@
-#ifndef CLINICALTESTPARSER_H_
-#define CLINICALTESTPARSER_H_
+#ifndef CLINICAL_TEST_PARSER_H
+#define CLINICAL_TEST_PARSER_H
 
 #include "../interfaces/IParser.h"
 
@@ -8,4 +8,4 @@ public:
     virtual ~ClinicalTestParser() = default;
 };
 
-#endif // !CLINICALTESTPARSER_H_
+#endif // !CLINICAL_TEST_PARSER_H

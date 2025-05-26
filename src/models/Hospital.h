@@ -24,4 +24,4 @@ public:
     const std::vector<std::unique_ptr<Department>>& departments() const;
 };
 
-#endif
+#endif // !HOSPITAL_H

@@ -1,5 +1,5 @@
-#ifndef IMEDICALRECORDREPOSITORY_H_
-#define IMEDICALRECORDREPOSITORY_H_
+#ifndef IMEDICAL_RECORD_REPOSITORY_H
+#define IMEDICAL_RECORD_REPOSITORY_H
 
 #include "IRepository.h"
 #include "../models/MedicalRecord.h"
@@ -9,5 +9,4 @@ public:
     virtual ~IMedicalRecordRepository() = default;
 };
 
-
-#endif // !IMEDICALREPOSITORY_H_
+#endif // !IMEDICAL_RECORD_REPOSITORY_H
