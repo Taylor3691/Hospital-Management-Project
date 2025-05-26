@@ -8,6 +8,7 @@ HomeView::HomeView(QWidget* parent)
     , _registerView(new RegisterView(this))
     , _roomView(new RoomView(this))
     , _paraclinicalView(new ParaclinicalView(this))
+    , _receiptView(new ReceiptView(this))
     , _loginStack(new QStackedWidget(this))
     , _mainStack(new QStackedWidget(this))
 {
@@ -27,6 +28,7 @@ void HomeView::setup() {
     _registerView->setStyleSheet("");
     _roomView->setStyleSheet("");
     _paraclinicalView->setStyleSheet("");
+    _receiptView->setStyleSheet("");
     setStyleSheet("");
     qApp->setStyleSheet(themeStyleSheet());
 
@@ -46,6 +48,7 @@ void HomeView::setup() {
     _mainStack->addWidget(_registerView);
     _mainStack->addWidget(_roomView);
     _mainStack->addWidget(_paraclinicalView);
+    _mainStack->addWidget(_receiptView);
     _ui->central_horizontalLayout->addWidget(_mainStack);
 
     _managementButtonGroup = new QButtonGroup(this);
@@ -61,7 +64,7 @@ void HomeView::setup() {
     _mainButtonGroup->addButton(_ui->register_pushButton);
     _mainButtonGroup->addButton(_ui->room_pushButton);
     _mainButtonGroup->addButton(_ui->paraclinical_pushButton);
-    _mainButtonGroup->addButton(_ui->bill_pushButton);
+    _mainButtonGroup->addButton(_ui->receipt_pushButton);
     _mainButtonGroup->addButton(_ui->medicine_pushButton);
 }
 
@@ -167,6 +170,11 @@ void HomeView::setConnections() {
     connect(_ui->paraclinical_pushButton, &QPushButton::clicked, this,
         [this](bool) {
             switchToView(View::Paraclinical);
+        });
+
+    connect(_ui->receipt_pushButton, &QPushButton::clicked, this,
+        [this](bool) {
+            switchToView(View::Receipt);
         });
 }
 

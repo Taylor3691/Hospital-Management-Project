@@ -12,6 +12,7 @@
 #include "RegisterView.h"
 #include "RoomView.h"
 #include "ParaclinicalView.h"
+#include "ReceiptView.h"
 
 enum class View {
     Home,
@@ -19,7 +20,7 @@ enum class View {
     Register,
     Room,
     Paraclinical,
-    Bill,
+    Receipt,
     Medicine
 };
 
@@ -37,6 +38,7 @@ private:
     RegisterView* _registerView;
     RoomView* _roomView;
     ParaclinicalView* _paraclinicalView;
+    ReceiptView* _receiptView;
     QStackedWidget* _loginStack;
     QStackedWidget* _mainStack;
     QButtonGroup* _managementButtonGroup;

@@ -2271,7 +2271,7 @@ PlotWidget {
       <item>
        <layout class="QVBoxLayout" name="toolbar_verticalLayout">
         <property name="spacing">
-         <number>20</number>
+         <number>10</number>
         </property>
         <item>
          <spacer name="verticalSpacer_2">
@@ -2566,7 +2566,7 @@ PlotWidget {
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="bill_pushButton">
+         <widget class="QPushButton" name="receipt_pushButton">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
             <horstretch>0</horstretch>

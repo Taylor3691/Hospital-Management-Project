@@ -92,6 +92,7 @@ add_executable(${TARGET_NAME}
     src/views/ParaclinicalView.cpp
     src/views/PatientFilteringView.cpp
     src/views/PatientRecordView.cpp
+    src/views/ReceiptView.cpp
     src/views/RegisterView.cpp
     src/views/RoomView.cpp
     src/views/DepartmentFilteringView.ui
