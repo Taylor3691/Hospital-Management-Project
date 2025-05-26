@@ -17,12 +17,14 @@ private:
     inline static DepartmentManager* _departmentManager = nullptr;
     inline static PatientManager* _patientManager = nullptr;
     inline static std::vector<Room> _rooms = {
-        { std::string("PHG-001"), std::string("Khám mắt"), 1 },
-        { std::string("PHG-002"), std::string("Khám tổng quát"), 2 },
-        { std::string("PHG-003"), std::string("Khám da liễu"), 3 },
-        { std::string("PHG-001"), std::string("Khám mắt"), 1 },
-        { std::string("PHG-002"), std::string("Khám tổng quát"), 2 },
-        { std::string("PHG-003"), std::string("Khám da liễu"), 3 },
+        { std::string("PHG-001"), std::string("Khám Da Liễu"), 3 },
+        { std::string("PHG-002"), std::string("Khám Nội Tổng Quát"), 1 },
+        { std::string("PHG-003"), std::string("Khám Ngoại Tổng Quát"), 2 },
+        { std::string("PHG-004"), std::string("Khám Nhi"), 3 },
+        { std::string("PHG-005"), std::string("Khám Sản"), 1 },
+        { std::string("PHG-006"), std::string("Khám Mắt"), 2 },
+        { std::string("PHG-007"), std::string("Khám Tai Mũi Họng"), 3 },
+        { std::string("PHG-008"), std::string("Khám Răng Hàm Mặt"), 0 },
     };
 
 public:

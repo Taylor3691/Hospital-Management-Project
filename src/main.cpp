@@ -8,13 +8,13 @@
 int main(int argc, char* argv[]) {
     QApplication a(argc, argv);
 
-    TxtEmployeeRepository employeeRepo("../../../data/employees.txt");
+    TxtEmployeeRepository employeeRepo("../../../database/employees.txt");
     EmployeeManager employeeManager(&employeeRepo);
 
-    TxtDepartmentRepository departmentRepo("../../../data/departments.txt");
+    TxtDepartmentRepository departmentRepo("../../../database/departments.txt");
     DepartmentManager departmentManager(&departmentRepo);
 
-    TxtPatientRepository patientRepo("../../../data/patients.txt");
+    TxtPatientRepository patientRepo("../../../database/patients.txt");
     PatientManager patientManager(&patientRepo);
 
     ServiceLocator::provide(&employeeManager, &departmentManager, &patientManager);
