@@ -7,6 +7,7 @@ class RegisteredState : public ExaminationState {
 
 public:
     RegisteredState();
+
 public:
     std::string getStateName() const override;
     bool canPrescribeMedicine() const override;
