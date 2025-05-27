@@ -32,7 +32,6 @@ Object* TxtRoomExaminationParser::parse(const std::string& str) const {
 
     std::getline(stream, buffer, _delim);
     room->setRoomFee(std::stod(buffer));
-    std::cout << room->examinationFee() << std::endl;
 
     return room;
 }
