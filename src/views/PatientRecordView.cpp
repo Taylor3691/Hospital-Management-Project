@@ -65,7 +65,7 @@ std::unique_ptr<Patient> PatientRecordView::getPatient() const {
 
     patient->setId(_ui->id_lineEdit->text().toStdString());
     patient->setName(_ui->name_lineEdit->text().toStdString());
-    patient->setGender(_ui->gender_comboBox->currentIndex() ? "Nu" : "Nam");
+    patient->setGender(_ui->gender_comboBox->currentText().toStdString());
     patient->setAddress(_ui->address_lineEdit->text().toStdString());
     patient->setPhone(_ui->phone_lineEdit->text().toStdString());
     auto date = _ui->dob_dateEdit->date();
@@ -94,7 +94,7 @@ void PatientRecordView::setPatient(const Patient* patient) {
 
     _ui->id_lineEdit->setText(QString::fromStdString(patient->id()));
     _ui->name_lineEdit->setText(QString::fromStdString(patient->name()));
-    _ui->gender_comboBox->setCurrentIndex(patient->gender() == "Nu");
+    _ui->gender_comboBox->setCurrentText(QString::fromStdString(patient->gender()));
     _ui->address_lineEdit->setText(QString::fromStdString(patient->address()));
     _ui->phone_lineEdit->setText(QString::fromStdString(patient->phone()));
     auto dob = patient->dob();
