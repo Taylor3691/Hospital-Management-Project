@@ -1,8 +1,18 @@
 #include "TxtTestServiceRepository.h"
 
-TxtTestServiceRepository::TxtTestServiceRepository(): _filePath("tests.txt"), _delim('|') {}
+TxtTestServiceRepository::TxtTestServiceRepository()
+    : _filePath("tests.txt"), _delim('|')
+{
+    load();
+}
 
-TxtTestServiceRepository::TxtTestServiceRepository(const std::string& filePath, char delim) : _filePath(filePath), _delim(delim) {
+TxtTestServiceRepository::TxtTestServiceRepository(
+    const std::string& filePath,
+    char delim
+)
+    : _filePath(filePath), _delim(delim)
+{
+    load();
 }
 
 const std::string& TxtTestServiceRepository::filePath() const {
