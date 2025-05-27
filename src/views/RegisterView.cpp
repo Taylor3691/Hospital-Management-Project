@@ -3,6 +3,10 @@
 RegisterView::RegisterView(QWidget* parent)
     : QWidget(parent)
     , _ui(new Ui::RegisterView)
+    , _service(std::make_unique<RegistrationService>(
+        ServiceLocator::getInstance()->patients(),
+        ServiceLocator::getInstance()->records(),
+        ServiceLocator::getInstance()->rooms()))
 {
     setup();
     setConnections();
@@ -21,7 +25,20 @@ void RegisterView::setup() {
 }
 
 void RegisterView::setConnections() {
+    connect(_ui->buttonBox->button(QDialogButtonBox::Ok), &QPushButton::clicked, this,
+        [this](bool) {
+            auto patient = createPatient();
+            if (_ui->insurance_checkBox->isChecked()) {
+                patient->setInsuranceCard(createInsurance());
+            }
+            auto record = _service->createMedicalRecord(patient);
+            assignRooms(record);
 
+            notify(
+                "Kết quả đăng ký",
+                "Bạn đã đăng ký thành công!"
+            );
+        });
 }
 
 void RegisterView::setupRooms() {
@@ -37,6 +54,7 @@ void RegisterView::setupRooms() {
         auto room_title = new QCheckBox(frame);
         room_title->setStyleSheet("font-size: 10pt; font-weight: bold;");
         room_title->setText(QString("Phòng %1").arg(i + 1));
+        room_title->setProperty("roomId", rooms[i]->id().c_str());
 
         verticalLayout->addWidget(room_title);
 
@@ -54,5 +72,47 @@ void RegisterView::setupRooms() {
         verticalLayout->addWidget(waitings_label);
 
         qobject_cast<QGridLayout*>(_ui->room_frame->layout())->addWidget(frame, 0, i, 1, 1);
+    }
+}
+
+Patient* RegisterView::createPatient() const {
+    auto dob = _ui->dob_dateEdit->date();
+
+    auto symptoms = _ui->symptoms_plainTextEdit->toPlainText();
+    std::vector<std::string> symptomList;
+    for (const auto& symptom : symptoms.split(',', Qt::SkipEmptyParts)) {
+        symptomList.push_back(symptom.toStdString());
+    }
+
+    return _service->createPatient(
+        _ui->id_lineEdit->text().toStdString(),
+        _ui->name_lineEdit->text().toStdString(),
+        _ui->gender_comboBox->currentText().toStdString(),
+        _ui->address_lineEdit->text().toStdString(),
+        _ui->phone_lineEdit->text().toStdString(),
+        Date(dob.day(), dob.month(), dob.year()),
+        symptomList
+    );
+}
+
+std::unique_ptr<HealthInsurance> RegisterView::createInsurance() const {
+    auto issueDate = _ui->issueDate_dateEdit->date();
+    auto expiryDate = _ui->expiryDate_dateEdit->date();
+
+    return std::make_unique<HealthInsurance>(
+        _ui->cardId_lineEdit->text().toStdString(),
+        Date(issueDate.day(), issueDate.month(), issueDate.year()),
+        Date(expiryDate.day(), expiryDate.month(), expiryDate.year()),
+        _ui->coveragePercent_doubleSpinBox->value()
+    );
+}
+
+void RegisterView::assignRooms(MedicalRecord* record) const {
+    std::string roomId;
+    for (const auto checkBox : _ui->room_frame->findChildren<QCheckBox*>()) {
+        if (checkBox->isChecked()) {
+            roomId = checkBox->property("roomId").toString().toStdString();
+            _service->assignRoom(roomId, record);
+        }
     }
 }
