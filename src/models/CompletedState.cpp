@@ -1,7 +1,7 @@
 #include "CompletedState.h"
 
 std::string CompletedState::getStateName() const {
-    return "CompleteState";
+    return "CompletedState";
 }
 
 bool CompletedState::canPrescribeMedicine() const {
@@ -17,5 +17,5 @@ bool CompletedState::canComplete() const {
 }
 
 ExaminationState* CompletedState::clone() const {
-    return new CompletedState();
+    return new CompletedState(*this);
 }

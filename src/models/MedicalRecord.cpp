@@ -34,7 +34,7 @@ std::vector<const MedicineUsage*> MedicalRecord::prescribedMedicines() const {
     std::vector<const MedicineUsage*> medicines;
     medicines.reserve(_prescribedMedicines.size());
     for (const auto& medicine : _prescribedMedicines) {
-        medicines.push_back(medicine);
+        medicines.push_back(medicine.get());
     }
     return medicines;
 }
@@ -43,7 +43,7 @@ std::vector<const ClinicalTest*> MedicalRecord::clinicalTests() const {
     std::vector<const ClinicalTest*> tests;
     tests.reserve(_clinicalTests.size());
     for (const auto& test : _clinicalTests) {
-        tests.push_back(test);
+        tests.push_back(test.get());
     }
     return tests;
 }
@@ -60,8 +60,16 @@ Time MedicalRecord::createdTime() const {
     return _createdTime;
 }
 
-void MedicalRecord::setPatientId(const std::string& id) {
-    _patientId = id;
+void MedicalRecord::setPatientId(const std::string& patientId) {
+    _patientId = patientId;
+}
+
+void MedicalRecord::setCreateDay(const std::string& date) {
+    _createdDate = Date(date);
+}
+
+void MedicalRecord::setCreateTime(const std::string& time) {
+    _createdTime = Time(time);
 }
 
 double MedicalRecord::calculateFee() const {
@@ -90,12 +98,12 @@ void MedicalRecord::setDiagnosisResult(const std::string& result) {
     _diagnosisResult = result;
 }
 
-void MedicalRecord::prescribeMedicine(MedicineUsage* medicine) {
-    _prescribedMedicines.push_back(medicine);
+void MedicalRecord::prescribeMedicine(std::unique_ptr<MedicineUsage> medicine) {
+    _prescribedMedicines.push_back(std::move(medicine));
 }
 
-void MedicalRecord::orderClinicalTest(ClinicalTest* test) {
-    _clinicalTests.push_back(test);
+void MedicalRecord::orderClinicalTest(std::unique_ptr<ClinicalTest> test) {
+    _clinicalTests.push_back(std::move(test));
 }
 
 void MedicalRecord::compeleteExamination() {
@@ -103,6 +111,9 @@ void MedicalRecord::compeleteExamination() {
 }
 
 void MedicalRecord::changeState(std::unique_ptr<ExaminationState> state) {
+    if (state == nullptr) {
+        throw std::invalid_argument("State cannot be null");
+    }
     _state = std::move(state);
 }
 
@@ -123,18 +134,24 @@ MedicalRecord& MedicalRecord::operator=(const MedicalRecord& other) {
         _doctorId = other._doctorId;
         _createdDate = other._createdDate;
         _createdTime = other._createdTime;
+        _diagnosisResult = other._diagnosisResult;
         _prescribedMedicines.clear();
         _clinicalTests.clear();
 
-        for (auto medicine : other._prescribedMedicines) {
-            _prescribedMedicines.push_back(static_cast<MedicineUsage*>(medicine->clone()));
+        for (auto medicine : other.prescribedMedicines()) {
+            auto unit = dynamic_cast<MedicineUsage*>(medicine->clone());
+            _prescribedMedicines.push_back(std::unique_ptr<MedicineUsage>(unit));
         }
 
-        for (auto test : other._clinicalTests) {
-            _clinicalTests.push_back(static_cast<ClinicalTest*>(test->clone()));
+        for (auto test : other.clinicalTests()) {
+            auto unit = dynamic_cast<ClinicalTest*>(test->clone());
+            _clinicalTests.push_back(std::unique_ptr<ClinicalTest>(unit));
         }
+        ExaminationState* tone;
+        tone = other.state()->clone();
+        std::unique_ptr<ExaminationState> state(tone);
+        _state = std::move(state);
 
-        _state = std::unique_ptr<ExaminationState>(_state.get()->clone());
     }
     return *this;
 }

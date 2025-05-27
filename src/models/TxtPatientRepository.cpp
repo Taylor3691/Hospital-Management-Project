@@ -42,12 +42,12 @@ void TxtPatientRepository::save() const {
 
 void TxtPatientRepository::add(std::unique_ptr<Patient> patient) {
     _patients.push_back(std::move(patient));
-    //save();
+    save();
 }
 
 void TxtPatientRepository::removeById(const std::string& id) {
     from(_patients).where(&Patient::id, id).deleteOne();
-    //save();
+    save();
 }
 
 void TxtPatientRepository::removeByIds(const std::vector<std::string>& ids) {
@@ -56,7 +56,7 @@ void TxtPatientRepository::removeByIds(const std::vector<std::string>& ids) {
         query.where(&Patient::id, id);
     }
     query.deleteMany();
-    //save();
+    save();
 }
 
 void TxtPatientRepository::update(const Patient& patient) {
@@ -65,7 +65,7 @@ void TxtPatientRepository::update(const Patient& patient) {
     if (ptr) {
         *ptr = patient;
     }
-    //save();
+    save();
 }
 
 std::vector<const Patient*> TxtPatientRepository::data() const {

@@ -42,12 +42,12 @@ void TxtDepartmentRepository::save() const {
 
 void TxtDepartmentRepository::add(std::unique_ptr<Department> department) {
     _departments.push_back(std::move(department));
-    //save();
+    save();
 }
 
 void TxtDepartmentRepository::removeById(const std::string& id) {
     from(_departments).where(&Department::id, id).deleteOne();
-    //save();
+    save();
 }
 
 void TxtDepartmentRepository::removeByIds(const std::vector<std::string>& ids) {
@@ -56,7 +56,7 @@ void TxtDepartmentRepository::removeByIds(const std::vector<std::string>& ids) {
         query.where(&Department::id, id);
     }
     query.deleteMany();
-    //save();
+    save();
 }
 
 void TxtDepartmentRepository::update(const Department& department) {
@@ -65,7 +65,7 @@ void TxtDepartmentRepository::update(const Department& department) {
     if (ptr) {
         *ptr = department;
     }
-    //save();
+    save();
 }
 
 std::vector<const Department*> TxtDepartmentRepository::data() const {
