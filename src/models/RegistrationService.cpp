@@ -11,7 +11,8 @@ RegistrationService::RegistrationService(
 
 MedicalRecord* RegistrationService::createMedicalRecord(Patient* patient) {
     auto data = _medicalRecordRepo->data();
-    auto newId = createId(data, getFormat<MedicalRecord>());
+    std::vector<const Object*> objectData(data.begin(), data.end());
+    auto newId = createId(objectData, getFormat<MedicalRecord>());
     auto record = std::make_unique<MedicalRecord>(newId, patient->id());
     record->changeState(std::make_unique<RegisteredState>());
     auto ptr = record.get();

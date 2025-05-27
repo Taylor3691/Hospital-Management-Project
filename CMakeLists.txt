@@ -38,7 +38,6 @@ add_executable(${TARGET_NAME}
     src/models/EmployeeTableModel.cpp
     src/models/ExaminingState.cpp
     src/models/HealthInsurance.cpp
-    src/models/Hospital.cpp
     src/models/InsurancePayment.cpp
     src/models/MedicalRecord.cpp
     src/models/MedicalRecordListModel.cpp
@@ -54,6 +53,7 @@ add_executable(${TARGET_NAME}
     src/models/Receipt.cpp
     src/models/Receptionist.cpp
     src/models/RegisteredState.cpp
+    src/models/RegistrationService.cpp
     src/models/RoomExamination.cpp
     src/models/TestService.cpp
     src/models/TxtClinicalTestParser.cpp
@@ -147,7 +147,7 @@ target_sources(${TARGET_NAME} PRIVATE
     src/models/ExaminationState.h
     src/models/ExaminingState.h
     src/models/HealthInsurance.h
-    src/models/Hospital.h
+    
     src/models/InsurancePayment.h
     src/models/MedicalRecord.h
     src/models/MedicalRecordListModel.h
