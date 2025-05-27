@@ -2338,6 +2338,9 @@ PlotWidget {
       </item>
       <item>
        <layout class="QVBoxLayout" name="verticalLayout">
+        <property name="spacing">
+         <number>0</number>
+        </property>
         <item>
          <widget class="QRadioButton" name="waiting_radioButton">
           <property name="sizePolicy">
@@ -2357,6 +2360,28 @@ PlotWidget {
           </property>
           <property name="checked">
            <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="examining_radioButton">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>35</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Đang khám</string>
+          </property>
+          <property name="checked">
+           <bool>false</bool>
           </property>
          </widget>
         </item>

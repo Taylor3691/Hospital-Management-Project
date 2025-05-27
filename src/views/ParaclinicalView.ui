@@ -2318,6 +2318,9 @@ PlotWidget {
       </item>
       <item>
        <layout class="QVBoxLayout" name="stateFiltering_verticalLayout">
+        <property name="spacing">
+         <number>0</number>
+        </property>
         <item>
          <widget class="QRadioButton" name="waiting_radioButton">
           <property name="sizePolicy">
