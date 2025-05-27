@@ -35,10 +35,17 @@ public:
     static ServiceLocator* getInstance();
 
 public:
+    IPatientRepository* patients() const;
+    IDepartmentRepository* departments() const;
+    IRoomExaminationRepository* rooms() const;
+    IMedicineRepository* medicines() const;
+    IEmployeeRepository* employees() const;
+    IMedicalRecordRepository* records() const;
+    ITestServiceRepository* tests() const;
+    IParserFactory* factory() const;
     EmployeeManager* employeeManager() const;
     DepartmentManager* departmentManager() const;
     PatientManager* patientManager() const;
-    IRoomExaminationRepository* rooms() const;
 };
 
 #endif // !SERVICE_LOCATOR_H

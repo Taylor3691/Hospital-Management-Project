@@ -24,6 +24,34 @@ ServiceLocator* ServiceLocator::getInstance() {
     return instance.get();
 }
 
+IPatientRepository* ServiceLocator::patients() const {
+    return _patients.get();
+}
+
+IMedicineRepository* ServiceLocator::medicines() const {
+    return _medicines.get();
+}
+
+IEmployeeRepository* ServiceLocator::employees() const {
+    return _employees.get();
+}
+
+IRoomExaminationRepository* ServiceLocator::rooms() const {
+    return _rooms.get();
+}
+
+IMedicalRecordRepository* ServiceLocator::records() const {
+    return _records.get();
+}
+
+ITestServiceRepository* ServiceLocator::tests() const {
+    return _tests.get();
+}
+
+IParserFactory* ServiceLocator::factory() const {
+    return _factory.get();
+}
+
 EmployeeManager* ServiceLocator::employeeManager() const {
     return _employeeManager.get();
 }
@@ -34,8 +62,4 @@ DepartmentManager* ServiceLocator::departmentManager() const {
 
 PatientManager* ServiceLocator::patientManager() const {
     return _patientManager.get();
-}
-
-IRoomExaminationRepository* ServiceLocator::rooms() const {
-    return _rooms.get();
 }
