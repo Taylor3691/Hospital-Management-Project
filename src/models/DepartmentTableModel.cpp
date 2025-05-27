@@ -3,11 +3,11 @@
 DepartmentTableModel::DepartmentTableModel(QObject* parent)
     : TableModel(
         {
-            "ID",
+            "Mã khoa",
             "Tên khoa",
             "Ngày thành lập",
             "Mô tả",
-            "ID trưởng khoa",
+            "Mã trưởng khoa",
         },
         parent)
 {

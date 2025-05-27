@@ -3,7 +3,7 @@
 PatientTableModel::PatientTableModel(QObject* parent)
     : TableModel(
         {
-            "ID",
+            "Mã bệnh nhân",
             "Họ Tên",
             "Giới tính",
             "Địa chỉ",

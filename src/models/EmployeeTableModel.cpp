@@ -3,7 +3,7 @@
 EmployeeTableModel::EmployeeTableModel(QObject* parent)
     : TableModel(
         {
-            "ID",
+            "Mã nhân viên",
             "Họ Tên",
             "Giới tính",
             "Địa chỉ",
@@ -11,7 +11,7 @@ EmployeeTableModel::EmployeeTableModel(QObject* parent)
             "Ngày sinh",
             "Học vấn",
             "Lương cơ bản",
-            "ID khoa",
+            "Mã khoa",
             "Giấy phép",
             "Trách nhiệm",
             "Phụ cấp",
