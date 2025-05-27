@@ -9,7 +9,6 @@ EmployeeRecordView::EmployeeRecordView(
     , _ui(new Ui::EmployeeRecordView)
 {
     setup(styleSheet, role);
-    setConnections();
 }
 
 EmployeeRecordView::~EmployeeRecordView() {
@@ -35,20 +34,18 @@ void EmployeeRecordView::setup(const QString& styleSheet, Role role) {
 
     if (role == Role::Add) {
         setWindowTitle("Thêm nhân viên");
-        setAcceptButtonText("Thêm");
+        _ui->buttonBox->button(QDialogButtonBox::StandardButton::Ok)->setText("Thêm");
         createNewIds();
         auto index = _ui->role_comboBox->currentIndex();
         _ui->id_lineEdit->setText(_newIds[index]);
     }
     else if (role == Role::Update) {
         setWindowTitle("Cập nhật thông tin");
-        setAcceptButtonText("Lưu");
+        _ui->buttonBox->button(QDialogButtonBox::StandardButton::Ok)->setText("Lưu");
         _ui->role_label->setEnabled(0);
         _ui->role_comboBox->setEnabled(0);
     }
-}
 
-void EmployeeRecordView::setConnections() {
     connect(_ui->role_comboBox, QOverload<int>::of(&QComboBox::currentIndexChanged), this,
         [this](int index) {
             _ui->id_lineEdit->setText(_newIds[index]);
@@ -163,8 +160,4 @@ void EmployeeRecordView::setEmployee(const Employee* employee) {
         _ui->subsidies_doubleSpinBox->setValue(receptionist->subsidies());
         _ui->workingDays_spinBox->setValue(receptionist->workingDays());
     }
-}
-
-void EmployeeRecordView::setAcceptButtonText(const QString& text) {
-    _ui->buttonBox->button(QDialogButtonBox::StandardButton::Ok)->setText(text);
 }

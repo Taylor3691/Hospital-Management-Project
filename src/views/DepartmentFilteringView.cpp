@@ -5,7 +5,6 @@ DepartmentFilteringView::DepartmentFilteringView(const QString& styleSheet, QWid
     , _ui(new Ui::DepartmentFilteringView)
 {
     setup(styleSheet);
-    setConnections();
 }
 
 DepartmentFilteringView::~DepartmentFilteringView() {
@@ -22,9 +21,7 @@ void DepartmentFilteringView::setup(const QString& styleSheet) {
     _ui->buttonBox->button(QDialogButtonBox::StandardButton::Ok)->setText("Lọc");
     _ui->buttonBox->button(QDialogButtonBox::StandardButton::Cancel)->setText("Hủy");
     _ui->buttonBox->button(QDialogButtonBox::StandardButton::Reset)->setText("Đặt lại");
-}
 
-void DepartmentFilteringView::setConnections() {
     connect(_ui->buttonBox->button(QDialogButtonBox::StandardButton::Reset), &QPushButton::clicked, this,
         [this](bool) {
             _ui->id_lineEdit->setText("");

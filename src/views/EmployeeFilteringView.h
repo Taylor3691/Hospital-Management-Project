@@ -25,7 +25,6 @@ public:
 
 private:
     void setup(const QString& styleSheet);
-    void setConnections();
 
 public:
     std::vector<RFilter<Employee>> getFilters() const;

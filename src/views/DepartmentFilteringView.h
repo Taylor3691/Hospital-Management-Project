@@ -23,7 +23,6 @@ public:
 
 private:
     void setup(const QString& styleSheet);
-    void setConnections();
 
 public:
     std::vector<RFilter<Department>> getFilters() const;

@@ -28,7 +28,7 @@ void DepartmentRecordView::setup(const QString& styleSheet, Role role) {
 
     if (role == Role::Add) {
         setWindowTitle("Thêm khoa");
-        setAcceptButtonText("Thêm");
+        _ui->buttonBox->button(QDialogButtonBox::StandardButton::Ok)->setText("Thêm");
 
         auto data = ServiceLocator::getInstance()->departmentManager()->getAll();
         std::vector<const Object*> objectData(data.begin(), data.end());
@@ -37,7 +37,7 @@ void DepartmentRecordView::setup(const QString& styleSheet, Role role) {
     }
     else if (role == Role::Update) {
         setWindowTitle("Cập nhật thông tin");
-        setAcceptButtonText("Lưu");
+        _ui->buttonBox->button(QDialogButtonBox::StandardButton::Ok)->setText("Lưu");
     }
 }
 
@@ -66,13 +66,4 @@ void DepartmentRecordView::setDepartment(const Department* department) {
         { foundationDate.year(), foundationDate.month(), foundationDate.day() });
     _ui->description_plainTextEdit->setPlainText(QString::fromStdString(department->description()));
     _ui->head_lineEdit->setText(QString::fromStdString(department->headId()));
-}
-
-void DepartmentRecordView::setAcceptButtonText(const QString& text) {
-    _ui->buttonBox->button(QDialogButtonBox::StandardButton::Ok)->setText(text);
-}
-
-void DepartmentRecordView::disableNotEditableFields() {
-    _ui->id_label->setEnabled(0);
-    _ui->id_lineEdit->setEnabled(0);
 }

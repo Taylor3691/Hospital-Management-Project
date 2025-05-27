@@ -5,7 +5,6 @@ EmployeeFilteringView::EmployeeFilteringView(const QString& styleSheet, QWidget*
     , _ui(new Ui::EmployeeFilteringView)
 {
     setup(styleSheet);
-    setConnections();
 }
 
 EmployeeFilteringView::~EmployeeFilteringView() {
@@ -22,9 +21,7 @@ void EmployeeFilteringView::setup(const QString& styleSheet) {
     _ui->buttonBox->button(QDialogButtonBox::StandardButton::Ok)->setText("Lọc");
     _ui->buttonBox->button(QDialogButtonBox::StandardButton::Cancel)->setText("Hủy");
     _ui->buttonBox->button(QDialogButtonBox::StandardButton::Reset)->setText("Đặt lại");
-}
 
-void EmployeeFilteringView::setConnections() {
     connect(_ui->buttonBox->button(QDialogButtonBox::StandardButton::Reset), &QPushButton::clicked, this,
         [this](bool) {
             _ui->id_lineEdit->setText("");

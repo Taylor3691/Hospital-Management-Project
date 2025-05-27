@@ -29,8 +29,6 @@ private:
 public:
     std::unique_ptr<Department> getDepartment() const;
     void setDepartment(const Department* department);
-    void setAcceptButtonText(const QString& text);
-    void disableNotEditableFields();
 };
 
 #endif // !DEPARTMENT_RECORD_VIEW_H

@@ -34,13 +34,11 @@ public:
 
 private:
     void setup(const QString& styleSheet, Role role);
-    void setConnections();
     void createNewIds();
 
 public:
     std::unique_ptr<Employee> getEmployee() const;
     void setEmployee(const Employee* employee);
-    void setAcceptButtonText(const QString& text);
 };
 
 #endif // !EMPLOYEE_RECORD_VIEW_H
