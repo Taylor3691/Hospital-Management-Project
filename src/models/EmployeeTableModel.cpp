@@ -19,7 +19,7 @@ EmployeeTableModel::EmployeeTableModel(QObject* parent)
             "Số ngày làm việc",
         })
 {
-    auto data = ServiceLocator::employeeManager()->getAll();
+    auto data = ServiceLocator::getInstance()->employeeManager()->getAll();
     _cachedData = QVector<const Employee*>(data.begin(), data.end());
 }
 
@@ -113,30 +113,30 @@ QVariant EmployeeTableModel::headerData(
 }
 
 void EmployeeTableModel::add(std::unique_ptr<Employee> employee) {
-    ServiceLocator::employeeManager()->add(std::move(employee));
+    ServiceLocator::getInstance()->employeeManager()->add(std::move(employee));
     refresh();
 }
 
 void EmployeeTableModel::update(const Employee& employee) {
-    ServiceLocator::employeeManager()->update(employee);
+    ServiceLocator::getInstance()->employeeManager()->update(employee);
     refresh();
 }
 
 void EmployeeTableModel::removeByIds(const std::vector<std::string>& ids) {
-    ServiceLocator::employeeManager()->removeByIds(ids);
+    ServiceLocator::getInstance()->employeeManager()->removeByIds(ids);
     refresh();
 }
 
 void EmployeeTableModel::find(const std::vector<RFilter<Employee>>& filters) {
     beginResetModel();
-    auto filteredData = ServiceLocator::employeeManager()->find(filters);
+    auto filteredData = ServiceLocator::getInstance()->employeeManager()->find(filters);
     _cachedData = QVector<const Employee*>(filteredData.begin(), filteredData.end());
     endResetModel();
 }
 
 void EmployeeTableModel::refresh() {
     beginResetModel();
-    auto data = ServiceLocator::employeeManager()->getAll();
+    auto data = ServiceLocator::getInstance()->employeeManager()->getAll();
     _cachedData = QVector<const Employee*>(data.begin(), data.end());
     endResetModel();
 }

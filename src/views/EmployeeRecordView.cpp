@@ -73,7 +73,7 @@ void EmployeeRecordView::setConnections() {
 }
 
 void EmployeeRecordView::createNewIds() {
-    auto data = ServiceLocator::employeeManager()->getAll();
+    auto data = ServiceLocator::getInstance()->employeeManager()->getAll();
     std::vector<const Object*> objectData(data.begin(), data.end());
     _newIds.push_back(QString::fromStdString(createId(objectData, getFormat<Doctor>())));
     _newIds.push_back(QString::fromStdString(createId(objectData, getFormat<Nurse>())));
