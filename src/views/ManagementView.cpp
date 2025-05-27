@@ -151,7 +151,7 @@ void ManagementView::setConnections() {
 
 void ManagementView::changeModel(ModelType model) {
     if (auto currentModel = _ui->tableView->model()) {
-        disconnect(currentModel, &QAbstractItemModel::dataChanged, this, nullptr);
+        disconnect(currentModel, &QAbstractItemModel::modelReset, this, nullptr);
     }
 
     _ui->tableView->setModel(_models[(int)model]);
