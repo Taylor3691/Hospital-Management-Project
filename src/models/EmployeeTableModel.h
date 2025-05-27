@@ -1,20 +1,17 @@
 #ifndef EMPLOYEE_TABLE_MODEL_H
 #define EMPLOYEE_TABLE_MODEL_H
 
-#include <QAbstractTableModel>
-#include <QString>
-#include <QVector>
-#include "../ServiceLocator.h"
+#include "TableModel.h"
 #include "Doctor.h"
 #include "Nurse.h"
 #include "Receptionist.h"
+#include "../ServiceLocator.h"
 #include "../utils/utils_template.h"
 
-class EmployeeTableModel : public QAbstractTableModel {
+class EmployeeTableModel : public TableModel {
     Q_OBJECT
 
 private:
-    QVector<QString> _headers;
     QVector<const Employee*> _cachedData;
 
 public:
@@ -22,16 +19,13 @@ public:
 
 public:
     int rowCount(const QModelIndex& parent = QModelIndex()) const override;
-    int columnCount(const QModelIndex& parent = QModelIndex()) const override;
     QVariant data(const QModelIndex& index,
-        int role = Qt::DisplayRole) const override;
-    QVariant headerData(int section, Qt::Orientation orientation,
         int role = Qt::DisplayRole) const override;
     void add(std::unique_ptr<Employee> employee);
     void update(const Employee& employee);
     void removeByIds(const std::vector<std::string>& ids);
     void find(const std::vector<RFilter<Employee>>& filters);
-    void refresh();
+    void refresh() override;
     void sort(int column, Qt::SortOrder order = Qt::AscendingOrder) override;
 };
 

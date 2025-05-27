@@ -1,15 +1,15 @@
 #include "DepartmentTableModel.h"
 
 DepartmentTableModel::DepartmentTableModel(QObject* parent)
-    : QAbstractTableModel(parent)
-    , _headers(
+    : TableModel(
         {
             "ID",
             "Tên khoa",
             "Ngày thành lập",
             "Mô tả",
             "ID trưởng khoa",
-        })
+        },
+        parent)
 {
     auto data = ServiceLocator::getInstance()->departmentManager()->getAll();
     _cachedData = QVector<const Department*>(data.begin(), data.end());
@@ -17,10 +17,6 @@ DepartmentTableModel::DepartmentTableModel(QObject* parent)
 
 int DepartmentTableModel::rowCount(const QModelIndex&) const {
     return _cachedData.size();
-}
-
-int DepartmentTableModel::columnCount(const QModelIndex&) const {
-    return _headers.size();
 }
 
 QVariant DepartmentTableModel::data(const QModelIndex& index, int role) const {
@@ -52,29 +48,6 @@ QVariant DepartmentTableModel::data(const QModelIndex& index, int role) const {
     case 4: return QString::fromStdString(department->headId());
     default: return {};
     }
-}
-
-QVariant DepartmentTableModel::headerData(
-    int section, Qt::Orientation orientation, int role
-) const {
-    if (role == Qt::TextAlignmentRole && orientation == Qt::Vertical) {
-        return int(Qt::AlignRight | Qt::AlignVCenter);
-    }
-
-    if (role != Qt::DisplayRole) {
-        return {};
-    }
-
-    if (orientation == Qt::Horizontal) {
-        if (section >= 0 && section < _headers.size()) {
-            return _headers[section];
-        }
-        return {};
-    }
-    else if (orientation == Qt::Vertical) {
-        return section + 1;
-    }
-    return {};
 }
 
 void DepartmentTableModel::add(std::unique_ptr<Department> department) {

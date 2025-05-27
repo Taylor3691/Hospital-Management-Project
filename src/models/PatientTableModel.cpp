@@ -1,8 +1,7 @@
 #include "PatientTableModel.h"
 
 PatientTableModel::PatientTableModel(QObject* parent)
-    : QAbstractTableModel(parent)
-    , _headers(
+    : TableModel(
         {
             "ID",
             "Họ Tên",
@@ -11,7 +10,8 @@ PatientTableModel::PatientTableModel(QObject* parent)
             "Điện thoại",
             "Ngày sinh",
             "Bảo hiểm y tế",
-        })
+        },
+        parent)
 {
     auto data = ServiceLocator::getInstance()->patientManager()->getAll();
     _cachedData = QVector<const Patient*>(data.begin(), data.end());
@@ -19,10 +19,6 @@ PatientTableModel::PatientTableModel(QObject* parent)
 
 int PatientTableModel::rowCount(const QModelIndex&) const {
     return _cachedData.size();
-}
-
-int PatientTableModel::columnCount(const QModelIndex&) const {
-    return _headers.size();
 }
 
 QVariant PatientTableModel::data(const QModelIndex& index, int role) const {
@@ -59,29 +55,6 @@ QVariant PatientTableModel::data(const QModelIndex& index, int role) const {
     }
     default: return {};
     }
-}
-
-QVariant PatientTableModel::headerData(
-    int section, Qt::Orientation orientation, int role
-) const {
-    if (role == Qt::TextAlignmentRole && orientation == Qt::Vertical) {
-        return int(Qt::AlignRight | Qt::AlignVCenter);
-    }
-
-    if (role != Qt::DisplayRole) {
-        return {};
-    }
-
-    if (orientation == Qt::Horizontal) {
-        if (section >= 0 && section < _headers.size()) {
-            return _headers[section];
-        }
-        return {};
-    }
-    else if (orientation == Qt::Vertical) {
-        return section + 1;
-    }
-    return {};
 }
 
 void PatientTableModel::add(std::unique_ptr<Patient> patient) {

@@ -1,8 +1,7 @@
 #include "EmployeeTableModel.h"
 
 EmployeeTableModel::EmployeeTableModel(QObject* parent)
-    : QAbstractTableModel(parent)
-    , _headers(
+    : TableModel(
         {
             "ID",
             "Họ Tên",
@@ -17,7 +16,8 @@ EmployeeTableModel::EmployeeTableModel(QObject* parent)
             "Trách nhiệm",
             "Phụ cấp",
             "Số ngày làm việc",
-        })
+        },
+        parent)
 {
     auto data = ServiceLocator::getInstance()->employeeManager()->getAll();
     _cachedData = QVector<const Employee*>(data.begin(), data.end());
@@ -25,10 +25,6 @@ EmployeeTableModel::EmployeeTableModel(QObject* parent)
 
 int EmployeeTableModel::rowCount(const QModelIndex&) const {
     return _cachedData.size();
-}
-
-int EmployeeTableModel::columnCount(const QModelIndex&) const {
-    return _headers.size();
 }
 
 QVariant EmployeeTableModel::data(const QModelIndex& index, int role) const {
@@ -88,28 +84,6 @@ QVariant EmployeeTableModel::data(const QModelIndex& index, int role) const {
         return "";
     default: return {};
     }
-}
-
-QVariant EmployeeTableModel::headerData(
-    int section, Qt::Orientation orientation, int role
-) const {
-    if (role == Qt::TextAlignmentRole && orientation == Qt::Vertical) {
-        return int(Qt::AlignRight | Qt::AlignVCenter);
-    }
-
-    if (role != Qt::DisplayRole) {
-        return {};
-    }
-
-    if (orientation == Qt::Horizontal) {
-        if (section >= 0 && section < _headers.size()) {
-            return _headers[section];
-        }
-        return {};
-    } else if (orientation == Qt::Vertical) {
-        return section + 1;
-    }
-    return {};
 }
 
 void EmployeeTableModel::add(std::unique_ptr<Employee> employee) {

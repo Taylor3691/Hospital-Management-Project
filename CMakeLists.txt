@@ -55,6 +55,7 @@ add_executable(${TARGET_NAME}
     src/models/RegisteredState.cpp
     src/models/RegistrationService.cpp
     src/models/RoomExamination.cpp
+    src/models/TableModel.cpp
     src/models/TestService.cpp
     src/models/TxtClinicalTestParser.cpp
     src/models/TxtDepartmentParser.cpp
@@ -172,6 +173,7 @@ target_sources(${TARGET_NAME} PRIVATE
     src/models/RegistrationService.h
     src/models/RoomExamination.h
     src/models/RoomExaminationParser.h
+    src/models/TableModel.h
     src/models/TestService.h
     src/models/TestServiceParser.h
     src/models/TxtClinicalTestParser.h

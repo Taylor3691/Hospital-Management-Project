@@ -155,6 +155,8 @@ void ManagementView::changeModel(ModelType model) {
     }
 
     _ui->tableView->setModel(_models[(int)model]);
+    static_cast<TableModel*>(_ui->tableView->model())->refresh();
+
     _ui->update_pushButton->setEnabled(0);
     _ui->delete_pushButton->setEnabled(0);
 
