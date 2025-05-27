@@ -1,8 +1,18 @@
 #include "TxtRoomExaminationRepository.h"
 
-TxtRoomExaminationRepository::TxtRoomExaminationRepository() : _filePath("tests.txt"), _delim('|') {}
+TxtRoomExaminationRepository::TxtRoomExaminationRepository()
+    : _filePath("tests.txt"), _delim('|')
+{
+    load();
+}
 
-TxtRoomExaminationRepository::TxtRoomExaminationRepository(const std::string& filePath, char delim) : _filePath(filePath), _delim(delim) {
+TxtRoomExaminationRepository::TxtRoomExaminationRepository(
+    const std::string& filePath,
+    char delim
+)
+    : _filePath(filePath), _delim(delim)
+{
+    load();
 }
 
 const std::string& TxtRoomExaminationRepository::filePath() const {
