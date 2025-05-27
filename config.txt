@@ -1,0 +1,8 @@
+delim=|
+patient_repo_path=database/patients.txt
+department_repo_path=database/departments.txt
+medical_record_repo_path=database/medicalRecords.txt
+medicine_repo_path=database/medicines.txt
+room_repo_path=database/rooms.txt
+test_repo_path=database/tests.txt
+employee_repo_path=database/employees.txt

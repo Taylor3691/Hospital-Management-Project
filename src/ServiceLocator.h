@@ -14,30 +14,19 @@
 #include "models/TxtRoomExaminationRepository.h"
 #include "models/TxtParserFactory.h"
 
-struct Room {
-    std::string id;
-    std::string name;
-    int waitings;
-};
-
 class ServiceLocator {
 private:
-    IPatientRepository* _patients;
-    IDepartmentRepository* _departments;
-    IRoomExaminationRepository* _rooms;
-    IMedicineRepository* _medicines;
-    IEmployeeRepository* _employees;
-    IMedicalRecordRepository* _records;
-    ITestServiceRepository* _tests;
-    IParserFactory* _factory;
-
-private:
-    EmployeeManager* _employeeManager;
-    DepartmentManager* _departmentManager;
-    PatientManager* _patientManager;
-
-private:
-    inline static ServiceLocator* _singleton = nullptr;
+    std::unique_ptr<IPatientRepository> _patients;
+    std::unique_ptr<IDepartmentRepository> _departments;
+    std::unique_ptr<IRoomExaminationRepository> _rooms;
+    std::unique_ptr<IMedicineRepository> _medicines;
+    std::unique_ptr<IEmployeeRepository> _employees;
+    std::unique_ptr<IMedicalRecordRepository> _records;
+    std::unique_ptr<ITestServiceRepository> _tests;
+    std::unique_ptr<IParserFactory> _factory;
+    std::unique_ptr<EmployeeManager> _employeeManager;
+    std::unique_ptr<DepartmentManager> _departmentManager;
+    std::unique_ptr<PatientManager> _patientManager;
 
 private:
     ServiceLocator();
@@ -46,11 +35,10 @@ public:
     static ServiceLocator* getInstance();
 
 public:
-
-public:
-    EmployeeManager* employeeManager();
-    DepartmentManager* departmentManager();
-    PatientManager* patientManager();
+    EmployeeManager* employeeManager() const;
+    DepartmentManager* departmentManager() const;
+    PatientManager* patientManager() const;
+    IRoomExaminationRepository* rooms() const;
 };
 
 #endif // !SERVICE_LOCATOR_H

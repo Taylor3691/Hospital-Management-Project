@@ -9,16 +9,14 @@
 class Config {
 private:
     std::map<std::string, std::string> _prototype;
-    std::string _fileName;
+    std::string _filePath;
 
 public:
-    Config(const std::string& name);
+    Config(const std::string& filePath);
 
 public:
-    std::string getPath(const std::string type);
+    std::string get(const std::string& property);
     void loadFromFile();
-
 };
 
-
-#endif // !CONFIG_H_
+#endif // !CONFIG_H
