@@ -1,11 +1,11 @@
 #include "Config.h"
 
-Config::Config(const std::string& name) {
-    _fileName = name;
+Config::Config(const std::string& filePath) {
+    _filePath = filePath;
 }
 
-std::string Config::getPath(const std::string type) {
-    auto it = _prototype.find(type);
+std::string Config::get(const std::string& property) {
+    auto it = _prototype.find(property);
     if (it != _prototype.end()) {
         return it->second;
     }
@@ -13,7 +13,7 @@ std::string Config::getPath(const std::string type) {
 }
 
 void Config::loadFromFile() {
-    std::ifstream input(_fileName);
+    std::ifstream input(_filePath);
     std::string buffer;
 
     while (std::getline(input, buffer)) {
@@ -24,5 +24,4 @@ void Config::loadFromFile() {
         std::getline(stream, value, '=');
         _prototype[key] = value;
     }
-
 }

@@ -25,7 +25,6 @@ set(TARGET_NAME HospitalManagementSystem)
 
 add_executable(${TARGET_NAME}
     packages/qdarkstyle/style.qrc
-    src/main.cpp
     src/controllers/DepartmentManager.cpp
     src/controllers/EmployeeManager.cpp
     src/controllers/PatientManager.cpp
@@ -109,11 +108,117 @@ add_executable(${TARGET_NAME}
     src/views/ReceiptView.ui
     src/views/RegisterView.ui
     src/views/RoomView.ui
-    src/Registry.cpp
-    src/App.h
+    src/main.cpp
     src/App.cpp
-    src/Config.h
     src/Config.cpp
+    src/ServiceLocator.cpp
+)
+
+target_sources(${TARGET_NAME} PRIVATE
+    src/controllers/DepartmentManager.h
+    src/controllers/EmployeeManager.h
+    src/controllers/MedicineManager.h
+    src/controllers/PatientManager.h
+    src/interfaces/IDepartmentRepository.h
+    src/interfaces/IEmployeeRepository.h
+    src/interfaces/IManager.h
+    src/interfaces/IMedicalRecordRepository.h
+    src/interfaces/IMedicineRepository.h
+    src/interfaces/IParser.h
+    src/interfaces/IParserFactory.h
+    src/interfaces/IPatientRepository.h
+    src/interfaces/IPaymentMethod.h
+    src/interfaces/IRepository.h
+    src/interfaces/IRoomExaminationRepository.h
+    src/interfaces/ITestServiceRepository.h
+    src/interfaces/IVisitor.h
+    src/interfaces/IWritingVisitor.h
+    src/models/BillableComponent.h
+    src/models/ClinicalTest.h
+    src/models/ClinicalTestParser.h
+    src/models/CompletedState.h
+    src/models/Department.h
+    src/models/DepartmentParser.h
+    src/models/DepartmentTableModel.h
+    src/models/Doctor.h
+    src/models/DoctorParser.h
+    src/models/Employee.h
+    src/models/EmployeeTableModel.h
+    src/models/ExaminationState.h
+    src/models/ExaminingState.h
+    src/models/HealthInsurance.h
+    src/models/Hospital.h
+    src/models/InsurancePayment.h
+    src/models/MedicalRecord.h
+    src/models/MedicalRecordListModel.h
+    src/models/MedicalRecordParser.h
+    src/models/Medicine.h
+    src/models/MedicineParser.h
+    src/models/MedicineUsage.h
+    src/models/MedicineUsageParser.h
+    src/models/NormalPayment.h
+    src/models/Nurse.h
+    src/models/NurseParser.h
+    src/models/Object.h
+    src/models/Patient.h
+    src/models/PatientParser.h
+    src/models/PatientTableModel.h
+    src/models/PendingTestState.h
+    src/models/Person.h
+    src/models/Receipt.h
+    src/models/Receptionist.h
+    src/models/ReceptionistParser.h
+    src/models/RegisteredState.h
+    src/models/RegistrationService.h
+    src/models/RoomExamination.h
+    src/models/RoomExaminationParser.h
+    src/models/TestService.h
+    src/models/TestServiceParser.h
+    src/models/TxtClinicalTestParser.h
+    src/models/TxtDepartmentParser.h
+    src/models/TxtDepartmentRepository.h
+    src/models/TxtDoctorParser.h
+    src/models/TxtEmployeeRepository.h
+    src/models/TxtMedicalRecordParser.h
+    src/models/TxtMedicalRecordRepository.h
+    src/models/TxtMedicineParser.h
+    src/models/TxtMedicineRepository.h
+    src/models/TxtMedicineUsageParser.h
+    src/models/TxtNurseParser.h
+    src/models/TxtParserFactory.h
+    src/models/TxtPatientParser.h
+    src/models/TxtPatientRepository.h
+    src/models/TxtReceptionistParser.h
+    src/models/TxtRoomExaminationParser.h
+    src/models/TxtRoomExaminationRepository.h
+    src/models/TxtTestServiceParser.h
+    src/models/TxtTestServiceRepository.h
+    src/models/TxtWritingVisitor.h
+    src/models/WaitingState.h
+    src/utils/Date.h
+    src/utils/QueryBuilder.h
+    src/utils/QueryTypes.h
+    src/utils/QueryUtils.h
+    src/utils/Time.h
+    src/utils/utils.h
+    src/utils/utils_template.h
+    src/views/DepartmentFilteringView.h
+    src/views/DepartmentRecordView.h
+    src/views/EmployeeFilteringView.h
+    src/views/EmployeeRecordView.h
+    src/views/HomeView.h
+    src/views/LoginView.h
+    src/views/ManagementView.h
+    src/views/MedicinePrecribingView.h
+    src/views/ParaclinicalView.h
+    src/views/PatientFilteringView.h
+    src/views/PatientRecordView.h
+    src/views/ReceiptView.h
+    src/views/RegisterView.h
+    src/views/RoomView.h
+    src/App.h
+    src/Config.h
+    src/ServiceLocator.h
 )
 
 target_include_directories(${TARGET_NAME} PRIVATE "${CMAKE_CURRENT_BINARY_DIR}/${TARGET_NAME}_autogen/include_$<CONFIG>")

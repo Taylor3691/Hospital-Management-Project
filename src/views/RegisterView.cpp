@@ -25,7 +25,7 @@ void RegisterView::setConnections() {
 }
 
 void RegisterView::setupRooms() {
-    auto& rooms = ServiceLocator::rooms();
+    auto rooms = ServiceLocator::getInstance()->rooms()->data();
     for (int i = 0; i < rooms.size(); ++i) {
         auto frame = new QFrame(_ui->room_frame);
         frame->setFrameShape(QFrame::StyledPanel);
@@ -43,13 +43,13 @@ void RegisterView::setupRooms() {
         auto room_name_label = new QLabel(frame);
         room_name_label->setAlignment(Qt::AlignCenter);
         room_name_label->setWordWrap(1);
-        room_name_label->setText(QString::fromStdString(rooms[i].name));
+        room_name_label->setText(QString::fromStdString(rooms[i]->name()));
 
         verticalLayout->addWidget(room_name_label);
 
         auto waitings_label = new QLabel(frame);
         waitings_label->setAlignment(Qt::AlignCenter);
-        waitings_label->setText(QString("Số lượt chờ: %1").arg(rooms[i].waitings));
+        waitings_label->setText(QString("Số lượt chờ: %1").arg(rooms[i]->getQueueCount()));
 
         verticalLayout->addWidget(waitings_label);
 

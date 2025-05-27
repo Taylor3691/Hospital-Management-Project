@@ -13,7 +13,7 @@ PatientTableModel::PatientTableModel(QObject* parent)
             "Bảo hiểm y tế",
         })
 {
-    auto data = ServiceLocator::patientManager()->getAll();
+    auto data = ServiceLocator::getInstance()->patientManager()->getAll();
     _cachedData = QVector<const Patient*>(data.begin(), data.end());
 }
 
@@ -85,30 +85,30 @@ QVariant PatientTableModel::headerData(
 }
 
 void PatientTableModel::add(std::unique_ptr<Patient> patient) {
-    ServiceLocator::patientManager()->add(std::move(patient));
+    ServiceLocator::getInstance()->patientManager()->add(std::move(patient));
     refresh();
 }
 
 void PatientTableModel::update(const Patient& patient) {
-    ServiceLocator::patientManager()->update(patient);
+    ServiceLocator::getInstance()->patientManager()->update(patient);
     refresh();
 }
 
 void PatientTableModel::removeByIds(const std::vector<std::string>& ids) {
-    ServiceLocator::patientManager()->removeByIds(ids);
+    ServiceLocator::getInstance()->patientManager()->removeByIds(ids);
     refresh();
 }
 
 void PatientTableModel::find(const std::vector<RFilter<Patient>>& filters) {
     beginResetModel();
-    auto filteredData = ServiceLocator::patientManager()->find(filters);
+    auto filteredData = ServiceLocator::getInstance()->patientManager()->find(filters);
     _cachedData = QVector<const Patient*>(filteredData.begin(), filteredData.end());
     endResetModel();
 }
 
 void PatientTableModel::refresh() {
     beginResetModel();
-    auto data = ServiceLocator::patientManager()->getAll();
+    auto data = ServiceLocator::getInstance()->patientManager()->getAll();
     _cachedData = QVector<const Patient*>(data.begin(), data.end());
     endResetModel();
 }

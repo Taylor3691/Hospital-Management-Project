@@ -58,7 +58,7 @@ void RoomView::setConnections() {
 
 void RoomView::createCompleter() {
     QStringList doctorNames;
-    for (const auto& employee : ServiceLocator::employeeManager()->getAll()) {
+    for (const auto& employee : ServiceLocator::getInstance()->employeeManager()->getAll()) {
         if (auto doctor = dynamic_cast<const Doctor*>(employee)) {
             doctorNames << QString::fromStdString(doctor->name());
         }
@@ -70,7 +70,7 @@ void RoomView::createCompleter() {
 }
 
 void RoomView::changeRoom(int index) {
-    auto& room = ServiceLocator::rooms()[index];
-    _ui->id_label->setText(QString::fromStdString(room.id));
-    _ui->name_label->setText(QString::fromStdString(room.name));
+    auto room = ServiceLocator::getInstance()->rooms()->data()[index];
+    _ui->id_label->setText(QString::fromStdString(room->id()));
+    _ui->name_label->setText(QString::fromStdString(room->name()));
 }
