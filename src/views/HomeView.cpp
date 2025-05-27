@@ -176,6 +176,12 @@ void HomeView::setConnections() {
         [this](bool) {
             switchToView(View::Receipt);
         });
+
+    connect(_ui->medicine_pushButton, &QPushButton::clicked, this,
+        [this](bool) {
+            switchToView(View::Management);
+            _managementView->changeModel(ModelType::Medicine);
+        });
 }
 
 QString HomeView::themeStyleSheet(const QString& theme) {

@@ -21,7 +21,6 @@ enum class View {
     Room,
     Paraclinical,
     Receipt,
-    Medicine
 };
 
 namespace Ui {

@@ -42,6 +42,7 @@ add_executable(${TARGET_NAME}
     src/models/MedicalRecord.cpp
     src/models/MedicalRecordListModel.cpp
     src/models/Medicine.cpp
+    src/models/MedicineTableModel.cpp
     src/models/MedicineUsage.cpp
     src/models/NormalPayment.cpp
     src/models/Nurse.cpp
@@ -88,6 +89,7 @@ add_executable(${TARGET_NAME}
     src/views/HomeView.cpp
     src/views/LoginView.cpp
     src/views/ManagementView.cpp
+    src/views/MedicineManagementView.cpp
     src/views/MedicinePrecribingView.cpp
     src/views/ParaclinicalView.cpp
     src/views/PatientFilteringView.cpp
@@ -102,6 +104,7 @@ add_executable(${TARGET_NAME}
     src/views/HomeView.ui
     src/views/LoginView.ui
     src/views/ManagementView.ui
+    src/views/MedicineManagementView.ui
     src/views/MedicinePrecribingView.ui
     src/views/ParaclinicalView.ui
     src/views/PatientFilteringView.ui
@@ -148,13 +151,13 @@ target_sources(${TARGET_NAME} PRIVATE
     src/models/ExaminationState.h
     src/models/ExaminingState.h
     src/models/HealthInsurance.h
-    
     src/models/InsurancePayment.h
     src/models/MedicalRecord.h
     src/models/MedicalRecordListModel.h
     src/models/MedicalRecordParser.h
     src/models/Medicine.h
     src/models/MedicineParser.h
+    src/models/MedicineTableModel.h
     src/models/MedicineUsage.h
     src/models/MedicineUsageParser.h
     src/models/NormalPayment.h
@@ -211,6 +214,7 @@ target_sources(${TARGET_NAME} PRIVATE
     src/views/HomeView.h
     src/views/LoginView.h
     src/views/ManagementView.h
+    src/views/MedicineManagementView.h
     src/views/MedicinePrecribingView.h
     src/views/ParaclinicalView.h
     src/views/PatientFilteringView.h

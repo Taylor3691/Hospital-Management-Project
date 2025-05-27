@@ -5,14 +5,16 @@
 #include "ui_ManagementView.h"
 #include "../utils/utils.h"
 #include "../models/EmployeeTableModel.h"
-#include "../views/EmployeeRecordView.h"
-#include "../views/EmployeeFilteringView.h"
+#include "EmployeeRecordView.h"
+#include "EmployeeFilteringView.h"
 #include "../models/DepartmentTableModel.h"
-#include "../views/DepartmentRecordView.h"
-#include "../views/DepartmentFilteringView.h"
+#include "DepartmentRecordView.h"
+#include "DepartmentFilteringView.h"
 #include "../models/PatientTableModel.h"
-#include "../views/PatientRecordView.h"
-#include "../views/PatientFilteringView.h"
+#include "PatientRecordView.h"
+#include "PatientFilteringView.h"
+#include "../models/MedicineTableModel.h"
+#include "MedicineManagementView.h"
 
 namespace Ui {
     class ManagementView;
@@ -22,6 +24,7 @@ enum class ModelType {
     Patient,
     Department,
     Employee,
+    Medicine,
 };
 
 class ManagementView : public QWidget {

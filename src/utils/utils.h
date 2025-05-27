@@ -11,7 +11,9 @@
 
 enum class Role {
     Add,
-    Update
+    Update,
+    Filter,
+    Select,
 };
 
 bool confirm(const QString& title, const QString& msg);

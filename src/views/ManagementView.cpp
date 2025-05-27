@@ -7,6 +7,7 @@ ManagementView::ManagementView(QWidget* parent)
         new PatientTableModel(this),
         new DepartmentTableModel(this),
         new EmployeeTableModel(this),
+        new MedicineTableModel(this),
     })
 {
     setup();
@@ -50,13 +51,22 @@ void ManagementView::setConnections() {
                     static_cast<DepartmentTableModel*>(model)->add(view.getDepartment());
                 }
             }
-            else {
+            else if (modelIndex == ModelType::Patient) {
                 PatientRecordView view(qApp->styleSheet());
 
                 QString title = "Xác nhận thêm bệnh nhân";
                 QString msg = "Bạn có chắc chắn muốn thêm bệnh nhân?";
                 if (view.exec() == QDialog::DialogCode::Accepted && confirm(title, msg)) {
                     static_cast<PatientTableModel*>(model)->add(view.getPatient());
+                }
+            }
+            else if (modelIndex == ModelType::Medicine) {
+                MedicineManagementView view(qApp->styleSheet());
+
+                QString title = "Xác nhận thêm thuốc";
+                QString msg = "Bạn có chắc chắn muốn thêm thuốc?";
+                if (view.exec() == QDialog::DialogCode::Accepted && confirm(title, msg)) {
+                    static_cast<MedicineTableModel*>(model)->add(view.getMedicine());
                 }
             }
         });
@@ -77,10 +87,16 @@ void ManagementView::setConnections() {
                     static_cast<DepartmentTableModel*>(model)->find(view.getFilters());
                 }
             }
-            else {
+            else if (modelIndex == ModelType::Patient) {
                 PatientFilteringView view(qApp->styleSheet());
                 if (view.exec() == QDialog::DialogCode::Accepted) {
                     static_cast<PatientTableModel*>(model)->find(view.getFilters());
+                }
+            }
+            else if (modelIndex == ModelType::Medicine) {
+                MedicineManagementView view(qApp->styleSheet(), Role::Filter);
+                if (view.exec() == QDialog::DialogCode::Accepted) {
+                    static_cast<MedicineTableModel*>(model)->find(view.getFilters());
                 }
             }
         });
@@ -113,7 +129,7 @@ void ManagementView::setConnections() {
                     static_cast<DepartmentTableModel*>(model)->update(*view.getDepartment().get());
                 }
             }
-            else {
+            else if (modelIndex == ModelType::Patient) {
                 auto patient = static_cast<const Patient*>(model->data(index, Qt::UserRole).value<void*>());
 
                 PatientRecordView view(qApp->styleSheet(), Role::Update);
@@ -121,6 +137,16 @@ void ManagementView::setConnections() {
 
                 if (view.exec() == QDialog::DialogCode::Accepted && confirm(title, msg)) {
                     static_cast<PatientTableModel*>(model)->update(*view.getPatient().get());
+                }
+            }
+            else if (modelIndex == ModelType::Medicine) {
+                auto medicine = static_cast<const Medicine*>(model->data(index, Qt::UserRole).value<void*>());
+
+                MedicineManagementView view(qApp->styleSheet(), Role::Update);
+                view.setMedicine(medicine);
+
+                if (view.exec() == QDialog::DialogCode::Accepted && confirm(title, msg)) {
+                    static_cast<MedicineTableModel*>(model)->update(*view.getMedicine().get());
                 }
             }
         });
@@ -143,8 +169,11 @@ void ManagementView::setConnections() {
             else if (modelIndex == ModelType::Department && confirm(title, msg)) {
                 static_cast<DepartmentTableModel*>(model)->removeByIds(ids);
             }
-            else if (confirm(title, msg)) {
+            else if (modelIndex == ModelType::Patient && confirm(title, msg)) {
                 static_cast<PatientTableModel*>(model)->removeByIds(ids);
+            }
+            else if (modelIndex == ModelType::Medicine && confirm(title, msg)) {
+                static_cast<MedicineTableModel*>(model)->removeByIds(ids);
             }
         });
 }
@@ -164,6 +193,7 @@ void ManagementView::changeModel(ModelType model) {
         "QUẢN LÝ BỆNH NHÂN",
         "QUẢN LÝ KHOA",
         "QUẢN LÝ NHÂN VIÊN",
+        "KHO THUỐC",
     };
     _ui->title_label->setText(titles[(int)model]);
 
