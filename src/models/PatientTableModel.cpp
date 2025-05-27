@@ -13,7 +13,7 @@ PatientTableModel::PatientTableModel(QObject* parent)
         },
         parent)
 {
-    auto data = ServiceLocator::getInstance()->patientManager()->getAll();
+    auto data = ServiceLocator::getInstance()->patientRepository()->data();
     _cachedData = QVector<const Patient*>(data.begin(), data.end());
 }
 
@@ -81,7 +81,7 @@ void PatientTableModel::find(const std::vector<RFilter<Patient>>& filters) {
 
 void PatientTableModel::refresh() {
     beginResetModel();
-    auto data = ServiceLocator::getInstance()->patientManager()->getAll();
+    auto data = ServiceLocator::getInstance()->patientRepository()->data();
     _cachedData = QVector<const Patient*>(data.begin(), data.end());
     endResetModel();
 }

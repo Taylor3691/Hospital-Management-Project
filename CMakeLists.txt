@@ -27,6 +27,8 @@ add_executable(${TARGET_NAME}
     packages/qdarkstyle/style.qrc
     src/controllers/DepartmentManager.cpp
     src/controllers/EmployeeManager.cpp
+    src/controllers/ExaminationService.cpp
+    src/controllers/MedicineManager.cpp
     src/controllers/PatientManager.cpp
     src/models/BillableComponent.cpp
     src/models/ClinicalTest.cpp
@@ -121,6 +123,7 @@ add_executable(${TARGET_NAME}
 target_sources(${TARGET_NAME} PRIVATE
     src/controllers/DepartmentManager.h
     src/controllers/EmployeeManager.h
+    src/controllers/ExaminationService.h
     src/controllers/MedicineManager.h
     src/controllers/PatientManager.h
     src/interfaces/IDepartmentRepository.h

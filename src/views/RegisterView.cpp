@@ -4,9 +4,9 @@ RegisterView::RegisterView(QWidget* parent)
     : QWidget(parent)
     , _ui(new Ui::RegisterView)
     , _service(std::make_unique<RegistrationService>(
-        ServiceLocator::getInstance()->patients(),
-        ServiceLocator::getInstance()->records(),
-        ServiceLocator::getInstance()->rooms()))
+        ServiceLocator::getInstance()->patientRepository(),
+        ServiceLocator::getInstance()->medicalRecordRepository(),
+        ServiceLocator::getInstance()->roomExaminationRepository()))
 {
     setup();
     setConnections();
@@ -42,7 +42,7 @@ void RegisterView::setConnections() {
 }
 
 void RegisterView::setupRooms() {
-    auto rooms = ServiceLocator::getInstance()->rooms()->data();
+    auto rooms = ServiceLocator::getInstance()->roomExaminationRepository()->data();
     for (int i = 0; i < rooms.size(); ++i) {
         auto frame = new QFrame(_ui->room_frame);
         frame->setFrameShape(QFrame::StyledPanel);

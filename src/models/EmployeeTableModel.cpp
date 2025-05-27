@@ -19,7 +19,7 @@ EmployeeTableModel::EmployeeTableModel(QObject* parent)
         },
         parent)
 {
-    auto data = ServiceLocator::getInstance()->employeeManager()->getAll();
+    auto data = ServiceLocator::getInstance()->employeeRepository()->data();
     _cachedData = QVector<const Employee*>(data.begin(), data.end());
 }
 
@@ -110,7 +110,7 @@ void EmployeeTableModel::find(const std::vector<RFilter<Employee>>& filters) {
 
 void EmployeeTableModel::refresh() {
     beginResetModel();
-    auto data = ServiceLocator::getInstance()->employeeManager()->getAll();
+    auto data = ServiceLocator::getInstance()->employeeRepository()->data();
     _cachedData = QVector<const Employee*>(data.begin(), data.end());
     endResetModel();
 }

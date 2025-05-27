@@ -33,7 +33,7 @@ void PatientRecordView::setup(const QString& styleSheet, Role role) {
         setWindowTitle("Thêm bệnh nhân");
         setAcceptButtonText("Thêm");
 
-        auto data = ServiceLocator::getInstance()->patientManager()->getAll();
+        auto data = ServiceLocator::getInstance()->patientRepository()->data();
         std::vector<const Object*> objectData(data.begin(), data.end());
         auto newId = createId(objectData, getFormat<Patient>());
         _ui->id_lineEdit->setText(QString::fromStdString(newId));

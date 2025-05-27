@@ -11,8 +11,7 @@ MedicineTableModel::MedicineTableModel(QObject* parent)
         },
         parent)
 {
-    //auto data = ServiceLocator::getInstance()->medicineManager()->getAll();
-    auto data = ServiceLocator::getInstance()->medicines()->data();
+    auto data = ServiceLocator::getInstance()->medicineRepository()->data();
     _cachedData = QVector<const Medicine*>(data.begin(), data.end());
 }
 
@@ -52,32 +51,30 @@ QVariant MedicineTableModel::data(const QModelIndex& index, int role) const {
 }
 
 void MedicineTableModel::add(std::unique_ptr<Medicine> medicine) {
-    //ServiceLocator::getInstance()->medicineManager()->add(std::move(medicine));
+    ServiceLocator::getInstance()->medicineManager()->add(std::move(medicine));
     refresh();
 }
 
 void MedicineTableModel::update(const Medicine& medicine) {
-    //ServiceLocator::getInstance()->medicineManager()->update(medicine);
+    ServiceLocator::getInstance()->medicineManager()->update(medicine);
     refresh();
 }
 
 void MedicineTableModel::removeByIds(const std::vector<std::string>& ids) {
-    //ServiceLocator::getInstance()->medicineManager()->removeByIds(ids);
+    ServiceLocator::getInstance()->medicineManager()->removeByIds(ids);
     refresh();
 }
 
 void MedicineTableModel::find(const std::vector<RFilter<Medicine>>& filters) {
     beginResetModel();
-    //auto filteredData = ServiceLocator::getInstance()->medicineManager()->find(filters);
-    auto filteredData = ServiceLocator::getInstance()->medicines()->data();
+    auto filteredData = ServiceLocator::getInstance()->medicineManager()->find(filters);
     _cachedData = QVector<const Medicine*>(filteredData.begin(), filteredData.end());
     endResetModel();
 }
 
 void MedicineTableModel::refresh() {
     beginResetModel();
-    //auto data = ServiceLocator::getInstance()->medicineManager()->getAll();
-    auto data = ServiceLocator::getInstance()->medicines()->data();
+    auto data = ServiceLocator::getInstance()->medicineRepository()->data();
     _cachedData = QVector<const Medicine*>(data.begin(), data.end());
     endResetModel();
 }

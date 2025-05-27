@@ -70,7 +70,7 @@ void EmployeeRecordView::setup(const QString& styleSheet, Role role) {
 }
 
 void EmployeeRecordView::createNewIds() {
-    auto data = ServiceLocator::getInstance()->employeeManager()->getAll();
+    auto data = ServiceLocator::getInstance()->employeeRepository()->data();
     std::vector<const Object*> objectData(data.begin(), data.end());
     _newIds.push_back(QString::fromStdString(createId(objectData, getFormat<Doctor>())));
     _newIds.push_back(QString::fromStdString(createId(objectData, getFormat<Nurse>())));

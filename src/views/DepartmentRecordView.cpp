@@ -30,7 +30,7 @@ void DepartmentRecordView::setup(const QString& styleSheet, Role role) {
         setWindowTitle("Thêm khoa");
         _ui->buttonBox->button(QDialogButtonBox::StandardButton::Ok)->setText("Thêm");
 
-        auto data = ServiceLocator::getInstance()->departmentManager()->getAll();
+        auto data = ServiceLocator::getInstance()->departmentRepository()->data();
         std::vector<const Object*> objectData(data.begin(), data.end());
         auto newId = createId(objectData, getFormat<Department>());
         _ui->id_lineEdit->setText(QString::fromStdString(newId));
