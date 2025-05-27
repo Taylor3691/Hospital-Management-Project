@@ -1,7 +1,7 @@
 #include "WaitingState.h"
 
 std::string WaitingState::getStateName() const {
-    return "Dang Cho Kham";
+    return "WaitingState";
 }
 
 bool WaitingState::canPrescribeMedicine() const {
@@ -17,5 +17,5 @@ bool WaitingState::canComplete() const {
 }
 
 ExaminationState* WaitingState::clone() const {
-    return new WaitingState(*this);
+    return new WaitingState();
 }

@@ -1,7 +1,7 @@
 #include "CompletedState.h"
 
 std::string CompletedState::getStateName() const {
-    return "Hoan Thanh";
+    return "CompleteState";
 }
 
 bool CompletedState::canPrescribeMedicine() const {

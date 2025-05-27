@@ -1,7 +1,7 @@
 #include "PendingTestState.h"
 
 std::string PendingTestState::getStateName() const {
-    return "Cho test";
+    return "PendingTestState";
 }
 
 bool PendingTestState::canPrescribeMedicine() const {

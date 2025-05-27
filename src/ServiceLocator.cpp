@@ -17,12 +17,17 @@ ServiceLocator::ServiceLocator() {
     _patientManager = std::make_unique<PatientManager>(_patients.get());
     _employeeManager = std::make_unique<EmployeeManager>(_employees.get());
     _departmentManager = std::make_unique<DepartmentManager>(_departments.get());
+    _medicineManager = std::make_unique<MedicineManager>(_medicines.get());
 }
+
+
 
 ServiceLocator* ServiceLocator::getInstance() {
     static std::unique_ptr<ServiceLocator> instance(new ServiceLocator());
     return instance.get();
 }
+
+
 
 EmployeeManager* ServiceLocator::employeeManager() const {
     return _employeeManager.get();
@@ -36,10 +41,6 @@ PatientManager* ServiceLocator::patientManager() const {
     return _patientManager.get();
 }
 
-IRoomExaminationRepository* ServiceLocator::rooms() const {
-    return _rooms.get();
-}
-
-MedicineManager* ServiceLocator::medicineManager() {
-    return _medicineManager;
+MedicineManager* ServiceLocator::medicineManager() const {
+    return _medicineManager.get();
 }
