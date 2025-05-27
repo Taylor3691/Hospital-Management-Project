@@ -14,7 +14,8 @@ enum class Role {
     Update
 };
 
-bool confirm(const QString& title, const QString msg);
+bool confirm(const QString& title, const QString& msg);
+void notify(const QString& title, const QString& msg);
 std::string createId(const std::vector<const Object*>& list,
     const std::string& format, int startAt = 1);
 

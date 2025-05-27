@@ -1,6 +1,6 @@
 #include "utils.h"
 
-bool confirm(const QString& title, const QString msg) {
+bool confirm(const QString& title, const QString& msg) {
     QMessageBox msgBox;
     msgBox.setWindowTitle(title);
     msgBox.setText(msg);
@@ -10,6 +10,16 @@ bool confirm(const QString& title, const QString msg) {
     msgBox.button(QMessageBox::Yes)->setText("Có");
     msgBox.button(QMessageBox::No)->setText("Không");
     return msgBox.exec() == QMessageBox::Yes;
+}
+
+void notify(const QString& title, const QString& msg) {
+    QMessageBox msgBox;
+    msgBox.setWindowTitle(title);
+    msgBox.setText(msg);
+    msgBox.setIcon(QMessageBox::Information);
+    msgBox.setStandardButtons(QMessageBox::Ok);
+    msgBox.setDefaultButton(QMessageBox::Ok);
+    msgBox.exec();
 }
 
 std::string createId(
