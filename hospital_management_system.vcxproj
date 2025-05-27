@@ -142,11 +142,12 @@
   <ItemGroup>
     <ClCompile Include="src\controllers\DepartmentManager.cpp" />
     <ClCompile Include="src\controllers\EmployeeManager.cpp" />
+    <ClCompile Include="src\controllers\ExaminationService.cpp" />
+    <ClCompile Include="src\controllers\MedicineManager.cpp" />
     <ClCompile Include="src\controllers\PatientManager.cpp" />
-    <ClCompile Include="src\ServiceLocator.cpp" />
-    <ClCompile Include="src\App.cpp" />
-    <ClCompile Include="src\Config.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\ServiceLocator.cpp" />
+    <ClCompile Include="src\Config.cpp" />
     <ClCompile Include="src\models\BillableComponent.cpp" />
     <ClCompile Include="src\models\ClinicalTest.cpp" />
     <ClCompile Include="src\models\CompletedState.cpp" />
@@ -196,12 +197,13 @@
     <ClCompile Include="src\models\WaitingState.cpp" />
     <ClCompile Include="src\utils\Date.cpp" />
     <ClCompile Include="src\utils\Time.cpp" />
+    <ClCompile Include="src\utils\utils.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\App.h" />
     <ClInclude Include="src\Config.h" />
     <ClInclude Include="src\controllers\DepartmentManager.h" />
     <ClInclude Include="src\controllers\EmployeeManager.h" />
+    <ClInclude Include="src\controllers\ExaminationService.h" />
     <ClInclude Include="src\controllers\MedicineManager.h" />
     <ClInclude Include="src\controllers\PatientManager.h" />
     <ClInclude Include="src\interfaces\IMedicalRecordRepository.h" />
@@ -270,6 +272,7 @@
     <ClInclude Include="src\utils\QueryTypes.h" />
     <ClInclude Include="src\utils\QueryUtils.h" />
     <ClInclude Include="src\utils\Time.h" />
+    <ClInclude Include="src\utils\utils.h" />
     <ClInclude Include="src\utils\utils_template.h" />
   </ItemGroup>
   <ItemGroup>

@@ -17,6 +17,7 @@ ServiceLocator::ServiceLocator() {
     _patientManager = std::make_unique<PatientManager>(_patients.get());
     _employeeManager = std::make_unique<EmployeeManager>(_employees.get());
     _departmentManager = std::make_unique<DepartmentManager>(_departments.get());
+    _medicineManager = std::make_unique<MedicineManager>(_medicines.get());
 }
 
 ServiceLocator* ServiceLocator::getInstance() {
@@ -24,31 +25,35 @@ ServiceLocator* ServiceLocator::getInstance() {
     return instance.get();
 }
 
-IPatientRepository* ServiceLocator::patients() const {
+IPatientRepository* ServiceLocator::patientRepository() const {
     return _patients.get();
 }
 
-IMedicineRepository* ServiceLocator::medicines() const {
-    return _medicines.get();
-}
-
-IEmployeeRepository* ServiceLocator::employees() const {
+IEmployeeRepository* ServiceLocator::employeeRepository() const {
     return _employees.get();
 }
 
-IRoomExaminationRepository* ServiceLocator::rooms() const {
-    return _rooms.get();
-}
-
-IMedicalRecordRepository* ServiceLocator::records() const {
-    return _records.get();
-}
-
-ITestServiceRepository* ServiceLocator::tests() const {
+ITestServiceRepository* ServiceLocator::testServiceRepository() const {
     return _tests.get();
 }
 
-IParserFactory* ServiceLocator::factory() const {
+IMedicalRecordRepository* ServiceLocator::medicalRecordRepository() const {
+    return _records.get();
+}
+
+IMedicineRepository* ServiceLocator::medicineRepository() const {
+    return _medicines.get();
+}
+
+IRoomExaminationRepository* ServiceLocator::roomExaminationRepository() const {
+    return _rooms.get();
+}
+
+IDepartmentRepository* ServiceLocator::departmentRepository() const {
+    return _departments.get();
+}
+
+IParserFactory* ServiceLocator::parseFactory() const {
     return _factory.get();
 }
 
@@ -62,4 +67,8 @@ DepartmentManager* ServiceLocator::departmentManager() const {
 
 PatientManager* ServiceLocator::patientManager() const {
     return _patientManager.get();
+}
+
+MedicineManager* ServiceLocator::medicineManager() const {
+    return _medicineManager.get();
 }

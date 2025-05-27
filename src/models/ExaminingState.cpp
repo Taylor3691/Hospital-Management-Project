@@ -1,7 +1,7 @@
 #include "ExaminingState.h"
 
 std::string ExaminingState::getStateName() const {
-    return "Dang Kham";
+    return "ExaminingState";
 }
 
 bool ExaminingState::canPrescribeMedicine() const {

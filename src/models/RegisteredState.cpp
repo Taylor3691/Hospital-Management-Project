@@ -3,7 +3,7 @@
 RegisteredState::RegisteredState() {}
 
 std::string RegisteredState::getStateName() const {
-    return "Da Dang Ky";
+    return "RegisteredState";
 }
 
 bool RegisteredState::canPrescribeMedicine() const {
