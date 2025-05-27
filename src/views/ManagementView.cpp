@@ -20,8 +20,8 @@ ManagementView::~ManagementView() {
 void ManagementView::setup() {
     _ui->setupUi(this);
 
-    _ui->update_pushButton->setVisible(0);
-    _ui->delete_pushButton->setVisible(0);
+    _ui->update_pushButton->setEnabled(0);
+    _ui->delete_pushButton->setEnabled(0);
 
     _ui->tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
     _ui->tableView->verticalHeader()->setStyleSheet("QHeaderView::section { padding-right: 10px; }");
@@ -155,8 +155,15 @@ void ManagementView::changeModel(ModelType model) {
     }
 
     _ui->tableView->setModel(_models[(int)model]);
-    _ui->update_pushButton->setVisible(0);
-    _ui->delete_pushButton->setVisible(0);
+    _ui->update_pushButton->setEnabled(0);
+    _ui->delete_pushButton->setEnabled(0);
+
+    static QVector<QString> titles = {
+        "QUẢN LÝ BỆNH NHÂN",
+        "QUẢN LÝ KHOA",
+        "QUẢN LÝ NHÂN VIÊN",
+    };
+    _ui->title_label->setText(titles[(int)model]);
 
     _ui->tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
     auto header = _ui->tableView->horizontalHeader();
@@ -169,13 +176,13 @@ void ManagementView::changeModel(ModelType model) {
     connect(_ui->tableView->selectionModel(), &QItemSelectionModel::selectionChanged, this,
         [this](const QItemSelection&, const QItemSelection&) {
             QModelIndexList selectedRows = _ui->tableView->selectionModel()->selectedRows();
-            _ui->update_pushButton->setVisible(selectedRows.count() == 1);
-            _ui->delete_pushButton->setVisible(selectedRows.count());
+            _ui->update_pushButton->setEnabled(selectedRows.count() == 1);
+            _ui->delete_pushButton->setEnabled(selectedRows.count());
         });
 
     connect(_ui->tableView->model(), &QAbstractItemModel::modelReset, this,
         [this]() {
-            _ui->update_pushButton->setVisible(0);
-            _ui->delete_pushButton->setVisible(0);
+            _ui->update_pushButton->setEnabled(0);
+            _ui->delete_pushButton->setEnabled(0);
         });
 }

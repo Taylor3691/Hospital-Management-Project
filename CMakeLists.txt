@@ -221,6 +221,7 @@ target_sources(${TARGET_NAME} PRIVATE
     src/ServiceLocator.h
 )
 
-target_include_directories(${TARGET_NAME} PRIVATE "${CMAKE_CURRENT_BINARY_DIR}/${TARGET_NAME}_autogen/include_$<CONFIG>")
+target_include_directories(${TARGET_NAME} PRIVATE
+    "${CMAKE_CURRENT_BINARY_DIR}/${TARGET_NAME}_autogen/include_$<CONFIG>")
 
 target_link_libraries(${TARGET_NAME} Qt5::Core Qt5::Gui Qt5::Widgets)

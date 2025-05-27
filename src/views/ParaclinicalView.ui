@@ -2256,6 +2256,18 @@ PlotWidget {
 </string>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,4">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
    <item>
     <widget class="QFrame" name="record_frame">
      <property name="frameShape">
@@ -2268,6 +2280,29 @@ PlotWidget {
       <property name="spacing">
        <number>20</number>
       </property>
+      <item>
+       <widget class="QLabel" name="name_label">
+        <property name="styleSheet">
+         <string notr="true">font-size: 12pt; font-weight: bold;</string>
+        </property>
+        <property name="text">
+         <string>Cận lâm sàng</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+        <property name="wordWrap">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="Line" name="line_2">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
       <item>
        <widget class="QLabel" name="recordList_label">
         <property name="styleSheet">
@@ -2580,6 +2615,9 @@ PlotWidget {
           </item>
           <item>
            <layout class="QVBoxLayout" name="verticalLayout_2">
+            <property name="spacing">
+             <number>4</number>
+            </property>
             <property name="bottomMargin">
              <number>4</number>
             </property>
