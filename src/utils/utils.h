@@ -19,7 +19,8 @@ enum class Role {
 };
 
 bool confirm(const QString& title, const QString& msg);
-void notify(const QString& title, const QString& msg);
+void notify(const QString& title, const QString& msg,
+    QMessageBox::Icon icon = QMessageBox::Information);
 void pad(QHeaderView* view, int padSize = 20);
 std::string createId(const std::vector<const Object*>& list,
     const std::string& format, int startAt = 1);

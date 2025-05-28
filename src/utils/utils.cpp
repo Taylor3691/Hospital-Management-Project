@@ -12,11 +12,15 @@ bool confirm(const QString& title, const QString& msg) {
     return msgBox.exec() == QMessageBox::Yes;
 }
 
-void notify(const QString& title, const QString& msg) {
+void notify(
+    const QString& title,
+    const QString& msg,
+    QMessageBox::Icon icon
+) {
     QMessageBox msgBox;
     msgBox.setWindowTitle(title);
     msgBox.setText(msg);
-    msgBox.setIcon(QMessageBox::Information);
+    msgBox.setIcon(icon);
     msgBox.setStandardButtons(QMessageBox::Ok);
     msgBox.setDefaultButton(QMessageBox::Ok);
     msgBox.exec();
