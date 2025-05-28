@@ -2,7 +2,12 @@
 #define MEDICINE_PRESCRIBING_VIEW_H
 
 #include <QPushButton>
+#include <QTableView>
+#include <QHeaderView>
 #include "ui_MedicinePrescribingView.h"
+#include "../models/MedicineTableModel.h"
+#include "../controllers/ExaminationService.h"
+#include "../ServiceLocator.h"
 
 namespace Ui {
     class MedicinePrescribingView;
@@ -17,6 +22,9 @@ private:
 public:
     explicit MedicinePrescribingView(QWidget* parent = nullptr);
     ~MedicinePrescribingView();
+
+private:
+    void setConnections();
 };
 
 #endif // !MEDICINE_PRESCRIBING_VIEW_H
