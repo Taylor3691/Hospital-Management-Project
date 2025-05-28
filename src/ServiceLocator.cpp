@@ -9,7 +9,7 @@ ServiceLocator::ServiceLocator() {
     _patients = std::make_unique<TxtPatientRepository>(config->get("patient_repo_path"));
     _rooms = std::make_unique<TxtRoomExaminationRepository>(config->get("room_repo_path"));
     _medicines = std::make_unique<TxtMedicineRepository>(config->get("medicine_repo_path"));
-    _records = std::make_unique<TxtMedicalRecordRepository>(config->get("record_repo_path"));
+    _records = std::make_unique<TxtMedicalRecordRepository>(config->get("medical_record_repo_path"));
     _tests = std::make_unique<TxtTestServiceRepository>(config->get("test_repo_path"));
     _employees = std::make_unique<TxtEmployeeRepository>(config->get("employee_repo_path"));
     _departments = std::make_unique<TxtDepartmentRepository>(config->get("department_repo_path"));

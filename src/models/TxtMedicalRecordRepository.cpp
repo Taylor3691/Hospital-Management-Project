@@ -1,7 +1,9 @@
 #include "TxtMedicalRecordRepository.h"
 
-TxtMedicalRecordRepository::TxtMedicalRecordRepository() : _filePath("records.txt"), _delim('|')
+TxtMedicalRecordRepository::TxtMedicalRecordRepository()
 {
+    _filePath = "records.txt";
+    _delim = '|';
     load();
 }
 

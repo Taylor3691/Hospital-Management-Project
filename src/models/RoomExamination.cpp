@@ -66,5 +66,5 @@ void RoomExamination::acceptWrite(IVisitor* visitor, std::ostream& os) {
 }
 
 Object* RoomExamination::clone() const {
-    return nullptr;
+    return new RoomExamination(*this);
 }
