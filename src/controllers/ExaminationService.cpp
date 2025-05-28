@@ -4,7 +4,7 @@ ExaminationService::ExaminationService(
     IMedicalRecordRepository* records,
     IMedicineRepository* medicines,
     IRoomExaminationRepository* rooms,
-    TxtTestServiceRepository* tests,
+    ITestServiceRepository* tests,
     IEmployeeRepository* employees,
     IPatientRepository* patients
 )

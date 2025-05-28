@@ -1,4 +1,4 @@
-﻿#ifndef EXAMINATION_SERVICE_H
+#ifndef EXAMINATION_SERVICE_H
 #define EXAMINATION_SERVICE_H
 
 #include "../utils/QueryBuilder.h"
@@ -23,7 +23,7 @@ private:
 
 public:
     ExaminationService(IMedicalRecordRepository* records, IMedicineRepository* medicines,
-        IRoomExaminationRepository* rooms, TxtTestServiceRepository* tests,
+        IRoomExaminationRepository* rooms, ITestServiceRepository* tests,
         IEmployeeRepository* employees, IPatientRepository* patients);
 
 public:
