@@ -42,10 +42,10 @@ std::string createId(
     int startAt
 ) {
     if (list.empty()) {
-        int required = snprintf(nullptr, 0, format.c_str(), startAt) + 1;
+        int required = snprintf(nullptr, 0, format.c_str(), startAt);
         std::string newId;
         newId.resize(required);
-        sprintf_s(newId.data(), newId.size(), format.c_str(), startAt);
+        sprintf_s(newId.data(), newId.size() + 1, format.c_str(), startAt);
         return newId;
     }
 
@@ -70,9 +70,9 @@ std::string createId(
         prev = cur;
     }
 
-    int required = snprintf(nullptr, 0, format.c_str(), prev + 1) + 1;
+    int required = snprintf(nullptr, 0, format.c_str(), prev + 1);
     std::string newId;
     newId.resize(required);
-    sprintf_s(newId.data(), newId.size(), format.c_str(), prev + 1);
+    sprintf_s(newId.data(), newId.size() + 1, format.c_str(), prev + 1);
     return newId;
 }
