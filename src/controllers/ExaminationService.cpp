@@ -88,7 +88,7 @@ std::vector<std::unique_ptr<MedicalRecord>> ExaminationService::getAllRecordBySt
     return result;
 }
 
-std::unique_ptr<MedicineUsage> ExaminationService::createMedicneUsage(const std::string& medicineId, const std::string& name,
+std::unique_ptr<MedicineUsage> ExaminationService::createMedicineUsage(const std::string& medicineId, const std::string& name,
     int quantity, double price, const std::string& description)
 {
     auto date = Date::getDate().toString(Date::getDate());

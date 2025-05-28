@@ -3,7 +3,7 @@
 TxtEmployeeRepository::TxtEmployeeRepository()
     : _filePath("employees.txt"), _delim('|')
 {
-    ::load(_employees, _delim, _filePath);
+    load();
 }
 
 TxtEmployeeRepository::TxtEmployeeRepository(
@@ -12,7 +12,7 @@ TxtEmployeeRepository::TxtEmployeeRepository(
 )
     : _filePath(filePath), _delim(delim)
 {
-    ::load(_employees, _delim, _filePath);
+    load();
 }
 
 std::string TxtEmployeeRepository::filePath() const {

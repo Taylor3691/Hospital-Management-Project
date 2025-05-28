@@ -3,7 +3,7 @@
 TxtPatientRepository::TxtPatientRepository()
     : _filePath("patients.txt"), _delim('|')
 {
-    ::load(_patients, _delim, _filePath);
+    load();
 }
 
 TxtPatientRepository::TxtPatientRepository(
@@ -12,7 +12,7 @@ TxtPatientRepository::TxtPatientRepository(
 )
     : _filePath(filePath), _delim(delim)
 {
-    ::load(_patients, _delim, _filePath);
+    load();
 }
 
 std::string TxtPatientRepository::filePath() const {

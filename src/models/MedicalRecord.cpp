@@ -144,6 +144,7 @@ MedicalRecord& MedicalRecord::operator=(const MedicalRecord& other) {
         _name = other._name;
         _patientId = other._patientId;
         _doctorId = other._doctorId;
+        _roomId = other._roomId;
         _createdDate = other._createdDate;
         _createdTime = other._createdTime;
         _diagnosisResult = other._diagnosisResult;
