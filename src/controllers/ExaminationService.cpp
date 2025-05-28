@@ -149,28 +149,4 @@ void  ExaminationService::updateRecord(std::unique_ptr<MedicalRecord> record) {
     _records->update(*record.get());
 }
 
-void ExaminationService::orderMedicineUsage(std::unique_ptr<MedicalRecord> record, std::unique_ptr<MedicineUsage> usage) {
-    if (!record->state()->canPrescribeMedicine()) {
-        throw std::runtime_error(record->state()->getStateName() + " state cannot prescribe medicine");
-    }
-    auto store = _medicines->data();
-    auto medicine = from(store).where(&Medicine::id, usage->medicineId()).findOne();
-    if (medicine->quantity() >= usage->usedQuantity()) {
-        record->prescribeMedicine(std::move(usage));
-        updateRecord(std::move(record));
-    }
-    else {
-        throw std::runtime_error("Not enough quantity to prescibe");
-    }
-}
-
-void ExaminationService::orderClinicalTest(std::unique_ptr<MedicalRecord> record, std::unique_ptr<ClinicalTest> test) {
-    if (!record->state()->canOrderClinicalTest()) {
-        throw std::runtime_error(record->state()->getStateName() + " state cannot order clinical test");
-    }
-
-    record->orderClinicalTest(std::move(test));
-    updateRecord(std::move(record));
-}
-
 

@@ -38,7 +38,7 @@ std::unique_ptr<MedicalRecord> TestProcessingService::getRecordById(const std::s
     if (query) {
         return std::unique_ptr<MedicalRecord>(dynamic_cast<MedicalRecord*>(query->clone()));
     }
-    throw std::runtime_error("Not Found Clinical Test");
+    throw std::runtime_error("Not Found Medical Record ");
     return nullptr;
 }
 
