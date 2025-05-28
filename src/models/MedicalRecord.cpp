@@ -6,7 +6,7 @@ MedicalRecord::MedicalRecord(
 )
     : BillableComponent(id, "")
     , _patientId(patientId)
-    , _state(std::make_unique<RegisteredState>())
+    , _state(std::make_unique<WaitingState>())
     , _createdDate(Date::getDate())
     , _createdTime(Time::getCurrentTime()) {}
 

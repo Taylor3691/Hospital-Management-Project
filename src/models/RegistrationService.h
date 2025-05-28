@@ -8,7 +8,8 @@
 #include "RoomExamination.h"
 #include "../utils/utils.h"
 #include "../utils/utils_template.h"
-#include "RegisteredState.h"
+#include "WaitingState.h"
+#include "../utils/QueryBuilder.h"
 
 class RegistrationService {
 private:
@@ -22,17 +23,21 @@ public:
         IMedicalRecordRepository* medicalRecordRepo,
         IRoomExaminationRepository* roomRepo);
 
+private:
+    void updateRoom(const std::string& recordId,
+        const std::string& roomId);
+
 public:
-    MedicalRecord* createMedicalRecord(Patient* patient);
+    std::unique_ptr<HealthInsurance> createInsurace(
+        const std::string& id, const Date& startDate,
+        const Date& endDate, double percent);
     Patient* createPatient(const std::string& id,
         const std::string& name, const std::string& gender,
         const std::string& address, const std::string& phone,
-        const Date& dob, const std::vector<std::string>& symptoms);
-    std::unique_ptr<HealthInsurance> createInsurace(const std::string& id,
-        const Date& startDate, const Date& endDate, double percent);
-    void assignInsurance(Patient* patient,
-        std::unique_ptr<HealthInsurance> insurance);
-    void assignRoom(const std::string& roomId, MedicalRecord* record);
+        const Date& dob, const std::vector<std::string>& symptoms,
+        std::unique_ptr<HealthInsurance> insurance = nullptr);
+    MedicalRecord* createMedicalRecord(
+        Patient* patient, const std::string& roomId);
 };
 
 #endif // !REGISTRATION_SERVICE_H

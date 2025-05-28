@@ -19,20 +19,17 @@ private:
     Ui::PatientRecordView* _ui;
 
 public:
-    explicit PatientRecordView(const QString& styleSheet = "",
-        Role role = Role::Add, QWidget* parent = nullptr);
+    explicit PatientRecordView(Role role = Role::Add,
+        QWidget* parent = nullptr);
     ~PatientRecordView();
 
 private:
-    void setup(const QString& styleSheet, Role role);
     void setConnections();
     void setInsuranceFieldsEnabled(bool enable);
 
 public:
     std::unique_ptr<Patient> getPatient() const;
     void setPatient(const Patient* patient);
-    void setAcceptButtonText(const QString& text);
-    void disableNotEditableFields();
 };
 
 #endif // !PATIENT_RECORD_VIEW_H

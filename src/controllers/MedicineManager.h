@@ -1,5 +1,5 @@
-#ifndef MEDICINEMANAGER_H
-#define MEDICINEMANAGER_H
+#ifndef MEDICINE_MANAGER_H
+#define MEDICINE_MANAGER_H
 
 #include "../interfaces/IManager.h"
 #include "../interfaces/IMedicineRepository.h"
@@ -21,5 +21,4 @@ public:
     std::vector<const Medicine*> getAll() const override;
 };
 
-
-#endif // !MEDICINEMANAGER_H
+#endif // !MEDICINE_MANAGER_H

@@ -21,7 +21,6 @@ enum class View {
     Room,
     Paraclinical,
     Receipt,
-    Medicine
 };
 
 namespace Ui {
@@ -50,7 +49,6 @@ public:
     ~HomeView();
 
 private:
-    void setup();
     void setConnections();
     QString themeStyleSheet(const QString& theme = "light");
     void switchToLogin(bool yes);

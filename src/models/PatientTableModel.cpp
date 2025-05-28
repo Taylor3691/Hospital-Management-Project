@@ -1,28 +1,24 @@
 #include "PatientTableModel.h"
 
 PatientTableModel::PatientTableModel(QObject* parent)
-    : QAbstractTableModel(parent)
-    , _headers(
+    : TableModel(
         {
-            "ID",
+            "Mã bệnh nhân",
             "Họ Tên",
             "Giới tính",
             "Địa chỉ",
             "Điện thoại",
             "Ngày sinh",
             "Bảo hiểm y tế",
-        })
+        },
+        parent)
 {
-    auto data = ServiceLocator::getInstance()->patientManager()->getAll();
+    auto data = ServiceLocator::getInstance()->patientRepository()->data();
     _cachedData = QVector<const Patient*>(data.begin(), data.end());
 }
 
 int PatientTableModel::rowCount(const QModelIndex&) const {
     return _cachedData.size();
-}
-
-int PatientTableModel::columnCount(const QModelIndex&) const {
-    return _headers.size();
 }
 
 QVariant PatientTableModel::data(const QModelIndex& index, int role) const {
@@ -61,29 +57,6 @@ QVariant PatientTableModel::data(const QModelIndex& index, int role) const {
     }
 }
 
-QVariant PatientTableModel::headerData(
-    int section, Qt::Orientation orientation, int role
-) const {
-    if (role == Qt::TextAlignmentRole && orientation == Qt::Vertical) {
-        return int(Qt::AlignRight | Qt::AlignVCenter);
-    }
-
-    if (role != Qt::DisplayRole) {
-        return {};
-    }
-
-    if (orientation == Qt::Horizontal) {
-        if (section >= 0 && section < _headers.size()) {
-            return _headers[section];
-        }
-        return {};
-    }
-    else if (orientation == Qt::Vertical) {
-        return section + 1;
-    }
-    return {};
-}
-
 void PatientTableModel::add(std::unique_ptr<Patient> patient) {
     ServiceLocator::getInstance()->patientManager()->add(std::move(patient));
     refresh();
@@ -108,7 +81,7 @@ void PatientTableModel::find(const std::vector<RFilter<Patient>>& filters) {
 
 void PatientTableModel::refresh() {
     beginResetModel();
-    auto data = ServiceLocator::getInstance()->patientManager()->getAll();
+    auto data = ServiceLocator::getInstance()->patientRepository()->data();
     _cachedData = QVector<const Patient*>(data.begin(), data.end());
     endResetModel();
 }

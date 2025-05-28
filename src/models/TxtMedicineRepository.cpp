@@ -1,15 +1,16 @@
 #include "TxtMedicineRepository.h"
 
 TxtMedicineRepository::TxtMedicineRepository()
-    : _filePath("medicines.txt")
-    , _delim('|')
+    : _filePath("medicines.txt"), _delim('|')
 {
     load();
 }
 
-TxtMedicineRepository::TxtMedicineRepository(const std::string& filename, char delim)
-    : _filePath(filename)
-    , _delim(delim)
+TxtMedicineRepository::TxtMedicineRepository(
+    const std::string& filePath,
+    char delim
+)
+    : _filePath(filePath), _delim(delim)
 {
     load();
 }
@@ -22,8 +23,8 @@ char TxtMedicineRepository::delim() const {
     return _delim;
 }
 
-void TxtMedicineRepository::setFilePath(const std::string& filename) {
-    _filePath = filename;
+void TxtMedicineRepository::setFilePath(const std::string& filePath) {
+    _filePath = filePath;
 }
 
 void TxtMedicineRepository::setDelim(char delim) {

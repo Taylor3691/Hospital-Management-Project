@@ -1,4 +1,4 @@
-#ifndef SERVICE_LOCATOR_H
+﻿#ifndef SERVICE_LOCATOR_H
 #define SERVICE_LOCATOR_H
 
 #include "Config.h"

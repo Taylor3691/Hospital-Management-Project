@@ -1,5 +1,4 @@
 #include "ExaminationService.h"
-#include <exception>
 
 ExaminationService::ExaminationService(
     IMedicalRecordRepository* records,
@@ -8,7 +7,13 @@ ExaminationService::ExaminationService(
     ITestServiceRepository* tests,
     IEmployeeRepository* employees,
     IPatientRepository* patients
-): _records(records), _medicines(medicines), _rooms(rooms), _tests(tests), _employees(employees), _patients(patients){}
+)
+    : _records(records)
+    , _medicines(medicines)
+    , _rooms(rooms)
+    , _tests(tests)
+    , _employees(employees)
+    , _patients(patients) {}
 
 std::vector<std::unique_ptr<MedicalRecord>> ExaminationService::getAllRecord() {
     std::vector<std::unique_ptr<MedicalRecord>> result;
@@ -31,7 +36,7 @@ std::vector<std::unique_ptr<Doctor>> ExaminationService::getAllDoctor() {
     criteria.value = role;
     Getter<Employee> getter = [](auto& e) {
         return std::string(typeid(e).name());
-     };
+    };
 
     auto doctors = from(employees).where(getter, criteria.value, criteria.op).find();
     for (auto doctor : doctors) {

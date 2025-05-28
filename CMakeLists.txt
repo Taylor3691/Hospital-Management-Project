@@ -27,7 +27,10 @@ add_executable(${TARGET_NAME}
     packages/qdarkstyle/style.qrc
     src/controllers/DepartmentManager.cpp
     src/controllers/EmployeeManager.cpp
+    src/controllers/ExaminationService.cpp
+    src/controllers/MedicineManager.cpp
     src/controllers/PatientManager.cpp
+    src/controllers/TestProcessingService.cpp
     src/models/BillableComponent.cpp
     src/models/ClinicalTest.cpp
     src/models/CompletedState.cpp
@@ -38,11 +41,11 @@ add_executable(${TARGET_NAME}
     src/models/EmployeeTableModel.cpp
     src/models/ExaminingState.cpp
     src/models/HealthInsurance.cpp
-    src/models/Hospital.cpp
     src/models/InsurancePayment.cpp
     src/models/MedicalRecord.cpp
     src/models/MedicalRecordListModel.cpp
     src/models/Medicine.cpp
+    src/models/MedicineTableModel.cpp
     src/models/MedicineUsage.cpp
     src/models/NormalPayment.cpp
     src/models/Nurse.cpp
@@ -53,9 +56,12 @@ add_executable(${TARGET_NAME}
     src/models/Person.cpp
     src/models/Receipt.cpp
     src/models/Receptionist.cpp
-    src/models/RegisteredState.cpp
+    src/models/RegistrationService.cpp
     src/models/RoomExamination.cpp
+    src/models/SelectableTableModel.cpp
+    src/models/TableModel.cpp
     src/models/TestService.cpp
+    src/models/TestServiceTableModel.cpp
     src/models/TxtClinicalTestParser.cpp
     src/models/TxtDepartmentParser.cpp
     src/models/TxtDepartmentRepository.cpp
@@ -87,13 +93,15 @@ add_executable(${TARGET_NAME}
     src/views/HomeView.cpp
     src/views/LoginView.cpp
     src/views/ManagementView.cpp
-    src/views/MedicinePrecribingView.cpp
+    src/views/MedicineManagementView.cpp
+    src/views/MedicinePrescribingView.cpp
     src/views/ParaclinicalView.cpp
     src/views/PatientFilteringView.cpp
     src/views/PatientRecordView.cpp
     src/views/ReceiptView.cpp
     src/views/RegisterView.cpp
     src/views/RoomView.cpp
+    src/views/SelectingView.cpp
     src/views/DepartmentFilteringView.ui
     src/views/DepartmentRecordView.ui
     src/views/EmployeeFilteringView.ui
@@ -101,13 +109,15 @@ add_executable(${TARGET_NAME}
     src/views/HomeView.ui
     src/views/LoginView.ui
     src/views/ManagementView.ui
-    src/views/MedicinePrecribingView.ui
+    src/views/MedicineManagementView.ui
+    src/views/MedicinePrescribingView.ui
     src/views/ParaclinicalView.ui
     src/views/PatientFilteringView.ui
     src/views/PatientRecordView.ui
     src/views/ReceiptView.ui
     src/views/RegisterView.ui
     src/views/RoomView.ui
+    src/views/SelectingView.ui
     src/main.cpp
     src/App.cpp
     src/Config.cpp
@@ -117,8 +127,10 @@ add_executable(${TARGET_NAME}
 target_sources(${TARGET_NAME} PRIVATE
     src/controllers/DepartmentManager.h
     src/controllers/EmployeeManager.h
+    src/controllers/ExaminationService.h
     src/controllers/MedicineManager.h
     src/controllers/PatientManager.h
+    src/controllers/TestProcessingService.h
     src/interfaces/IDepartmentRepository.h
     src/interfaces/IEmployeeRepository.h
     src/interfaces/IManager.h
@@ -147,13 +159,13 @@ target_sources(${TARGET_NAME} PRIVATE
     src/models/ExaminationState.h
     src/models/ExaminingState.h
     src/models/HealthInsurance.h
-    src/models/Hospital.h
     src/models/InsurancePayment.h
     src/models/MedicalRecord.h
     src/models/MedicalRecordListModel.h
     src/models/MedicalRecordParser.h
     src/models/Medicine.h
     src/models/MedicineParser.h
+    src/models/MedicineTableModel.h
     src/models/MedicineUsage.h
     src/models/MedicineUsageParser.h
     src/models/NormalPayment.h
@@ -168,12 +180,14 @@ target_sources(${TARGET_NAME} PRIVATE
     src/models/Receipt.h
     src/models/Receptionist.h
     src/models/ReceptionistParser.h
-    src/models/RegisteredState.h
     src/models/RegistrationService.h
     src/models/RoomExamination.h
     src/models/RoomExaminationParser.h
+    src/models/SelectableTableModel.h
+    src/models/TableModel.h
     src/models/TestService.h
     src/models/TestServiceParser.h
+    src/models/TestServiceTableModel.h
     src/models/TxtClinicalTestParser.h
     src/models/TxtDepartmentParser.h
     src/models/TxtDepartmentRepository.h
@@ -209,18 +223,21 @@ target_sources(${TARGET_NAME} PRIVATE
     src/views/HomeView.h
     src/views/LoginView.h
     src/views/ManagementView.h
-    src/views/MedicinePrecribingView.h
+    src/views/MedicineManagementView.h
+    src/views/MedicinePrescribingView.h
     src/views/ParaclinicalView.h
     src/views/PatientFilteringView.h
     src/views/PatientRecordView.h
     src/views/ReceiptView.h
     src/views/RegisterView.h
     src/views/RoomView.h
+    src/views/SelectingView.h
     src/App.h
     src/Config.h
     src/ServiceLocator.h
 )
 
-target_include_directories(${TARGET_NAME} PRIVATE "${CMAKE_CURRENT_BINARY_DIR}/${TARGET_NAME}_autogen/include_$<CONFIG>")
+target_include_directories(${TARGET_NAME} PRIVATE
+    "${CMAKE_CURRENT_BINARY_DIR}/${TARGET_NAME}_autogen/include_$<CONFIG>")
 
 target_link_libraries(${TARGET_NAME} Qt5::Core Qt5::Gui Qt5::Widgets)

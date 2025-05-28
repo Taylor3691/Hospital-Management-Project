@@ -3,21 +3,18 @@
 LoginView::LoginView(QWidget* parent) 
     : QWidget(parent), _ui(new Ui::LoginView) 
 {
-    setup();
+    _ui->setupUi(this);
+    _ui->loginFailed_label->setText("");
+    // Just for development
+    _ui->username_lineEdit->setText("admin");
+    _ui->password_lineEdit->setText("password");
+
+    setStyleSheet("");
     setConnections();
 }
 
 LoginView::~LoginView() {
     delete _ui;
-}
-
-void LoginView::setup() {
-    _ui->setupUi(this);
-    _ui->loginFailed_label->setText("");
-
-    // Just for development
-    _ui->username_lineEdit->setText("admin");
-    _ui->password_lineEdit->setText("password");
 }
 
 void LoginView::setConnections() {

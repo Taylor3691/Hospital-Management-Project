@@ -1,28 +1,12 @@
 #include "EmployeeRecordView.h"
 
-EmployeeRecordView::EmployeeRecordView(
-    const QString& styleSheet,
-    Role role,
-    QWidget* parent
-)
+EmployeeRecordView::EmployeeRecordView(Role role, QWidget* parent)
     : QDialog(parent)
     , _ui(new Ui::EmployeeRecordView)
 {
-    setup(styleSheet, role);
-    setConnections();
-}
-
-EmployeeRecordView::~EmployeeRecordView() {
-    delete _ui;
-}
-
-void EmployeeRecordView::setup(const QString& styleSheet, Role role) {
     _ui->setupUi(this);
 
-    setWindowFlags(windowFlags() | Qt::Sheet);
-    setStyleSheet(styleSheet);
-
-    _ui->buttonBox->button(QDialogButtonBox::StandardButton::Cancel)->setText("Hủy");
+    _ui->buttonBox->button(QDialogButtonBox::Cancel)->setText("Hủy");
 
     _ui->id_label->setEnabled(0);
     _ui->id_lineEdit->setEnabled(0);
@@ -35,22 +19,29 @@ void EmployeeRecordView::setup(const QString& styleSheet, Role role) {
 
     if (role == Role::Add) {
         setWindowTitle("Thêm nhân viên");
-        setAcceptButtonText("Thêm");
+        _ui->buttonBox->button(QDialogButtonBox::Ok)->setText("Thêm");
         createNewIds();
         auto index = _ui->role_comboBox->currentIndex();
         _ui->id_lineEdit->setText(_newIds[index]);
     }
     else if (role == Role::Update) {
         setWindowTitle("Cập nhật thông tin");
-        setAcceptButtonText("Lưu");
+        _ui->buttonBox->button(QDialogButtonBox::Ok)->setText("Lưu");
         _ui->role_label->setEnabled(0);
         _ui->role_comboBox->setEnabled(0);
     }
+
+    setStyleSheet("");
+    setConnections();
+}
+
+EmployeeRecordView::~EmployeeRecordView() {
+    delete _ui;
 }
 
 void EmployeeRecordView::setConnections() {
-    connect(_ui->role_comboBox, QOverload<int>::of(&QComboBox::currentIndexChanged), this,
-        [this](int index) {
+    connect(_ui->role_comboBox, QOverload<int>::of(&QComboBox::currentIndexChanged),
+        this, [this](int index) {
             _ui->id_lineEdit->setText(_newIds[index]);
 
             auto isDoctor = (EmployeeType)index == EmployeeType::Doctor;
@@ -73,7 +64,7 @@ void EmployeeRecordView::setConnections() {
 }
 
 void EmployeeRecordView::createNewIds() {
-    auto data = ServiceLocator::getInstance()->employeeManager()->getAll();
+    auto data = ServiceLocator::getInstance()->employeeRepository()->data();
     std::vector<const Object*> objectData(data.begin(), data.end());
     _newIds.push_back(QString::fromStdString(createId(objectData, getFormat<Doctor>())));
     _newIds.push_back(QString::fromStdString(createId(objectData, getFormat<Nurse>())));
@@ -163,8 +154,4 @@ void EmployeeRecordView::setEmployee(const Employee* employee) {
         _ui->subsidies_doubleSpinBox->setValue(receptionist->subsidies());
         _ui->workingDays_spinBox->setValue(receptionist->workingDays());
     }
-}
-
-void EmployeeRecordView::setAcceptButtonText(const QString& text) {
-    _ui->buttonBox->button(QDialogButtonBox::StandardButton::Ok)->setText(text);
 }

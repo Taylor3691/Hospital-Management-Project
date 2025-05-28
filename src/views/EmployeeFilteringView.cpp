@@ -1,10 +1,16 @@
 #include "EmployeeFilteringView.h"
 
-EmployeeFilteringView::EmployeeFilteringView(const QString& styleSheet, QWidget* parent)
+EmployeeFilteringView::EmployeeFilteringView(QWidget* parent)
     : QDialog(parent)
     , _ui(new Ui::EmployeeFilteringView)
 {
-    setup(styleSheet);
+    _ui->setupUi(this);
+    _ui->buttonBox->button(QDialogButtonBox::Ok)->setText("Lọc");
+    _ui->buttonBox->button(QDialogButtonBox::Cancel)->setText("Hủy");
+    _ui->buttonBox->button(QDialogButtonBox::Reset)->setText("Đặt lại");
+
+    setWindowTitle("Lọc nhân viên");
+    setStyleSheet("");
     setConnections();
 }
 
@@ -12,20 +18,8 @@ EmployeeFilteringView::~EmployeeFilteringView() {
     delete _ui;
 }
 
-void EmployeeFilteringView::setup(const QString& styleSheet) {
-    _ui->setupUi(this);
-
-    setWindowFlags(windowFlags() | Qt::Sheet);
-    setStyleSheet(styleSheet);
-    setWindowTitle("Lọc nhân viên");
-
-    _ui->buttonBox->button(QDialogButtonBox::StandardButton::Ok)->setText("Lọc");
-    _ui->buttonBox->button(QDialogButtonBox::StandardButton::Cancel)->setText("Hủy");
-    _ui->buttonBox->button(QDialogButtonBox::StandardButton::Reset)->setText("Đặt lại");
-}
-
 void EmployeeFilteringView::setConnections() {
-    connect(_ui->buttonBox->button(QDialogButtonBox::StandardButton::Reset), &QPushButton::clicked, this,
+    connect(_ui->buttonBox->button(QDialogButtonBox::Reset), &QPushButton::clicked, this,
         [this](bool) {
             _ui->id_lineEdit->setText("");
             _ui->name_lineEdit->setText("");

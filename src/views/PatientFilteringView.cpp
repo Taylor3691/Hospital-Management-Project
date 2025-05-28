@@ -1,10 +1,16 @@
 #include "PatientFilteringView.h"
 
-PatientFilteringView::PatientFilteringView(const QString& styleSheet, QWidget* parent)
+PatientFilteringView::PatientFilteringView(QWidget* parent)
     : QDialog(parent)
     , _ui(new Ui::PatientFilteringView)
 {
-    setup(styleSheet);
+    _ui->setupUi(this);
+    _ui->buttonBox->button(QDialogButtonBox::Ok)->setText("Lọc");
+    _ui->buttonBox->button(QDialogButtonBox::Cancel)->setText("Hủy");
+    _ui->buttonBox->button(QDialogButtonBox::Reset)->setText("Đặt lại");
+
+    setWindowTitle("Lọc bệnh nhân");
+    setStyleSheet("");
     setConnections();
 }
 
@@ -12,20 +18,8 @@ PatientFilteringView::~PatientFilteringView() {
     delete _ui;
 }
 
-void PatientFilteringView::setup(const QString& styleSheet) {
-    _ui->setupUi(this);
-
-    setWindowFlags(windowFlags() | Qt::Sheet);
-    setStyleSheet(styleSheet);
-    setWindowTitle("Lọc bệnh nhân");
-
-    _ui->buttonBox->button(QDialogButtonBox::StandardButton::Ok)->setText("Lọc");
-    _ui->buttonBox->button(QDialogButtonBox::StandardButton::Cancel)->setText("Hủy");
-    _ui->buttonBox->button(QDialogButtonBox::StandardButton::Reset)->setText("Đặt lại");
-}
-
 void PatientFilteringView::setConnections() {
-    connect(_ui->buttonBox->button(QDialogButtonBox::StandardButton::Reset), &QPushButton::clicked, this,
+    connect(_ui->buttonBox->button(QDialogButtonBox::Reset), &QPushButton::clicked, this,
         [this](bool) {
             _ui->id_lineEdit->setText("");
             _ui->name_lineEdit->setText("");

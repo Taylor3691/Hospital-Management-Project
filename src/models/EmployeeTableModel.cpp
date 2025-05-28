@@ -1,10 +1,9 @@
 #include "EmployeeTableModel.h"
 
 EmployeeTableModel::EmployeeTableModel(QObject* parent)
-    : QAbstractTableModel(parent)
-    , _headers(
+    : TableModel(
         {
-            "ID",
+            "Mã nhân viên",
             "Họ Tên",
             "Giới tính",
             "Địa chỉ",
@@ -12,23 +11,20 @@ EmployeeTableModel::EmployeeTableModel(QObject* parent)
             "Ngày sinh",
             "Học vấn",
             "Lương cơ bản",
-            "ID khoa",
+            "Mã khoa",
             "Giấy phép",
             "Trách nhiệm",
             "Phụ cấp",
             "Số ngày làm việc",
-        })
+        },
+        parent)
 {
-    auto data = ServiceLocator::getInstance()->employeeManager()->getAll();
+    auto data = ServiceLocator::getInstance()->employeeRepository()->data();
     _cachedData = QVector<const Employee*>(data.begin(), data.end());
 }
 
 int EmployeeTableModel::rowCount(const QModelIndex&) const {
     return _cachedData.size();
-}
-
-int EmployeeTableModel::columnCount(const QModelIndex&) const {
-    return _headers.size();
 }
 
 QVariant EmployeeTableModel::data(const QModelIndex& index, int role) const {
@@ -90,28 +86,6 @@ QVariant EmployeeTableModel::data(const QModelIndex& index, int role) const {
     }
 }
 
-QVariant EmployeeTableModel::headerData(
-    int section, Qt::Orientation orientation, int role
-) const {
-    if (role == Qt::TextAlignmentRole && orientation == Qt::Vertical) {
-        return int(Qt::AlignRight | Qt::AlignVCenter);
-    }
-
-    if (role != Qt::DisplayRole) {
-        return {};
-    }
-
-    if (orientation == Qt::Horizontal) {
-        if (section >= 0 && section < _headers.size()) {
-            return _headers[section];
-        }
-        return {};
-    } else if (orientation == Qt::Vertical) {
-        return section + 1;
-    }
-    return {};
-}
-
 void EmployeeTableModel::add(std::unique_ptr<Employee> employee) {
     ServiceLocator::getInstance()->employeeManager()->add(std::move(employee));
     refresh();
@@ -136,7 +110,7 @@ void EmployeeTableModel::find(const std::vector<RFilter<Employee>>& filters) {
 
 void EmployeeTableModel::refresh() {
     beginResetModel();
-    auto data = ServiceLocator::getInstance()->employeeManager()->getAll();
+    auto data = ServiceLocator::getInstance()->employeeRepository()->data();
     _cachedData = QVector<const Employee*>(data.begin(), data.end());
     endResetModel();
 }

@@ -12,26 +12,8 @@ HomeView::HomeView(QWidget* parent)
     , _loginStack(new QStackedWidget(this))
     , _mainStack(new QStackedWidget(this))
 {
-    setup();
-    setConnections();
-}
-
-HomeView::~HomeView() {
-    delete _ui;
-}
-
-void HomeView::setup() {
     _ui->setupUi(this);
     
-    _loginView->setStyleSheet("");
-    _managementView->setStyleSheet("");
-    _registerView->setStyleSheet("");
-    _roomView->setStyleSheet("");
-    _paraclinicalView->setStyleSheet("");
-    _receiptView->setStyleSheet("");
-    setStyleSheet("");
-    qApp->setStyleSheet(themeStyleSheet());
-
     _ui->home_action->setEnabled(0);
     _ui->light_action->setEnabled(0);
     _ui->logout_action->setEnabled(0);
@@ -66,6 +48,14 @@ void HomeView::setup() {
     _mainButtonGroup->addButton(_ui->paraclinical_pushButton);
     _mainButtonGroup->addButton(_ui->receipt_pushButton);
     _mainButtonGroup->addButton(_ui->medicine_pushButton);
+    
+    qApp->setStyleSheet(themeStyleSheet());
+    setStyleSheet("");
+    setConnections();
+}
+
+HomeView::~HomeView() {
+    delete _ui;
 }
 
 void HomeView::setConnections() {
@@ -176,6 +166,12 @@ void HomeView::setConnections() {
         [this](bool) {
             switchToView(View::Receipt);
         });
+
+    connect(_ui->medicine_pushButton, &QPushButton::clicked, this,
+        [this](bool) {
+            switchToView(View::Management);
+            _managementView->changeModel(ModelType::Medicine);
+        });
 }
 
 QString HomeView::themeStyleSheet(const QString& theme) {
@@ -213,7 +209,8 @@ void HomeView::clearButtonGroupSelection(QButtonGroup* group) {
 void HomeView::createRoomButtons() {
     auto layout = _ui->room_frame->layout();
     QPushButton* button = nullptr;
-    for (int i = 0; i < ServiceLocator::getInstance()->rooms()->data().size(); ++i) {
+    auto numRooms = ServiceLocator::getInstance()->roomExaminationRepository()->data().size();
+    for (int i = 0; i < numRooms; ++i) {
         button = new QPushButton(_ui->room_frame);
         button->setText(QString("Phòng %1").arg(i + 1));
         button->setSizePolicy(

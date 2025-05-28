@@ -20,11 +20,10 @@ private:
     Ui::EmployeeFilteringView* _ui;
 
 public:
-    explicit EmployeeFilteringView(const QString& styleSheet = "", QWidget* parent = nullptr);
+    explicit EmployeeFilteringView(QWidget* parent = nullptr);
     ~EmployeeFilteringView();
 
 private:
-    void setup(const QString& styleSheet);
     void setConnections();
 
 public:

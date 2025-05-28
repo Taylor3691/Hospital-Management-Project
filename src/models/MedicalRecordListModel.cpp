@@ -1,19 +1,10 @@
 #include "MedicalRecordListModel.h"
 
 MedicalRecordListModel::MedicalRecordListModel(QObject* parent)
-    : QAbstractListModel(parent)
-    , _items(
-        {
-            // Mock data
-            "Id hồ sơ 1",
-            "Id hồ sơ 2",
-            "Id hồ sơ 3",
-            "Id hồ sơ 4",
-        }) {
-}
+    : QAbstractListModel(parent) {}
 
 int MedicalRecordListModel::rowCount(const QModelIndex& parent) const {
-    return _items.size();
+    return _recordIds.size();
 }
 
 QVariant MedicalRecordListModel::data(
@@ -25,8 +16,32 @@ QVariant MedicalRecordListModel::data(
     }
 
     if (role == Qt::DisplayRole) {
-        return _items[index.row()];
+        return _recordIds[index.row()];
     }
 
     return {};
+}
+
+void MedicalRecordListModel::refresh() {
+    beginResetModel();
+    _recordIds.clear();
+    auto repo = ServiceLocator::getInstance()->medicalRecordRepository();
+    for (const auto& record : repo->data()) {
+        _recordIds.push_back(QString::fromStdString(record->id()));
+    }
+    endResetModel();
+}
+
+void MedicalRecordListModel::changeFilter(const std::string& roomId) {
+    beginResetModel();
+    auto data = ServiceLocator::getInstance()
+        ->medicalRecordRepository()->data();
+    auto results = from(data)
+        .where(&MedicalRecord::roomId, roomId)
+        .find();
+    _recordIds.clear();
+    for (const auto& record : results) {
+        _recordIds.push_back(QString::fromStdString(record->id()));
+    }
+    endResetModel();
 }

@@ -6,7 +6,7 @@
 #include "BillableComponent.h"
 #include "MedicineUsage.h"
 #include "ClinicalTest.h"
-#include "RegisteredState.h"
+#include "WaitingState.h"
 #include "CompletedState.h"
 #include "../interfaces/IWritingVisitor.h"
 #include "../utils/Date.h"

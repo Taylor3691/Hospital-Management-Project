@@ -20,8 +20,6 @@ ServiceLocator::ServiceLocator() {
     _medicineManager = std::make_unique<MedicineManager>(_medicines.get());
 }
 
-
-
 ServiceLocator* ServiceLocator::getInstance() {
     static std::unique_ptr<ServiceLocator> instance(new ServiceLocator());
     return instance.get();

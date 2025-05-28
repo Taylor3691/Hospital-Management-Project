@@ -67,9 +67,6 @@ Object* TxtMedicalRecordParser::parse(const std::string& str) const {
     else if (buffer == "ExaminingState") {
         record->changeState(std::make_unique<ExaminingState>());
     }
-    else if (buffer == "RegisteredState") {
-        record->changeState(std::make_unique<RegisteredState>());
-    }
     else if ("CompletedState") {
         record->changeState(std::make_unique<CompletedState>());
     }

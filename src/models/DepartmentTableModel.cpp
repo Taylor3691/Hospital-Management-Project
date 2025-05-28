@@ -1,26 +1,22 @@
 #include "DepartmentTableModel.h"
 
 DepartmentTableModel::DepartmentTableModel(QObject* parent)
-    : QAbstractTableModel(parent)
-    , _headers(
+    : TableModel(
         {
-            "ID",
+            "Mã khoa",
             "Tên khoa",
             "Ngày thành lập",
             "Mô tả",
-            "ID trưởng khoa",
-        })
+            "Mã trưởng khoa",
+        },
+        parent)
 {
-    auto data = ServiceLocator::getInstance()->departmentManager()->getAll();
+    auto data = ServiceLocator::getInstance()->departmentRepository()->data();
     _cachedData = QVector<const Department*>(data.begin(), data.end());
 }
 
 int DepartmentTableModel::rowCount(const QModelIndex&) const {
     return _cachedData.size();
-}
-
-int DepartmentTableModel::columnCount(const QModelIndex&) const {
-    return _headers.size();
 }
 
 QVariant DepartmentTableModel::data(const QModelIndex& index, int role) const {
@@ -54,29 +50,6 @@ QVariant DepartmentTableModel::data(const QModelIndex& index, int role) const {
     }
 }
 
-QVariant DepartmentTableModel::headerData(
-    int section, Qt::Orientation orientation, int role
-) const {
-    if (role == Qt::TextAlignmentRole && orientation == Qt::Vertical) {
-        return int(Qt::AlignRight | Qt::AlignVCenter);
-    }
-
-    if (role != Qt::DisplayRole) {
-        return {};
-    }
-
-    if (orientation == Qt::Horizontal) {
-        if (section >= 0 && section < _headers.size()) {
-            return _headers[section];
-        }
-        return {};
-    }
-    else if (orientation == Qt::Vertical) {
-        return section + 1;
-    }
-    return {};
-}
-
 void DepartmentTableModel::add(std::unique_ptr<Department> department) {
     ServiceLocator::getInstance()->departmentManager()->add(std::move(department));
     refresh();
@@ -101,7 +74,7 @@ void DepartmentTableModel::find(const std::vector<RFilter<Department>>& filters)
 
 void DepartmentTableModel::refresh() {
     beginResetModel();
-    auto data = ServiceLocator::getInstance()->departmentManager()->getAll();
+    auto data = ServiceLocator::getInstance()->departmentRepository()->data();
     _cachedData = QVector<const Department*>(data.begin(), data.end());
     endResetModel();
 }

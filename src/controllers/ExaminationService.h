@@ -1,5 +1,5 @@
-#ifndef EXAMINATIONSERVICE_H
-#define EXAMINATIONSERVICE_H
+#ifndef EXAMINATION_SERVICE_H
+#define EXAMINATION_SERVICE_H
 
 #include "../utils/QueryBuilder.h"
 #include "../models/TxtMedicalRecordRepository.h"
@@ -12,7 +12,6 @@
 #include "../utils/Date.h"
 #include "../utils/Time.h"
 
-
 class ExaminationService {
 private:
     IMedicineRepository* _medicines;
@@ -23,8 +22,9 @@ private:
     IPatientRepository* _patients;
 
 public:
-    ExaminationService(IMedicalRecordRepository* records, IMedicineRepository* medicines, IRoomExaminationRepository* rooms
-    , ITestServiceRepository* tests, IEmployeeRepository* employees, IPatientRepository* patients);
+    ExaminationService(IMedicalRecordRepository* records, IMedicineRepository* medicines,
+        IRoomExaminationRepository* rooms, ITestServiceRepository* tests,
+        IEmployeeRepository* employees, IPatientRepository* patients);
 
 public:
     std::vector<std::unique_ptr<MedicalRecord>> getAllRecord();
@@ -45,5 +45,4 @@ public:
     void updateRecord(std::unique_ptr<MedicalRecord> record);
 };
 
-
-#endif // !EXAMINATIONSERVICE_H
+#endif // !EXAMINATION_SERVICE_H

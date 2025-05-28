@@ -83,10 +83,6 @@ void Time::normalize() {
 }
 
 std::string Time::toString() const {
-    //const int bufferSize = 9;
-    //std::string buffer(bufferSize, 0);
-    //sprintf_s(const_cast<char*>(buffer.c_str()), bufferSize, "%02d:%02d:%02d", _h, _m, _s);
-    //return buffer;
     char buf[9];
     std::snprintf(buf, sizeof(buf), "%02d:%02d:%02d", _h, _m, _s);
     return std::string(buf);

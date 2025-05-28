@@ -18,11 +18,10 @@ private:
     Ui::DepartmentFilteringView* _ui;
 
 public:
-    explicit DepartmentFilteringView(const QString& styleSheet = "", QWidget* parent = nullptr);
+    explicit DepartmentFilteringView(QWidget* parent = nullptr);
     ~DepartmentFilteringView();
 
 private:
-    void setup(const QString& styleSheet);
     void setConnections();
 
 public:
