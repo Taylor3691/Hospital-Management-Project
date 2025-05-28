@@ -5,7 +5,6 @@
 #include "TxtClinicalTestParser.h"
 #include "TxtMedicineUsageParser.h"
 #include "MedicalRecord.h"
-#include "RegisteredState.h"
 #include "ExaminingState.h"
 #include "CompletedState.h"
 #include "WaitingState.h"

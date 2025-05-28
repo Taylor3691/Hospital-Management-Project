@@ -30,6 +30,7 @@ add_executable(${TARGET_NAME}
     src/controllers/ExaminationService.cpp
     src/controllers/MedicineManager.cpp
     src/controllers/PatientManager.cpp
+    src/controllers/TestProcessingService.cpp
     src/models/BillableComponent.cpp
     src/models/ClinicalTest.cpp
     src/models/CompletedState.cpp
@@ -55,7 +56,6 @@ add_executable(${TARGET_NAME}
     src/models/Person.cpp
     src/models/Receipt.cpp
     src/models/Receptionist.cpp
-    src/models/RegisteredState.cpp
     src/models/RegistrationService.cpp
     src/models/RoomExamination.cpp
     src/models/SelectableTableModel.cpp
@@ -130,6 +130,7 @@ target_sources(${TARGET_NAME} PRIVATE
     src/controllers/ExaminationService.h
     src/controllers/MedicineManager.h
     src/controllers/PatientManager.h
+    src/controllers/TestProcessingService.h
     src/interfaces/IDepartmentRepository.h
     src/interfaces/IEmployeeRepository.h
     src/interfaces/IManager.h
@@ -179,7 +180,6 @@ target_sources(${TARGET_NAME} PRIVATE
     src/models/Receipt.h
     src/models/Receptionist.h
     src/models/ReceptionistParser.h
-    src/models/RegisteredState.h
     src/models/RegistrationService.h
     src/models/RoomExamination.h
     src/models/RoomExaminationParser.h
