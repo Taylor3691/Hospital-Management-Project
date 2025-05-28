@@ -99,10 +99,22 @@ void MedicalRecord::setDiagnosisResult(const std::string& result) {
 }
 
 void MedicalRecord::prescribeMedicine(std::unique_ptr<MedicineUsage> medicine) {
+    for (auto& ptr : _prescribedMedicines) {
+        if (ptr.get()->id() == medicine.get()->id()) {
+            ptr = std::move(medicine);
+            return;
+        }
+    }
     _prescribedMedicines.push_back(std::move(medicine));
 }
 
 void MedicalRecord::orderClinicalTest(std::unique_ptr<ClinicalTest> test) {
+    for (auto& ptr : _clinicalTests) {
+        if (ptr.get()->id() == test.get()->id()) {
+            ptr = std::move(test);
+            return;
+        }
+    }
     _clinicalTests.push_back(std::move(test));
 }
 
