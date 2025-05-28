@@ -58,8 +58,10 @@ add_executable(${TARGET_NAME}
     src/models/RegisteredState.cpp
     src/models/RegistrationService.cpp
     src/models/RoomExamination.cpp
+    src/models/SelectableTableModel.cpp
     src/models/TableModel.cpp
     src/models/TestService.cpp
+    src/models/TestServiceTableModel.cpp
     src/models/TxtClinicalTestParser.cpp
     src/models/TxtDepartmentParser.cpp
     src/models/TxtDepartmentRepository.cpp
@@ -92,13 +94,14 @@ add_executable(${TARGET_NAME}
     src/views/LoginView.cpp
     src/views/ManagementView.cpp
     src/views/MedicineManagementView.cpp
-    src/views/MedicinePrecribingView.cpp
+    src/views/MedicinePrescribingView.cpp
     src/views/ParaclinicalView.cpp
     src/views/PatientFilteringView.cpp
     src/views/PatientRecordView.cpp
     src/views/ReceiptView.cpp
     src/views/RegisterView.cpp
     src/views/RoomView.cpp
+    src/views/SelectingView.cpp
     src/views/DepartmentFilteringView.ui
     src/views/DepartmentRecordView.ui
     src/views/EmployeeFilteringView.ui
@@ -107,13 +110,14 @@ add_executable(${TARGET_NAME}
     src/views/LoginView.ui
     src/views/ManagementView.ui
     src/views/MedicineManagementView.ui
-    src/views/MedicinePrecribingView.ui
+    src/views/MedicinePrescribingView.ui
     src/views/ParaclinicalView.ui
     src/views/PatientFilteringView.ui
     src/views/PatientRecordView.ui
     src/views/ReceiptView.ui
     src/views/RegisterView.ui
     src/views/RoomView.ui
+    src/views/SelectingView.ui
     src/main.cpp
     src/App.cpp
     src/Config.cpp
@@ -179,9 +183,11 @@ target_sources(${TARGET_NAME} PRIVATE
     src/models/RegistrationService.h
     src/models/RoomExamination.h
     src/models/RoomExaminationParser.h
+    src/models/SelectableTableModel.h
     src/models/TableModel.h
     src/models/TestService.h
     src/models/TestServiceParser.h
+    src/models/TestServiceTableModel.h
     src/models/TxtClinicalTestParser.h
     src/models/TxtDepartmentParser.h
     src/models/TxtDepartmentRepository.h
@@ -218,13 +224,14 @@ target_sources(${TARGET_NAME} PRIVATE
     src/views/LoginView.h
     src/views/ManagementView.h
     src/views/MedicineManagementView.h
-    src/views/MedicinePrecribingView.h
+    src/views/MedicinePrescribingView.h
     src/views/ParaclinicalView.h
     src/views/PatientFilteringView.h
     src/views/PatientRecordView.h
     src/views/ReceiptView.h
     src/views/RegisterView.h
     src/views/RoomView.h
+    src/views/SelectingView.h
     src/App.h
     src/Config.h
     src/ServiceLocator.h

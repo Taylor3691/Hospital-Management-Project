@@ -1,37 +1,34 @@
 #include "RoomView.h"
+#include "SelectingView.h"
 
 RoomView::RoomView(QWidget* parent)
     : QWidget(parent)
     , _ui(new Ui::RoomView)
 {
-    setup();
+    _ui->setupUi(this);
+
+    _ui->record_listView->setModel(new MedicalRecordListModel(this));
+
+    _ui->buttonBox->button(QDialogButtonBox::Ok)->setText("Kết thúc khám");
+    _ui->buttonBox->button(QDialogButtonBox::Ok)
+        ->setStyleSheet("padding-left: 10px; padding-right: 10px;");
+
+    _ui->prescribedDate_dateEdit->setDate(QDate::currentDate());
+
+    _ui->specifiedTests_tableView
+        ->setModel(new TestServiceTableModel(Role::Display, this));
+    _ui->specifiedTests_tableView->horizontalHeader()
+        ->setSectionResizeMode(QHeaderView::ResizeToContents);
+    _ui->specifiedTests_tableView->verticalHeader()
+        ->setStyleSheet("QHeaderView::section { padding-right: 10px; }");
+
+    setStyleSheet("");
     setConnections();
+    createCompleter();
 }
 
 RoomView::~RoomView() {
     delete _ui;
-}
-
-void RoomView::setup() {
-    _ui->setupUi(this);
-    _ui->record_listView->setModel(new MedicalRecordListModel(this));
-    _ui->buttonBox->button(QDialogButtonBox::Ok)->setText("Kết thúc khám");
-    _ui->buttonBox->button(QDialogButtonBox::Ok)->setStyleSheet(
-        "padding-left: 10px; padding-right: 10px;");
-    _ui->precribedDate_dateEdit->setDate(QDate::currentDate());
-
-    createCompleter();
-
-    /*auto& comboBox = _ui->quickSpecify_comboBox;
-    auto tableView = new QTableView(comboBox);
-    auto model = new PatientTableModel(this);
-    tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
-    tableView->setSelectionMode(QAbstractItemView::SingleSelection);
-    tableView->horizontalHeader()->setStretchLastSection(true);
-    tableView->verticalHeader()->hide();
-    tableView->setModel(model);
-    comboBox->setView(tableView);
-    comboBox->setModel(model);*/
 }
 
 void RoomView::setConnections() {
@@ -42,12 +39,29 @@ void RoomView::setConnections() {
 
     connect(_ui->doctorName_lineEdit, &QLineEdit::textChanged, this,
         [this](const QString& text) {
-            _ui->precribingDoctorName_lineEdit->setText(text);
+            _ui->prescribingDoctorName_lineEdit->setText(text);
         });
 
-    connect(_ui->quickPrecribe_pushButton, &QPushButton::clicked, this,
+    connect(_ui->quickSpecify_pushButton, &QPushButton::clicked, this,
         [this](bool) {
-            MedicinePrecribingView view(qApp->styleSheet());
+            TestServiceTableModel model;
+            SelectingView view;
+            view.setModel(&model);
+
+            connect(&model, &QAbstractTableModel::dataChanged,
+                static_cast<TableModel*>(_ui->specifiedTests_tableView->model()),
+                &TableModel::refresh);
+
+            connect(&model, &QAbstractTableModel::modelReset,
+                static_cast<TableModel*>(_ui->specifiedTests_tableView->model()),
+                &TableModel::refresh);
+
+            view.exec();
+        });
+
+    connect(_ui->quickPrescribe_pushButton, &QPushButton::clicked, this,
+        [this](bool) {
+            MedicinePrescribingView view;
             QString title = "Xác nhận thêm thuốc";
             QString msg = "Bạn có chắc chắn muốn thêm thuốc?";
             if (view.exec() == QDialog::DialogCode::Accepted && confirm(title, msg)) {

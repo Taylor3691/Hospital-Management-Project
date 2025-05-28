@@ -8,12 +8,9 @@
 #include "../models/MedicalRecordListModel.h"
 #include "../models/Doctor.h"
 #include "../utils/Date.h"
-#include "MedicinePrecribingView.h"
+#include "MedicinePrescribingView.h"
 #include "../utils/utils.h"
-
-//#include <QComboBox>
-//#include <QTableView>
-//#include "../models/PatientTableModel.h"
+#include "../models/TestServiceTableModel.h"
 
 namespace Ui {
     class RoomView;
@@ -30,7 +27,6 @@ public:
     ~RoomView();
 
 private:
-    void setup();
     void setConnections();
     void createCompleter();
 
