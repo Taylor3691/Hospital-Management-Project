@@ -21,12 +21,9 @@ private:
     Ui::MedicineManagementView* _ui;
 
 public:
-    explicit MedicineManagementView(const QString& styleSheet = "",
-        Role role = Role::Add, QWidget* parent = nullptr);
+    explicit MedicineManagementView(Role role = Role::Add,
+        QWidget* parent = nullptr);
     ~MedicineManagementView();
-
-private:
-    void setup(const QString& styleSheet, Role role);
 
 public:
     std::unique_ptr<Medicine> getMedicine() const;

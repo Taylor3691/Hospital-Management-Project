@@ -1,35 +1,20 @@
 #include "MedicineManagementView.h"
 
-MedicineManagementView::MedicineManagementView(
-    const QString& styleSheet,
-    Role role,
-    QWidget* parent
-)
+MedicineManagementView::MedicineManagementView(Role role, QWidget* parent)
     : QDialog(parent)
     , _ui(new Ui::MedicineManagementView)
 {
-    setup(styleSheet, role);
-}
-
-MedicineManagementView::~MedicineManagementView() {
-    delete _ui;
-}
-
-void MedicineManagementView::setup(const QString& styleSheet, Role role) {
     _ui->setupUi(this);
 
-    setWindowFlags(windowFlags() | Qt::Sheet);
-    setStyleSheet(styleSheet);
-
-    _ui->buttonBox->button(QDialogButtonBox::StandardButton::Cancel)->setText("Hủy");
+    _ui->buttonBox->button(QDialogButtonBox::Cancel)->setText("Hủy");
 
     _ui->id_label->setEnabled(0);
     _ui->id_lineEdit->setEnabled(0);
 
     if (role == Role::Add) {
         setWindowTitle("Thêm thuốc");
-        _ui->buttonBox->button(QDialogButtonBox::StandardButton::Ok)->setText("Thêm");
-        _ui->buttonBox->button(QDialogButtonBox::StandardButton::Reset)->setVisible(0);
+        _ui->buttonBox->button(QDialogButtonBox::Ok)->setText("Thêm");
+        _ui->buttonBox->button(QDialogButtonBox::Reset)->setVisible(0);
         _ui->price_comboBox->setVisible(0);
         _ui->quantity_comboBox->setVisible(0);
 
@@ -40,18 +25,18 @@ void MedicineManagementView::setup(const QString& styleSheet, Role role) {
     }
     else if (role == Role::Update) {
         setWindowTitle("Cập nhật thông tin");
-        _ui->buttonBox->button(QDialogButtonBox::StandardButton::Ok)->setText("Lưu");
-        _ui->buttonBox->button(QDialogButtonBox::StandardButton::Reset)->setVisible(0);
+        _ui->buttonBox->button(QDialogButtonBox::Ok)->setText("Lưu");
+        _ui->buttonBox->button(QDialogButtonBox::Reset)->setVisible(0);
         _ui->price_comboBox->setVisible(0);
         _ui->quantity_comboBox->setVisible(0);
     }
     else if (role == Role::Filter) {
         setWindowTitle("Lọc thuốc");
         resize(450, 450);
-        _ui->buttonBox->button(QDialogButtonBox::StandardButton::Ok)->setText("Lọc");
-        _ui->buttonBox->button(QDialogButtonBox::StandardButton::Reset)->setText("Đặt lại");
+        _ui->buttonBox->button(QDialogButtonBox::Ok)->setText("Lọc");
+        _ui->buttonBox->button(QDialogButtonBox::Reset)->setText("Đặt lại");
 
-        connect(_ui->buttonBox->button(QDialogButtonBox::StandardButton::Reset), &QPushButton::clicked, this,
+        connect(_ui->buttonBox->button(QDialogButtonBox::Reset), &QPushButton::clicked, this,
             [this](bool) {
                 _ui->id_lineEdit->setText("");
                 _ui->name_lineEdit->setText("");
@@ -62,6 +47,12 @@ void MedicineManagementView::setup(const QString& styleSheet, Role role) {
                 _ui->quantity_comboBox->setCurrentIndex(0);
             });
     }
+
+    setStyleSheet("");
+}
+
+MedicineManagementView::~MedicineManagementView() {
+    delete _ui;
 }
 
 std::unique_ptr<Medicine> MedicineManagementView::getMedicine() const {

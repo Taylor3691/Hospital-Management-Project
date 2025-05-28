@@ -8,20 +8,16 @@ RegisterView::RegisterView(QWidget* parent)
         ServiceLocator::getInstance()->medicalRecordRepository(),
         ServiceLocator::getInstance()->roomExaminationRepository()))
 {
-    setup();
+    _ui->setupUi(this);
+    _ui->buttonBox->button(QDialogButtonBox::Ok)->setText("Đăng ký");
+
+    setStyleSheet("");
     setConnections();
+    setupRooms();
 }
 
 RegisterView::~RegisterView() {
     delete _ui;
-}
-
-void RegisterView::setup() {
-    _ui->setupUi(this);
-
-    _ui->buttonBox->button(QDialogButtonBox::Ok)->setText("Đăng ký");
-
-    setupRooms();
 }
 
 void RegisterView::setConnections() {

@@ -39,7 +39,6 @@ public:
     ~ManagementView();
 
 private:
-    void setup();
     void setConnections();
 
 public:

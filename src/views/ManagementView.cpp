@@ -10,22 +10,18 @@ ManagementView::ManagementView(QWidget* parent)
         new MedicineTableModel(this),
     })
 {
-    setup();
+    _ui->setupUi(this);
+    _ui->update_pushButton->setEnabled(0);
+    _ui->delete_pushButton->setEnabled(0);
+    _ui->tableView->verticalHeader()
+        ->setStyleSheet("QHeaderView::section { padding-right: 10px; }");
+
+    setStyleSheet("");
     setConnections();
 }
 
 ManagementView::~ManagementView() {
     delete _ui;
-}
-
-void ManagementView::setup() {
-    _ui->setupUi(this);
-
-    _ui->update_pushButton->setEnabled(0);
-    _ui->delete_pushButton->setEnabled(0);
-
-    _ui->tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
-    _ui->tableView->verticalHeader()->setStyleSheet("QHeaderView::section { padding-right: 10px; }");
 }
 
 void ManagementView::setConnections() {
@@ -34,7 +30,7 @@ void ManagementView::setConnections() {
             auto model = _ui->tableView->model();
             auto modelIndex = (ModelType)_models.indexOf(qobject_cast<QAbstractTableModel*>(model), 0);
             if (modelIndex == ModelType::Employee) {
-                EmployeeRecordView view(qApp->styleSheet());
+                EmployeeRecordView view;
 
                 QString title = "Xác nhận thêm nhân viên";
                 QString msg = "Bạn có chắc chắn muốn thêm nhân viên?";
@@ -43,7 +39,7 @@ void ManagementView::setConnections() {
                 }
             }
             else if (modelIndex == ModelType::Department) {
-                DepartmentRecordView view(qApp->styleSheet());
+                DepartmentRecordView view;
 
                 QString title = "Xác nhận thêm khoa";
                 QString msg = "Bạn có chắc chắn muốn thêm khoa?";
@@ -52,7 +48,7 @@ void ManagementView::setConnections() {
                 }
             }
             else if (modelIndex == ModelType::Patient) {
-                PatientRecordView view(qApp->styleSheet());
+                PatientRecordView view;
 
                 QString title = "Xác nhận thêm bệnh nhân";
                 QString msg = "Bạn có chắc chắn muốn thêm bệnh nhân?";
@@ -61,7 +57,7 @@ void ManagementView::setConnections() {
                 }
             }
             else if (modelIndex == ModelType::Medicine) {
-                MedicineManagementView view(qApp->styleSheet());
+                MedicineManagementView view;
 
                 QString title = "Xác nhận thêm thuốc";
                 QString msg = "Bạn có chắc chắn muốn thêm thuốc?";
@@ -76,25 +72,25 @@ void ManagementView::setConnections() {
             auto model = _ui->tableView->model();
             auto modelIndex = (ModelType)_models.indexOf(qobject_cast<QAbstractTableModel*>(model), 0);
             if (modelIndex == ModelType::Employee) {
-                EmployeeFilteringView view(qApp->styleSheet());
+                EmployeeFilteringView view;
                 if (view.exec() == QDialog::DialogCode::Accepted) {
                     static_cast<EmployeeTableModel*>(model)->find(view.getFilters());
                 }
             }
             else if (modelIndex == ModelType::Department) {
-                DepartmentFilteringView view(qApp->styleSheet());
+                DepartmentFilteringView view;
                 if (view.exec() == QDialog::DialogCode::Accepted) {
                     static_cast<DepartmentTableModel*>(model)->find(view.getFilters());
                 }
             }
             else if (modelIndex == ModelType::Patient) {
-                PatientFilteringView view(qApp->styleSheet());
+                PatientFilteringView view;
                 if (view.exec() == QDialog::DialogCode::Accepted) {
                     static_cast<PatientTableModel*>(model)->find(view.getFilters());
                 }
             }
             else if (modelIndex == ModelType::Medicine) {
-                MedicineManagementView view(qApp->styleSheet(), Role::Filter);
+                MedicineManagementView view(Role::Filter);
                 if (view.exec() == QDialog::DialogCode::Accepted) {
                     static_cast<MedicineTableModel*>(model)->find(view.getFilters());
                 }
@@ -112,7 +108,7 @@ void ManagementView::setConnections() {
             if (modelIndex == ModelType::Employee) {
                 auto employee = static_cast<const Employee*>(model->data(index, Qt::UserRole).value<void*>());
 
-                EmployeeRecordView view(qApp->styleSheet(), Role::Update);
+                EmployeeRecordView view(Role::Update);
                 view.setEmployee(employee);
 
                 if (view.exec() == QDialog::DialogCode::Accepted && confirm(title, msg)) {
@@ -122,7 +118,7 @@ void ManagementView::setConnections() {
             else if (modelIndex == ModelType::Department) {
                 auto department = static_cast<const Department*>(model->data(index, Qt::UserRole).value<void*>());
 
-                DepartmentRecordView view(qApp->styleSheet(), Role::Update);
+                DepartmentRecordView view(Role::Update);
                 view.setDepartment(department);
 
                 if (view.exec() == QDialog::DialogCode::Accepted && confirm(title, msg)) {
@@ -132,7 +128,7 @@ void ManagementView::setConnections() {
             else if (modelIndex == ModelType::Patient) {
                 auto patient = static_cast<const Patient*>(model->data(index, Qt::UserRole).value<void*>());
 
-                PatientRecordView view(qApp->styleSheet(), Role::Update);
+                PatientRecordView view(Role::Update);
                 view.setPatient(patient);
 
                 if (view.exec() == QDialog::DialogCode::Accepted && confirm(title, msg)) {
@@ -142,7 +138,7 @@ void ManagementView::setConnections() {
             else if (modelIndex == ModelType::Medicine) {
                 auto medicine = static_cast<const Medicine*>(model->data(index, Qt::UserRole).value<void*>());
 
-                MedicineManagementView view(qApp->styleSheet(), Role::Update);
+                MedicineManagementView view(Role::Update);
                 view.setMedicine(medicine);
 
                 if (view.exec() == QDialog::DialogCode::Accepted && confirm(title, msg)) {
@@ -185,6 +181,7 @@ void ManagementView::changeModel(ModelType model) {
 
     _ui->tableView->setModel(_models[(int)model]);
     static_cast<TableModel*>(_ui->tableView->model())->refresh();
+    pad(_ui->tableView->horizontalHeader());
 
     _ui->update_pushButton->setEnabled(0);
     _ui->delete_pushButton->setEnabled(0);
@@ -196,14 +193,6 @@ void ManagementView::changeModel(ModelType model) {
         "KHO THUỐC",
     };
     _ui->title_label->setText(titles[(int)model]);
-
-    _ui->tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
-    auto header = _ui->tableView->horizontalHeader();
-    for (int i = 0; i < header->count(); ++i) {
-        int width = header->sectionSize(i);
-        header->setSectionResizeMode(i, QHeaderView::Interactive);
-        header->resizeSection(i, width + 20);
-    }
 
     connect(_ui->tableView->selectionModel(), &QItemSelectionModel::selectionChanged, this,
         [this](const QItemSelection&, const QItemSelection&) {

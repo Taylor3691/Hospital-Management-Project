@@ -1,34 +1,19 @@
 #include "DepartmentRecordView.h"
 
-DepartmentRecordView::DepartmentRecordView(
-    const QString& styleSheet,
-    Role role,
-    QWidget* parent
-)
+DepartmentRecordView::DepartmentRecordView(Role role, QWidget* parent)
     : QDialog(parent)
     , _ui(new Ui::DepartmentRecordView)
 {
-    setup(styleSheet, role);
-}
-
-DepartmentRecordView::~DepartmentRecordView() {
-    delete _ui;
-}
-
-void DepartmentRecordView::setup(const QString& styleSheet, Role role) {
     _ui->setupUi(this);
 
-    setWindowFlags(windowFlags() | Qt::Sheet);
-    setStyleSheet(styleSheet);
-
-    _ui->buttonBox->button(QDialogButtonBox::StandardButton::Cancel)->setText("Hủy");
+    _ui->buttonBox->button(QDialogButtonBox::Cancel)->setText("Hủy");
 
     _ui->id_label->setEnabled(0);
     _ui->id_lineEdit->setEnabled(0);
 
     if (role == Role::Add) {
         setWindowTitle("Thêm khoa");
-        _ui->buttonBox->button(QDialogButtonBox::StandardButton::Ok)->setText("Thêm");
+        _ui->buttonBox->button(QDialogButtonBox::Ok)->setText("Thêm");
 
         auto data = ServiceLocator::getInstance()->departmentRepository()->data();
         std::vector<const Object*> objectData(data.begin(), data.end());
@@ -37,8 +22,14 @@ void DepartmentRecordView::setup(const QString& styleSheet, Role role) {
     }
     else if (role == Role::Update) {
         setWindowTitle("Cập nhật thông tin");
-        _ui->buttonBox->button(QDialogButtonBox::StandardButton::Ok)->setText("Lưu");
+        _ui->buttonBox->button(QDialogButtonBox::Ok)->setText("Lưu");
     }
+
+    setStyleSheet("");
+}
+
+DepartmentRecordView::~DepartmentRecordView() {
+    delete _ui;
 }
 
 std::unique_ptr<Department> DepartmentRecordView::getDepartment() const {
@@ -48,7 +39,8 @@ std::unique_ptr<Department> DepartmentRecordView::getDepartment() const {
     department->setName(_ui->name_lineEdit->text().toStdString());
     auto date = _ui->foundation_dateEdit->date();
     department->setFoundationDate({ date.day(), date.month(), date.year() });
-    department->setDescription(_ui->description_plainTextEdit->toPlainText().toStdString());
+    department->setDescription(_ui->description_plainTextEdit
+        ->toPlainText().toStdString());
     department->setHeadId(_ui->head_lineEdit->text().toStdString());
 
     return std::move(department);
@@ -64,6 +56,7 @@ void DepartmentRecordView::setDepartment(const Department* department) {
     auto foundationDate = department->foundationDate();
     _ui->foundation_dateEdit->setDate(
         { foundationDate.year(), foundationDate.month(), foundationDate.day() });
-    _ui->description_plainTextEdit->setPlainText(QString::fromStdString(department->description()));
+    _ui->description_plainTextEdit
+        ->setPlainText(QString::fromStdString(department->description()));
     _ui->head_lineEdit->setText(QString::fromStdString(department->headId()));
 }

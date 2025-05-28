@@ -23,7 +23,6 @@ public:
     ~RegisterView();
 
 private:
-    void setup();
     void setConnections();
     void setupRooms();
     Patient* createPatient() const;

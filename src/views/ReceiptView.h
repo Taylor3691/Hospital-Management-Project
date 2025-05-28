@@ -20,7 +20,6 @@ public:
     ~ReceiptView();
 
 private:
-    void setup();
     void setConnections();
 };
 

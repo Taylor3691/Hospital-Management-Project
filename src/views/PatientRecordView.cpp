@@ -1,37 +1,18 @@
 #include "PatientRecordView.h"
 
-PatientRecordView::PatientRecordView(
-    const QString& styleSheet,
-    Role role,
-    QWidget* parent
-)
+PatientRecordView::PatientRecordView(Role role, QWidget* parent)
     : QDialog(parent)
     , _ui(new Ui::PatientRecordView)
 {
-    setup(styleSheet, role);
-    setConnections();
-}
-
-PatientRecordView::~PatientRecordView() {
-    delete _ui;
-}
-
-void PatientRecordView::setup(const QString& styleSheet, Role role) {
     _ui->setupUi(this);
-
-    setWindowFlags(windowFlags() | Qt::Sheet);
-    setStyleSheet(styleSheet);
-
-    setInsuranceFieldsEnabled(0);
-
-    _ui->buttonBox->button(QDialogButtonBox::StandardButton::Cancel)->setText("Hủy");
-
     _ui->id_label->setEnabled(0);
     _ui->id_lineEdit->setEnabled(0);
+    _ui->buttonBox->button(QDialogButtonBox::Cancel)->setText("Hủy");
+    setInsuranceFieldsEnabled(0);
 
     if (role == Role::Add) {
         setWindowTitle("Thêm bệnh nhân");
-        setAcceptButtonText("Thêm");
+        _ui->buttonBox->button(QDialogButtonBox::Ok)->setText("Thêm");
 
         auto data = ServiceLocator::getInstance()->patientRepository()->data();
         std::vector<const Object*> objectData(data.begin(), data.end());
@@ -40,8 +21,15 @@ void PatientRecordView::setup(const QString& styleSheet, Role role) {
     }
     else if (role == Role::Update) {
         setWindowTitle("Cập nhật thông tin");
-        setAcceptButtonText("Lưu");
+        _ui->buttonBox->button(QDialogButtonBox::Ok)->setText("Lưu");
     }
+
+    setStyleSheet("");
+    setConnections();
+}
+
+PatientRecordView::~PatientRecordView() {
+    delete _ui;
 }
 
 void PatientRecordView::setConnections() {
@@ -110,13 +98,4 @@ void PatientRecordView::setPatient(const Patient* patient) {
         _ui->coveragePercent_doubleSpinBox->setValue(insurance->coveragePercent());
     }
     setInsuranceFieldsEnabled(insurance);
-}
-
-void PatientRecordView::setAcceptButtonText(const QString& text) {
-    _ui->buttonBox->button(QDialogButtonBox::StandardButton::Ok)->setText(text);
-}
-
-void PatientRecordView::disableNotEditableFields() {
-    _ui->id_label->setEnabled(0);
-    _ui->id_lineEdit->setEnabled(0);
 }

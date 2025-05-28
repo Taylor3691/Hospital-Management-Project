@@ -28,12 +28,12 @@ private:
     QVector<QString> _newIds;
 
 public:
-    explicit EmployeeRecordView(const QString& styleSheet = "",
-        Role role = Role::Add, QWidget* parent = nullptr);
+    explicit EmployeeRecordView(Role role = Role::Add,
+        QWidget* parent = nullptr);
     ~EmployeeRecordView();
 
 private:
-    void setup(const QString& styleSheet, Role role);
+    void setConnections();
     void createNewIds();
 
 public:

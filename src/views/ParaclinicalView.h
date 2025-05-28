@@ -19,7 +19,6 @@ public:
     ~ParaclinicalView();
 
 private:
-    void setup();
     void setConnections();
 };
 

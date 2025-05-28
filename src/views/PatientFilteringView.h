@@ -18,11 +18,10 @@ private:
     Ui::PatientFilteringView* _ui;
 
 public:
-    explicit PatientFilteringView(const QString& styleSheet = "", QWidget* parent = nullptr);
+    explicit PatientFilteringView(QWidget* parent = nullptr);
     ~PatientFilteringView();
 
 private:
-    void setup(const QString& styleSheet);
     void setConnections();
 
 public:

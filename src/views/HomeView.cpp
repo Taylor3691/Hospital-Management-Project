@@ -12,26 +12,8 @@ HomeView::HomeView(QWidget* parent)
     , _loginStack(new QStackedWidget(this))
     , _mainStack(new QStackedWidget(this))
 {
-    setup();
-    setConnections();
-}
-
-HomeView::~HomeView() {
-    delete _ui;
-}
-
-void HomeView::setup() {
     _ui->setupUi(this);
     
-    _loginView->setStyleSheet("");
-    _managementView->setStyleSheet("");
-    _registerView->setStyleSheet("");
-    _roomView->setStyleSheet("");
-    _paraclinicalView->setStyleSheet("");
-    _receiptView->setStyleSheet("");
-    setStyleSheet("");
-    qApp->setStyleSheet(themeStyleSheet());
-
     _ui->home_action->setEnabled(0);
     _ui->light_action->setEnabled(0);
     _ui->logout_action->setEnabled(0);
@@ -66,6 +48,14 @@ void HomeView::setup() {
     _mainButtonGroup->addButton(_ui->paraclinical_pushButton);
     _mainButtonGroup->addButton(_ui->receipt_pushButton);
     _mainButtonGroup->addButton(_ui->medicine_pushButton);
+    
+    qApp->setStyleSheet(themeStyleSheet());
+    setStyleSheet("");
+    setConnections();
+}
+
+HomeView::~HomeView() {
+    delete _ui;
 }
 
 void HomeView::setConnections() {

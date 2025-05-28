@@ -22,6 +22,20 @@ void notify(const QString& title, const QString& msg) {
     msgBox.exec();
 }
 
+void pad(QHeaderView* view, int padSize) {
+    view->setSectionResizeMode(QHeaderView::ResizeToContents);
+    QString headerText;
+    for (int i = 0; i < view->count(); ++i) {
+        headerText = view->model()
+            ->headerData(i, view->orientation(), Qt::DisplayRole).toString();
+        if (headerText.size()) {
+            int width = view->sectionSize(i);
+            view->setSectionResizeMode(i, QHeaderView::Interactive);
+            view->resizeSection(i, width + padSize);
+        }
+    }
+}
+
 std::string createId(
     const std::vector<const Object*>& list,
     const std::string& format,

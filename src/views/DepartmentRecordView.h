@@ -19,12 +19,9 @@ private:
     Ui::DepartmentRecordView* _ui;
 
 public:
-    explicit DepartmentRecordView(const QString& styleSheet = "",
-        Role role = Role::Add, QWidget* parent = nullptr);
+    explicit DepartmentRecordView(Role role = Role::Add,
+        QWidget* parent = nullptr);
     ~DepartmentRecordView();
-
-private:
-    void setup(const QString& styleSheet, Role role);
 
 public:
     std::unique_ptr<Department> getDepartment() const;

@@ -7,6 +7,7 @@
 #include <QString>
 #include <QMessageBox>
 #include <QPushButton>
+#include <QHeaderView>
 #include "../models/Object.h"
 
 enum class Role {
@@ -14,10 +15,12 @@ enum class Role {
     Update,
     Filter,
     Select,
+    Display,
 };
 
 bool confirm(const QString& title, const QString& msg);
 void notify(const QString& title, const QString& msg);
+void pad(QHeaderView* view, int padSize = 20);
 std::string createId(const std::vector<const Object*>& list,
     const std::string& format, int startAt = 1);
 
