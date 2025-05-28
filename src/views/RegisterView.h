@@ -28,9 +28,8 @@ public:
 private:
     void setConnections();
     void setupRooms();
-    Patient* createPatient() const;
     std::unique_ptr<HealthInsurance> createInsurance() const;
-    void assignRoom(MedicalRecord* record) const;
+    Patient* createPatient(std::unique_ptr<HealthInsurance> insurance) const;
     void resetInputs();
     void updateRoomInfo();
 };

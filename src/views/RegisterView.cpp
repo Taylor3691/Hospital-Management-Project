@@ -43,12 +43,11 @@ void RegisterView::setConnections() {
                 return;
             }
 
-            auto patient = createPatient();
-            if (_ui->insurance_checkBox->isChecked()) {
-                patient->setInsuranceCard(createInsurance());
-            }
-            auto record = _service->createMedicalRecord(patient);
-            assignRoom(record);
+            auto insurance = createInsurance();
+            auto patient = createPatient(std::move(insurance));
+            auto roomId = _roomButtonGroup->checkedButton()
+                ->property("roomId").toString().toStdString();
+            auto record = _service->createMedicalRecord(patient, roomId);
 
             updateRoomInfo();
             notify(
@@ -96,7 +95,7 @@ void RegisterView::setupRooms() {
     }
 }
 
-Patient* RegisterView::createPatient() const {
+Patient* RegisterView::createPatient(std::unique_ptr<HealthInsurance> insurance) const {
     auto dob = _ui->dob_dateEdit->date();
 
     auto symptoms = _ui->symptoms_plainTextEdit->toPlainText();
@@ -112,11 +111,16 @@ Patient* RegisterView::createPatient() const {
         _ui->address_lineEdit->text().toStdString(),
         _ui->phone_lineEdit->text().toStdString(),
         Date(dob.day(), dob.month(), dob.year()),
-        symptomList
+        symptomList,
+        std::move(insurance)
     );
 }
 
 std::unique_ptr<HealthInsurance> RegisterView::createInsurance() const {
+    if (!_ui->insurance_checkBox->isChecked()) {
+        return nullptr;
+    }
+
     auto issueDate = _ui->issueDate_dateEdit->date();
     auto expiryDate = _ui->expiryDate_dateEdit->date();
 
@@ -126,12 +130,6 @@ std::unique_ptr<HealthInsurance> RegisterView::createInsurance() const {
         Date(expiryDate.day(), expiryDate.month(), expiryDate.year()),
         _ui->coveragePercent_doubleSpinBox->value()
     );
-}
-
-void RegisterView::assignRoom(MedicalRecord* record) const {
-    auto roomId = _roomButtonGroup->checkedButton()
-        ->property("roomId").toString().toStdString();
-    _service->assignRoom(roomId, record);
 }
 
 void RegisterView::resetInputs() {
@@ -148,6 +146,7 @@ void RegisterView::resetInputs() {
     _ui->symptoms_plainTextEdit->clear();
 
     _ui->insurance_checkBox->setChecked(1);
+    _ui->insuranceInfo_groupBox->setEnabled(1);
     _ui->cardId_lineEdit->clear();
     _ui->issueDate_dateEdit->setDate(QDate::currentDate());
     _ui->expiryDate_dateEdit->setDate(QDate::currentDate());
