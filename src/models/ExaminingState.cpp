@@ -17,5 +17,5 @@ bool ExaminingState::canComplete() const {
 }
 
 ExaminationState* ExaminingState::clone() const {
-    return new ExaminingState();
+    return new ExaminingState(*this);
 }

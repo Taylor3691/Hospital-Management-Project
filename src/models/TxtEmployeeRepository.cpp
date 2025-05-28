@@ -42,12 +42,12 @@ void TxtEmployeeRepository::save() const {
 
 void TxtEmployeeRepository::add(std::unique_ptr<Employee> employee) {
     _employees.push_back(std::move(employee));
-    //save();
+    save();
 }
 
 void TxtEmployeeRepository::removeById(const std::string& id) {
     from(_employees).where(&Employee::id, id).deleteOne();
-    //save();
+    save();
 }
 
 void TxtEmployeeRepository::removeByIds(const std::vector<std::string>& ids) {
@@ -56,7 +56,7 @@ void TxtEmployeeRepository::removeByIds(const std::vector<std::string>& ids) {
         query.where(&Employee::id, id);
     }
     query.deleteMany();
-    //save();
+    save();
 }
 
 void TxtEmployeeRepository::update(const Employee& employee) {
@@ -76,7 +76,7 @@ void TxtEmployeeRepository::update(const Employee& employee) {
             *ptr = employee;
         }
     }
-    //save();
+    save();
 }
 
 std::vector<const Employee*> TxtEmployeeRepository::data() const {

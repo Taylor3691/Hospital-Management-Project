@@ -5,6 +5,11 @@
 #include "TxtClinicalTestParser.h"
 #include "TxtMedicineUsageParser.h"
 #include "MedicalRecord.h"
+#include "RegisteredState.h"
+#include "ExaminingState.h"
+#include "CompletedState.h"
+#include "WaitingState.h"
+#include "PendingTestState.h"
 #include <sstream>
 
 class TxtMedicalRecordParser : public MedicalRecordParser {

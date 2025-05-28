@@ -115,7 +115,17 @@ void TxtWritingVisitor::write(MedicalRecord* record, std::ostream& os, IWritingV
         os << _delim;
         delete sample;
     }
-    os << record->diagnosisResult();
+    os << record->diagnosisResult() << _delim;
+    std::string date = Date::toString(record->createdDate());
+    std::string time = record->createdTime().toString();
+    os << date << _delim;
+    os << time << _delim;
+    if (record->state()) {
+        os << record->state()->getStateName();
+    }
+    else {
+        os << "null";
+    }
 }
 
 void TxtWritingVisitor::write(MedicineUsage* usage, std::ostream& os) {

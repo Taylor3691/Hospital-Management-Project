@@ -18,8 +18,8 @@ private:
     std::string _roomId;
     std::string _doctorId;
     std::string _diagnosisResult;
-    std::vector<MedicineUsage*> _prescribedMedicines;
-    std::vector<ClinicalTest*> _clinicalTests;
+    std::vector<std::unique_ptr<MedicineUsage>> _prescribedMedicines;
+    std::vector<std::unique_ptr<ClinicalTest>> _clinicalTests;
     std::unique_ptr<ExaminationState> _state;
     Date _createdDate;
     Time _createdTime;
@@ -40,14 +40,15 @@ public:
     Date createdDate() const;
     Time createdTime() const;
     void setPatientId(const std::string& id);
-
+    void setCreateDay(const std::string& date);
+    void setCreateTime(const std::string& time);
 public:
     double calculateFee() const override;
     void assignToRoom(const std::string& roomId);
     void startExamination(const std::string& doctorId);
     void setDiagnosisResult(const std::string& result);
-    void prescribeMedicine(MedicineUsage* medicine);
-    void orderClinicalTest(ClinicalTest* test);
+    void prescribeMedicine(std::unique_ptr<MedicineUsage> medicine);
+    void orderClinicalTest(std::unique_ptr<ClinicalTest> test);
     void compeleteExamination();
     void changeState(std::unique_ptr<ExaminationState> state);
     void acceptWrite(IVisitor* visitor, std::ostream& os) override;
