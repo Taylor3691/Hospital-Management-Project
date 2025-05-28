@@ -64,7 +64,7 @@ void RoomView::setConnections() {
             MedicinePrescribingView view;
             QString title = "Xác nhận thêm thuốc";
             QString msg = "Bạn có chắc chắn muốn thêm thuốc?";
-            if (view.exec() == QDialog::DialogCode::Accepted && confirm(title, msg)) {
+            if (view.exec() == QDialog::Accepted && confirm(title, msg)) {
                 
             }
         });
@@ -72,7 +72,8 @@ void RoomView::setConnections() {
 
 void RoomView::createCompleter() {
     QStringList doctorNames;
-    for (const auto& employee : ServiceLocator::getInstance()->employeeRepository()->data()) {
+    auto repo = ServiceLocator::getInstance()->employeeRepository();
+    for (const auto& employee : repo->data()) {
         if (auto doctor = dynamic_cast<const Doctor*>(employee)) {
             doctorNames << QString::fromStdString(doctor->name());
         }
@@ -84,7 +85,10 @@ void RoomView::createCompleter() {
 }
 
 void RoomView::changeRoom(int index) {
-    auto room = ServiceLocator::getInstance()->roomExaminationRepository()->data()[index];
+    auto room = ServiceLocator::getInstance()
+        ->roomExaminationRepository()->data()[index];
     _ui->id_label->setText(QString::fromStdString(room->id()));
     _ui->name_label->setText(QString::fromStdString(room->name()));
+    static_cast<MedicalRecordListModel*>(_ui->record_listView->model())
+        ->changeFilter(room->id());
 }
