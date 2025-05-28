@@ -9,6 +9,7 @@
 #include "../utils/utils.h"
 #include "../utils/utils_template.h"
 #include "RegisteredState.h"
+#include "../utils/QueryBuilder.h"
 
 class RegistrationService {
 private:

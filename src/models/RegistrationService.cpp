@@ -59,4 +59,13 @@ void RegistrationService::assignRoom(
     MedicalRecord* record
 ) {
     record->assignToRoom(roomId);
+
+    auto data = _roomRepo->data();
+    auto copy = std::unique_ptr<RoomExamination>(
+        static_cast<RoomExamination*>(
+            from(data)
+            .where(&RoomExamination::id, roomId)
+            .findOne()->clone()));
+    copy->addToWaitingQueue(record->id());
+    _roomRepo->update(*copy);
 }
