@@ -3,7 +3,7 @@
 TxtDepartmentRepository::TxtDepartmentRepository()
     : _filePath("departments.txt"), _delim('|')
 {
-    ::load(_departments, _delim, _filePath);
+    load();
 }
 
 TxtDepartmentRepository::TxtDepartmentRepository(
@@ -12,7 +12,7 @@ TxtDepartmentRepository::TxtDepartmentRepository(
 )
     : _filePath(filePath), _delim(delim)
 {
-    ::load(_departments, _delim, _filePath);
+    load();
 }
 
 std::string TxtDepartmentRepository::filePath() const {

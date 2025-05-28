@@ -11,12 +11,12 @@ private:
 
 public:
     TxtMedicalRecordRepository();
-    TxtMedicalRecordRepository(const std::string& filename, char delim = '|');
+    TxtMedicalRecordRepository(const std::string& filePath, char delim = '|');
 
 public:
     const std::string& filePath() const;
     char delim() const;
-    void setFilePath(const std::string& fileName);
+    void setFilePath(const std::string& filePath);
     void setDelim(char delim);
 
 public:

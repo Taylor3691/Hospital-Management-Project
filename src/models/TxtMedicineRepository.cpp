@@ -7,10 +7,10 @@ TxtMedicineRepository::TxtMedicineRepository()
 }
 
 TxtMedicineRepository::TxtMedicineRepository(
-    const std::string& filename,
+    const std::string& filePath,
     char delim
 )
-    : _filePath(filename), _delim(delim)
+    : _filePath(filePath), _delim(delim)
 {
     load();
 }
@@ -23,8 +23,8 @@ char TxtMedicineRepository::delim() const {
     return _delim;
 }
 
-void TxtMedicineRepository::setFilePath(const std::string& filename) {
-    _filePath = filename;
+void TxtMedicineRepository::setFilePath(const std::string& filePath) {
+    _filePath = filePath;
 }
 
 void TxtMedicineRepository::setDelim(char delim) {

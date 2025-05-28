@@ -1,11 +1,18 @@
 #include "TxtMedicalRecordRepository.h"
 
-TxtMedicalRecordRepository::TxtMedicalRecordRepository() : _filePath("records.txt"), _delim('|') {}
-
-TxtMedicalRecordRepository::TxtMedicalRecordRepository(const std::string& filePath, char delim)
+TxtMedicalRecordRepository::TxtMedicalRecordRepository()
+    : _filePath("records.txt"), _delim('|')
 {
-    _filePath = filePath;
-    _delim = delim;
+    load();
+}
+
+TxtMedicalRecordRepository::TxtMedicalRecordRepository(
+    const std::string& filePath,
+    char delim
+)
+    : _filePath(filePath), _delim(delim)
+{
+    load();
 }
 
 const std::string& TxtMedicalRecordRepository::filePath() const {
