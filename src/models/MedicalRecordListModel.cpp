@@ -4,7 +4,7 @@ MedicalRecordListModel::MedicalRecordListModel(QObject* parent)
     : QAbstractListModel(parent) {}
 
 int MedicalRecordListModel::rowCount(const QModelIndex& parent) const {
-    return _recordIds.size();
+    return _data.size();
 }
 
 QVariant MedicalRecordListModel::data(
@@ -15,8 +15,13 @@ QVariant MedicalRecordListModel::data(
         return {};
     }
 
+    if (role == Qt::UserRole) {
+        return QVariant::fromValue(
+            const_cast<void*>(static_cast<const void*>(_data[index.row()])));
+    }
+
     if (role == Qt::DisplayRole) {
-        return _recordIds[index.row()];
+        return _data[index.row()]->id().c_str();
     }
 
     return {};
@@ -24,11 +29,9 @@ QVariant MedicalRecordListModel::data(
 
 void MedicalRecordListModel::refresh() {
     beginResetModel();
-    _recordIds.clear();
-    auto repo = ServiceLocator::getInstance()->medicalRecordRepository();
-    for (const auto& record : repo->data()) {
-        _recordIds.push_back(QString::fromStdString(record->id()));
-    }
+    auto data = ServiceLocator::getInstance()
+        ->medicalRecordRepository()->data();
+    _data = QVector<const MedicalRecord*>(data.begin(), data.end());
     endResetModel();
 }
 
@@ -39,9 +42,6 @@ void MedicalRecordListModel::changeFilter(const std::string& roomId) {
     auto results = from(data)
         .where(&MedicalRecord::roomId, roomId)
         .find();
-    _recordIds.clear();
-    for (const auto& record : results) {
-        _recordIds.push_back(QString::fromStdString(record->id()));
-    }
+    _data = QVector<const MedicalRecord*>(results.begin(), results.end());
     endResetModel();
 }

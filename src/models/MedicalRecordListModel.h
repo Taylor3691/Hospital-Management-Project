@@ -9,7 +9,7 @@ class MedicalRecordListModel : public QAbstractListModel {
     Q_OBJECT
 
 private:
-    QVector<QString> _recordIds;
+    QVector<const MedicalRecord*> _data;
 
 public:
     MedicalRecordListModel(QObject* parent = nullptr);
