@@ -33,7 +33,7 @@ public:
     std::vector<std::unique_ptr<TestService>> getAllTestService();
     std::vector<std::unique_ptr<RoomExamination>> getAllRoom();
     std::vector<std::unique_ptr<MedicalRecord>> getAllRecordByState(const std::string& state);
-    std::unique_ptr<MedicineUsage> createMedicneUsage(const std::string& medicineId, const std::string& name,
+    std::unique_ptr<MedicineUsage> createMedicineUsage(const std::string& medicineId, const std::string& name,
         int quantity, double price, const std::string& description);
     std::unique_ptr<ClinicalTest> createCinicalTest(const std::string& testId, const std::string& name,
         double cost);
@@ -43,8 +43,6 @@ public:
     std::unique_ptr<Medicine> findMedicineById(const std::string& id);
     std::unique_ptr<TestService> findTestServiceById(const std::string id);
     void updateRecord(std::unique_ptr<MedicalRecord> record);
-    void orderMedicineUsage(std::unique_ptr<MedicalRecord> record, std::unique_ptr<MedicineUsage> usage);
-    void orderClinicalTest(std::unique_ptr<MedicalRecord> record, std::unique_ptr<ClinicalTest> test);
 };
 
 #endif // !EXAMINATION_SERVICE_H

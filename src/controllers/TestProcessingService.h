@@ -18,9 +18,8 @@ public:
 public:
     std::vector<std::unique_ptr<ClinicalTest>> getAllClinicalTest();
     std::vector<std::unique_ptr<ClinicalTest>> getClinicalTestByState(bool completed = false);
-    std::unique_ptr<MedicalRecord> getRecordById(const std::string& id);
-    std::unique_ptr<ClinicalTest> getTestById(const std::string& id);
-    void setTestResult(std::unique_ptr<MedicalRecord> record, std::unique_ptr<ClinicalTest> test);
+    std::unique_ptr<MedicalRecord> findRecordById(const std::string& id);
+    std::unique_ptr<ClinicalTest> findTestUsageById(const std::string& id);
     void updateRecord(std::unique_ptr<MedicalRecord> record);
 
 };

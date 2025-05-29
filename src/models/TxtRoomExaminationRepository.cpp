@@ -1,7 +1,7 @@
 #include "TxtRoomExaminationRepository.h"
 
 TxtRoomExaminationRepository::TxtRoomExaminationRepository()
-    : _filePath("tests.txt"), _delim('|')
+    : _filePath("rooms.txt"), _delim('|')
 {
     load();
 }

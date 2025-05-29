@@ -32,17 +32,16 @@ std::vector<std::unique_ptr<ClinicalTest>> TestProcessingService::getClinicalTes
     return result;
 }
 
-std::unique_ptr<MedicalRecord> TestProcessingService::getRecordById(const std::string& id){
+std::unique_ptr<MedicalRecord> TestProcessingService::findRecordById(const std::string& id){
     std::vector<const MedicalRecord*> store = _records->data();
     auto query = from(store).where(&MedicalRecord::id, id).findOne();
     if (query) {
         return std::unique_ptr<MedicalRecord>(dynamic_cast<MedicalRecord*>(query->clone()));
     }
-    throw std::runtime_error("Not Found Clinical Test");
-    return nullptr;
+    throw std::runtime_error("Not Found Medical Record ");
 }
 
-std::unique_ptr<ClinicalTest> TestProcessingService::getTestById(const std::string& id) {
+std::unique_ptr<ClinicalTest> TestProcessingService::findTestUsageById(const std::string& id) {
     std::vector<const MedicalRecord*> store = _records->data();
     for (auto record : store) {
         std::vector<const ClinicalTest*> tests = record->clinicalTests();
@@ -52,11 +51,6 @@ std::unique_ptr<ClinicalTest> TestProcessingService::getTestById(const std::stri
         }
     }
     throw std::runtime_error("Not Found Clinical Test");
-    return nullptr;
-}
-
-void TestProcessingService::setTestResult(std::unique_ptr<MedicalRecord> record, std::unique_ptr<ClinicalTest> test) {
-    record.get()->orderClinicalTest(std::move(test));
 }
 
 void TestProcessingService::updateRecord(std::unique_ptr<MedicalRecord> record) {

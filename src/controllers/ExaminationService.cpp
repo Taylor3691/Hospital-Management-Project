@@ -93,7 +93,7 @@ std::vector<std::unique_ptr<MedicalRecord>> ExaminationService::getAllRecordBySt
     return result;
 }
 
-std::unique_ptr<MedicineUsage> ExaminationService::createMedicneUsage(const std::string& medicineId, const std::string& name,
+std::unique_ptr<MedicineUsage> ExaminationService::createMedicineUsage(const std::string& medicineId, const std::string& name,
     int quantity, double price, const std::string& description)
 {
     auto date = Date::getDate().toString(Date::getDate());
@@ -113,6 +113,7 @@ std::unique_ptr<ClinicalTest> ExaminationService::createCinicalTest(const std::s
 std::unique_ptr<Patient> ExaminationService::findPatientById(const std::string& id) {
     auto store = _patients->data();
     auto record = from(store).where(&Patient::id, id).findOne();
+    if (record == nullptr) return nullptr;
     auto result = dynamic_cast<Patient*>(record->clone());
     return std::unique_ptr<Patient>(result);
 }
@@ -120,6 +121,7 @@ std::unique_ptr<Patient> ExaminationService::findPatientById(const std::string& 
 std::unique_ptr<RoomExamination> ExaminationService::findRoomById(const std::string& id) {
     auto store = _rooms->data();
     auto record = from(store).where(&RoomExamination::id, id).findOne();
+    if (record == nullptr) return nullptr;
     auto result = dynamic_cast<RoomExamination*>(record->clone());
     return std::unique_ptr<RoomExamination>(result);
 }
@@ -127,6 +129,9 @@ std::unique_ptr<RoomExamination> ExaminationService::findRoomById(const std::str
 std::unique_ptr<MedicalRecord> ExaminationService::findRecordById(const std::string& id) {
     auto store = _records->data();
     auto record = from(store).where(&MedicalRecord::id, id).findOne();
+    if (record == nullptr) {
+        return nullptr;
+    }
     auto result = dynamic_cast<MedicalRecord*>(record->clone());
     return std::unique_ptr<MedicalRecord>(result);
 }
@@ -134,6 +139,9 @@ std::unique_ptr<MedicalRecord> ExaminationService::findRecordById(const std::str
 std::unique_ptr<Medicine> ExaminationService::findMedicineById(const std::string& id) {
     auto store = _medicines->data();
     auto medicine = from(store).where(&Medicine::id, id).findOne();
+    if (medicine == nullptr) {
+        return nullptr;
+    }
     auto result = dynamic_cast<Medicine*>(medicine->clone());
     return std::unique_ptr<Medicine>(result);
 }
@@ -141,34 +149,13 @@ std::unique_ptr<Medicine> ExaminationService::findMedicineById(const std::string
 std::unique_ptr<TestService> ExaminationService::findTestServiceById(const std::string id) {
     auto store = _tests->data();
     auto test = from(store).where(&TestService::id, id).findOne();
+    if (test == nullptr) {
+        return nullptr;
+    }
     auto result = dynamic_cast<TestService*>(test->clone());
     return std::unique_ptr<TestService>(result);
 }
 
-void  ExaminationService::updateRecord(std::unique_ptr<MedicalRecord> record) {
+void ExaminationService::updateRecord(std::unique_ptr<MedicalRecord> record) {
     _records->update(*record.get());
-}
-
-void ExaminationService::orderMedicineUsage(std::unique_ptr<MedicalRecord> record, std::unique_ptr<MedicineUsage> usage) {
-    if (!record->state()->canPrescribeMedicine()) {
-        throw std::runtime_error(record->state()->getStateName() + " state cannot prescribe medicine");
-    }
-    auto store = _medicines->data();
-    auto medicine = from(store).where(&Medicine::id, usage->medicineId()).findOne();
-    if (medicine->quantity() >= usage->usedQuantity()) {
-        record->prescribeMedicine(std::move(usage));
-        updateRecord(std::move(record));
-    }
-    else {
-        throw std::runtime_error("Not enough quantity to prescibe");
-    }
-}
-
-void ExaminationService::orderClinicalTest(std::unique_ptr<MedicalRecord> record, std::unique_ptr<ClinicalTest> test) {
-    if (!record->state()->canOrderClinicalTest()) {
-        throw std::runtime_error(record->state()->getStateName() + " state cannot order clinical test");
-    }
-
-    record->orderClinicalTest(std::move(test));
-    updateRecord(std::move(record));
 }
