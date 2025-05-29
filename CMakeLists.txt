@@ -33,6 +33,7 @@ add_executable(${TARGET_NAME}
     src/controllers/TestProcessingService.cpp
     src/models/BillableComponent.cpp
     src/models/ClinicalTest.cpp
+    src/models/ClinicalTestTableModel.cpp
     src/models/CompletedState.cpp
     src/models/Department.cpp
     src/models/DepartmentTableModel.cpp
@@ -148,6 +149,7 @@ target_sources(${TARGET_NAME} PRIVATE
     src/models/BillableComponent.h
     src/models/ClinicalTest.h
     src/models/ClinicalTestParser.h
+    src/models/ClinicalTestTableModel.h
     src/models/CompletedState.h
     src/models/Department.h
     src/models/DepartmentParser.h

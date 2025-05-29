@@ -156,8 +156,6 @@ std::unique_ptr<TestService> ExaminationService::findTestServiceById(const std::
     return std::unique_ptr<TestService>(result);
 }
 
-void  ExaminationService::updateRecord(std::unique_ptr<MedicalRecord> record) {
+void ExaminationService::updateRecord(std::unique_ptr<MedicalRecord> record) {
     _records->update(*record.get());
 }
-
-

@@ -7,6 +7,7 @@
 #include "MedicineUsage.h"
 #include "ClinicalTest.h"
 #include "WaitingState.h"
+#include "ExaminingState.h"
 #include "CompletedState.h"
 #include "../interfaces/IWritingVisitor.h"
 #include "../utils/Date.h"
@@ -39,16 +40,21 @@ public:
     const ExaminationState* state() const;
     Date createdDate() const;
     Time createdTime() const;
+
+public:
     void setPatientId(const std::string& id);
     void setCreateDay(const std::string& date);
     void setCreateTime(const std::string& time);
+
 public:
     double calculateFee() const override;
     void assignToRoom(const std::string& roomId);
     void startExamination(const std::string& doctorId);
+    void cancelExamination();
     void setDiagnosisResult(const std::string& result);
     void prescribeMedicine(std::unique_ptr<MedicineUsage> medicine);
     void orderClinicalTest(std::unique_ptr<ClinicalTest> test);
+    void clearOrderedTests();
     void compeleteExamination();
     void changeState(std::unique_ptr<ExaminationState> state);
     void acceptWrite(IVisitor* visitor, std::ostream& os) override;

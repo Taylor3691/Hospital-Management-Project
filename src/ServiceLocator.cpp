@@ -1,7 +1,7 @@
 #include "ServiceLocator.h"
 
 ServiceLocator::ServiceLocator() {
-    auto config = std::make_unique<Config>("config_moc.txt");
+    auto config = std::make_unique<Config>("config.txt");
     config->loadFromFile();
 
     _factory = std::make_unique<TxtParserFactory>(config->get("delim")[0]);

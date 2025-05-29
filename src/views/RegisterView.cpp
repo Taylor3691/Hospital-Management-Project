@@ -101,7 +101,10 @@ Patient* RegisterView::createPatient(std::unique_ptr<HealthInsurance> insurance)
     auto symptoms = _ui->symptoms_plainTextEdit->toPlainText();
     std::vector<std::string> symptomList;
     for (const auto& symptom : symptoms.split(',', Qt::SkipEmptyParts)) {
-        symptomList.push_back(symptom.toStdString());
+        auto trimmed = symptom.trimmed();
+        if (trimmed.size()) {
+            symptomList.push_back(trimmed.toStdString());
+        }
     }
 
     return _service->createPatient(

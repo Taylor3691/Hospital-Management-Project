@@ -10,11 +10,13 @@ class TestServiceTableModel : public SelectableTableModel {
     Q_OBJECT
 
 private:
-    inline static QVector<const TestService*> _selectedItems = {};
     QVector<const TestService*> _data;
+    QVector<std::string> _selectedTests;
 
 public:
-    explicit TestServiceTableModel(Role role = Role::Select, QObject* parent = nullptr);
+    explicit TestServiceTableModel(
+        const QVector<std::string>& selectedTests = {},
+        QObject* parent = nullptr);
 
 public:
     int rowCount(const QModelIndex& parent = QModelIndex()) const override;
@@ -24,6 +26,7 @@ public:
     void sort(int column, Qt::SortOrder order = Qt::AscendingOrder) override;
     void selectAll() override;
     void clearAll() override;
+    QVector<std::string> selectedItems();
 };
 
 #endif // !TEST_SERVICE_TABLE_MODEL_H

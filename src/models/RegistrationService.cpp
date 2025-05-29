@@ -57,7 +57,6 @@ MedicalRecord* RegistrationService::createMedicalRecord(Patient* patient, const 
     auto newId = createId(objectData, getFormat<MedicalRecord>());
 
     auto record = std::make_unique<MedicalRecord>(newId, patient->id());
-    record->changeState(std::make_unique<WaitingState>());
     record->assignToRoom(roomId);
     updateRoom(record->id(), roomId);
 
