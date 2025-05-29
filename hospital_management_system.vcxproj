@@ -140,6 +140,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\controllers\BillService.cpp" />
     <ClCompile Include="src\controllers\DepartmentManager.cpp" />
     <ClCompile Include="src\controllers\EmployeeManager.cpp" />
     <ClCompile Include="src\controllers\ExaminationService.cpp" />
@@ -147,6 +148,7 @@
     <ClCompile Include="src\controllers\PatientManager.cpp" />
     <ClCompile Include="src\controllers\TestProcessingService.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\models\PaymentMethodStrategy.cpp" />
     <ClCompile Include="src\ServiceLocator.cpp" />
     <ClCompile Include="src\Config.cpp" />
     <ClCompile Include="src\models\BillableComponent.cpp" />
@@ -157,7 +159,6 @@
     <ClCompile Include="src\models\Employee.cpp" />
     <ClCompile Include="src\models\ExaminingState.cpp" />
     <ClCompile Include="src\models\HealthInsurance.cpp" />
-    <ClCompile Include="src\models\Hospital.cpp" />
     <ClCompile Include="src\models\InsurancePayment.cpp" />
     <ClCompile Include="src\models\MedicalRecord.cpp" />
     <ClCompile Include="src\models\Medicine.cpp" />
@@ -170,7 +171,6 @@
     <ClCompile Include="src\models\Person.cpp" />
     <ClCompile Include="src\models\Receipt.cpp" />
     <ClCompile Include="src\models\Receptionist.cpp" />
-    <ClCompile Include="src\models\RegisteredState.cpp" />
     <ClCompile Include="src\models\RoomExamination.cpp" />
     <ClCompile Include="src\models\TestService.cpp" />
     <ClCompile Include="src\models\TxtClinicalTestParser.cpp" />
@@ -202,6 +202,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Config.h" />
+    <ClInclude Include="src\controllers\BillService.h" />
     <ClInclude Include="src\controllers\DepartmentManager.h" />
     <ClInclude Include="src\controllers\EmployeeManager.h" />
     <ClInclude Include="src\controllers\ExaminationService.h" />
@@ -214,7 +215,6 @@
     <ClInclude Include="src\interfaces\IRoomExaminationRepository.h" />
     <ClInclude Include="src\interfaces\ITestServiceRepository.h" />
     <ClInclude Include="src\models\ClinicalTestParser.h" />
-    <ClInclude Include="src\models\Hospital.h" />
     <ClInclude Include="src\models\InsurancePayment.h" />
     <ClInclude Include="src\models\MedicalRecordParser.h" />
     <ClInclude Include="src\models\MedicineUsageParser.h" />
@@ -239,12 +239,12 @@
     <ClInclude Include="src\models\Object.h" />
     <ClInclude Include="src\models\Patient.h" />
     <ClInclude Include="src\models\PatientParser.h" />
+    <ClInclude Include="src\models\PaymentMethodStrategy.h" />
     <ClInclude Include="src\models\PendingTestState.h" />
     <ClInclude Include="src\models\Person.h" />
     <ClInclude Include="src\models\Receipt.h" />
     <ClInclude Include="src\models\Receptionist.h" />
     <ClInclude Include="src\models\ReceptionistParser.h" />
-    <ClInclude Include="src\models\RegisteredState.h" />
     <ClInclude Include="src\models\RoomExamination.h" />
     <ClInclude Include="src\models\RoomExaminationParser.h" />
     <ClInclude Include="src\models\TestService.h" />
