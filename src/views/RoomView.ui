@@ -2269,7 +2269,7 @@ PlotWidget {
     <number>0</number>
    </property>
    <item>
-    <widget class="QFrame" name="frame">
+    <widget class="QFrame" name="roomInfoSection_frame">
      <property name="frameShape">
       <enum>QFrame::StyledPanel</enum>
      </property>
@@ -2436,7 +2436,7 @@ PlotWidget {
     </widget>
    </item>
    <item>
-    <widget class="QFrame" name="frame_2">
+    <widget class="QFrame" name="examinationSection_frame">
      <property name="frameShape">
       <enum>QFrame::StyledPanel</enum>
      </property>
@@ -2620,7 +2620,7 @@ PlotWidget {
       <item>
        <widget class="QTabWidget" name="tabWidget">
         <property name="currentIndex">
-         <number>2</number>
+         <number>0</number>
         </property>
         <widget class="QWidget" name="patientInfo_tab">
          <property name="sizePolicy">
@@ -3175,7 +3175,17 @@ PlotWidget {
            </layout>
           </item>
           <item>
-           <widget class="QTableWidget" name="precibedMedicines_tableWidget"/>
+           <widget class="QTableWidget" name="precibedMedicines_tableWidget">
+            <property name="selectionMode">
+             <enum>QAbstractItemView::SingleSelection</enum>
+            </property>
+            <property name="selectionBehavior">
+             <enum>QAbstractItemView::SelectRows</enum>
+            </property>
+            <property name="sortingEnabled">
+             <bool>true</bool>
+            </property>
+           </widget>
           </item>
          </layout>
         </widget>

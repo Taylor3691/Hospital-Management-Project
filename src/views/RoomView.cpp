@@ -9,6 +9,9 @@ RoomView::RoomView(QWidget* parent)
 
     _ui->record_listView->setModel(new MedicalRecordListModel(this));
 
+    _ui->recordId_label->setText("Vui lòng chọn một hồ sơ để tiếp tục!");
+    _ui->examinationSection_frame->setEnabled(0);
+
     _ui->buttonBox->button(QDialogButtonBox::Ok)->setText("Kết thúc khám");
     _ui->buttonBox->button(QDialogButtonBox::Ok)
         ->setStyleSheet("padding-left: 10px; padding-right: 10px;");
@@ -35,6 +38,7 @@ void RoomView::setConnections() {
     connect(_ui->record_listView, &QListView::clicked, this,
         [this](const QModelIndex& index) {
             _ui->recordId_label->setText(index.data().toString());
+            _ui->examinationSection_frame->setEnabled(1);
         });
 
     connect(_ui->doctorName_lineEdit, &QLineEdit::textChanged, this,
