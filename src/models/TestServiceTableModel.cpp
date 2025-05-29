@@ -1,28 +1,23 @@
 #include "TestServiceTableModel.h"
 
-TestServiceTableModel::TestServiceTableModel(Role role, QObject* parent)
+TestServiceTableModel::TestServiceTableModel(
+    const QVector<std::string>& selectedItems,
+    QObject* parent
+)
     : SelectableTableModel(
         {
+            "",
             "Mã dịch vụ",
             "Tên dịch vụ",
             "Chi phí",
-        }, role, parent)
+        }, parent)
+    , _selectedTests(selectedItems)
 {
-    if (role == Role::Select) {
-        _headers.insert(0, "");
-
-        auto data = ServiceLocator::getInstance()->testServiceRepository()->data();
-        _data = QVector<const TestService*>(data.begin(), data.end());
-    }
-    else if (role == Role::Display) {
-        _selectedItems.clear();
-    }
+    auto data = ServiceLocator::getInstance()->testServiceRepository()->data();
+    _data = QVector<const TestService*>(data.begin(), data.end());
 }
 
 int TestServiceTableModel::rowCount(const QModelIndex&) const {
-    if (_role == Role::Display) {
-        return _selectedItems.size();
-    }
     return _data.size();
 }
 
@@ -37,27 +32,24 @@ QVariant TestServiceTableModel::data(const QModelIndex& index, int role) const {
         return {};
     }
 
-    auto service = _role == Role::Display ? _selectedItems[row] : _data[row];
+    auto service = _data[row];
 
-    if (_role == Role::Select) {
-        if (col == 0) {
-            if (role == Qt::CheckStateRole) {
-                return _selectedItems.contains(service) ? Qt::Checked : Qt::Unchecked;
-            }
-            return {};
+    if (col == 0) {
+        if (role == Qt::CheckStateRole) {
+            return _selectedTests.contains(service->id()) ? Qt::Checked : Qt::Unchecked;
         }
-        col--;
+        return {};
     }
 
-    if (role == Qt::TextAlignmentRole && col == 2) {
+    if (role == Qt::TextAlignmentRole && col == 3) {
         return int(Qt::AlignVCenter | Qt::AlignRight);
     }
 
     if (role == Qt::DisplayRole) {
         switch (col) {
-            case 0: return QString::fromStdString(service->id());
-            case 1: return QString::fromStdString(service->name());
-            case 2: return QString::number(service->cost(), 'f', 2);
+            case 1: return QString::fromStdString(service->id());
+            case 2: return QString::fromStdString(service->name());
+            case 3: return QString::number(service->cost(), 'f', 2);
             default: return {};
         }
     }
@@ -70,7 +62,7 @@ QVariant TestServiceTableModel::data(const QModelIndex& index, int role) const {
 }
 
 bool TestServiceTableModel::setData(const QModelIndex& index, const QVariant& value, int role) {
-    if (_role != Role::Select || index.column() != 0 || role != Qt::CheckStateRole) {
+    if (index.column() != 0 || role != Qt::CheckStateRole) {
         return false;
     }
 
@@ -83,13 +75,13 @@ bool TestServiceTableModel::setData(const QModelIndex& index, const QVariant& va
     bool checked = value.toInt() == Qt::Checked;
     
     if (checked) {
-        if (!_selectedItems.contains(service)) {
-            _selectedItems.push_back(service);
+        if (!_selectedTests.contains(service->id())) {
+            _selectedTests.push_back(service->id());
             emit dataChanged(index, index, { Qt::CheckStateRole });
         }
     } else {
-        if (_selectedItems.contains(service)) {
-            _selectedItems.removeOne(service);
+        if (_selectedTests.contains(service->id())) {
+            _selectedTests.removeOne(service->id());
             emit dataChanged(index, index, { Qt::CheckStateRole });
         }
     }
@@ -104,15 +96,13 @@ void TestServiceTableModel::refresh() {
 
 void TestServiceTableModel::sort(int column, Qt::SortOrder order) {
     beginResetModel();
-    std::stable_sort(
-        _role == Role::Display ? _selectedItems.begin() : _data.begin(),
-        _role == Role::Display ? _selectedItems.end() : _data.end(),
+    std::stable_sort(_data.begin(), _data.end(),
         [=](const TestService* a, const TestService* b) {
             int compareResult = 0;
             switch (column) {
-                case 0: compareResult = compare(a->id(), b->id()); break;
-                case 1: compareResult = compare(a->name(), b->name()); break;
-                case 2: compareResult = compare(a->cost(), b->cost()); break;
+                case 1: compareResult = compare(a->id(), b->id()); break;
+                case 2: compareResult = compare(a->name(), b->name()); break;
+                case 3: compareResult = compare(a->cost(), b->cost()); break;
                 default: return false;
             }
 
@@ -123,19 +113,25 @@ void TestServiceTableModel::sort(int column, Qt::SortOrder order) {
 }
 
 void TestServiceTableModel::selectAll() {
-    if (_selectedItems.size() == _data.size())
+    if (_selectedTests.size() == _data.size())
 
     beginResetModel();
-    _selectedItems = _data;
+    for (const auto& test : _data) {
+        _selectedTests.push_back(test->id());
+    }
     endResetModel();
 }
 
 void TestServiceTableModel::clearAll() {
-    if (_selectedItems.isEmpty()) {
+    if (_selectedTests.isEmpty()) {
         return;
     }
 
     beginResetModel();
-    _selectedItems.clear();
+    _selectedTests.clear();
     endResetModel();
+}
+
+QVector<std::string> TestServiceTableModel::selectedItems() {
+    return _selectedTests;
 }

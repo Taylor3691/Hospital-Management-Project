@@ -7,12 +7,9 @@
 class SelectableTableModel : public TableModel {
     Q_OBJECT
 
-protected:
-    Role _role;
-
 public:
     explicit SelectableTableModel(const QVector<QString>& headers,
-        Role role = Role::Display, QObject* parent = nullptr);
+        QObject* parent = nullptr);
 
 public:
     virtual Qt::ItemFlags flags(const QModelIndex& index) const override;

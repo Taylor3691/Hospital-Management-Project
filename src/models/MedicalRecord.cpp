@@ -92,6 +92,14 @@ void MedicalRecord::assignToRoom(const std::string& roomId) {
 
 void MedicalRecord::startExamination(const std::string& doctorId) {
     _doctorId = doctorId;
+    _state = std::make_unique<ExaminingState>();
+}
+
+void MedicalRecord::cancelExamination() {
+    if (_doctorId.size()) {
+        _doctorId.clear();
+        _state = std::make_unique<WaitingState>();
+    }
 }
 
 void MedicalRecord::setDiagnosisResult(const std::string& result) {
@@ -110,12 +118,16 @@ void MedicalRecord::prescribeMedicine(std::unique_ptr<MedicineUsage> medicine) {
 
 void MedicalRecord::orderClinicalTest(std::unique_ptr<ClinicalTest> test) {
     for (auto& ptr : _clinicalTests) {
-        if (ptr.get()->id() == test.get()->id()) {
+        if (ptr->id() == test->id() && ptr->testId() == test->testId()) {
             ptr = std::move(test);
             return;
         }
     }
     _clinicalTests.push_back(std::move(test));
+}
+
+void MedicalRecord::clearOrderedTests() {
+    _clinicalTests.clear();
 }
 
 void MedicalRecord::compeleteExamination() {
