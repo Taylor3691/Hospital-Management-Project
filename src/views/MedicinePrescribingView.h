@@ -6,6 +6,7 @@
 #include <QHeaderView>
 #include "ui_MedicinePrescribingView.h"
 #include "../models/MedicineTableModel.h"
+#include "../models/MedicineUsage.h"
 #include "../controllers/ExaminationService.h"
 #include "../ServiceLocator.h"
 
@@ -18,6 +19,7 @@ class MedicinePrescribingView : public QDialog {
 
 private:
     Ui::MedicinePrescribingView* _ui;
+    std::unique_ptr<ExaminationService> _service;
 
 public:
     explicit MedicinePrescribingView(QWidget* parent = nullptr);
@@ -25,6 +27,9 @@ public:
 
 private:
     void setConnections();
+
+public:
+    std::unique_ptr<MedicineUsage> getUsage();
 };
 
 #endif // !MEDICINE_PRESCRIBING_VIEW_H

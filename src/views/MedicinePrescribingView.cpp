@@ -3,6 +3,13 @@
 MedicinePrescribingView::MedicinePrescribingView(QWidget* parent)
     : QDialog(parent)
     , _ui(new Ui::MedicinePrescribingView)
+    , _service(std::make_unique<ExaminationService>(
+        ServiceLocator::getInstance()->medicalRecordRepository(),
+        ServiceLocator::getInstance()->medicineRepository(),
+        ServiceLocator::getInstance()->roomExaminationRepository(),
+        ServiceLocator::getInstance()->testServiceRepository(),
+        ServiceLocator::getInstance()->employeeRepository(),
+        ServiceLocator::getInstance()->patientRepository()))
 {
     _ui->setupUi(this);
     _ui->buttonBox->button(QDialogButtonBox::Ok)->setText("Thêm");
@@ -18,6 +25,7 @@ MedicinePrescribingView::MedicinePrescribingView(QWidget* parent)
     view->setModel(model);
     _ui->id_comboBox->setModel(model);
     _ui->id_comboBox->setView(view);
+    _ui->id_comboBox->setCurrentIndex(-1);
 
     setWindowTitle("Kê thuốc");
     setStyleSheet("");
@@ -34,8 +42,18 @@ void MedicinePrescribingView::setConnections() {
             _ui->name_lineEdit->setText(
                 _ui->id_comboBox->model()->index(index, 1)
                 .data(Qt::DisplayRole).toString());
-            _ui->unit_lineEdit->setText(
-                _ui->id_comboBox->model()->index(index, 2)
-                .data(Qt::DisplayRole).toString());
+            _ui->price_doubleSpinBox->setValue(
+                _ui->id_comboBox->model()->index(index, 3)
+                .data(Qt::DisplayRole).toDouble());
         });
+}
+
+std::unique_ptr<MedicineUsage> MedicinePrescribingView::getUsage() {
+    return _service->createMedicineUsage(
+        _ui->id_comboBox->currentText().toStdString(),
+        _ui->name_lineEdit->text().toStdString(),
+        _ui->quantity_spinBox->value(),
+        _ui->price_doubleSpinBox->value(),
+        _ui->description_lineEdit->text().toStdString()
+    );
 }

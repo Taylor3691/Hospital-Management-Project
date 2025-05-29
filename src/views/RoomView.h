@@ -8,6 +8,7 @@
 #include "../models/ClinicalTestTableModel.h"
 #include "../models/Doctor.h"
 #include "../models/MedicalRecordListModel.h"
+#include "../models/MedicineUsageTableModel.h"
 #include "../models/TestServiceTableModel.h"
 #include "../ServiceLocator.h"
 #include "../utils/Date.h"
@@ -34,12 +35,15 @@ private:
     void setConnections();
     void createCompleter();
     const MedicalRecord* currentRecord();
+    void update(const MedicalRecord& record);
     void setExaminationInfo();
     void setPatientInfo();
     void setClinicalTests();
+    void setMedicineUsages();
     void clearExaminationInfo();
     void clearPatientInfo();
     void clearClinicalTests();
+    void clearMedicineUsages();
     void addTests(const QVector<std::string>& specifiedTests);
 
 public:

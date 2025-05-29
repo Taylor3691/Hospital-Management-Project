@@ -9,8 +9,7 @@ RoomView::RoomView(QWidget* parent)
         ServiceLocator::getInstance()->roomExaminationRepository(),
         ServiceLocator::getInstance()->testServiceRepository(),
         ServiceLocator::getInstance()->employeeRepository(),
-        ServiceLocator::getInstance()->patientRepository()
-    ))
+        ServiceLocator::getInstance()->patientRepository()))
 {
     _ui->setupUi(this);
 
@@ -32,6 +31,11 @@ RoomView::RoomView(QWidget* parent)
     _ui->specifiedTests_tableView->verticalHeader()
         ->setStyleSheet("QHeaderView::section { padding-right: 10px; }");
 
+    _ui->precibedMedicines_tableView
+        ->setModel(new MedicineUsageTableModel(this));
+    _ui->precibedMedicines_tableView->verticalHeader()
+        ->setStyleSheet("QHeaderView::section { padding-right: 10px; }");
+
     setStyleSheet("");
     setConnections();
     createCompleter();
@@ -48,6 +52,7 @@ void RoomView::setConnections() {
             setExaminationInfo();
             setPatientInfo();
             setClinicalTests();
+            setMedicineUsages();
         });
 
     connect(_ui->quickSpecify_pushButton, &QPushButton::clicked, this,
@@ -64,7 +69,6 @@ void RoomView::setConnections() {
             view.exec();
 
             addTests(model.selectedItems());
-            setClinicalTests();
         });
 
     connect(_ui->quickPrescribe_pushButton, &QPushButton::clicked, this,
@@ -73,7 +77,11 @@ void RoomView::setConnections() {
             QString title = "Xác nhận thêm thuốc";
             QString msg = "Bạn có chắc chắn muốn thêm thuốc?";
             if (view.exec() == QDialog::Accepted && confirm(title, msg)) {
-                
+                auto recordId = _ui->record_listView
+                    ->currentIndex().data().toString().toStdString();
+                auto record = _service->findRecordById(recordId);
+                record->prescribeMedicine(view.getUsage());
+                update(*record);
             }
         });
 }
@@ -93,6 +101,8 @@ void RoomView::createCompleter() {
 
     connect(completer, QOverload<const QString&>::of(&QCompleter::activated),
         this, [this](const QString& text) {
+            _ui->prescribingDoctorName_lineEdit->setText(text);
+
             auto recordId = _ui->recordId_lineEdit->text().toStdString();
             auto record = _service->findRecordById(recordId);
 
@@ -102,8 +112,8 @@ void RoomView::createCompleter() {
                 ->find({ {criteria, &Employee::name} })[0]->id();
 
             record->startExamination(doctorId);
+            update(*record);
             _ui->doctorId_lineEdit->setText(QString::fromStdString(doctorId));
-            ServiceLocator::getInstance()->medicalRecordRepository()->update(*record);
         });
 
     connect(_ui->doctorName_lineEdit, &QLineEdit::editingFinished,
@@ -116,9 +126,21 @@ void RoomView::createCompleter() {
             auto recordId = _ui->recordId_lineEdit->text().toStdString();
             auto record = _service->findRecordById(recordId);
             record->cancelExamination();
+            update(*record);
+            clearClinicalTests();
             _ui->doctorId_lineEdit->clear();
             _ui->doctorName_lineEdit->clear();
-            ServiceLocator::getInstance()->medicalRecordRepository()->update(*record);
+            _ui->prescribingDoctorName_lineEdit->clear();
+        });
+
+    connect(_ui->buttonBox->button(QDialogButtonBox::Ok), &QPushButton::clicked, this,
+        [this](bool) {
+            if (confirm("Xác nhận", "Bạn có chắc chắn muốn kết thúc quá trình khám?")) {
+                auto recordId = _ui->recordId_lineEdit->text().toStdString();
+                auto record = _service->findRecordById(recordId);
+                record->compeleteExamination();
+                update(*record);
+            }
         });
 }
 
@@ -131,15 +153,25 @@ const MedicalRecord* RoomView::currentRecord() {
         index.data(Qt::UserRole).value<void*>());
 }
 
+void RoomView::update(const MedicalRecord& record) {
+    ServiceLocator::getInstance()->medicalRecordRepository()->update(record);
+    setClinicalTests();
+    setMedicineUsages();
+}
+
 void RoomView::setExaminationInfo() {
     auto record = currentRecord();
     _ui->recordId_lineEdit->setText(QString::fromStdString(record->id()));
 
-    auto doctors = _service->getAllDoctor();
     auto doctorId = record->doctorId();
+    if (!doctorId.size()) {
+        return;
+    }
+    auto doctors = _service->getAllDoctor();
     auto doctor = from(doctors).where(&Doctor::id, doctorId).findOne();
     _ui->doctorId_lineEdit->setText(QString::fromStdString(doctor->id()));
     _ui->doctorName_lineEdit->setText(QString::fromStdString(doctor->name()));
+    _ui->prescribingDoctorName_lineEdit->setText(QString::fromStdString(doctor->name()));
 
     _ui->primaryDiagnose_lineEdit
         ->setText(QString::fromStdString(record->diagnosisResult()));
@@ -180,12 +212,20 @@ void RoomView::setClinicalTests() {
     pad(_ui->specifiedTests_tableView->horizontalHeader());
 }
 
+void RoomView::setMedicineUsages() {
+    auto usages = currentRecord()->prescribedMedicines();
+    static_cast<MedicineUsageTableModel*>(_ui->precibedMedicines_tableView
+        ->model())->setData(QVector<const MedicineUsage*>(usages.begin(), usages.end()));
+    pad(_ui->precibedMedicines_tableView->horizontalHeader());
+}
+
 void RoomView::clearExaminationInfo() {
     _ui->recordId_lineEdit->clear();
     _ui->doctorId_lineEdit->clear();
     _ui->doctorName_lineEdit->clear();
     _ui->primaryDiagnose_lineEdit->clear();
     _ui->secondaryDiagnose_lineEdit->clear();
+    _ui->prescribingDoctorName_lineEdit->clear();
 }
 
 void RoomView::clearPatientInfo() {
@@ -207,6 +247,11 @@ void RoomView::clearClinicalTests() {
         _ui->specifiedTests_tableView->model())->setData({});
 }
 
+void RoomView::clearMedicineUsages() {
+    static_cast<MedicineUsageTableModel*>(
+        _ui->precibedMedicines_tableView->model())->setData({});
+}
+
 void RoomView::addTests(const QVector<std::string>& specifiedTests) {
     auto recordId = _ui->record_listView
         ->currentIndex().data().toString().toStdString();
@@ -221,8 +266,8 @@ void RoomView::addTests(const QVector<std::string>& specifiedTests) {
         record->orderClinicalTest(_service->createCinicalTest(
             test->id(), test->name(), test->cost()));
     }
-
-    ServiceLocator::getInstance()->medicalRecordRepository()->update(*record);
+    record->changeState(std::make_unique<PendingTestState>());
+    update(*record);
 }
 
 void RoomView::changeRoom(int index) {
@@ -235,6 +280,7 @@ void RoomView::changeRoom(int index) {
     clearExaminationInfo();
     clearPatientInfo();
     clearClinicalTests();
+    clearMedicineUsages();
 
     static_cast<MedicalRecordListModel*>(_ui->record_listView->model())
         ->changeFilter(room->id());

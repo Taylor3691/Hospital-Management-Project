@@ -98,6 +98,9 @@ void MedicalRecord::startExamination(const std::string& doctorId) {
 void MedicalRecord::cancelExamination() {
     if (_doctorId.size()) {
         _doctorId.clear();
+        _diagnosisResult.clear();
+        _clinicalTests.clear();
+        _prescribedMedicines.clear();
         _state = std::make_unique<WaitingState>();
     }
 }

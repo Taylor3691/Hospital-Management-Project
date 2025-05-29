@@ -2295,14 +2295,18 @@ PlotWidget {
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="name_lineEdit"/>
+      <widget class="QLineEdit" name="name_lineEdit">
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
-      <widget class="QLabel" name="unit_label">
+      <widget class="QLabel" name="price_label">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
          <horstretch>0</horstretch>
@@ -2316,12 +2320,22 @@ PlotWidget {
         </size>
        </property>
        <property name="text">
-        <string>Đơn vị tính:</string>
+        <string>Đơn giá:</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="unit_lineEdit"/>
+      <widget class="QDoubleSpinBox" name="price_doubleSpinBox">
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+       <property name="maximum">
+        <double>1000000000.000000000000000</double>
+       </property>
+       <property name="singleStep">
+        <double>5000.000000000000000</double>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>
@@ -2347,7 +2361,11 @@ PlotWidget {
       </widget>
      </item>
      <item>
-      <widget class="QSpinBox" name="quantity_spinBox"/>
+      <widget class="QSpinBox" name="quantity_spinBox">
+       <property name="minimum">
+        <number>1</number>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>

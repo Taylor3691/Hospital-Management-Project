@@ -48,6 +48,7 @@ add_executable(${TARGET_NAME}
     src/models/Medicine.cpp
     src/models/MedicineTableModel.cpp
     src/models/MedicineUsage.cpp
+    src/models/MedicineUsageTableModel.cpp
     src/models/NormalPayment.cpp
     src/models/Nurse.cpp
     src/models/Object.cpp
@@ -170,6 +171,7 @@ target_sources(${TARGET_NAME} PRIVATE
     src/models/MedicineTableModel.h
     src/models/MedicineUsage.h
     src/models/MedicineUsageParser.h
+    src/models/MedicineUsageTableModel.h
     src/models/NormalPayment.h
     src/models/Nurse.h
     src/models/NurseParser.h
