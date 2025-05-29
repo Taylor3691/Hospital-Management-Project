@@ -11,8 +11,8 @@ Receipt::Receipt(
 )
     : Object(id, name)
     , _recordId(recordId)
+    ,_status("false")
     , _totalPrice(totalPrice)
-    ,_status(false)
     ,_createdDate(Date::toString((Date::getDate()))){}
 
 Receipt::Receipt(const Receipt& other)
