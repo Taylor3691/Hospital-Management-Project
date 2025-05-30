@@ -1,4 +1,5 @@
 #include "ExaminationService.h"
+#include "../ServiceLocator.h"
 
 ExaminationService::ExaminationService(
     IMedicalRecordRepository* records,
@@ -83,8 +84,16 @@ std::vector<std::unique_ptr<RoomExamination>> ExaminationService::getAllRooms() 
 std::vector<const MedicalRecord*> ExaminationService::getAllRecordsInRoom(
     const std::string& roomId
 ) {
-    auto data = _records->data();
-    return from(data).where(&MedicalRecord::roomId, roomId).find();
+    
+    auto room = ServiceLocator::instance()
+        ->registrationService()->findRoomById(roomId);
+    auto recordIds = room->waitingList();
+    auto records = _records->data();
+    auto query = from(records, FilterMode::OR);
+    for (const auto& id : recordIds) {
+        query.where(&MedicalRecord::id, id);
+    }
+    return query.find();
 }
 
 std::vector<const MedicalRecord*> ExaminationService::getAllRecordsInRoomByState(
@@ -94,7 +103,7 @@ std::vector<const MedicalRecord*> ExaminationService::getAllRecordsInRoomByState
     Getter<MedicalRecord> stateGetter = [](const MedicalRecord& record) {
         return (int)record.state()->getStateName();
     };
-    auto data = _records->data();
+    auto data = getAllRecordsInRoom(roomId);
     return from(data)
         .where(&MedicalRecord::roomId, roomId)
         .where(stateGetter, (int)state)
