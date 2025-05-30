@@ -1,25 +1,23 @@
 #include "RegistrationService.h"
-#include "../ServiceLocator.h"
 
 RegistrationService::RegistrationService(
-    IPatientRepository* patientRepo,
-    IMedicalRecordRepository* medicalRecordRepo,
-    IRoomExaminationRepository* roomRepo
+    IPatientRepository* patients,
+    IMedicalRecordRepository* records,
+    IRoomExaminationRepository* rooms
 )
-    : _patientRepo(patientRepo)
-    , _medicalRecordRepo(medicalRecordRepo)
-    , _roomRepo(roomRepo) {}
+    : _patients(patients)
+    , _records(records)
+    , _rooms(rooms) {}
 
 void RegistrationService::updateRoom(
     const std::string& recordId,
     const std::string& roomId
 ) {
-    auto room = ServiceLocator::instance()
-        ->examinationService()->findRoomById(roomId);
+    auto room = findRoomById(roomId);
     auto copy = std::unique_ptr<RoomExamination>(
         static_cast<RoomExamination*>(room->clone()));
-    copy->addToWaitingQueue(recordId);
-    _roomRepo->update(*copy);
+    copy->addToWaitingList(recordId);
+    _rooms->update(*copy);
 }
 
 std::unique_ptr<HealthInsurance> RegistrationService::createInsurace(
@@ -46,12 +44,12 @@ Patient* RegistrationService::createPatient(
     auto patient = std::make_unique<Patient>(id, name, gender,
         address, phone, dob, symptoms, std::move(insurance));
     auto ptr = patient.get();
-    _patientRepo->add(std::move(patient));
+    _patients->add(std::move(patient));
     return ptr;
 }
 
 MedicalRecord* RegistrationService::createMedicalRecord(Patient* patient, const std::string& roomId) {
-    auto data = _medicalRecordRepo->data();
+    auto data = _records->data();
     std::vector<const Object*> objectData(data.begin(), data.end());
     auto newId = createId(objectData, getFormat<MedicalRecord>());
 
@@ -60,7 +58,17 @@ MedicalRecord* RegistrationService::createMedicalRecord(Patient* patient, const 
     updateRoom(record->id(), roomId);
 
     auto ptr = record.get();
-    _medicalRecordRepo->add(std::move(record));
+    _records->add(std::move(record));
 
     return ptr;
+}
+
+std::unique_ptr<RoomExamination> RegistrationService::findRoomById(const std::string& id) {
+    auto data = _rooms->data();
+    auto record = from(data).where(&RoomExamination::id, id).findOne();
+    if (!record) {
+        return nullptr;
+    }
+    auto copy = static_cast<RoomExamination*>(record->clone());
+    return std::unique_ptr<RoomExamination>(copy);
 }

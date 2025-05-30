@@ -155,16 +155,6 @@ std::unique_ptr<Patient> ExaminationService::findPatientById(const std::string& 
     return std::unique_ptr<Patient>(copy);
 }
 
-std::unique_ptr<RoomExamination> ExaminationService::findRoomById(const std::string& id) {
-    auto data = _rooms->data();
-    auto record = from(data).where(&RoomExamination::id, id).findOne();
-    if (!record) {
-        return nullptr;
-    }
-    auto copy = static_cast<RoomExamination*>(record->clone());
-    return std::unique_ptr<RoomExamination>(copy);
-}
-
 std::unique_ptr<MedicalRecord> ExaminationService::findRecordById(const std::string& id) {
     auto data = _records->data();
     auto record = from(data).where(&MedicalRecord::id, id).findOne();

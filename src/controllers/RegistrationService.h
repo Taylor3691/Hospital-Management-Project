@@ -11,15 +11,15 @@
 
 class RegistrationService {
 private:
-    IPatientRepository* _patientRepo;
-    IMedicalRecordRepository* _medicalRecordRepo;
-    IRoomExaminationRepository* _roomRepo;
+    IPatientRepository* _patients;
+    IMedicalRecordRepository* _records;
+    IRoomExaminationRepository* _rooms;
 
 public:
     RegistrationService() = default;
-    RegistrationService(IPatientRepository* patientRepo,
-        IMedicalRecordRepository* medicalRecordRepo,
-        IRoomExaminationRepository* roomRepo);
+    RegistrationService(IPatientRepository* patients,
+        IMedicalRecordRepository* records,
+        IRoomExaminationRepository* rooms);
 
 private:
     void updateRoom(const std::string& recordId,
@@ -36,6 +36,7 @@ public:
         std::unique_ptr<HealthInsurance> insurance = nullptr);
     MedicalRecord* createMedicalRecord(
         Patient* patient, const std::string& roomId);
+    std::unique_ptr<RoomExamination> findRoomById(const std::string& id);
 };
 
 #endif // !REGISTRATION_SERVICE_H

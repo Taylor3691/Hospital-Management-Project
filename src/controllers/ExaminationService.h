@@ -44,7 +44,6 @@ public:
         const std::string& testId, const std::string& name, double cost);
     std::unique_ptr<Doctor> findDoctorById(const std::string& id);
     std::unique_ptr<Patient> findPatientById(const std::string& id);
-    std::unique_ptr<RoomExamination> findRoomById(const std::string& id);
     std::unique_ptr<MedicalRecord> findRecordById(const std::string& id);
     std::unique_ptr<Medicine> findMedicineById(const std::string& id);
     std::unique_ptr<TestService> findTestServiceById(const std::string id);
