@@ -26,6 +26,10 @@ void notify(
     msgBox.exec();
 }
 
+void warn(const QString& msg, const QString& title) {
+    notify(title, msg, QMessageBox::Warning);
+}
+
 void pad(QHeaderView* view, int padSize) {
     view->setSectionResizeMode(QHeaderView::ResizeToContents);
     QString headerText;
