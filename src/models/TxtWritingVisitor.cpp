@@ -159,9 +159,9 @@ void TxtWritingVisitor::write(RoomExamination* room, std::ostream& os) {
     os << room->id() << _delim
         << room->name() << _delim
         << room->departmentId() << _delim;
-    for (int i = 0; i < room->waitingQueue().size(); i++) {
-        os << room->waitingQueue()[i];
-        if (i != room->waitingQueue().size() - 1) {
+    for (int i = 0; i < room->waitingList().size(); i++) {
+        os << room->waitingList()[i];
+        if (i != room->waitingList().size() - 1) {
             os << ',';
         }
     }

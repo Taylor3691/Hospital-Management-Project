@@ -17,14 +17,8 @@ std::string RoomExamination::departmentId() const {
     return _departmentId;
 }
 
-std::vector<std::string> RoomExamination::waitingQueue() const {
-    std::vector<std::string> waitingQueue;
-    std::queue<std::string> copy = _waitingQueue;
-    while (!copy.empty()) {
-        waitingQueue.push_back(copy.front());
-        copy.pop();
-    }
-    return waitingQueue;
+std::vector<std::string> RoomExamination::waitingList() const {
+    return _waitingList;
 }
 
 double RoomExamination::examinationFee() const {
@@ -35,30 +29,27 @@ void RoomExamination::setDepartmentId(const std::string& id) {
     _departmentId = id;
 }
 
-void RoomExamination::setWaitingQueue(std::vector<std::string> queue) {
-    while (!_waitingQueue.empty()) {
-        _waitingQueue.pop();
-    }
-
-    for (auto room : queue) {
-        _waitingQueue.push(room);
-    }
+void RoomExamination::setWaitingList(std::vector<std::string> list) {
+    _waitingList = list;
 }
 
 void RoomExamination::setRoomFee(double fee) {
     _examinationFee = fee;
 }
 
-void RoomExamination::addToWaitingQueue(const std::string& id) {
-    _waitingQueue.push(id);
+void RoomExamination::addToWaitingList(const std::string& id) {
+    _waitingList.push_back(id);
 }
 
-void RoomExamination::removeFromWaitingQueue() {
-    _waitingQueue.pop();
+void RoomExamination::removeFromWaitingList(const std::string& id) {
+    auto it = std::find(_waitingList.begin(), _waitingList.end(), id);
+    if (it != _waitingList.end()) {
+        _waitingList.erase(it);
+    }
 }
 
-int RoomExamination::getQueueCount() const {
-    return static_cast<int>(_waitingQueue.size());
+int RoomExamination::waitingListCount() const {
+    return static_cast<int>(_waitingList.size());
 }
 
 void RoomExamination::acceptWrite(IVisitor* visitor, std::ostream& os) {

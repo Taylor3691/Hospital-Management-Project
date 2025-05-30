@@ -23,12 +23,12 @@ Object* TxtRoomExaminationParser::parse(const std::string& str) const {
 
     std::istringstream subStream(buffer);
     std::string subBuffer;
-    std::vector<std::string> queue;
+    std::vector<std::string> list;
     while (std::getline(subStream, subBuffer, ',')) {
-        queue.push_back(subBuffer);
+        list.push_back(subBuffer);
     }
 
-    room->setWaitingQueue(queue);
+    room->setWaitingList(list);
 
     std::getline(stream, buffer, _delim);
     room->setRoomFee(std::stod(buffer));
