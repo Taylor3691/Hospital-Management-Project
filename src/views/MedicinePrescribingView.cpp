@@ -41,6 +41,10 @@ void MedicinePrescribingView::setConnections() {
         });
 }
 
+bool MedicinePrescribingView::checkValid() {
+    return _ui->id_comboBox->currentIndex() != -1;
+}
+
 std::unique_ptr<MedicineUsage> MedicinePrescribingView::getUsage() {
     return ServiceLocator::instance()->examinationService()->createMedicineUsage(
         _ui->id_comboBox->currentText().toStdString(),

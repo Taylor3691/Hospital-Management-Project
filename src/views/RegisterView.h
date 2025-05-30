@@ -26,9 +26,12 @@ public:
 private:
     void setConnections();
     void setupRooms();
+    bool checkValid();
     std::unique_ptr<HealthInsurance> createInsurance() const;
     Patient* createPatient(std::unique_ptr<HealthInsurance> insurance) const;
     void resetInputs();
+
+public:
     void updateRoomInfo();
 };
 

@@ -30,12 +30,7 @@ RegisterView::~RegisterView() {
 void RegisterView::setConnections() {
     connect(_ui->buttonBox->button(QDialogButtonBox::Ok), &QPushButton::clicked, this,
         [this](bool) {
-            if (!_roomButtonGroup->checkedButton()) {
-                notify(
-                    "Cảnh báo",
-                    "Vui lòng chọn phòng!",
-                    QMessageBox::Warning
-                );
+            if (!checkValid()) {
                 return;
             }
 
@@ -47,10 +42,7 @@ void RegisterView::setConnections() {
                 ->createMedicalRecord(patient, roomId);
 
             updateRoomInfo();
-            notify(
-                "Kết quả đăng ký",
-                "Bạn đã đăng ký thành công!"
-            );
+            notify("Kết quả đăng ký", "Bạn đã đăng ký thành công!");
             resetInputs();
         });
 }
@@ -84,12 +76,28 @@ void RegisterView::setupRooms() {
 
         auto waitings_label = new QLabel(frame);
         waitings_label->setAlignment(Qt::AlignCenter);
-        waitings_label->setText(QString("Số lượt chờ: %1").arg(rooms[i]->getQueueCount()));
+        waitings_label->setText(QString("Số lượt chờ: %1").arg(rooms[i]->waitingListCount()));
 
         verticalLayout->addWidget(waitings_label);
 
         qobject_cast<QGridLayout*>(_ui->room_frame->layout())->addWidget(frame, 0, i, 1, 1);
     }
+}
+
+bool RegisterView::checkValid() {
+    // TODO: Validate Patient and HealthInsurance infos
+
+    if (!_ui->symptoms_plainTextEdit->toPlainText().length()) {
+        warn("Triệu chứng không thể để trống!");
+        return false;
+    }
+
+    if (!_roomButtonGroup->checkedButton()) {
+        warn("Vui lòng chọn phòng!");
+        return false;
+    }
+
+    return true;
 }
 
 Patient* RegisterView::createPatient(std::unique_ptr<HealthInsurance> insurance) const {
@@ -160,9 +168,11 @@ void RegisterView::resetInputs() {
 }
 
 void RegisterView::updateRoomInfo() {
-    auto button = _roomButtonGroup->checkedButton();
-    auto roomId = button->property("roomId").toString().toStdString();
-    auto room = ServiceLocator::instance()->examinationService()->findRoomById(roomId);
-    static_cast<QLabel*>(button->parentWidget()->layout()->itemAt(2)->widget())
-        ->setText(QString("Số lượt chờ: %1").arg(room->getQueueCount()));
+    for (const auto& button : _roomButtonGroup->buttons()) {
+        auto roomId = button->property("roomId").toString().toStdString();
+        auto room = ServiceLocator::instance()
+            ->registrationService()->findRoomById(roomId);
+        static_cast<QLabel*>(button->parentWidget()->layout()->itemAt(2)->widget())
+            ->setText(QString("Số lượt chờ: %1").arg(room->waitingListCount()));
+    }
 }

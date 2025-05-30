@@ -42,7 +42,7 @@ private:
     void clearClinicalTests();
     void clearMedicineUsages();
     void addTests(const QVector<std::string>& specifiedTests);
-    void triggerCurrentFilter();
+    void triggerRecordFilter();
 
 public:
     void changeRoom(int index);

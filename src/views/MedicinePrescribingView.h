@@ -26,6 +26,7 @@ private:
     void setConnections();
 
 public:
+    bool checkValid();
     std::unique_ptr<MedicineUsage> getUsage();
 };
 

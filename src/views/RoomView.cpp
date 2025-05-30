@@ -48,8 +48,8 @@ void RoomView::setConnections() {
             auto roomId = _ui->id_label->text().toStdString();
             auto records = ServiceLocator::instance()
                 ->examinationService()->getAllRecordsInRoomByState(roomId);
-            static_cast<MedicalRecordListModel*>(_ui->record_listView->model())
-                ->setData(QVector<const MedicalRecord*>(records.begin(), records.end()));
+            static_cast<MedicalRecordListModel*>(
+                _ui->record_listView->model())->setData(records);
         });
 
     connect(_ui->examining_radioButton, &QRadioButton::toggled, this,
@@ -64,8 +64,8 @@ void RoomView::setConnections() {
             auto additionalRecords = ServiceLocator::instance()->examinationService()
                 ->getAllRecordsInRoomByState(roomId, ExaminationState::TestPending);
             records.insert(records.end(), additionalRecords.begin(), additionalRecords.end());
-            static_cast<MedicalRecordListModel*>(_ui->record_listView->model())
-                ->setData(QVector<const MedicalRecord*>(records.begin(), records.end()));
+            static_cast<MedicalRecordListModel*>(
+                _ui->record_listView->model())->setData(records);
         });
 
     connect(_ui->completed_radioButton, &QRadioButton::toggled, this,
@@ -77,8 +77,8 @@ void RoomView::setConnections() {
             auto roomId = _ui->id_label->text().toStdString();
             auto records = ServiceLocator::instance()->examinationService()
                 ->getAllRecordsInRoomByState(roomId, ExaminationState::Completed);
-            static_cast<MedicalRecordListModel*>(_ui->record_listView->model())
-                ->setData(QVector<const MedicalRecord*>(records.begin(), records.end()));
+            static_cast<MedicalRecordListModel*>(
+                _ui->record_listView->model())->setData(records);
         });
 
     connect(_ui->allRecords_radioButton, &QRadioButton::toggled, this,
@@ -90,8 +90,8 @@ void RoomView::setConnections() {
             auto roomId = _ui->id_label->text().toStdString();
             auto records = ServiceLocator::instance()
                 ->examinationService()->getAllRecordsInRoom(roomId);
-            static_cast<MedicalRecordListModel*>(_ui->record_listView->model())
-                ->setData(QVector<const MedicalRecord*>(records.begin(), records.end()));
+            static_cast<MedicalRecordListModel*>(
+                _ui->record_listView->model())->setData(records);
         });
 
     connect(_ui->record_listView, &QListView::clicked, this,
@@ -105,9 +105,15 @@ void RoomView::setConnections() {
 
     connect(_ui->quickSpecify_pushButton, &QPushButton::clicked, this,
         [this](bool) {
-            QVector<std::string> specifiedTests;
+
             auto record = ServiceLocator::instance()->examinationService()
                 ->findRecordById(_ui->recordId_lineEdit->text().toStdString());
+
+            if (!record->state()->canOrderClinicalTest()) {
+                return warn("Không thể chỉ định với trạng thái hiện tại!");
+            }
+
+            QVector<std::string> specifiedTests;
             for (const auto& test : record->clinicalTests()) {
                 specifiedTests.push_back(test->testId());
             }
@@ -123,15 +129,43 @@ void RoomView::setConnections() {
 
     connect(_ui->quickPrescribe_pushButton, &QPushButton::clicked, this,
         [this](bool) {
+            auto recordId = _ui->recordId_lineEdit->text().toStdString();
+            auto record = ServiceLocator::instance()
+                ->examinationService()->findRecordById(recordId);
+
+            if (!record->state()->canPrescribeMedicine()) {
+                return warn("Không thể kê thuốc với trạng thái hiện tại!");
+            }
+
             MedicinePrescribingView view;
-            QString title = "Xác nhận thêm thuốc";
-            QString msg = "Bạn có chắc chắn muốn thêm thuốc?";
-            if (view.exec() == QDialog::Accepted && confirm(title, msg)) {
-                auto recordId = _ui->record_listView
-                    ->currentIndex().data().toString().toStdString();
-                auto record = ServiceLocator::instance()
-                    ->examinationService()->findRecordById(recordId);
-                record->prescribeMedicine(view.getUsage());
+            if (view.exec() == QDialog::Accepted) {
+                if (!view.checkValid()) {
+                    return warn("Mã thuốc không hợp lệ!");
+                }
+
+                if (confirm("Xác nhận thêm thuốc", "Bạn có chắc chắn muốn thêm thuốc?")) {
+                    record->prescribeMedicine(view.getUsage());
+                    update(*record);
+                }
+            }
+        });
+
+    connect(_ui->buttonBox->button(QDialogButtonBox::Ok), &QPushButton::clicked, this,
+        [this](bool) {
+            if (!_ui->primaryDiagnose_lineEdit->text().length()) {
+                return warn("Chẩn đoán chính không thể để trống!");
+            }
+
+            auto recordId = _ui->recordId_lineEdit->text().toStdString();
+            auto record = ServiceLocator::instance()
+                ->examinationService()->findRecordById(recordId);
+
+            if (!record->state()->canComplete()) {
+                return warn("Không thể kết thúc khám với trạng thái hiện tại!");
+            }
+
+            if (confirm("Xác nhận", "Bạn có chắc chắn muốn kết thúc quá trình khám?")) {
+                record->compeleteExamination();
                 update(*record);
             }
         });
@@ -185,24 +219,13 @@ void RoomView::createCompleter() {
             _ui->doctorName_lineEdit->clear();
             _ui->prescribingDoctorName_lineEdit->clear();
         });
-
-    connect(_ui->buttonBox->button(QDialogButtonBox::Ok), &QPushButton::clicked, this,
-        [this](bool) {
-            if (confirm("Xác nhận", "Bạn có chắc chắn muốn kết thúc quá trình khám?")) {
-                auto recordId = _ui->recordId_lineEdit->text().toStdString();
-                auto record = ServiceLocator::instance()
-                    ->examinationService()->findRecordById(recordId);
-                record->compeleteExamination();
-                update(*record);
-            }
-        });
 }
 
 void RoomView::update(const MedicalRecord& record) {
     ServiceLocator::instance()->medicalRecordRepository()->update(record);
     setClinicalTests();
     setMedicineUsages();
-    triggerCurrentFilter();
+    triggerRecordFilter();
 }
 
 void RoomView::setExaminationInfo(const std::string& recordId) {
@@ -311,8 +334,7 @@ void RoomView::clearMedicineUsages() {
 }
 
 void RoomView::addTests(const QVector<std::string>& specifiedTests) {
-    auto recordId = _ui->record_listView
-        ->currentIndex().data().toString().toStdString();
+    auto recordId = _ui->recordId_lineEdit->text().toStdString();
     auto record = ServiceLocator::instance()
         ->examinationService()->findRecordById(recordId);
     record->clearOrderedTests();
@@ -328,24 +350,18 @@ void RoomView::addTests(const QVector<std::string>& specifiedTests) {
     update(*record);
 }
 
-void RoomView::triggerCurrentFilter() {
-    QRadioButton* checkedButton = nullptr;
-
+void RoomView::triggerRecordFilter() {
     if (_ui->waiting_radioButton->isChecked()) {
-        checkedButton = _ui->waiting_radioButton;
+        emit _ui->waiting_radioButton->toggled(1);
     }
     else if (_ui->examining_radioButton->isChecked()) {
-        checkedButton = _ui->examining_radioButton;
+        emit _ui->examining_radioButton->toggled(1);
     }
     else if (_ui->completed_radioButton->isChecked()) {
-        checkedButton = _ui->completed_radioButton;
+        emit _ui->completed_radioButton->toggled(1);
     }
     else if (_ui->allRecords_radioButton->isChecked()) {
-        checkedButton = _ui->allRecords_radioButton;
-    }
-
-    if (checkedButton) {
-        emit checkedButton->toggled(1);
+        emit _ui->allRecords_radioButton->toggled(1);
     }
 }
 
@@ -360,5 +376,5 @@ void RoomView::changeRoom(int index) {
     clearPatientInfo();
     clearClinicalTests();
     clearMedicineUsages();
-    triggerCurrentFilter();
+    triggerRecordFilter();
 }
