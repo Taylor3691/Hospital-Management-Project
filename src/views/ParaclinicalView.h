@@ -3,6 +3,9 @@
 
 #include <QPushButton>
 #include "ui_ParaclinicalView.h"
+#include "../models/MedicalRecordListModel.h"
+#include "../models/ClinicalTestTableModel.h"
+#include "../models/ExaminingState.h"
 
 namespace Ui {
     class ParaclinicalView;
@@ -20,6 +23,14 @@ public:
 
 private:
     void setConnections();
+    void triggerRecordFilter();
+    void triggerTestFilter();
+    void setClinicalTest(const ClinicalTest* test);
+    std::unique_ptr<ClinicalTest> getClinicalTest();
+    void clearTestInfo();
+
+public:
+    void updateView();
 };
 
 #endif // !PARACLINICAL_VIEW_H
