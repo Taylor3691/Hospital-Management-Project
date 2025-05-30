@@ -5,7 +5,6 @@
 #include <QButtonGroup>
 #include "ui_RegisterView.h"
 #include "../ServiceLocator.h"
-#include "../models/RegistrationService.h"
 #include "../utils/utils.h"
 #include "../utils/utils_template.h"
 
@@ -18,7 +17,6 @@ class RegisterView : public QWidget {
 
 private:
     Ui::RegisterView* _ui;
-    std::unique_ptr<RegistrationService> _service;
     QButtonGroup* _roomButtonGroup;
 
 public:

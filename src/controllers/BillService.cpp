@@ -1,9 +1,10 @@
 #include "BillService.h"
+#include "../ServiceLocator.h"
 
 BillService::BillService(IMedicalRecordRepository* records, IPatientRepository* patients,
     IRoomExaminationRepository* rooms) : _records(records), _patients(patients), _rooms(rooms){}
 
-std::vector<std::unique_ptr<MedicalRecord>>BillService::getAllRecord() {
+std::vector<std::unique_ptr<MedicalRecord>>BillService::getAllRecords() {
     std::vector<std::unique_ptr<MedicalRecord>> result;
 
     for (auto record : _records->data()) {

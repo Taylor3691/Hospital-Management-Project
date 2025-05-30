@@ -27,16 +27,19 @@ public:
         IEmployeeRepository* employees, IPatientRepository* patients);
 
 public:
-    std::vector<std::unique_ptr<MedicalRecord>> getAllRecord();
-    std::vector<std::unique_ptr<Doctor>> getAllDoctor();
-    std::vector<std::unique_ptr<Medicine>> getAllMedicine();
-    std::vector<std::unique_ptr<TestService>> getAllTestService();
-    std::vector<std::unique_ptr<RoomExamination>> getAllRoom();
-    std::vector<std::unique_ptr<MedicalRecord>> getAllRecordByState(const std::string& state);
-    std::unique_ptr<MedicineUsage> createMedicineUsage(const std::string& medicineId, const std::string& name,
+    std::vector<std::unique_ptr<MedicalRecord>> getAllRecords();
+    std::vector<std::unique_ptr<Doctor>> getAllDoctors();
+    std::vector<std::unique_ptr<Medicine>> getAllMedicines();
+    std::vector<std::unique_ptr<TestService>> getAllTestServices();
+    std::vector<std::unique_ptr<RoomExamination>> getAllRooms();
+    std::vector<const MedicalRecord*> getAllRecordsInRoomByState(
+        const std::string& roomId, const std::string& state);
+    std::unique_ptr<MedicineUsage> createMedicineUsage(
+        const std::string& medicineId, const std::string& name,
         int quantity, double price, const std::string& description);
-    std::unique_ptr<ClinicalTest> createCinicalTest(const std::string& testId, const std::string& name,
-        double cost);
+    std::unique_ptr<ClinicalTest> createCinicalTest(
+        const std::string& testId, const std::string& name, double cost);
+    std::unique_ptr<Doctor> findDoctorById(const std::string& id);
     std::unique_ptr<Patient> findPatientById(const std::string& id);
     std::unique_ptr<RoomExamination> findRoomById(const std::string& id);
     std::unique_ptr<MedicalRecord> findRecordById(const std::string& id);

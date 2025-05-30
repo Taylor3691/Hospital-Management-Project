@@ -3,13 +3,6 @@
 MedicinePrescribingView::MedicinePrescribingView(QWidget* parent)
     : QDialog(parent)
     , _ui(new Ui::MedicinePrescribingView)
-    , _service(std::make_unique<ExaminationService>(
-        ServiceLocator::getInstance()->medicalRecordRepository(),
-        ServiceLocator::getInstance()->medicineRepository(),
-        ServiceLocator::getInstance()->roomExaminationRepository(),
-        ServiceLocator::getInstance()->testServiceRepository(),
-        ServiceLocator::getInstance()->employeeRepository(),
-        ServiceLocator::getInstance()->patientRepository()))
 {
     _ui->setupUi(this);
     _ui->buttonBox->button(QDialogButtonBox::Ok)->setText("Thêm");
@@ -49,7 +42,7 @@ void MedicinePrescribingView::setConnections() {
 }
 
 std::unique_ptr<MedicineUsage> MedicinePrescribingView::getUsage() {
-    return _service->createMedicineUsage(
+    return ServiceLocator::instance()->examinationService()->createMedicineUsage(
         _ui->id_comboBox->currentText().toStdString(),
         _ui->name_lineEdit->text().toStdString(),
         _ui->quantity_spinBox->value(),

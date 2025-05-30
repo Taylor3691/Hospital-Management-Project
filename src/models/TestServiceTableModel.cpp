@@ -13,7 +13,7 @@ TestServiceTableModel::TestServiceTableModel(
         }, parent)
     , _selectedTests(selectedItems)
 {
-    auto data = ServiceLocator::getInstance()->testServiceRepository()->data();
+    auto data = ServiceLocator::instance()->testServiceRepository()->data();
     _data = QVector<const TestService*>(data.begin(), data.end());
 }
 

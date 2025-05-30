@@ -1,7 +1,7 @@
 #include "PaymentMethodStrategy.h"
 
 IPaymentMethod* PaymentMethodStrategy::getPaymentMethod(Patient * patient) {
-    if (patient->insuranceCard() == nullptr) {
+    if (!patient->insuranceCard()) {
         return new NormalPayment();
     }
     else if (patient->insuranceCard()->checkValid()) {

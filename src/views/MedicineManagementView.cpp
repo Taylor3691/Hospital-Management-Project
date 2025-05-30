@@ -18,7 +18,7 @@ MedicineManagementView::MedicineManagementView(Role role, QWidget* parent)
         _ui->price_comboBox->setVisible(0);
         _ui->quantity_comboBox->setVisible(0);
 
-        auto data = ServiceLocator::getInstance()->medicalRecordRepository()->data();
+        auto data = ServiceLocator::instance()->medicalRecordRepository()->data();
         std::vector<const Object*> objectData(data.begin(), data.end());
         auto newId = createId(objectData, getFormat<Medicine>());
         _ui->id_lineEdit->setText(QString::fromStdString(newId));

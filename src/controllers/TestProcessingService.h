@@ -1,5 +1,5 @@
-#ifndef TESTPROCESSINGSERVICE_H
-#define TESTPROCESSINGSERVICE_H
+#ifndef TEST_PROCESSING_SERVICE_H
+#define TEST_PROCESSING_SERVICE_H
 
 #include "../utils/utils.h"
 #include "../utils/Date.h"
@@ -17,11 +17,12 @@ public:
 
 public:
     std::vector<std::unique_ptr<ClinicalTest>> getAllClinicalTest();
-    std::vector<std::unique_ptr<ClinicalTest>> getClinicalTestByState(bool completed = false);
+    std::vector<std::unique_ptr<ClinicalTest>> getClinicalTestByState(
+        bool completed = false);
     std::unique_ptr<MedicalRecord> findRecordById(const std::string& id);
     std::unique_ptr<ClinicalTest> findTestUsageById(const std::string& id);
     void updateRecord(std::unique_ptr<MedicalRecord> record);
 
 };
 
-#endif // !TESTPROCESSINGSERVICE_H
+#endif // !TEST_PROCESSING_SERVICE_H

@@ -209,7 +209,7 @@ void HomeView::clearButtonGroupSelection(QButtonGroup* group) {
 void HomeView::createRoomButtons() {
     auto layout = _ui->room_frame->layout();
     QPushButton* button = nullptr;
-    auto numRooms = ServiceLocator::getInstance()->roomExaminationRepository()->data().size();
+    auto numRooms = ServiceLocator::instance()->roomExaminationRepository()->data().size();
     for (int i = 0; i < numRooms; ++i) {
         button = new QPushButton(_ui->room_frame);
         button->setText(QString("Phòng %1").arg(i + 1));

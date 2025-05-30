@@ -3,10 +3,6 @@
 RegisterView::RegisterView(QWidget* parent)
     : QWidget(parent)
     , _ui(new Ui::RegisterView)
-    , _service(std::make_unique<RegistrationService>(
-        ServiceLocator::getInstance()->patientRepository(),
-        ServiceLocator::getInstance()->medicalRecordRepository(),
-        ServiceLocator::getInstance()->roomExaminationRepository()))
     , _roomButtonGroup(new QButtonGroup(this))
 {
     _ui->setupUi(this);
@@ -17,7 +13,7 @@ RegisterView::RegisterView(QWidget* parent)
     _ui->expiryDate_dateEdit->setDate(QDate::currentDate());
     _ui->buttonBox->button(QDialogButtonBox::Ok)->setText("Đăng ký");
 
-    auto data = ServiceLocator::getInstance()->patientRepository()->data();
+    auto data = ServiceLocator::instance()->patientRepository()->data();
     auto objData = std::vector<const Object*>(data.begin(), data.end());
     auto patientId = createId(objData, getFormat<Patient>());
     _ui->id_lineEdit->setText(QString::fromStdString(patientId));
@@ -47,7 +43,8 @@ void RegisterView::setConnections() {
             auto patient = createPatient(std::move(insurance));
             auto roomId = _roomButtonGroup->checkedButton()
                 ->property("roomId").toString().toStdString();
-            auto record = _service->createMedicalRecord(patient, roomId);
+            auto record = ServiceLocator::instance()->registrationService()
+                ->createMedicalRecord(patient, roomId);
 
             updateRoomInfo();
             notify(
@@ -59,7 +56,7 @@ void RegisterView::setConnections() {
 }
 
 void RegisterView::setupRooms() {
-    auto rooms = ServiceLocator::getInstance()->roomExaminationRepository()->data();
+    auto rooms = ServiceLocator::instance()->roomExaminationRepository()->data();
     for (int i = 0; i < rooms.size(); ++i) {
         auto frame = new QFrame(_ui->room_frame);
         frame->setFrameShape(QFrame::StyledPanel);
@@ -107,7 +104,7 @@ Patient* RegisterView::createPatient(std::unique_ptr<HealthInsurance> insurance)
         }
     }
 
-    return _service->createPatient(
+    return ServiceLocator::instance()->registrationService()->createPatient(
         _ui->id_lineEdit->text().toStdString(),
         _ui->name_lineEdit->text().toStdString(),
         _ui->gender_comboBox->currentText().toStdString(),
@@ -136,7 +133,7 @@ std::unique_ptr<HealthInsurance> RegisterView::createInsurance() const {
 }
 
 void RegisterView::resetInputs() {
-    auto data = ServiceLocator::getInstance()->patientRepository()->data();
+    auto data = ServiceLocator::instance()->patientRepository()->data();
     auto objData = std::vector<const Object*>(data.begin(), data.end());
     auto patientId = createId(objData, getFormat<Patient>());
     _ui->id_lineEdit->setText(QString::fromStdString(patientId));
@@ -165,11 +162,7 @@ void RegisterView::resetInputs() {
 void RegisterView::updateRoomInfo() {
     auto button = _roomButtonGroup->checkedButton();
     auto roomId = button->property("roomId").toString().toStdString();
-    auto data = ServiceLocator::getInstance()
-        ->roomExaminationRepository()->data();
-    auto room = from(data)
-        .where(&RoomExamination::id, roomId)
-        .findOne();
+    auto room = ServiceLocator::instance()->examinationService()->findRoomById(roomId);
     static_cast<QLabel*>(button->parentWidget()->layout()->itemAt(2)->widget())
         ->setText(QString("Số lượt chờ: %1").arg(room->getQueueCount()));
 }

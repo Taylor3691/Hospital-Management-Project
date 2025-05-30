@@ -4,12 +4,10 @@
 #include "../interfaces/IPatientRepository.h"
 #include "../interfaces/IMedicalRecordRepository.h"
 #include "../interfaces/IRoomExaminationRepository.h"
-#include "HealthInsurance.h"
-#include "RoomExamination.h"
+#include "../models/HealthInsurance.h"
+#include "../models/RoomExamination.h"
 #include "../utils/utils.h"
 #include "../utils/utils_template.h"
-#include "WaitingState.h"
-#include "../utils/QueryBuilder.h"
 
 class RegistrationService {
 private:

@@ -25,11 +25,13 @@ set(TARGET_NAME HospitalManagementSystem)
 
 add_executable(${TARGET_NAME}
     packages/qdarkstyle/style.qrc
+    src/controllers/BillService.cpp
     src/controllers/DepartmentManager.cpp
     src/controllers/EmployeeManager.cpp
     src/controllers/ExaminationService.cpp
     src/controllers/MedicineManager.cpp
     src/controllers/PatientManager.cpp
+    src/controllers/RegistrationService.cpp
     src/controllers/TestProcessingService.cpp
     src/models/BillableComponent.cpp
     src/models/ClinicalTest.cpp
@@ -54,11 +56,11 @@ add_executable(${TARGET_NAME}
     src/models/Object.cpp
     src/models/Patient.cpp
     src/models/PatientTableModel.cpp
+    src/models/PaymentMethodStrategy.cpp
     src/models/PendingTestState.cpp
     src/models/Person.cpp
     src/models/Receipt.cpp
     src/models/Receptionist.cpp
-    src/models/RegistrationService.cpp
     src/models/RoomExamination.cpp
     src/models/SelectableTableModel.cpp
     src/models/TableModel.cpp
@@ -127,11 +129,13 @@ add_executable(${TARGET_NAME}
 )
 
 target_sources(${TARGET_NAME} PRIVATE
+    src/controllers/BillService.h
     src/controllers/DepartmentManager.h
     src/controllers/EmployeeManager.h
     src/controllers/ExaminationService.h
     src/controllers/MedicineManager.h
     src/controllers/PatientManager.h
+    src/controllers/RegistrationService.h
     src/controllers/TestProcessingService.h
     src/interfaces/IDepartmentRepository.h
     src/interfaces/IEmployeeRepository.h
@@ -179,12 +183,12 @@ target_sources(${TARGET_NAME} PRIVATE
     src/models/Patient.h
     src/models/PatientParser.h
     src/models/PatientTableModel.h
+    src/models/PaymentMethodStrategy.h
     src/models/PendingTestState.h
     src/models/Person.h
     src/models/Receipt.h
     src/models/Receptionist.h
     src/models/ReceptionistParser.h
-    src/models/RegistrationService.h
     src/models/RoomExamination.h
     src/models/RoomExaminationParser.h
     src/models/SelectableTableModel.h

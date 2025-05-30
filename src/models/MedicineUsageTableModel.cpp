@@ -43,7 +43,7 @@ QVariant MedicineUsageTableModel::data(const QModelIndex& index, int role) const
     case 1: return QString::fromStdString(usage->medicineId());
     case 2: return QString::fromStdString(usage->name());
     case 3: {
-        auto data = ServiceLocator::getInstance()->medicineRepository()->data();
+        auto data = ServiceLocator::instance()->medicineRepository()->data();
         auto unit = from(data)
             .where(&Medicine::id, usage->medicineId())
             .findOne()->unit();
@@ -76,7 +76,7 @@ void MedicineUsageTableModel::sort(int column, Qt::SortOrder order) {
             case 1: compareResult = compare(a->medicineId(), b->medicineId()); break;
             case 2: compareResult = compare(a->name(), b->name()); break;
             case 3: {
-                auto data = ServiceLocator::getInstance()->medicineRepository()->data();
+                auto data = ServiceLocator::instance()->medicineRepository()->data();
                 auto unitA = from(data)
                     .where(&Medicine::id, a->medicineId())
                     .findOne()->unit();

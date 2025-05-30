@@ -4,7 +4,6 @@
 #include <QCompleter>
 #include <QStringList>
 #include "ui_RoomView.h"
-#include "../controllers/ExaminationService.h"
 #include "../models/ClinicalTestTableModel.h"
 #include "../models/Doctor.h"
 #include "../models/MedicalRecordListModel.h"
@@ -25,7 +24,6 @@ class RoomView : public QWidget {
 
 private:
     Ui::RoomView* _ui;
-    std::unique_ptr<ExaminationService> _service;
 
 public:
     explicit RoomView(QWidget* parent = nullptr);

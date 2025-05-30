@@ -18,9 +18,31 @@ ServiceLocator::ServiceLocator() {
     _employeeManager = std::make_unique<EmployeeManager>(_employees.get());
     _departmentManager = std::make_unique<DepartmentManager>(_departments.get());
     _medicineManager = std::make_unique<MedicineManager>(_medicines.get());
+
+    _registrationService = std::make_unique<RegistrationService>(
+        _patients.get(),
+        _records.get(),
+        _rooms.get()
+    );
+    _examinationService = std::make_unique<ExaminationService>(
+        _records.get(),
+        _medicines.get(),
+        _rooms.get(),
+        _tests.get(),
+        _employees.get(),
+        _patients.get()
+    );
+    _testProcessingService = std::make_unique<TestProcessingService>(
+        _records.get()
+    );
+    _billService = std::make_unique<BillService>(
+        _records.get(),
+        _patients.get(),
+        _rooms.get()
+    );
 }
 
-ServiceLocator* ServiceLocator::getInstance() {
+ServiceLocator* ServiceLocator::instance() {
     static std::unique_ptr<ServiceLocator> instance(new ServiceLocator());
     return instance.get();
 }
@@ -71,4 +93,20 @@ PatientManager* ServiceLocator::patientManager() const {
 
 MedicineManager* ServiceLocator::medicineManager() const {
     return _medicineManager.get();
+}
+
+RegistrationService* ServiceLocator::registrationService() const {
+    return _registrationService.get();
+}
+
+ExaminationService* ServiceLocator::examinationService() const {
+    return _examinationService.get();
+}
+
+TestProcessingService* ServiceLocator::testProcessingService() const {
+    return _testProcessingService.get();
+}
+
+BillService* ServiceLocator::billService() const {
+    return _billService.get();
 }

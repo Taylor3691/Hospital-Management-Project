@@ -3,13 +3,6 @@
 RoomView::RoomView(QWidget* parent)
     : QWidget(parent)
     , _ui(new Ui::RoomView)
-    , _service(std::make_unique<ExaminationService>(
-        ServiceLocator::getInstance()->medicalRecordRepository(),
-        ServiceLocator::getInstance()->medicineRepository(),
-        ServiceLocator::getInstance()->roomExaminationRepository(),
-        ServiceLocator::getInstance()->testServiceRepository(),
-        ServiceLocator::getInstance()->employeeRepository(),
-        ServiceLocator::getInstance()->patientRepository()))
 {
     _ui->setupUi(this);
 
@@ -79,7 +72,8 @@ void RoomView::setConnections() {
             if (view.exec() == QDialog::Accepted && confirm(title, msg)) {
                 auto recordId = _ui->record_listView
                     ->currentIndex().data().toString().toStdString();
-                auto record = _service->findRecordById(recordId);
+                auto record = ServiceLocator::instance()
+                    ->examinationService()->findRecordById(recordId);
                 record->prescribeMedicine(view.getUsage());
                 update(*record);
             }
@@ -88,7 +82,7 @@ void RoomView::setConnections() {
 
 void RoomView::createCompleter() {
     QStringList doctorNames;
-    auto repo = ServiceLocator::getInstance()->employeeRepository();
+    auto repo = ServiceLocator::instance()->employeeRepository();
     for (const auto& employee : repo->data()) {
         if (auto doctor = dynamic_cast<const Doctor*>(employee)) {
             doctorNames << QString::fromStdString(doctor->name());
@@ -104,11 +98,12 @@ void RoomView::createCompleter() {
             _ui->prescribingDoctorName_lineEdit->setText(text);
 
             auto recordId = _ui->recordId_lineEdit->text().toStdString();
-            auto record = _service->findRecordById(recordId);
+            auto record = ServiceLocator::instance()
+                ->examinationService()->findRecordById(recordId);
 
             FilterCriteria criteria;
             criteria.value = text.toStdString();
-            auto doctorId = ServiceLocator::getInstance()->employeeManager()
+            auto doctorId = ServiceLocator::instance()->employeeManager()
                 ->find({ {criteria, &Employee::name} })[0]->id();
 
             record->startExamination(doctorId);
@@ -124,7 +119,8 @@ void RoomView::createCompleter() {
             }
 
             auto recordId = _ui->recordId_lineEdit->text().toStdString();
-            auto record = _service->findRecordById(recordId);
+            auto record = ServiceLocator::instance()
+                ->examinationService()->findRecordById(recordId);
             record->cancelExamination();
             update(*record);
             clearClinicalTests();
@@ -137,7 +133,8 @@ void RoomView::createCompleter() {
         [this](bool) {
             if (confirm("Xác nhận", "Bạn có chắc chắn muốn kết thúc quá trình khám?")) {
                 auto recordId = _ui->recordId_lineEdit->text().toStdString();
-                auto record = _service->findRecordById(recordId);
+                auto record = ServiceLocator::instance()
+                    ->examinationService()->findRecordById(recordId);
                 record->compeleteExamination();
                 update(*record);
             }
@@ -154,7 +151,7 @@ const MedicalRecord* RoomView::currentRecord() {
 }
 
 void RoomView::update(const MedicalRecord& record) {
-    ServiceLocator::getInstance()->medicalRecordRepository()->update(record);
+    ServiceLocator::instance()->medicalRecordRepository()->update(record);
     setClinicalTests();
     setMedicineUsages();
 }
@@ -167,8 +164,7 @@ void RoomView::setExaminationInfo() {
     if (!doctorId.size()) {
         return;
     }
-    auto doctors = _service->getAllDoctor();
-    auto doctor = from(doctors).where(&Doctor::id, doctorId).findOne();
+    auto doctor = ServiceLocator::instance()->examinationService()->findDoctorById(doctorId);
     _ui->doctorId_lineEdit->setText(QString::fromStdString(doctor->id()));
     _ui->doctorName_lineEdit->setText(QString::fromStdString(doctor->name()));
     _ui->prescribingDoctorName_lineEdit->setText(QString::fromStdString(doctor->name()));
@@ -179,7 +175,8 @@ void RoomView::setExaminationInfo() {
 
 void RoomView::setPatientInfo() {
     auto record = currentRecord();
-    auto patient = _service->findPatientById(record->patientId());
+    auto patient = ServiceLocator::instance()
+        ->examinationService()->findPatientById(record->patientId());
     _ui->patientId_lineEdit->setText(QString::fromStdString(patient->id()));
     _ui->patientName_lineEdit->setText(QString::fromStdString(patient->name()));
     _ui->gender_comboBox->setCurrentText(QString::fromStdString(patient->gender()));
@@ -255,15 +252,15 @@ void RoomView::clearMedicineUsages() {
 void RoomView::addTests(const QVector<std::string>& specifiedTests) {
     auto recordId = _ui->record_listView
         ->currentIndex().data().toString().toStdString();
-    auto record = _service->findRecordById(recordId);
+    auto record = ServiceLocator::instance()
+        ->examinationService()->findRecordById(recordId);
     record->clearOrderedTests();
 
-    auto tests = _service->getAllTestService();
     for (const auto& testId : specifiedTests) {
-        auto test = from(tests)
-            .where(&TestService::id, testId)
-            .findOne();
-        record->orderClinicalTest(_service->createCinicalTest(
+        auto test = ServiceLocator::instance()
+            ->examinationService()->findTestServiceById(testId);
+        record->orderClinicalTest(ServiceLocator::instance()
+            ->examinationService()->createCinicalTest(
             test->id(), test->name(), test->cost()));
     }
     record->changeState(std::make_unique<PendingTestState>());
@@ -271,7 +268,7 @@ void RoomView::addTests(const QVector<std::string>& specifiedTests) {
 }
 
 void RoomView::changeRoom(int index) {
-    auto room = ServiceLocator::getInstance()
+    auto room = ServiceLocator::instance()
         ->roomExaminationRepository()->data()[index];
 
     _ui->id_label->setText(QString::fromStdString(room->id()));

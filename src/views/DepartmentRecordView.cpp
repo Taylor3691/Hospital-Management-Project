@@ -15,7 +15,7 @@ DepartmentRecordView::DepartmentRecordView(Role role, QWidget* parent)
         setWindowTitle("Thêm khoa");
         _ui->buttonBox->button(QDialogButtonBox::Ok)->setText("Thêm");
 
-        auto data = ServiceLocator::getInstance()->departmentRepository()->data();
+        auto data = ServiceLocator::instance()->departmentRepository()->data();
         std::vector<const Object*> objectData(data.begin(), data.end());
         auto newId = createId(objectData, getFormat<Department>());
         _ui->id_lineEdit->setText(QString::fromStdString(newId));

@@ -1,5 +1,5 @@
-#ifndef PAYMENTMETHODSTRATEGY_H_
-#define PAYMENTMETHODSTRATEGY_H_
+#ifndef PAYMENT_METHOD_STRATEGY_H
+#define PAYMENT_METHOD_STRATEGY_H
 
 #include "NormalPayment.h"
 #include "InsurancePayment.h"
@@ -11,4 +11,4 @@ public:
     static IPaymentMethod* getPaymentMethod(Patient* patient);
 };
 
-#endif // !PAYMENTMETHODSTRATEGY_H_
+#endif // !PAYMENT_METHOD_STRATEGY_H

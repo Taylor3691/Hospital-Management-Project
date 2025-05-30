@@ -15,20 +15,20 @@ ExaminationService::ExaminationService(
     , _employees(employees)
     , _patients(patients) {}
 
-std::vector<std::unique_ptr<MedicalRecord>> ExaminationService::getAllRecord() {
-    std::vector<std::unique_ptr<MedicalRecord>> result;
+std::vector<std::unique_ptr<MedicalRecord>> ExaminationService::getAllRecords() {
+    std::vector<std::unique_ptr<MedicalRecord>> results;
 
     for (auto record : _records->data()) {
-        result.push_back(std::unique_ptr<MedicalRecord>(
-            dynamic_cast<MedicalRecord*>(record->clone())
+        results.push_back(std::unique_ptr<MedicalRecord>(
+            static_cast<MedicalRecord*>(record->clone())
         ));
-     }
+    }
 
-    return result;
+    return results;
 }
 
-std::vector<std::unique_ptr<Doctor>> ExaminationService::getAllDoctor() {
-    std::vector<std::unique_ptr<Doctor>> result;
+std::vector<std::unique_ptr<Doctor>> ExaminationService::getAllDoctors() {
+    std::vector<std::unique_ptr<Doctor>> results;
     auto employees = _employees->data();
 
     std::string role = typeid(Doctor).name();
@@ -40,120 +40,152 @@ std::vector<std::unique_ptr<Doctor>> ExaminationService::getAllDoctor() {
 
     auto doctors = from(employees).where(getter, criteria.value, criteria.op).find();
     for (auto doctor : doctors) {
-        auto unit = dynamic_cast<Doctor*>(doctor->clone());
-        result.push_back(std::unique_ptr<Doctor>(
-            dynamic_cast<Doctor*>(doctor->clone())
+        auto unit = static_cast<Doctor*>(doctor->clone());
+        results.push_back(std::unique_ptr<Doctor>(
+            static_cast<Doctor*>(doctor->clone())
         ));
     }
 
-    return result;
+    return results;
 }
 
-std::vector<std::unique_ptr<Medicine>> ExaminationService::getAllMedicine() {
-    std::vector<std::unique_ptr<Medicine>> result;
+std::vector<std::unique_ptr<Medicine>> ExaminationService::getAllMedicines() {
+    std::vector<std::unique_ptr<Medicine>> results;
     for (auto medicine : _medicines->data()) { 
-        result.push_back(std::unique_ptr<Medicine>(
-            dynamic_cast<Medicine*>(medicine->clone())
+        results.push_back(std::unique_ptr<Medicine>(
+            static_cast<Medicine*>(medicine->clone())
         ));
     }
-    return result;
+    return results;
 }
 
-std::vector<std::unique_ptr<TestService>> ExaminationService::getAllTestService() {
-    std::vector<std::unique_ptr<TestService>> result;
+std::vector<std::unique_ptr<TestService>> ExaminationService::getAllTestServices() {
+    std::vector<std::unique_ptr<TestService>> results;
     for (auto test : _tests->data()) {
-        result.push_back(std::unique_ptr<TestService>(
-            dynamic_cast<TestService*>(test->clone())
+        results.push_back(std::unique_ptr<TestService>(
+            static_cast<TestService*>(test->clone())
         ));
     }
-    return result;
+    return results;
 }
 
-std::vector<std::unique_ptr<RoomExamination>> ExaminationService::getAllRoom() {
-    std::vector<std::unique_ptr<RoomExamination>> result;
+std::vector<std::unique_ptr<RoomExamination>> ExaminationService::getAllRooms() {
+    std::vector<std::unique_ptr<RoomExamination>> results;
 
     for (auto room : _rooms->data()) {
-        result.push_back(std::unique_ptr<RoomExamination>(
-            dynamic_cast<RoomExamination*>(room->clone())
+        results.push_back(std::unique_ptr<RoomExamination>(
+            static_cast<RoomExamination*>(room->clone())
         ));
     }
-    return result;
+    return results;
 }
 
-std::vector<std::unique_ptr<MedicalRecord>> ExaminationService::getAllRecordByState(const std::string& state) {
-    auto store = _records->data();
-    std::vector<std::unique_ptr<MedicalRecord>> result;
-    for (auto record : store) {
-        if (record->state()->getStateName() == state) {
-            result.push_back(std::unique_ptr<MedicalRecord>(
-                dynamic_cast<MedicalRecord*>(record->clone())
-            ));
-        }
+std::vector<const MedicalRecord*> ExaminationService::getAllRecordsInRoomByState(
+    const std::string& roomId,
+    const std::string& state
+) {
+    Getter<MedicalRecord> stateGetter = [](const MedicalRecord& record) {
+        return record.state()->getStateName();
+    };
+    auto data = _records->data();
+    return from(data)
+        .where(&MedicalRecord::roomId, roomId)
+        .where(stateGetter, state)
+        .find();
+}
+
+std::unique_ptr<MedicineUsage> ExaminationService::createMedicineUsage(
+    const std::string& medicineId,
+    const std::string& name,
+    int quantity,
+    double price,
+    const std::string& description
+) {
+    auto date = Date::getDate().toString(Date::getDate());
+    auto time = Time::getCurrentTime().toString();
+    return std::make_unique<MedicineUsage>(
+        "MEUSE-" + date + "-" + time,
+        name,
+        medicineId,
+        quantity,
+        price,
+        description
+    );
+}
+
+std::unique_ptr<ClinicalTest> ExaminationService::createCinicalTest(
+    const std::string& testId,
+    const std::string& name,
+    double cost
+) {
+    auto date = Date::getDate().toString(Date::getDate());
+    auto time = Time::getCurrentTime().toString();
+    return std::make_unique<ClinicalTest>(
+        "CLSUSE-" + date + "-" + time,
+        name,
+        testId,
+        cost
+    );
+}
+
+std::unique_ptr<Doctor> ExaminationService::findDoctorById(const std::string& id) {
+    auto doctors = getAllDoctors();
+    auto record = from(doctors).where(&Doctor::id, id).findOne();
+    if (!record) {
+        return nullptr;
     }
-    return result;
-}
-
-std::unique_ptr<MedicineUsage> ExaminationService::createMedicineUsage(const std::string& medicineId, const std::string& name,
-    int quantity, double price, const std::string& description)
-{
-    auto date = Date::getDate().toString(Date::getDate());
-    auto time = Time::getCurrentTime().toString();
-    MedicineUsage* usage = new MedicineUsage("MEUSE-" + date + "-" + time, name, medicineId, quantity, price, description);
-    return std::unique_ptr<MedicineUsage>(usage);
-}
-
-std::unique_ptr<ClinicalTest> ExaminationService::createCinicalTest(const std::string& testId, const std::string& name, double cost)
-{
-    auto date = Date::getDate().toString(Date::getDate());
-    auto time = Time::getCurrentTime().toString();
-    ClinicalTest* test = new ClinicalTest("CLSUSE-" + date + "-" + time, name, testId, cost, "", false);
-    return std::unique_ptr<ClinicalTest>(test);
+    auto copy = static_cast<Doctor*>(record->clone());
+    return std::unique_ptr<Doctor>(copy);
 }
 
 std::unique_ptr<Patient> ExaminationService::findPatientById(const std::string& id) {
-    auto store = _patients->data();
-    auto record = from(store).where(&Patient::id, id).findOne();
-    if (record == nullptr) return nullptr;
-    auto result = dynamic_cast<Patient*>(record->clone());
-    return std::unique_ptr<Patient>(result);
+    auto data = _patients->data();
+    auto record = from(data).where(&Patient::id, id).findOne();
+    if (!record) {
+        return nullptr;
+    }
+    auto copy = static_cast<Patient*>(record->clone());
+    return std::unique_ptr<Patient>(copy);
 }
 
 std::unique_ptr<RoomExamination> ExaminationService::findRoomById(const std::string& id) {
-    auto store = _rooms->data();
-    auto record = from(store).where(&RoomExamination::id, id).findOne();
-    if (record == nullptr) return nullptr;
-    auto result = dynamic_cast<RoomExamination*>(record->clone());
-    return std::unique_ptr<RoomExamination>(result);
+    auto data = _rooms->data();
+    auto record = from(data).where(&RoomExamination::id, id).findOne();
+    if (!record) {
+        return nullptr;
+    }
+    auto copy = static_cast<RoomExamination*>(record->clone());
+    return std::unique_ptr<RoomExamination>(copy);
 }
 
 std::unique_ptr<MedicalRecord> ExaminationService::findRecordById(const std::string& id) {
-    auto store = _records->data();
-    auto record = from(store).where(&MedicalRecord::id, id).findOne();
-    if (record == nullptr) {
+    auto data = _records->data();
+    auto record = from(data).where(&MedicalRecord::id, id).findOne();
+    if (!record) {
         return nullptr;
     }
-    auto result = dynamic_cast<MedicalRecord*>(record->clone());
-    return std::unique_ptr<MedicalRecord>(result);
+    auto copy = static_cast<MedicalRecord*>(record->clone());
+    return std::unique_ptr<MedicalRecord>(copy);
 }
 
 std::unique_ptr<Medicine> ExaminationService::findMedicineById(const std::string& id) {
-    auto store = _medicines->data();
-    auto medicine = from(store).where(&Medicine::id, id).findOne();
-    if (medicine == nullptr) {
+    auto data = _medicines->data();
+    auto medicine = from(data).where(&Medicine::id, id).findOne();
+    if (!medicine) {
         return nullptr;
     }
-    auto result = dynamic_cast<Medicine*>(medicine->clone());
-    return std::unique_ptr<Medicine>(result);
+    auto copy = static_cast<Medicine*>(medicine->clone());
+    return std::unique_ptr<Medicine>(copy);
 }
 
 std::unique_ptr<TestService> ExaminationService::findTestServiceById(const std::string id) {
-    auto store = _tests->data();
-    auto test = from(store).where(&TestService::id, id).findOne();
-    if (test == nullptr) {
+    auto data = _tests->data();
+    auto test = from(data).where(&TestService::id, id).findOne();
+    if (!test) {
         return nullptr;
     }
-    auto result = dynamic_cast<TestService*>(test->clone());
-    return std::unique_ptr<TestService>(result);
+    auto copy = static_cast<TestService*>(test->clone());
+    return std::unique_ptr<TestService>(copy);
 }
 
 void ExaminationService::updateRecord(std::unique_ptr<MedicalRecord> record) {

@@ -13,7 +13,6 @@ public:
     App(int argc, char** argv);
 
 public:
-    void config();
     int run();
 };
 

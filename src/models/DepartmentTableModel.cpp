@@ -11,7 +11,7 @@ DepartmentTableModel::DepartmentTableModel(QObject* parent)
         },
         parent)
 {
-    auto data = ServiceLocator::getInstance()->departmentRepository()->data();
+    auto data = ServiceLocator::instance()->departmentRepository()->data();
     _cachedData = QVector<const Department*>(data.begin(), data.end());
 }
 
@@ -51,30 +51,30 @@ QVariant DepartmentTableModel::data(const QModelIndex& index, int role) const {
 }
 
 void DepartmentTableModel::add(std::unique_ptr<Department> department) {
-    ServiceLocator::getInstance()->departmentManager()->add(std::move(department));
+    ServiceLocator::instance()->departmentManager()->add(std::move(department));
     refresh();
 }
 
 void DepartmentTableModel::update(const Department& department) {
-    ServiceLocator::getInstance()->departmentManager()->update(department);
+    ServiceLocator::instance()->departmentManager()->update(department);
     refresh();
 }
 
 void DepartmentTableModel::removeByIds(const std::vector<std::string>& ids) {
-    ServiceLocator::getInstance()->departmentManager()->removeByIds(ids);
+    ServiceLocator::instance()->departmentManager()->removeByIds(ids);
     refresh();
 }
 
 void DepartmentTableModel::find(const std::vector<RFilter<Department>>& filters) {
     beginResetModel();
-    auto filteredData = ServiceLocator::getInstance()->departmentManager()->find(filters);
+    auto filteredData = ServiceLocator::instance()->departmentManager()->find(filters);
     _cachedData = QVector<const Department*>(filteredData.begin(), filteredData.end());
     endResetModel();
 }
 
 void DepartmentTableModel::refresh() {
     beginResetModel();
-    auto data = ServiceLocator::getInstance()->departmentRepository()->data();
+    auto data = ServiceLocator::instance()->departmentRepository()->data();
     _cachedData = QVector<const Department*>(data.begin(), data.end());
     endResetModel();
 }

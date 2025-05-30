@@ -3215,6 +3215,9 @@ PlotWidget {
               </item>
               <item>
                <widget class="QDateEdit" name="prescribedDate_dateEdit">
+                <property name="readOnly">
+                 <bool>true</bool>
+                </property>
                 <property name="calendarPopup">
                  <bool>true</bool>
                 </property>
@@ -3238,7 +3241,11 @@ PlotWidget {
                </widget>
               </item>
               <item>
-               <widget class="QLineEdit" name="prescribingDoctorName_lineEdit"/>
+               <widget class="QLineEdit" name="prescribingDoctorName_lineEdit">
+                <property name="readOnly">
+                 <bool>true</bool>
+                </property>
+               </widget>
               </item>
              </layout>
             </item>

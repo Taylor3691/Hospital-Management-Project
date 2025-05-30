@@ -1,4 +1,5 @@
 #include "RegistrationService.h"
+#include "../ServiceLocator.h"
 
 RegistrationService::RegistrationService(
     IPatientRepository* patientRepo,
@@ -13,12 +14,10 @@ void RegistrationService::updateRoom(
     const std::string& recordId,
     const std::string& roomId
 ) {
-    auto data = _roomRepo->data();
+    auto room = ServiceLocator::instance()
+        ->examinationService()->findRoomById(roomId);
     auto copy = std::unique_ptr<RoomExamination>(
-        static_cast<RoomExamination*>(
-            from(data)
-            .where(&RoomExamination::id, roomId)
-            .findOne()->clone()));
+        static_cast<RoomExamination*>(room->clone()));
     copy->addToWaitingQueue(recordId);
     _roomRepo->update(*copy);
 }

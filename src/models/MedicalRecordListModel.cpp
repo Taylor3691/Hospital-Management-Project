@@ -29,7 +29,7 @@ QVariant MedicalRecordListModel::data(
 
 void MedicalRecordListModel::refresh() {
     beginResetModel();
-    auto data = ServiceLocator::getInstance()
+    auto data = ServiceLocator::instance()
         ->medicalRecordRepository()->data();
     _data = QVector<const MedicalRecord*>(data.begin(), data.end());
     endResetModel();
@@ -37,7 +37,7 @@ void MedicalRecordListModel::refresh() {
 
 void MedicalRecordListModel::changeFilter(const std::string& roomId) {
     beginResetModel();
-    auto data = ServiceLocator::getInstance()
+    auto data = ServiceLocator::instance()
         ->medicalRecordRepository()->data();
     auto results = from(data)
         .where(&MedicalRecord::roomId, roomId)
