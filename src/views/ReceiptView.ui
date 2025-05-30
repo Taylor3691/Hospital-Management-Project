@@ -2309,7 +2309,7 @@ PlotWidget {
          <string notr="true">font-size: 10pt;</string>
         </property>
         <property name="text">
-         <string>Danh sách hóa đơn</string>
+         <string>Danh sách hồ sơ</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
