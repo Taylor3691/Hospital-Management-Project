@@ -1,58 +1,70 @@
 #include "TestProcessingService.h"
+#include "../ServiceLocator.h"
 
-TestProcessingService::TestProcessingService(IMedicalRecordRepository* record) : _records(record){}
+TestProcessingService::TestProcessingService(IMedicalRecordRepository* record)
+    : _records(record){}
 
-std::vector<std::unique_ptr<ClinicalTest>> TestProcessingService::getAllClinicalTest() {
-    std::vector<std::unique_ptr<ClinicalTest>> result;
-
-    for (auto record : _records->data()) {
-        for (auto test : record->clinicalTests()) {
-            result.push_back(std::unique_ptr<ClinicalTest>(
-                dynamic_cast<ClinicalTest*>(test->clone())
-            ));
-        }
+std::vector<std::unique_ptr<MedicalRecord>> TestProcessingService::getMedicalRecordsHaveTests() {
+    auto records = _records->data();
+    Getter<MedicalRecord> getter = [](const MedicalRecord& record) {
+        return record.clinicalTests().size() > 0;
+    };
+    auto results = from(records).where(getter, true).find();
+    std::vector<std::unique_ptr<MedicalRecord>> copies;
+    for (const auto& record : results) {
+        copies.push_back(std::unique_ptr<MedicalRecord>(
+            static_cast<MedicalRecord*>(record->clone())
+        ));
     }
 
-    return result;
+    return copies;
 }
 
-std::vector<std::unique_ptr<ClinicalTest>> TestProcessingService::getClinicalTestByState(bool completed) {
-    std::vector<std::unique_ptr<ClinicalTest>> result;
-
-    for (auto record : _records->data()) {
-        std::vector<const ClinicalTest*> store = record->clinicalTests();
-        auto query = from(store).where(&ClinicalTest::completed, completed).find();
-        for (auto unit : query) {
-            result.push_back(std::unique_ptr<ClinicalTest>(
-                dynamic_cast<ClinicalTest*>(unit->clone())
-            ));
-        }
+std::vector<std::unique_ptr<MedicalRecord>> TestProcessingService::getMedicalRecordsByTestState(
+    bool completed
+) {
+    auto records = getMedicalRecordsHaveTests();
+    Getter<MedicalRecord> getter = [](const MedicalRecord& record) {
+        return record.state()->getStateName() != ExaminationState::TestPending;
+    };
+    auto results = from(records).where(getter, completed).find();
+    std::vector<std::unique_ptr<MedicalRecord>> copies;
+    for (const auto& record : results) {
+        copies.push_back(std::unique_ptr<MedicalRecord>(
+            static_cast<MedicalRecord*>(record->clone())
+        ));
     }
 
-    return result;
+    return copies;
 }
 
-std::unique_ptr<MedicalRecord> TestProcessingService::findRecordById(const std::string& id){
-    std::vector<const MedicalRecord*> store = _records->data();
-    auto query = from(store).where(&MedicalRecord::id, id).findOne();
-    if (query) {
-        return std::unique_ptr<MedicalRecord>(dynamic_cast<MedicalRecord*>(query->clone()));
+std::vector<std::unique_ptr<ClinicalTest>> TestProcessingService::getClinicalTestsByState(
+    const std::string& recordId,
+    bool completed
+) {
+    std::vector<std::unique_ptr<ClinicalTest>> copies;
+
+    auto record = ServiceLocator::instance()
+        ->examinationService()->findRecordById(recordId);
+    std::vector<const ClinicalTest*> tests = record->clinicalTests();
+    auto results = from(tests).where(&ClinicalTest::completed, completed).find();
+    for (const auto& unit : results) {
+        copies.push_back(std::unique_ptr<ClinicalTest>(
+            static_cast<ClinicalTest*>(unit->clone())
+        ));
     }
-    throw std::runtime_error("Not Found Medical Record ");
+
+    return copies;
 }
 
-std::unique_ptr<ClinicalTest> TestProcessingService::findTestUsageById(const std::string& id) {
-    std::vector<const MedicalRecord*> store = _records->data();
-    for (auto record : store) {
+std::unique_ptr<ClinicalTest> TestProcessingService::findClinicalTestById(const std::string& id) {
+    std::vector<const MedicalRecord*> records = _records->data();
+    for (const auto& record : records) {
         std::vector<const ClinicalTest*> tests = record->clinicalTests();
         auto query = from(tests).where(&ClinicalTest::id, id).findOne();
         if (query) {
-            return std::unique_ptr<ClinicalTest>(dynamic_cast<ClinicalTest*>(query->clone()));
+            return std::unique_ptr<ClinicalTest>(static_cast<ClinicalTest*>(query->clone()));
         }
     }
     throw std::runtime_error("Not Found Clinical Test");
-}
-
-void TestProcessingService::updateRecord(std::unique_ptr<MedicalRecord> record) {
-    _records->update(*record.get());
 }

@@ -16,13 +16,12 @@ public:
     TestProcessingService(IMedicalRecordRepository* records);
 
 public:
-    std::vector<std::unique_ptr<ClinicalTest>> getAllClinicalTest();
-    std::vector<std::unique_ptr<ClinicalTest>> getClinicalTestByState(
+    std::vector<std::unique_ptr<MedicalRecord>> getMedicalRecordsHaveTests();
+    std::vector<std::unique_ptr<MedicalRecord>> getMedicalRecordsByTestState(
         bool completed = false);
-    std::unique_ptr<MedicalRecord> findRecordById(const std::string& id);
-    std::unique_ptr<ClinicalTest> findTestUsageById(const std::string& id);
-    void updateRecord(std::unique_ptr<MedicalRecord> record);
-
+    std::vector<std::unique_ptr<ClinicalTest>> getClinicalTestsByState(
+        const std::string& recordId, bool completed = false);
+    std::unique_ptr<ClinicalTest> findClinicalTestById(const std::string& id);
 };
 
 #endif // !TEST_PROCESSING_SERVICE_H
