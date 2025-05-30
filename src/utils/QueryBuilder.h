@@ -66,7 +66,7 @@ inline std::vector<T*> QueryBuilder<T>::find() {
         auto& vec = collection.get();
         for (const auto& item : vec) {
             if (matches(*item, _filters, _mode)) {
-                if constexpr (std::is_same_v<std::remove_reference_t<decltype(item)>, std::unique_ptr<T>>) {
+                if constexpr (std::is_same_v<std::decay_t<decltype(item)>, std::unique_ptr<T>>) {
                     results.push_back(item.get());
                 }
                 else if constexpr (std::is_same_v<std::decay_t<decltype(item)>, T*>) {
@@ -93,7 +93,7 @@ inline T* QueryBuilder<T>::findOne() {
         );
 
         if (it != vec.end()) {
-            if constexpr (std::is_same_v<std::remove_reference_t<decltype(*it)>, std::unique_ptr<T>>) {
+            if constexpr (std::is_same_v<std::decay_t<decltype(*it)>, std::unique_ptr<T>>) {
                 result = it->get();
             }
             else if constexpr (std::is_same_v<std::decay_t<decltype(*it)>, T*>) {
