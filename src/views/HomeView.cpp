@@ -137,6 +137,7 @@ void HomeView::setConnections() {
     connect(_ui->register_pushButton, &QPushButton::clicked, this,
         [this](bool) {
             switchToView(View::Register);
+            _registerView->updateRoomInfo();
         });
 
     connect(_ui->room_pushButton, &QPushButton::toggled, this,
@@ -160,6 +161,7 @@ void HomeView::setConnections() {
     connect(_ui->paraclinical_pushButton, &QPushButton::clicked, this,
         [this](bool) {
             switchToView(View::Paraclinical);
+            _paraclinicalView->updateView();
         });
 
     connect(_ui->receipt_pushButton, &QPushButton::clicked, this,
