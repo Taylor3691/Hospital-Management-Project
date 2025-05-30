@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Source Files">
@@ -45,7 +45,7 @@
     <ClCompile Include="src\models\ExaminingState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\models\PendingTestState.cpp">
+    <ClCompile Include="src\models\TestPendingState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\models\CompletedState.cpp">
@@ -93,7 +93,7 @@
     <ClCompile Include="src\models\ClinicalTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\models\PendingTestState.cpp">
+    <ClCompile Include="src\models\TestPendingState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\models\ExaminingState.cpp">
@@ -257,7 +257,7 @@
     <ClInclude Include="src\models\ExaminingState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\models\PendingTestState.h">
+    <ClInclude Include="src\models\TestPendingState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\models\CompletedState.h">
@@ -311,7 +311,7 @@
     <ClInclude Include="src\models\ClinicalTest.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\models\PendingTestState.h">
+    <ClInclude Include="src\models\TestPendingState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\models\ExaminingState.h">

@@ -13,7 +13,7 @@ ClinicalTestTableModel::ClinicalTestTableModel(QObject* parent)
         parent) {}
 
 int ClinicalTestTableModel::rowCount(const QModelIndex&) const {
-    return _data.size();
+    return static_cast<int>(_data.size());
 }
 
 QVariant ClinicalTestTableModel::data(const QModelIndex& index, int role) const {
@@ -27,7 +27,7 @@ QVariant ClinicalTestTableModel::data(const QModelIndex& index, int role) const 
         return {};
     }
 
-    auto clinicalTest = _data[row];
+    auto clinicalTest = _data[row].get();
 
     if (role == Qt::UserRole) {
         return QVariant::fromValue(const_cast<void*>(static_cast<const void*>(clinicalTest)));
@@ -48,8 +48,11 @@ QVariant ClinicalTestTableModel::data(const QModelIndex& index, int role) const 
     }
 }
 
-void ClinicalTestTableModel::setData(const QVector<const ClinicalTest*>& data) {
-    _data = data;
+void ClinicalTestTableModel::setData(const std::vector<const ClinicalTest*>& data) {
+    _data.clear();
+    for (const auto& test : data) {
+        _data.push_back(std::make_unique<ClinicalTest>(*test));
+    }
     refresh();
 }
 
@@ -61,7 +64,7 @@ void ClinicalTestTableModel::refresh() {
 void ClinicalTestTableModel::sort(int column, Qt::SortOrder order) {
     beginResetModel();
     std::stable_sort(_data.begin(), _data.end(),
-        [column, order](const ClinicalTest* a, const ClinicalTest* b) {
+        [column, order](const std::unique_ptr<ClinicalTest>& a, const std::unique_ptr<ClinicalTest>& b) {
             int compareResult = 0;
             switch (column) {
             case 0: compareResult = compare(a->id(), b->id()); break;

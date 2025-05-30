@@ -20,7 +20,7 @@ public:
 public:
     std::vector<std::unique_ptr<MedicalRecord>> getAllRecords();
     std::vector<std::unique_ptr<MedicalRecord>> getAllRecordByState(
-        const std::string& state);
+        ExaminationState::State state);
     std::unique_ptr<MedicalRecord> findRecordById(const std::string& id);
     std::unique_ptr<Patient> findPatientById(const std::string& id);
     std::vector<std::unique_ptr<MedicineUsage>> getAllMedicineUsageInRecord(

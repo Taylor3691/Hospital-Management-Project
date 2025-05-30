@@ -14,7 +14,7 @@ MedicineUsageTableModel::MedicineUsageTableModel(QObject* parent)
         parent) {}
 
 int MedicineUsageTableModel::rowCount(const QModelIndex&) const {
-    return _data.size();
+    return static_cast<int>(_data.size());
 }
 
 QVariant MedicineUsageTableModel::data(const QModelIndex& index, int role) const {
@@ -28,7 +28,7 @@ QVariant MedicineUsageTableModel::data(const QModelIndex& index, int role) const
         return {};
     }
 
-    auto usage = _data[row];
+    auto usage = _data[row].get();
 
     if (role == Qt::UserRole) {
         return QVariant::fromValue(const_cast<void*>(static_cast<const void*>(usage)));
@@ -56,8 +56,11 @@ QVariant MedicineUsageTableModel::data(const QModelIndex& index, int role) const
     }
 }
 
-void MedicineUsageTableModel::setData(const QVector<const MedicineUsage*>& data) {
-    _data = data;
+void MedicineUsageTableModel::setData(const std::vector<const MedicineUsage*>& data) {
+    _data.clear();
+    for (const auto& usage : data) {
+        _data.push_back(std::make_unique<MedicineUsage>(*usage));
+    }
     refresh();
 }
 
@@ -69,7 +72,7 @@ void MedicineUsageTableModel::refresh() {
 void MedicineUsageTableModel::sort(int column, Qt::SortOrder order) {
     beginResetModel();
     std::stable_sort(_data.begin(), _data.end(),
-        [column, order](const MedicineUsage* a, const MedicineUsage* b) {
+        [column, order](const std::unique_ptr<MedicineUsage>& a, const std::unique_ptr<MedicineUsage>& b) {
             int compareResult = 0;
             switch (column) {
             case 0: compareResult = compare(a->id(), b->id()); break;

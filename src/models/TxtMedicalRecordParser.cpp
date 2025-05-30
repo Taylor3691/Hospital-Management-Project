@@ -58,16 +58,16 @@ Object* TxtMedicalRecordParser::parse(const std::string& str) const {
     if (buffer == "null") {
         record->changeState(nullptr);
     }
-    else if (buffer == "WaitingState") {
+    else if (buffer == "Đang chờ") {
         record->changeState(std::make_unique<WaitingState>());
     }
-    else if (buffer == "PendingTestState") {
-        record->changeState(std::make_unique<PendingTestState>());
+    else if (buffer == "Chờ kiểm tra") {
+        record->changeState(std::make_unique<TestPendingState>());
     }
-    else if (buffer == "ExaminingState") {
+    else if (buffer == "Đang khám") {
         record->changeState(std::make_unique<ExaminingState>());
     }
-    else if ("CompletedState") {
+    else if (buffer == "Hoàn thành") {
         record->changeState(std::make_unique<CompletedState>());
     }
 

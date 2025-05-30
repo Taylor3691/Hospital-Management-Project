@@ -15,33 +15,29 @@ QVariant MedicalRecordListModel::data(
         return {};
     }
 
-    if (role == Qt::UserRole) {
-        return QVariant::fromValue(
-            const_cast<void*>(static_cast<const void*>(_data[index.row()])));
-    }
-
     if (role == Qt::DisplayRole) {
-        return _data[index.row()]->id().c_str();
+        return _data[index.row()].c_str();
     }
 
     return {};
+}
+
+void MedicalRecordListModel::setData(const QVector<const MedicalRecord*>& data) {
+    beginResetModel();
+    _data.clear();
+    for (const auto& record : data) {
+        _data.push_back(record->id());
+    }
+    endResetModel();
 }
 
 void MedicalRecordListModel::refresh() {
     beginResetModel();
     auto data = ServiceLocator::instance()
         ->medicalRecordRepository()->data();
-    _data = QVector<const MedicalRecord*>(data.begin(), data.end());
-    endResetModel();
-}
-
-void MedicalRecordListModel::changeFilter(const std::string& roomId) {
-    beginResetModel();
-    auto data = ServiceLocator::instance()
-        ->medicalRecordRepository()->data();
-    auto results = from(data)
-        .where(&MedicalRecord::roomId, roomId)
-        .find();
-    _data = QVector<const MedicalRecord*>(results.begin(), results.end());
+    _data.clear();
+    for (const auto& record : data) {
+        _data.push_back(record->id());
+    }
     endResetModel();
 }

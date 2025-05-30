@@ -32,9 +32,8 @@ public:
 private:
     void setConnections();
     void createCompleter();
-    const MedicalRecord* currentRecord();
     void update(const MedicalRecord& record);
-    void setExaminationInfo();
+    void setExaminationInfo(const std::string& recordId);
     void setPatientInfo();
     void setClinicalTests();
     void setMedicineUsages();
@@ -43,6 +42,7 @@ private:
     void clearClinicalTests();
     void clearMedicineUsages();
     void addTests(const QVector<std::string>& specifiedTests);
+    void triggerCurrentFilter();
 
 public:
     void changeRoom(int index);

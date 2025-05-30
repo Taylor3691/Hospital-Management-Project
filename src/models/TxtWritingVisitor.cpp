@@ -120,8 +120,15 @@ void TxtWritingVisitor::write(MedicalRecord* record, std::ostream& os, IWritingV
     std::string time = record->createdTime().toString();
     os << date << _delim;
     os << time << _delim;
+
+    static std::vector<std::string> states = {
+        "Đang chờ",
+        "Đang khám",
+        "Chờ kiểm tra",
+        "Hoàn thành",
+    };
     if (record->state()) {
-        os << record->state()->getStateName();
+        os << states[record->state()->getStateName()];
     }
     else {
         os << "null";

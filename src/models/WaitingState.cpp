@@ -1,7 +1,7 @@
 #include "WaitingState.h"
 
-std::string WaitingState::getStateName() const {
-    return "WaitingState";
+ExaminationState::State WaitingState::getStateName() const {
+    return Waiting;
 }
 
 bool WaitingState::canPrescribeMedicine() const {

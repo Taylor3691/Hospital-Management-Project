@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -167,7 +167,7 @@
     <ClCompile Include="src\models\Nurse.cpp" />
     <ClCompile Include="src\models\Object.cpp" />
     <ClCompile Include="src\models\Patient.cpp" />
-    <ClCompile Include="src\models\PendingTestState.cpp" />
+    <ClCompile Include="src\models\TestPendingState.cpp" />
     <ClCompile Include="src\models\Person.cpp" />
     <ClCompile Include="src\models\Receipt.cpp" />
     <ClCompile Include="src\models\Receptionist.cpp" />
@@ -240,7 +240,7 @@
     <ClInclude Include="src\models\Patient.h" />
     <ClInclude Include="src\models\PatientParser.h" />
     <ClInclude Include="src\models\PaymentMethodStrategy.h" />
-    <ClInclude Include="src\models\PendingTestState.h" />
+    <ClInclude Include="src\models\TestPendingState.h" />
     <ClInclude Include="src\models\Person.h" />
     <ClInclude Include="src\models\Receipt.h" />
     <ClInclude Include="src\models\Receptionist.h" />

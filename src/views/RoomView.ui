@@ -2386,7 +2386,7 @@ PlotWidget {
          </widget>
         </item>
         <item>
-         <widget class="QRadioButton" name="finished_radioButton">
+         <widget class="QRadioButton" name="completed_radioButton">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>

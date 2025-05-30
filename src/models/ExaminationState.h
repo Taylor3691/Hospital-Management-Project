@@ -5,10 +5,18 @@
 
 class ExaminationState {
 public:
+    enum State {
+        Waiting,
+        Examining,
+        TestPending,
+        Completed
+    };
+
+public:
     virtual ~ExaminationState() = default;
 
 public:
-    virtual std::string getStateName() const = 0;
+    virtual State getStateName() const = 0;
     virtual bool canPrescribeMedicine() const = 0;
     virtual bool canOrderClinicalTest() const = 0;
     virtual bool canComplete() const = 0;

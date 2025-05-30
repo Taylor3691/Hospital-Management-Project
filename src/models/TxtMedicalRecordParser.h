@@ -8,7 +8,7 @@
 #include "ExaminingState.h"
 #include "CompletedState.h"
 #include "WaitingState.h"
-#include "PendingTestState.h"
+#include "TestPendingState.h"
 #include <sstream>
 
 class TxtMedicalRecordParser : public MedicalRecordParser {

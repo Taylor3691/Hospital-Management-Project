@@ -39,10 +39,65 @@ RoomView::~RoomView() {
 }
 
 void RoomView::setConnections() {
+    connect(_ui->waiting_radioButton, &QRadioButton::toggled, this,
+        [this](bool checked) {
+            if (!checked) {
+                return;
+            }
+
+            auto roomId = _ui->id_label->text().toStdString();
+            auto records = ServiceLocator::instance()
+                ->examinationService()->getAllRecordsInRoomByState(roomId);
+            static_cast<MedicalRecordListModel*>(_ui->record_listView->model())
+                ->setData(QVector<const MedicalRecord*>(records.begin(), records.end()));
+        });
+
+    connect(_ui->examining_radioButton, &QRadioButton::toggled, this,
+        [this](bool checked) {
+            if (!checked) {
+                return;
+            }
+
+            auto roomId = _ui->id_label->text().toStdString();
+            auto records = ServiceLocator::instance()->examinationService()
+                ->getAllRecordsInRoomByState(roomId, ExaminationState::Examining);
+            auto additionalRecords = ServiceLocator::instance()->examinationService()
+                ->getAllRecordsInRoomByState(roomId, ExaminationState::TestPending);
+            records.insert(records.end(), additionalRecords.begin(), additionalRecords.end());
+            static_cast<MedicalRecordListModel*>(_ui->record_listView->model())
+                ->setData(QVector<const MedicalRecord*>(records.begin(), records.end()));
+        });
+
+    connect(_ui->completed_radioButton, &QRadioButton::toggled, this,
+        [this](bool checked) {
+            if (!checked) {
+                return;
+            }
+
+            auto roomId = _ui->id_label->text().toStdString();
+            auto records = ServiceLocator::instance()->examinationService()
+                ->getAllRecordsInRoomByState(roomId, ExaminationState::Completed);
+            static_cast<MedicalRecordListModel*>(_ui->record_listView->model())
+                ->setData(QVector<const MedicalRecord*>(records.begin(), records.end()));
+        });
+
+    connect(_ui->allRecords_radioButton, &QRadioButton::toggled, this,
+        [this](bool checked) {
+            if (!checked) {
+                return;
+            }
+
+            auto roomId = _ui->id_label->text().toStdString();
+            auto records = ServiceLocator::instance()
+                ->examinationService()->getAllRecordsInRoom(roomId);
+            static_cast<MedicalRecordListModel*>(_ui->record_listView->model())
+                ->setData(QVector<const MedicalRecord*>(records.begin(), records.end()));
+        });
+
     connect(_ui->record_listView, &QListView::clicked, this,
-        [this](const QModelIndex&) {
+        [this](const QModelIndex& index) {
             _ui->examinationSection_frame->setEnabled(1);
-            setExaminationInfo();
+            setExaminationInfo(index.data().toString().toStdString());
             setPatientInfo();
             setClinicalTests();
             setMedicineUsages();
@@ -51,7 +106,9 @@ void RoomView::setConnections() {
     connect(_ui->quickSpecify_pushButton, &QPushButton::clicked, this,
         [this](bool) {
             QVector<std::string> specifiedTests;
-            for (const auto& test : currentRecord()->clinicalTests()) {
+            auto record = ServiceLocator::instance()->examinationService()
+                ->findRecordById(_ui->recordId_lineEdit->text().toStdString());
+            for (const auto& test : record->clinicalTests()) {
                 specifiedTests.push_back(test->testId());
             }
 
@@ -141,40 +198,36 @@ void RoomView::createCompleter() {
         });
 }
 
-const MedicalRecord* RoomView::currentRecord() {
-    auto index = _ui->record_listView->currentIndex();
-    if (!index.isValid()) {
-        return nullptr;
-    }
-    return static_cast<const MedicalRecord*>(
-        index.data(Qt::UserRole).value<void*>());
-}
-
 void RoomView::update(const MedicalRecord& record) {
     ServiceLocator::instance()->medicalRecordRepository()->update(record);
     setClinicalTests();
     setMedicineUsages();
+    triggerCurrentFilter();
 }
 
-void RoomView::setExaminationInfo() {
-    auto record = currentRecord();
-    _ui->recordId_lineEdit->setText(QString::fromStdString(record->id()));
+void RoomView::setExaminationInfo(const std::string& recordId) {
+    _ui->recordId_lineEdit->setText(QString::fromStdString(recordId));
 
+    auto record = ServiceLocator::instance()->examinationService()
+        ->findRecordById(recordId);
     auto doctorId = record->doctorId();
     if (!doctorId.size()) {
         return;
     }
-    auto doctor = ServiceLocator::instance()->examinationService()->findDoctorById(doctorId);
+    auto doctor = ServiceLocator::instance()->examinationService()
+        ->findDoctorById(doctorId);
     _ui->doctorId_lineEdit->setText(QString::fromStdString(doctor->id()));
     _ui->doctorName_lineEdit->setText(QString::fromStdString(doctor->name()));
-    _ui->prescribingDoctorName_lineEdit->setText(QString::fromStdString(doctor->name()));
+    _ui->prescribingDoctorName_lineEdit->setText(
+        QString::fromStdString(doctor->name()));
 
     _ui->primaryDiagnose_lineEdit
         ->setText(QString::fromStdString(record->diagnosisResult()));
 }
 
 void RoomView::setPatientInfo() {
-    auto record = currentRecord();
+    auto record = ServiceLocator::instance()->examinationService()
+        ->findRecordById(_ui->recordId_lineEdit->text().toStdString());
     auto patient = ServiceLocator::instance()
         ->examinationService()->findPatientById(record->patientId());
     _ui->patientId_lineEdit->setText(QString::fromStdString(patient->id()));
@@ -193,6 +246,7 @@ void RoomView::setPatientInfo() {
     _ui->symptom_plainTextEdit->setPlainText(list.join(", "));
 
     if (auto insurance = patient->insuranceCard()) {
+        _ui->insuranceInfo_groupBox->setEnabled(1);
         _ui->cardId_lineEdit->setText(QString::fromStdString(insurance->id()));
         auto date = insurance->issueDate();
         _ui->issueDate_dateEdit->setDate({ date.year(), date.month(), date.day() });
@@ -200,19 +254,26 @@ void RoomView::setPatientInfo() {
         _ui->expiryDate_dateEdit->setDate({ date.year(), date.month(), date.day() });
         _ui->coveragePercent_doubleSpinBox->setValue(insurance->coveragePercent());
     }
+    else {
+        _ui->insuranceInfo_groupBox->setEnabled(0);
+    }
 }
 
 void RoomView::setClinicalTests() {
-    auto tests = currentRecord()->clinicalTests();
-    static_cast<ClinicalTestTableModel*>(_ui->specifiedTests_tableView
-        ->model())->setData(QVector<const ClinicalTest*>(tests.begin(), tests.end()));
+    auto record = ServiceLocator::instance()->examinationService()
+        ->findRecordById(_ui->recordId_lineEdit->text().toStdString());
+    auto tests = record->clinicalTests();
+    static_cast<ClinicalTestTableModel*>(
+        _ui->specifiedTests_tableView->model())->setData(tests);
     pad(_ui->specifiedTests_tableView->horizontalHeader());
 }
 
 void RoomView::setMedicineUsages() {
-    auto usages = currentRecord()->prescribedMedicines();
-    static_cast<MedicineUsageTableModel*>(_ui->precibedMedicines_tableView
-        ->model())->setData(QVector<const MedicineUsage*>(usages.begin(), usages.end()));
+    auto record = ServiceLocator::instance()->examinationService()
+        ->findRecordById(_ui->recordId_lineEdit->text().toStdString());
+    auto usages = record->prescribedMedicines();
+    static_cast<MedicineUsageTableModel*>(
+        _ui->precibedMedicines_tableView->model())->setData(usages);
     pad(_ui->precibedMedicines_tableView->horizontalHeader());
 }
 
@@ -263,8 +324,29 @@ void RoomView::addTests(const QVector<std::string>& specifiedTests) {
             ->examinationService()->createCinicalTest(
             test->id(), test->name(), test->cost()));
     }
-    record->changeState(std::make_unique<PendingTestState>());
+    record->changeState(std::make_unique<TestPendingState>());
     update(*record);
+}
+
+void RoomView::triggerCurrentFilter() {
+    QRadioButton* checkedButton = nullptr;
+
+    if (_ui->waiting_radioButton->isChecked()) {
+        checkedButton = _ui->waiting_radioButton;
+    }
+    else if (_ui->examining_radioButton->isChecked()) {
+        checkedButton = _ui->examining_radioButton;
+    }
+    else if (_ui->completed_radioButton->isChecked()) {
+        checkedButton = _ui->completed_radioButton;
+    }
+    else if (_ui->allRecords_radioButton->isChecked()) {
+        checkedButton = _ui->allRecords_radioButton;
+    }
+
+    if (checkedButton) {
+        emit checkedButton->toggled(1);
+    }
 }
 
 void RoomView::changeRoom(int index) {
@@ -278,7 +360,5 @@ void RoomView::changeRoom(int index) {
     clearPatientInfo();
     clearClinicalTests();
     clearMedicineUsages();
-
-    static_cast<MedicalRecordListModel*>(_ui->record_listView->model())
-        ->changeFilter(room->id());
+    triggerCurrentFilter();
 }

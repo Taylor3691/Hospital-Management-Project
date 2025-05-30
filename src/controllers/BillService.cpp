@@ -16,7 +16,9 @@ std::vector<std::unique_ptr<MedicalRecord>>BillService::getAllRecords() {
     return result;
 }
 
-std::vector<std::unique_ptr<MedicalRecord>> BillService::getAllRecordByState(const std::string& state) {
+std::vector<std::unique_ptr<MedicalRecord>> BillService::getAllRecordByState(
+    ExaminationState::State state
+) {
     auto store = _records->data();
     std::vector<std::unique_ptr<MedicalRecord>> result;
     for (auto record : store) {

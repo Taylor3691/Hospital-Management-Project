@@ -57,7 +57,7 @@ add_executable(${TARGET_NAME}
     src/models/Patient.cpp
     src/models/PatientTableModel.cpp
     src/models/PaymentMethodStrategy.cpp
-    src/models/PendingTestState.cpp
+    src/models/TestPendingState.cpp
     src/models/Person.cpp
     src/models/Receipt.cpp
     src/models/Receptionist.cpp
@@ -184,7 +184,7 @@ target_sources(${TARGET_NAME} PRIVATE
     src/models/PatientParser.h
     src/models/PatientTableModel.h
     src/models/PaymentMethodStrategy.h
-    src/models/PendingTestState.h
+    src/models/TestPendingState.h
     src/models/Person.h
     src/models/Receipt.h
     src/models/Receptionist.h

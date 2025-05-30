@@ -5,7 +5,7 @@
 
 class ExaminingState : public ExaminationState {
 public:
-    std::string getStateName() const override;
+    State getStateName() const override;
     bool canPrescribeMedicine() const override;
     bool canOrderClinicalTest() const override;
     bool canComplete() const override;

@@ -32,8 +32,11 @@ public:
     std::vector<std::unique_ptr<Medicine>> getAllMedicines();
     std::vector<std::unique_ptr<TestService>> getAllTestServices();
     std::vector<std::unique_ptr<RoomExamination>> getAllRooms();
+    std::vector<const MedicalRecord*> getAllRecordsInRoom(
+        const std::string& roomId);
     std::vector<const MedicalRecord*> getAllRecordsInRoomByState(
-        const std::string& roomId, const std::string& state);
+        const std::string& roomId,
+        ExaminationState::State state = ExaminationState::Waiting);
     std::unique_ptr<MedicineUsage> createMedicineUsage(
         const std::string& medicineId, const std::string& name,
         int quantity, double price, const std::string& description);

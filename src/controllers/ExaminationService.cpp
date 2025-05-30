@@ -80,17 +80,24 @@ std::vector<std::unique_ptr<RoomExamination>> ExaminationService::getAllRooms() 
     return results;
 }
 
+std::vector<const MedicalRecord*> ExaminationService::getAllRecordsInRoom(
+    const std::string& roomId
+) {
+    auto data = _records->data();
+    return from(data).where(&MedicalRecord::roomId, roomId).find();
+}
+
 std::vector<const MedicalRecord*> ExaminationService::getAllRecordsInRoomByState(
     const std::string& roomId,
-    const std::string& state
+    ExaminationState::State state
 ) {
     Getter<MedicalRecord> stateGetter = [](const MedicalRecord& record) {
-        return record.state()->getStateName();
+        return (int)record.state()->getStateName();
     };
     auto data = _records->data();
     return from(data)
         .where(&MedicalRecord::roomId, roomId)
-        .where(stateGetter, state)
+        .where(stateGetter, (int)state)
         .find();
 }
 
