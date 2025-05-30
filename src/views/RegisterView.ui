@@ -2753,6 +2753,20 @@ PlotWidget {
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>id_lineEdit</tabstop>
+  <tabstop>name_lineEdit</tabstop>
+  <tabstop>gender_comboBox</tabstop>
+  <tabstop>dob_dateEdit</tabstop>
+  <tabstop>phone_lineEdit</tabstop>
+  <tabstop>address_lineEdit</tabstop>
+  <tabstop>insurance_checkBox</tabstop>
+  <tabstop>cardId_lineEdit</tabstop>
+  <tabstop>issueDate_dateEdit</tabstop>
+  <tabstop>expiryDate_dateEdit</tabstop>
+  <tabstop>coveragePercent_doubleSpinBox</tabstop>
+  <tabstop>symptoms_plainTextEdit</tabstop>
+ </tabstops>
  <resources>
   <include location="../../packages/qdarkstyle/style.qrc"/>
  </resources>
