@@ -22,7 +22,16 @@ QVariant MedicalRecordListModel::data(
     return {};
 }
 
-void MedicalRecordListModel::setData(const QVector<const MedicalRecord*>& data) {
+void MedicalRecordListModel::setData(const std::vector<const MedicalRecord*>& data) {
+    beginResetModel();
+    _data.clear();
+    for (const auto& record : data) {
+        _data.push_back(record->id());
+    }
+    endResetModel();
+}
+
+void MedicalRecordListModel::setData(const std::vector<std::unique_ptr<MedicalRecord>>& data) {
     beginResetModel();
     _data.clear();
     for (const auto& record : data) {

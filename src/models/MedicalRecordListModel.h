@@ -18,7 +18,8 @@ public:
     int rowCount(const QModelIndex& parent = QModelIndex()) const override;
     QVariant data(const QModelIndex& index,
         int role = Qt::DisplayRole) const override;
-    void setData(const QVector<const MedicalRecord*>& data);
+    void setData(const std::vector<const MedicalRecord*>& data);
+    void setData(const std::vector<std::unique_ptr<MedicalRecord>>& data);
     void refresh();
 };
 
