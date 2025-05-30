@@ -42,9 +42,6 @@
     <ClCompile Include="src\models\MedicalRecord.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\models\RegisteredState.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\models\ExaminingState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -94,9 +91,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\models\ClinicalTest.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\models\RegisteredState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\models\PendingTestState.cpp">
@@ -171,9 +165,6 @@
     <ClCompile Include="src\models\TxtReceptionistParser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\models\Hospital.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\models\InsurancePayment.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -222,6 +213,12 @@
     <ClCompile Include="src\controllers\TestProcessingService.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\controllers\BillService.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\models\PaymentMethodStrategy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\models\Nurse.h">
@@ -255,9 +252,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\models\ExaminationState.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\models\RegisteredState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\models\ExaminingState.h">
@@ -315,9 +309,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\models\ClinicalTest.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\models\RegisteredState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\models\PendingTestState.h">
@@ -422,9 +413,6 @@
     <ClInclude Include="src\models\TxtWritingVisitor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\models\Hospital.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\models\InsurancePayment.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -480,6 +468,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\controllers\TestProcessingService.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\controllers\BillService.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\models\PaymentMethodStrategy.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
