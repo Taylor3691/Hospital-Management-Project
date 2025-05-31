@@ -26,6 +26,7 @@ public:
 public:
     std::unique_ptr<Department> getDepartment() const;
     void setDepartment(const Department* department);
+    bool checkValidHeadId();
 };
 
 #endif // !DEPARTMENT_RECORD_VIEW_H

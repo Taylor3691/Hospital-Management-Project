@@ -105,47 +105,50 @@ void RoomView::setConnections() {
 
     connect(_ui->quickSpecify_pushButton, &QPushButton::clicked, this,
         [this](bool) {
-
-            auto record = ServiceLocator::instance()->examinationService()
-                ->findRecordById(_ui->recordId_lineEdit->text().toStdString());
-
-            if (!record->state()->canOrderClinicalTest()) {
+            auto recordId = _ui->recordId_lineEdit->text().toStdString();
+            auto state = ServiceLocator::instance()
+                ->examinationService()->recordState(recordId);
+            if (!state->canOrderClinicalTest()) {
                 return warn("Không thể chỉ định với trạng thái hiện tại!");
             }
 
-            QVector<std::string> specifiedTests;
-            for (const auto& test : record->clinicalTests()) {
-                specifiedTests.push_back(test->testId());
-            }
-
-            TestServiceTableModel model(specifiedTests);
+            auto testIds = ServiceLocator::instance()
+                ->examinationService()->clinicalTestIds(recordId);
+            TestServiceTableModel model(QVector<std::string>(testIds.begin(), testIds.end()));
             SelectingView view;
             view.setWindowTitle("Danh sách cận lâm sàng");
             view.setModel(&model);
             view.exec();
 
-            addTests(model.selectedItems());
+            auto specifiedTests = model.selectedItems();
+            ServiceLocator::instance()->examinationService()->orderClinicalTests(
+                recordId, std::vector<std::string>(specifiedTests.begin(), specifiedTests.end()));
+            updateView();
         });
 
     connect(_ui->quickPrescribe_pushButton, &QPushButton::clicked, this,
         [this](bool) {
             auto recordId = _ui->recordId_lineEdit->text().toStdString();
-            auto record = ServiceLocator::instance()
-                ->examinationService()->findRecordById(recordId);
-
-            if (!record->state()->canPrescribeMedicine()) {
+            auto state = ServiceLocator::instance()
+                ->examinationService()->recordState(recordId);
+            if (!state->canPrescribeMedicine()) {
                 return warn("Không thể kê thuốc với trạng thái hiện tại!");
             }
 
             MedicinePrescribingView view;
             if (view.exec() == QDialog::Accepted) {
-                if (!view.checkValid()) {
+                if (!view.checkValidId()) {
                     return warn("Mã thuốc không hợp lệ!");
                 }
 
+                if (!view.checkValidQuantity()) {
+                    return warn("Số lượng thuốc phải lớn hơn 0!");
+                }
+
                 if (confirm("Xác nhận thêm thuốc", "Bạn có chắc chắn muốn thêm thuốc?")) {
-                    record->prescribeMedicine(view.getUsage());
-                    update(*record);
+                    ServiceLocator::instance()->examinationService()
+                        ->prescribeMedicine(recordId, view.getUsage());
+                    updateView();
                 }
             }
         });
@@ -157,16 +160,19 @@ void RoomView::setConnections() {
             }
 
             auto recordId = _ui->recordId_lineEdit->text().toStdString();
-            auto record = ServiceLocator::instance()
-                ->examinationService()->findRecordById(recordId);
-
-            if (!record->state()->canComplete()) {
+            auto state = ServiceLocator::instance()
+                ->examinationService()->recordState(recordId);
+            if (!state->canComplete()) {
                 return warn("Không thể kết thúc khám với trạng thái hiện tại!");
             }
 
             if (confirm("Xác nhận", "Bạn có chắc chắn muốn kết thúc quá trình khám?")) {
-                record->compeleteExamination();
-                update(*record);
+                auto primaryResult = _ui->primaryDiagnose_lineEdit->text();
+                auto secondaryResult = _ui->secondaryDiagnose_lineEdit->text();
+                auto result = primaryResult + "<>" + secondaryResult;
+                ServiceLocator::instance()->examinationService()
+                    ->compeleteExamination(recordId, result.toStdString());
+                updateView();
             }
         });
 }
@@ -189,17 +195,13 @@ void RoomView::createCompleter() {
             _ui->prescribingDoctorName_lineEdit->setText(text);
 
             auto recordId = _ui->recordId_lineEdit->text().toStdString();
-            auto record = ServiceLocator::instance()
-                ->examinationService()->findRecordById(recordId);
+            auto doctorId = ServiceLocator::instance()
+                ->examinationService()->findDoctorIdByName(text.toStdString());
+            ServiceLocator::instance()->examinationService()
+                ->startExamination(recordId, doctorId);
 
-            FilterCriteria criteria;
-            criteria.value = text.toStdString();
-            auto doctorId = ServiceLocator::instance()->employeeManager()
-                ->find({ {criteria, &Employee::name} })[0]->id();
-
-            record->startExamination(doctorId);
-            update(*record);
             _ui->doctorId_lineEdit->setText(QString::fromStdString(doctorId));
+            updateView();
         });
 
     connect(_ui->doctorName_lineEdit, &QLineEdit::editingFinished,
@@ -210,25 +212,32 @@ void RoomView::createCompleter() {
             }
 
             auto recordId = _ui->recordId_lineEdit->text().toStdString();
-            auto record = ServiceLocator::instance()
-                ->examinationService()->findRecordById(recordId);
-            record->cancelExamination();
-            update(*record);
-            clearClinicalTests();
+            ServiceLocator::instance()->examinationService()
+                ->cancelExamination(recordId);
+
             _ui->doctorId_lineEdit->clear();
             _ui->doctorName_lineEdit->clear();
             _ui->prescribingDoctorName_lineEdit->clear();
+            updateView();
         });
 }
 
-void RoomView::update(const MedicalRecord& record) {
-    ServiceLocator::instance()->medicalRecordRepository()->update(record);
+void RoomView::updateView() {
     setClinicalTests();
     setMedicineUsages();
     triggerRecordFilter();
 }
 
 void RoomView::setExaminationInfo(const std::string& recordId) {
+    auto state = ServiceLocator::instance()
+        ->examinationService()->recordState(recordId);
+    if (state->stateName() == ExaminationState::Waiting) {
+        _ui->doctorName_lineEdit->setReadOnly(0);
+    }
+    else {
+        _ui->doctorName_lineEdit->setReadOnly(1);
+    }
+
     _ui->recordId_lineEdit->setText(QString::fromStdString(recordId));
 
     auto record = ServiceLocator::instance()->examinationService()
@@ -244,8 +253,14 @@ void RoomView::setExaminationInfo(const std::string& recordId) {
     _ui->prescribingDoctorName_lineEdit->setText(
         QString::fromStdString(doctor->name()));
 
-    _ui->primaryDiagnose_lineEdit
-        ->setText(QString::fromStdString(record->diagnosisResult()));
+    auto result = QString::fromStdString(record->diagnosisResult());
+    auto splitedResult = result.split("<>");
+    if (splitedResult.size() > 0) {
+        _ui->primaryDiagnose_lineEdit->setText(splitedResult[0]);
+        if (splitedResult.size() > 1) {
+            _ui->secondaryDiagnose_lineEdit->setText(splitedResult[1]);
+        }
+    }
 }
 
 void RoomView::setPatientInfo() {
@@ -331,23 +346,6 @@ void RoomView::clearClinicalTests() {
 void RoomView::clearMedicineUsages() {
     static_cast<MedicineUsageTableModel*>(
         _ui->precibedMedicines_tableView->model())->setData({});
-}
-
-void RoomView::addTests(const QVector<std::string>& specifiedTests) {
-    auto recordId = _ui->recordId_lineEdit->text().toStdString();
-    auto record = ServiceLocator::instance()
-        ->examinationService()->findRecordById(recordId);
-    record->clearOrderedTests();
-
-    for (const auto& testId : specifiedTests) {
-        auto test = ServiceLocator::instance()
-            ->examinationService()->findTestServiceById(testId);
-        record->orderClinicalTest(ServiceLocator::instance()
-            ->examinationService()->createCinicalTest(
-            test->id(), test->name(), test->cost()));
-    }
-    record->changeState(std::make_unique<TestPendingState>());
-    update(*record);
 }
 
 void RoomView::triggerRecordFilter() {

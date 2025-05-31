@@ -47,7 +47,18 @@ public:
     std::unique_ptr<MedicalRecord> findRecordById(const std::string& id);
     std::unique_ptr<Medicine> findMedicineById(const std::string& id);
     std::unique_ptr<TestService> findTestServiceById(const std::string id);
-    void updateRecord(std::unique_ptr<MedicalRecord> record);
+    std::string findDoctorIdByName(const std::string& name);
+    void startExamination(const std::string& recordId, const std::string& doctorId);
+    void cancelExamination(const std::string& recordId);
+    std::unique_ptr<ExaminationState> recordState(const std::string& recordId);
+    std::vector<std::string> clinicalTestIds(const std::string& recordId);
+    void orderClinicalTests(const std::string& recordId,
+        const std::vector<std::string>& specifiedTests);
+    void updateClinicalTest(const std::string& recordId,
+        std::unique_ptr<ClinicalTest> test);
+    void prescribeMedicine(const std::string& recordId,
+        std::unique_ptr<MedicineUsage> usage);
+    void compeleteExamination(const std::string& recordId, const std::string& result);
 };
 
 #endif // !EXAMINATION_SERVICE_H

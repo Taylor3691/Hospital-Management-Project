@@ -19,13 +19,12 @@ public:
 
 public:
     std::vector<std::unique_ptr<MedicalRecord>> getAllRecords();
-    std::vector<std::unique_ptr<MedicalRecord>> getAllRecordByState(
-        ExaminationState::State state);
-    std::unique_ptr<MedicalRecord> findRecordById(const std::string& id);
+    std::vector<std::unique_ptr<MedicalRecord>> getAllRecordsByState(
+        ExaminationState::State state = ExaminationState::Completed);
     std::unique_ptr<Patient> findPatientById(const std::string& id);
-    std::vector<std::unique_ptr<MedicineUsage>> getAllMedicineUsageInRecord(
+    std::vector<std::unique_ptr<MedicineUsage>> getAllMedicineUsagesInRecord(
         const std::string& recordId);
-    std::vector<std::unique_ptr<ClinicalTest>> getAllClinicalTestInRecord(
+    std::vector<std::unique_ptr<ClinicalTest>> getAllClinicalTestsInRecord(
         const std::string& recordId);
     std::unique_ptr<Receipt> generateReceipt(std::unique_ptr<MedicalRecord> record);
 };

@@ -9,17 +9,6 @@ RegistrationService::RegistrationService(
     , _records(records)
     , _rooms(rooms) {}
 
-void RegistrationService::updateRoom(
-    const std::string& recordId,
-    const std::string& roomId
-) {
-    auto room = findRoomById(roomId);
-    auto copy = std::unique_ptr<RoomExamination>(
-        static_cast<RoomExamination*>(room->clone()));
-    copy->addToWaitingList(recordId);
-    _rooms->update(*copy);
-}
-
 std::unique_ptr<HealthInsurance> RegistrationService::createInsurace(
     const std::string& id,
     const Date& startDate,
@@ -55,7 +44,12 @@ MedicalRecord* RegistrationService::createMedicalRecord(Patient* patient, const 
 
     auto record = std::make_unique<MedicalRecord>(newId, patient->id());
     record->assignToRoom(roomId);
-    updateRoom(record->id(), roomId);
+
+    auto room = findRoomById(roomId);
+    auto copy = std::unique_ptr<RoomExamination>(
+        static_cast<RoomExamination*>(room->clone()));
+    copy->addToWaitingList();
+    _rooms->update(*copy);
 
     auto ptr = record.get();
     _records->add(std::move(record));

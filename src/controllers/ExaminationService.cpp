@@ -84,16 +84,10 @@ std::vector<std::unique_ptr<RoomExamination>> ExaminationService::getAllRooms() 
 std::vector<const MedicalRecord*> ExaminationService::getAllRecordsInRoom(
     const std::string& roomId
 ) {
-    
-    auto room = ServiceLocator::instance()
-        ->registrationService()->findRoomById(roomId);
-    auto recordIds = room->waitingList();
-    auto records = _records->data();
-    auto query = from(records, FilterMode::OR);
-    for (const auto& id : recordIds) {
-        query.where(&MedicalRecord::id, id);
-    }
-    return query.find();
+    auto data = _records->data();
+    return from(data)
+        .where(&MedicalRecord::roomId, roomId)
+        .find();
 }
 
 std::vector<const MedicalRecord*> ExaminationService::getAllRecordsInRoomByState(
@@ -101,9 +95,9 @@ std::vector<const MedicalRecord*> ExaminationService::getAllRecordsInRoomByState
     ExaminationState::State state
 ) {
     Getter<MedicalRecord> stateGetter = [](const MedicalRecord& record) {
-        return (int)record.state()->getStateName();
+        return (int)record.state()->stateName();
     };
-    auto data = getAllRecordsInRoom(roomId);
+    auto data = _records->data();
     return from(data)
         .where(&MedicalRecord::roomId, roomId)
         .where(stateGetter, (int)state)
@@ -194,6 +188,109 @@ std::unique_ptr<TestService> ExaminationService::findTestServiceById(const std::
     return std::unique_ptr<TestService>(copy);
 }
 
-void ExaminationService::updateRecord(std::unique_ptr<MedicalRecord> record) {
-    _records->update(*record.get());
+std::string ExaminationService::findDoctorIdByName(const std::string& name) {
+    FilterCriteria criteria;
+    criteria.value = name;
+    return ServiceLocator::instance()->employeeManager()
+        ->find({ {criteria, &Employee::name} })[0]->id();
+}
+
+void ExaminationService::startExamination(
+    const std::string& recordId,
+    const std::string& doctorId
+)  {
+    auto record = findRecordById(recordId);
+    record->startExamination(doctorId);
+    _records->update(*record);
+
+    auto room = ServiceLocator::instance()
+        ->registrationService()->findRoomById(record->roomId());
+    auto copy = std::unique_ptr<RoomExamination>(
+        static_cast<RoomExamination*>(room->clone()));
+    copy->addToWaitingList();
+    _rooms->update(*copy);
+}
+
+void ExaminationService::cancelExamination(const std::string& recordId) {
+    auto record = findRecordById(recordId);
+    record->cancelExamination();
+    _records->update(*record);
+
+    auto room = ServiceLocator::instance()
+        ->registrationService()->findRoomById(record->roomId());
+    auto copy = std::unique_ptr<RoomExamination>(
+        static_cast<RoomExamination*>(room->clone()));
+    copy->removeFromWaitingList();
+    _rooms->update(*copy);
+}
+
+std::unique_ptr<ExaminationState> ExaminationService::recordState(const std::string& recordId) {
+    auto record = findRecordById(recordId);
+    return std::unique_ptr<ExaminationState>(
+        record->state()->clone());
+}
+
+std::vector<std::string> ExaminationService::clinicalTestIds(const std::string& recordId) {
+    std::vector<std::string> ids;
+    auto record = findRecordById(recordId);
+    for (const auto& test : record->clinicalTests()) {
+        ids.push_back(test->testId());
+    }
+    return ids;
+}
+
+void ExaminationService::updateClinicalTest(
+    const std::string& recordId,
+    std::unique_ptr<ClinicalTest> test
+) {
+    auto record = findRecordById(recordId);
+    record->orderClinicalTest(std::move(test));
+
+    auto tests = ServiceLocator::instance()
+        ->testProcessingService()->getClinicalTestsByState(recordId);
+    if (tests.size() == 1) {
+        record->changeState(std::make_unique<ExaminingState>());
+    }
+
+    _records->update(*record);
+}
+
+void ExaminationService::orderClinicalTests(
+    const std::string& recordId,
+    const std::vector<std::string>& specifiedTests
+) {
+    auto record = findRecordById(recordId);
+    record->clearOrderedTests();
+
+    for (const auto& testId : specifiedTests) {
+        auto test = findTestServiceById(testId);
+        record->orderClinicalTest(createCinicalTest(
+                test->id(), test->name(), test->cost()));
+    }
+    record->changeState(std::make_unique<TestPendingState>());
+    _records->update(*record);
+}
+
+void ExaminationService::prescribeMedicine(
+    const std::string& recordId,
+    std::unique_ptr<MedicineUsage> usage
+) {
+    auto medicine = findMedicineById(usage->medicineId());
+    auto currentQuantity = medicine->quantity();
+    medicine->setQuantity(currentQuantity - usage->usedQuantity());
+    _medicines->update(*medicine);
+
+    auto record = findRecordById(recordId);
+    record->prescribeMedicine(std::move(usage));
+    _records->update(*record);
+}
+
+void ExaminationService::compeleteExamination(
+    const std::string& recordId,
+    const std::string& result
+) {
+    auto record = findRecordById(recordId);
+    record->compeleteExamination();
+    record->setDiagnosisResult(result);
+    _records->update(*record);
 }

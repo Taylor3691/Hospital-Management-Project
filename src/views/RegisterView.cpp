@@ -76,7 +76,7 @@ void RegisterView::setupRooms() {
 
         auto waitings_label = new QLabel(frame);
         waitings_label->setAlignment(Qt::AlignCenter);
-        waitings_label->setText(QString("Số lượt chờ: %1").arg(rooms[i]->waitingListCount()));
+        waitings_label->setText(QString("Số lượt chờ: %1").arg(rooms[i]->waitingCount()));
 
         verticalLayout->addWidget(waitings_label);
 
@@ -173,6 +173,6 @@ void RegisterView::updateRoomInfo() {
         auto room = ServiceLocator::instance()
             ->registrationService()->findRoomById(roomId);
         static_cast<QLabel*>(button->parentWidget()->layout()->itemAt(2)->widget())
-            ->setText(QString("Số lượt chờ: %1").arg(room->waitingListCount()));
+            ->setText(QString("Số lượt chờ: %1").arg(room->waitingCount()));
     }
 }

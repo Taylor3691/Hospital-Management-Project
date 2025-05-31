@@ -32,17 +32,24 @@ MedicinePrescribingView::~MedicinePrescribingView() {
 void MedicinePrescribingView::setConnections() {
     connect(_ui->id_comboBox, QOverload<int>::of(&QComboBox::currentIndexChanged), this,
         [this](int index) {
-            _ui->name_lineEdit->setText(
-                _ui->id_comboBox->model()->index(index, 1)
-                .data(Qt::DisplayRole).toString());
-            _ui->price_doubleSpinBox->setValue(
-                _ui->id_comboBox->model()->index(index, 3)
-                .data(Qt::DisplayRole).toDouble());
+            auto model = _ui->id_comboBox->model();
+            auto name = model->index(index, 1).data(Qt::DisplayRole).toString();
+            _ui->name_lineEdit->setText(name);
+            auto price = model->index(index, 3).data(Qt::DisplayRole).toDouble();
+            _ui->price_doubleSpinBox->setValue(price);
+            auto available = model->index(index, 4).data(Qt::DisplayRole).toInt();
+            _ui->quantity_spinBox->setValue(std::min(available, 1));
+            _ui->quantity_spinBox->setMinimum(std::min(available, 1));
+            _ui->quantity_spinBox->setMaximum(available);
         });
 }
 
-bool MedicinePrescribingView::checkValid() {
+bool MedicinePrescribingView::checkValidId() {
     return _ui->id_comboBox->currentIndex() != -1;
+}
+
+bool MedicinePrescribingView::checkValidQuantity() {
+    return _ui->quantity_spinBox->value() > 0;
 }
 
 std::unique_ptr<MedicineUsage> MedicinePrescribingView::getUsage() {

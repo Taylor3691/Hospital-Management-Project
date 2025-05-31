@@ -25,7 +25,7 @@ std::vector<std::unique_ptr<MedicalRecord>> TestProcessingService::getMedicalRec
 ) {
     auto records = getMedicalRecordsHaveTests();
     Getter<MedicalRecord> getter = [](const MedicalRecord& record) {
-        return record.state()->getStateName() != ExaminationState::TestPending;
+        return record.state()->stateName() != ExaminationState::TestPending;
     };
     auto results = from(records).where(getter, completed).find();
     std::vector<std::unique_ptr<MedicalRecord>> copies;

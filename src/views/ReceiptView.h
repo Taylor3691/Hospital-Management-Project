@@ -4,6 +4,9 @@
 #include <QPushButton>
 #include "ui_ReceiptView.h"
 #include "../ServiceLocator.h"
+#include "../models/MedicalRecordListModel.h"
+#include "../models/BillableComponentTableModel.h"
+#include "../models/PaidState.h"
 
 namespace Ui {
     class ReceiptView;
@@ -21,6 +24,12 @@ public:
 
 private:
     void setConnections();
+    void triggerRecordFilter();
+    void setReceiptInfo(const std::string& recordId);
+    void clearReceiptInfo();
+
+public:
+    void updateView();
 };
 
 #endif // !RECEIPT_VIEW_H

@@ -32,7 +32,7 @@ public:
 private:
     void setConnections();
     void createCompleter();
-    void update(const MedicalRecord& record);
+    void updateView();
     void setExaminationInfo(const std::string& recordId);
     void setPatientInfo();
     void setClinicalTests();
@@ -41,7 +41,6 @@ private:
     void clearPatientInfo();
     void clearClinicalTests();
     void clearMedicineUsages();
-    void addTests(const QVector<std::string>& specifiedTests);
     void triggerRecordFilter();
 
 public:

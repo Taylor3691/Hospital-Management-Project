@@ -2281,7 +2281,7 @@ PlotWidget {
        <number>20</number>
       </property>
       <item>
-       <widget class="QLabel" name="name_label">
+       <widget class="QLabel" name="title_label">
         <property name="styleSheet">
          <string notr="true">font-size: 12pt; font-weight: bold;</string>
         </property>
@@ -2304,7 +2304,7 @@ PlotWidget {
        </widget>
       </item>
       <item>
-       <widget class="QLabel" name="receiptList_label">
+       <widget class="QLabel" name="recordList_label">
         <property name="styleSheet">
          <string notr="true">font-size: 10pt;</string>
         </property>
@@ -2363,7 +2363,7 @@ PlotWidget {
          </widget>
         </item>
         <item>
-         <widget class="QRadioButton" name="allReceipts_radioButton">
+         <widget class="QRadioButton" name="allRecords_radioButton">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -2384,7 +2384,7 @@ PlotWidget {
        </layout>
       </item>
       <item>
-       <widget class="QListView" name="receipt_listView">
+       <widget class="QListView" name="record_listView">
         <property name="spacing">
          <number>5</number>
         </property>
@@ -2405,36 +2405,76 @@ PlotWidget {
       <item>
        <layout class="QVBoxLayout" name="verticalLayout">
         <item>
-         <widget class="QLabel" name="receiptId_label">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>50</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <family>Segoe UI</family>
-            <pointsize>9</pointsize>
-            <weight>75</weight>
-            <italic>false</italic>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">font-weight: bold;</string>
-          </property>
-          <property name="text">
-           <string>&lt;Mã hóa đơn&gt;</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
+         <layout class="QHBoxLayout" name="horizontalLayout_6">
+          <item>
+           <widget class="QLabel" name="recordId_label">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>50</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <family>Segoe UI</family>
+              <pointsize>9</pointsize>
+              <weight>50</weight>
+              <italic>false</italic>
+              <bold>false</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>Mã hồ sơ:</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="recordId_lineEdit">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>140</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="Line" name="line_3">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
           </property>
          </widget>
         </item>
@@ -2490,6 +2530,9 @@ PlotWidget {
                  <height>0</height>
                 </size>
                </property>
+               <property name="readOnly">
+                <bool>true</bool>
+               </property>
                <property name="maximum">
                 <double>1000000000.000000000000000</double>
                </property>
@@ -2523,6 +2566,9 @@ PlotWidget {
                  <height>0</height>
                 </size>
                </property>
+               <property name="readOnly">
+                <bool>true</bool>
+               </property>
                <property name="maximum">
                 <double>1000000000.000000000000000</double>
                </property>
@@ -2555,6 +2601,9 @@ PlotWidget {
                  <width>140</width>
                  <height>0</height>
                 </size>
+               </property>
+               <property name="readOnly">
+                <bool>true</bool>
                </property>
                <property name="maximum">
                 <double>1000000000.000000000000000</double>

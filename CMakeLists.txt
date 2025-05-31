@@ -34,6 +34,7 @@ add_executable(${TARGET_NAME}
     src/controllers/RegistrationService.cpp
     src/controllers/TestProcessingService.cpp
     src/models/BillableComponent.cpp
+    src/models/BillableComponentTableModel.cpp
     src/models/ClinicalTest.cpp
     src/models/ClinicalTestTableModel.cpp
     src/models/CompletedState.cpp
@@ -54,6 +55,7 @@ add_executable(${TARGET_NAME}
     src/models/NormalPayment.cpp
     src/models/Nurse.cpp
     src/models/Object.cpp
+    src/models/PaidState.cpp
     src/models/Patient.cpp
     src/models/PatientTableModel.cpp
     src/models/PaymentMethodStrategy.cpp
@@ -152,6 +154,7 @@ target_sources(${TARGET_NAME} PRIVATE
     src/interfaces/IVisitor.h
     src/interfaces/IWritingVisitor.h
     src/models/BillableComponent.h
+    src/models/BillableComponentTableModel.h
     src/models/ClinicalTest.h
     src/models/ClinicalTestParser.h
     src/models/ClinicalTestTableModel.h
@@ -180,6 +183,7 @@ target_sources(${TARGET_NAME} PRIVATE
     src/models/Nurse.h
     src/models/NurseParser.h
     src/models/Object.h
+    src/models/PaidState.h
     src/models/Patient.h
     src/models/PatientParser.h
     src/models/PatientTableModel.h

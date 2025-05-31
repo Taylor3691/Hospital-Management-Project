@@ -129,10 +129,10 @@ void ParaclinicalView::setConnections() {
     connect(_ui->buttonBox->button(QDialogButtonBox::Ok), &QPushButton::clicked,
         this, [this](bool) {
             auto recordId = _ui->recordId_lineEdit->text().toStdString();
-            auto record = ServiceLocator::instance()
-                ->examinationService()->findRecordById(recordId);
 
-            if (record->state()->getStateName() != ExaminationState::TestPending) {
+            auto state = ServiceLocator::instance()
+                ->examinationService()->recordState(recordId);
+            if (state->stateName() != ExaminationState::TestPending) {
                 clearTestInfo();
                 return warn("Không thể cập nhật kết quả kiểm tra với trạng thái hiện tại");
             }
@@ -145,20 +145,17 @@ void ParaclinicalView::setConnections() {
                 return warn("Kết quả kiểm tra không thể để trống!");
             }
 
-            auto tests = ServiceLocator::instance()
-                ->testProcessingService()->getClinicalTestsByState(recordId);
-            auto completed = tests.size() == 1;
-            if (completed) {
-                record->changeState(std::make_unique<ExaminingState>());
-            }
-            record->orderClinicalTest(getClinicalTest());
-            ServiceLocator::instance()->medicalRecordRepository()->update(*record);
+            ServiceLocator::instance()
+                ->examinationService()->updateClinicalTest(recordId, getClinicalTest());
 
-            if (completed) {
-                triggerRecordFilter();
-            }
             clearTestInfo();
             triggerTestFilter();
+
+            auto tests = ServiceLocator::instance()
+                ->testProcessingService()->getClinicalTestsByState(recordId);
+            if (!tests.size()) {
+                triggerRecordFilter();
+            }
         });
 }
 

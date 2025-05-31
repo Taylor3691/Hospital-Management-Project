@@ -43,8 +43,14 @@ void ManagementView::setConnections() {
 
                 QString title = "Xác nhận thêm khoa";
                 QString msg = "Bạn có chắc chắn muốn thêm khoa?";
-                if (view.exec() == QDialog::DialogCode::Accepted && confirm(title, msg)) {
-                    static_cast<DepartmentTableModel*>(model)->add(view.getDepartment());
+                if (view.exec() == QDialog::DialogCode::Accepted) {
+                    if (!view.checkValidHeadId()) {
+                        return;
+                    }
+
+                    if (confirm(title, msg)) {
+                        static_cast<DepartmentTableModel*>(model)->add(view.getDepartment());
+                    }
                 }
             }
             else if (modelIndex == ModelType::Patient) {
@@ -121,8 +127,14 @@ void ManagementView::setConnections() {
                 DepartmentRecordView view(Role::Update);
                 view.setDepartment(department);
 
-                if (view.exec() == QDialog::DialogCode::Accepted && confirm(title, msg)) {
-                    static_cast<DepartmentTableModel*>(model)->update(*view.getDepartment().get());
+                if (view.exec() == QDialog::DialogCode::Accepted) {
+                    if (!view.checkValidHeadId()) {
+                        return;
+                    }
+
+                    if (confirm(title, msg)) {
+                        static_cast<DepartmentTableModel*>(model)->update(*view.getDepartment().get());
+                    }
                 }
             }
             else if (modelIndex == ModelType::Patient) {

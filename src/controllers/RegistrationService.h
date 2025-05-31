@@ -21,10 +21,6 @@ public:
         IMedicalRecordRepository* records,
         IRoomExaminationRepository* rooms);
 
-private:
-    void updateRoom(const std::string& recordId,
-        const std::string& roomId);
-
 public:
     std::unique_ptr<HealthInsurance> createInsurace(
         const std::string& id, const Date& startDate,

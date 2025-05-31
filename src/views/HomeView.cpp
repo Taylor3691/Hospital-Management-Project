@@ -167,6 +167,7 @@ void HomeView::setConnections() {
     connect(_ui->receipt_pushButton, &QPushButton::clicked, this,
         [this](bool) {
             switchToView(View::Receipt);
+            _receiptView->updateView();
         });
 
     connect(_ui->medicine_pushButton, &QPushButton::clicked, this,

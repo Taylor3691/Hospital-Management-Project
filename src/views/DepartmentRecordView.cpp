@@ -60,3 +60,26 @@ void DepartmentRecordView::setDepartment(const Department* department) {
         ->setPlainText(QString::fromStdString(department->description()));
     _ui->head_lineEdit->setText(QString::fromStdString(department->headId()));
 }
+
+bool DepartmentRecordView::checkValidHeadId() {
+    auto headId = _ui->head_lineEdit->text();
+
+    if (!headId.length()) {
+        return true;
+    }
+
+    auto doctor = ServiceLocator::instance()
+        ->examinationService()->findDoctorById(headId.toStdString());
+    if (!doctor) {
+        warn("Bác sĩ không tồn tại!");
+        return false;
+    }
+
+    auto departmentId = _ui->id_lineEdit->text();
+    if (doctor->specialty() != departmentId.toStdString()) {
+        warn("Bác sĩ phải làm việc trong khoa!");
+        return false;
+    }
+
+    return true;
+}
