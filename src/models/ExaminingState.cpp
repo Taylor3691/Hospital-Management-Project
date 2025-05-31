@@ -1,6 +1,6 @@
 #include "ExaminingState.h"
 
-ExaminationState::State ExaminingState::getStateName() const {
+ExaminationState::State ExaminingState::stateName() const {
     return Examining;
 }
 

@@ -1,6 +1,6 @@
 #include "CompletedState.h"
 
-ExaminationState::State CompletedState::getStateName() const {
+ExaminationState::State CompletedState::stateName() const {
     return Completed;
 }
 

@@ -1,6 +1,6 @@
 #include "WaitingState.h"
 
-ExaminationState::State WaitingState::getStateName() const {
+ExaminationState::State WaitingState::stateName() const {
     return Waiting;
 }
 

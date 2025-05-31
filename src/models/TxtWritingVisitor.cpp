@@ -128,7 +128,7 @@ void TxtWritingVisitor::write(MedicalRecord* record, std::ostream& os, IWritingV
         "Hoàn thành",
     };
     if (record->state()) {
-        os << states[record->state()->getStateName()];
+        os << states[record->state()->stateName()];
     }
     else {
         os << "null";

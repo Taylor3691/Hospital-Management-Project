@@ -5,7 +5,7 @@
 
 class ExaminingState : public ExaminationState {
 public:
-    State getStateName() const override;
+    State stateName() const override;
     bool canPrescribeMedicine() const override;
     bool canOrderClinicalTest() const override;
     bool canComplete() const override;

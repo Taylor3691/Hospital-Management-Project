@@ -1,6 +1,6 @@
 #include "TestPendingState.h"
 
-ExaminationState::State TestPendingState::getStateName() const {
+ExaminationState::State TestPendingState::stateName() const {
     return TestPending;
 }
 

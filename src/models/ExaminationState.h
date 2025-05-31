@@ -9,14 +9,15 @@ public:
         Waiting,
         Examining,
         TestPending,
-        Completed
+        Completed,
+        Paid,
     };
 
 public:
     virtual ~ExaminationState() = default;
 
 public:
-    virtual State getStateName() const = 0;
+    virtual State stateName() const = 0;
     virtual bool canPrescribeMedicine() const = 0;
     virtual bool canOrderClinicalTest() const = 0;
     virtual bool canComplete() const = 0;
