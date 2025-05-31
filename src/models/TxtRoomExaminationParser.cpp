@@ -20,15 +20,7 @@ Object* TxtRoomExaminationParser::parse(const std::string& str) const {
     room->setDepartmentId(buffer);
 
     std::getline(stream, buffer, _delim);
-
-    std::istringstream subStream(buffer);
-    std::string subBuffer;
-    std::vector<std::string> list;
-    while (std::getline(subStream, subBuffer, ',')) {
-        list.push_back(subBuffer);
-    }
-
-    room->setWaitingList(list);
+    room->setWaitingCount(stoi(buffer));
 
     std::getline(stream, buffer, _delim);
     room->setRoomFee(std::stod(buffer));

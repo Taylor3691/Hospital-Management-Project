@@ -1,7 +1,7 @@
 #include "RoomExamination.h"
 
 RoomExamination::RoomExamination()
-    : _examinationFee() {}
+    : _waitingCount(), _examinationFee() {}
 
 RoomExamination::RoomExamination(
     const std::string& id,
@@ -11,14 +11,15 @@ RoomExamination::RoomExamination(
 )
     : Object(id, name)
     , _departmentId(departmentId)
+    , _waitingCount()
     , _examinationFee(examinationFee) {}
 
 std::string RoomExamination::departmentId() const {
     return _departmentId;
 }
 
-std::vector<std::string> RoomExamination::waitingList() const {
-    return _waitingList;
+int RoomExamination::waitingCount() const {
+    return _waitingCount;
 }
 
 double RoomExamination::examinationFee() const {
@@ -29,27 +30,20 @@ void RoomExamination::setDepartmentId(const std::string& id) {
     _departmentId = id;
 }
 
-void RoomExamination::setWaitingList(std::vector<std::string> list) {
-    _waitingList = list;
+void RoomExamination::setWaitingCount(int count) {
+    _waitingCount = count;
 }
 
 void RoomExamination::setRoomFee(double fee) {
     _examinationFee = fee;
 }
 
-void RoomExamination::addToWaitingList(const std::string& id) {
-    _waitingList.push_back(id);
+void RoomExamination::addToWaitingList() {
+    ++_waitingCount;
 }
 
-void RoomExamination::removeFromWaitingList(const std::string& id) {
-    auto it = std::find(_waitingList.begin(), _waitingList.end(), id);
-    if (it != _waitingList.end()) {
-        _waitingList.erase(it);
-    }
-}
-
-int RoomExamination::waitingListCount() const {
-    return static_cast<int>(_waitingList.size());
+void RoomExamination::removeFromWaitingList() {
+    --_waitingCount;
 }
 
 void RoomExamination::acceptWrite(IVisitor* visitor, std::ostream& os) {

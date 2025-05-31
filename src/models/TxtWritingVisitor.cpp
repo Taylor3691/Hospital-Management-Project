@@ -126,6 +126,7 @@ void TxtWritingVisitor::write(MedicalRecord* record, std::ostream& os, IWritingV
         "Đang khám",
         "Chờ kiểm tra",
         "Hoàn thành",
+        "Đã thanh toán",
     };
     if (record->state()) {
         os << states[record->state()->stateName()];
@@ -158,13 +159,7 @@ void TxtWritingVisitor::write(ClinicalTest* test, std::ostream& os) {
 void TxtWritingVisitor::write(RoomExamination* room, std::ostream& os) {
     os << room->id() << _delim
         << room->name() << _delim
-        << room->departmentId() << _delim;
-    for (int i = 0; i < room->waitingList().size(); i++) {
-        os << room->waitingList()[i];
-        if (i != room->waitingList().size() - 1) {
-            os << ',';
-        }
-    }
-    os << _delim;
-    os <<std::fixed << std::setprecision(2)<< room->examinationFee();
+        << room->departmentId() << _delim
+        << room->waitingCount() << _delim
+        << std::fixed << std::setprecision(2) << room->examinationFee();
 }

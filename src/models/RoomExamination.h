@@ -9,7 +9,7 @@
 class RoomExamination : public Object {
 private:
     std::string _departmentId;
-    std::vector<std::string> _waitingList;
+    int _waitingCount;
     double _examinationFee;
 
 public:
@@ -19,16 +19,15 @@ public:
 
 public:
     std::string departmentId() const;
-    std::vector<std::string> waitingList() const;
+    int waitingCount() const;
     double examinationFee() const;
     void setDepartmentId(const std::string& id);
-    void setWaitingList(std::vector<std::string> list);
+    void setWaitingCount(int count);
     void setRoomFee(double fee);
 
 public:
-    void addToWaitingList(const std::string& id);
-    void removeFromWaitingList(const std::string& id);
-    int waitingListCount() const;
+    void addToWaitingList();
+    void removeFromWaitingList();
     void acceptWrite(IVisitor* visitor, std::ostream& os) override;
     Object* clone() const override;
 };
