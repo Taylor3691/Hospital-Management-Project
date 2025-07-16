@@ -1,0 +1,100 @@
+ME-001|Paracetamol SR|chai|43000|57
+ME-002|Paracetamol ER|viên|41000|57
+ME-003|Paracetamol XR|viên|89000|90
+ME-004|Paracetamol Delayed Release|ống|56000|31
+ME-005|Paracetamol|chai|41000|88
+ME-006|Amoxicillin SR|ống|27000|36
+ME-007|Amoxicillin ER|ống|29000|65
+ME-008|Amoxicillin XR|gói|16000|80
+ME-009|Amoxicillin Delayed Release|gói|25000|65
+ME-010|Amoxicillin|hộp|35000|83
+ME-011|Ibuprofen SR|hộp|12000|32
+ME-012|Ibuprofen ER|viên|14000|55
+ME-013|Ibuprofen XR|viên|50000|47
+ME-014|Ibuprofen Delayed Release|chai|53000|63
+ME-015|Ibuprofen|hộp|33000|55
+ME-016|Omeprazole SR|chai|99000|85
+ME-017|Omeprazole ER|gói|85000|98
+ME-018|Omeprazole XR|viên|61000|58
+ME-019|Omeprazole Delayed Release|chai|93000|90
+ME-020|Omeprazole|chai|57000|89
+ME-021|Metformin SR|hộp|87000|48
+ME-022|Metformin ER|ống|29000|44
+ME-023|Metformin XR|ống|90000|16
+ME-024|Metformin Delayed Release|ống|24000|97
+ME-025|Metformin|chai|18000|42
+ME-026|Atorvastatin SR|chai|73000|71
+ME-027|Atorvastatin ER|ống|3000|72
+ME-028|Atorvastatin XR|viên|56000|30
+ME-029|Atorvastatin Delayed Release|ống|10000|19
+ME-030|Atorvastatin|gói|79000|87
+ME-031|Lisinopril SR|viên|67000|12
+ME-032|Lisinopril ER|ống|19000|48
+ME-033|Lisinopril XR|gói|44000|74
+ME-034|Lisinopril Delayed Release|ống|85000|36
+ME-035|Lisinopril|chai|84000|30
+ME-036|Simvastatin SR|chai|83000|91
+ME-037|Simvastatin ER|ống|50000|13
+ME-038|Simvastatin XR|gói|47000|32
+ME-039|Simvastatin Delayed Release|hộp|42000|73
+ME-040|Simvastatin|chai|49000|14
+ME-041|Losartan SR|hộp|43000|74
+ME-042|Losartan ER|viên|40000|84
+ME-043|Losartan XR|ống|69000|34
+ME-044|Losartan Delayed Release|ống|76000|20
+ME-045|Losartan|chai|38000|56
+ME-046|Azithromycin SR|chai|20000|31
+ME-047|Azithromycin ER|chai|35000|23
+ME-048|Azithromycin XR|hộp|49000|51
+ME-049|Azithromycin Delayed Release|gói|78000|43
+ME-050|Azithromycin|gói|17000|92
+ME-051|Ciprofloxacin SR|chai|20000|87
+ME-052|Ciprofloxacin ER|ống|78000|72
+ME-053|Ciprofloxacin XR|hộp|70000|93
+ME-054|Ciprofloxacin Delayed Release|viên|33000|31
+ME-055|Ciprofloxacin|hộp|87000|80
+ME-056|Prednisone SR|hộp|45000|22
+ME-057|Prednisone ER|viên|59000|18
+ME-058|Prednisone XR|ống|71000|51
+ME-059|Prednisone Delayed Release|viên|4000|19
+ME-060|Prednisone|hộp|33000|66
+ME-061|Warfarin SR|viên|80000|36
+ME-062|Warfarin ER|hộp|68000|96
+ME-063|Warfarin XR|gói|69000|14
+ME-064|Warfarin Delayed Release|gói|27000|88
+ME-065|Warfarin|hộp|9000|73
+ME-066|Amlodipine SR|chai|26000|58
+ME-067|Amlodipine ER|chai|69000|73
+ME-068|Amlodipine XR|chai|75000|68
+ME-069|Amlodipine Delayed Release|ống|9000|46
+ME-070|Amlodipine|gói|93000|31
+ME-071|Clopidogrel SR|gói|14000|20
+ME-072|Clopidogrel ER|ống|20000|65
+ME-073|Clopidogrel XR|ống|21000|50
+ME-074|Clopidogrel Delayed Release|chai|33000|90
+ME-075|Clopidogrel|chai|60000|39
+ME-076|Pantoprazole SR|hộp|56000|89
+ME-077|Pantoprazole ER|chai|79000|74
+ME-078|Pantoprazole XR|viên|33000|10
+ME-079|Pantoprazole Delayed Release|gói|29000|28
+ME-080|Pantoprazole|ống|6000|50
+ME-081|Levothyroxine SR|viên|81000|44
+ME-082|Levothyroxine ER|gói|11000|69
+ME-083|Levothyroxine XR|chai|93000|30
+ME-084|Levothyroxine Delayed Release|ống|34000|35
+ME-085|Levothyroxine|ống|58000|16
+ME-086|Gabapentin SR|chai|89000|39
+ME-087|Gabapentin ER|ống|93000|52
+ME-088|Gabapentin XR|viên|18000|48
+ME-089|Gabapentin Delayed Release|viên|24000|10
+ME-090|Gabapentin|chai|19000|37
+ME-091|Sertraline SR|viên|71000|83
+ME-092|Sertraline ER|hộp|89000|65
+ME-093|Sertraline XR|gói|5000|86
+ME-094|Sertraline Delayed Release|viên|79000|32
+ME-095|Sertraline|gói|53000|51
+ME-096|Tramadol SR|gói|4000|68
+ME-097|Tramadol ER|ống|35000|25
+ME-098|Tramadol XR|chai|14000|29
+ME-099|Tramadol Delayed Release|hộp|74000|17
+ME-100|Tramadol|ống|34000|24
